@@ -1,0 +1,96 @@
+# Migration
+
+This guide will help you migrate from the old, pure shadcn/ui component to the new AutoForm library.
+
+Please note that the new library does not have full feature-partity with the old one - specifically, it does not support the following features (yet):
+
+- AutoForm doesn't use `react-hook-form` under the hood, so information about the form state is not available
+- Custom parent components
+- Custom order
+- Dependencies between fields
+- Declaring custom field components inline
+
+But the new AutoForm library has a lot of new features, such as:
+
+- Support for any array, not just arrays of objects
+- Support for other schema libraries, not just zod
+- Cleaner, in-schema fieldConfig definition
+- Cleaner shadcn/ui components, as they are now just wrappers around the AutoForm library
+
+import { Steps } from "nextra/components";
+
+<Steps>
+## Remove existing shadcn/ui component
+
+First, remove the `components/ui/auto-form` folder from your project.
+
+## Install AutoForm
+
+To install AutoForm, run the following command:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
+npm install @autoform/zod
+```
+
+## Update form components
+
+The new AutoForm uses the `autoform` folder for a more consistent naming schema.
+
+You also need to wrap your schema in a `ZodProvider` and pass it to the `AutoForm` component. Instead of passing the `AutoFormSubmit` component as a child of `AutoForm`, you can simply use the `withSubmit` prop.
+
+```diff
+- import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
++ import { AutoForm } from "@/components/ui/autoform";
++ import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  // ...
+});
+
++ const schemaProvider = new ZodProvider(mySchema);
+
+function MyForm() {
+  return (
+    <AutoForm
+-     formSchema={mySchema}
++     schema={schemaProvider}
+      onSubmit={(data) => {
+        console.log(data);
+      }}
+-     fieldConfig={...}
++     withSubmit
+    >
+-     <AutoFormSubmit />
+    </AutoForm>
+  );
+}
+```
+
+## Update fieldConfig
+
+Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can now define the field config directly in the schema using the `fieldConfig` function.
+
+```diff
+import * as z from "zod";
++ import { fieldConfig } from "@autoform/zod";
++ import { FieldTypes } from "@/components/ui/autoform";
+
+const formSchema = z.object({
+  password: z
+    .string()
+    .min(8, {
+      message: "Please use a secure password.",
+    })
++   .superRefine(
++     fieldConfig<React.ReactNode, FieldTypes>({
++       description: "We recommend to use a strong password.",
++       inputProps: {
++         type: "password",
++       },
++     })
++   ),
+});
+```
+
+</Steps>
