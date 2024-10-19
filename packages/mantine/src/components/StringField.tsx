@@ -4,22 +4,16 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
-  error,
+  inputProps,
   label,
   id,
 }) => {
   return (
     <TextInput
       id={id}
-      value={value || ""}
-      onChange={(e) => onChange(e.target.value)}
-      error={!!error}
       label={label}
-      required={field.required}
       description={field.description}
-      {...field.fieldConfig?.inputProps}
+      {...inputProps}
     />
   );
 };

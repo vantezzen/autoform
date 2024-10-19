@@ -4,18 +4,8 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
-  error,
+  inputProps,
   label,
 }) => (
-  <DateInput
-    value={value ? new Date(value) : null}
-    onChange={(date) => onChange(date)}
-    error={!!error}
-    label={label}
-    required={field.required}
-    description={field.description}
-    {...field.fieldConfig?.inputProps}
-  />
+  <DateInput label={label} description={field.description} {...inputProps} />
 );

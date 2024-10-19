@@ -14,6 +14,10 @@ export function getLabel(field: ParsedField) {
 }
 
 function beautifyLabel(label: string) {
+  if (!label) {
+    return "";
+  }
+
   let output = label.replace(/([A-Z])/g, " $1");
   output = output.charAt(0).toUpperCase() + output.slice(1);
 

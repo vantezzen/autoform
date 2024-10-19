@@ -10,12 +10,11 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
+  inputProps,
   error,
   id,
 }) => (
-  <Select value={value || ""} onValueChange={onChange}>
+  <Select {...inputProps}>
     <SelectTrigger id={id} className={error ? "border-destructive" : ""}>
       <SelectValue placeholder="Select an option" />
     </SelectTrigger>

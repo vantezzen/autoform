@@ -93,4 +93,26 @@ const formSchema = z.object({
 });
 ```
 
+## Update callbacks
+
+If you are only using `onSubmit`, your code should be able to work without any changes. If you are using controlled input instead, you need to update your code to use the new `onFormInit` prop to get manual access to the form instance.
+
+```tsx
+const [values, setValues] = useState({});
+
+<AutoForm
+  onFormInit={(form) => {
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // https://www.react-hook-form.com/api/useform/
+    form.watch((data) => {
+      setValues(data);
+    });
+
+    // You can freely save the form instance to a state or context and use it later to access the form state
+    form.formState.isDirty; // => true
+  }}
+  values={values}
+/>;
+```
+
 </Steps>

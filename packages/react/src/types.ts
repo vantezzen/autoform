@@ -5,24 +5,23 @@ import {
   Renderable,
   SchemaProvider,
 } from "@autoform/core";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 
-export interface AutoFormProps<T> {
+export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
   onSubmit?: (
     values: T,
-    extra: {
-      setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
-      clearForm: () => void;
-    }
+    form: UseFormReturn<T, any, undefined>
   ) => void | Promise<void>;
+
   defaultValues?: Partial<T>;
+  values?: Partial<T>;
+
   children?: ReactNode;
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
-
-  setValues?: React.Dispatch<React.SetStateAction<Partial<T>>>;
-  values?: Partial<T>;
+  onFormInit?: (form: UseFormReturn<T, any, undefined>) => void;
 }
 
 export interface AutoFormUIComponents {
@@ -73,19 +72,15 @@ export interface AutoFormFieldProps {
   label: Renderable<ReactNode>;
   field: ParsedField;
   value: any;
-  onChange: (value: any) => void;
   error?: string;
   id: string;
   path: string[];
+
+  inputProps: any;
 }
 
 export interface AutoFormContextType {
   schema: ParsedSchema;
-  values: Record<string, any>;
-  errors: Record<string, string>;
-  getFieldValue: (name: string) => any;
-  setFieldValue: (name: string, value: any) => void;
-  getError: (name: string) => string | undefined;
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
 }

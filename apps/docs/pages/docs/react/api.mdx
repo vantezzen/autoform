@@ -1,0 +1,29 @@
+# API
+
+## schema: SchemaProvider
+
+The `schema` prop is used to pass the schema to the form. It can be a `ZodProvider` or a `YupProvider`.
+
+## onSubmit?: (values: T, form: FormInstance) => void
+
+The `onSubmit` prop is called when the form is submitted and the data is valid. It receives the form data and the form instance from react-hook-form.
+
+## onFormInit?: (form: FormInstance) => void
+
+The `onFormInit` prop is called when the form is initialized. It receives the form instance from react-hook-form.
+
+## withSubmit?: boolean
+
+The `withSubmit` prop is used to automatically add a submit button to the form. It defaults to `false`.
+
+## defaultValues?: Partial\<T>
+
+The `defaultValues` prop is used to set the initial values of the form.
+
+## values: Partial\<T>
+
+The `values` prop is used to set the values of the form. It is a controlled input.
+
+## children: React.ReactNode
+
+All children passed to the `AutoForm` component will be rendered below the form.

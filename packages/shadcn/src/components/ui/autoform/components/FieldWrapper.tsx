@@ -6,7 +6,6 @@ const DISABLED_LABELS = ["boolean", "date", "object", "array"];
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
-  error,
   children,
   id,
   field,

@@ -129,19 +129,10 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
+  inputProps,
   error,
   id,
-}) => (
-  <input
-    id={id}
-    type="text"
-    value={value || ""}
-    onChange={(e) => onChange(e.target.value)}
-    {...field.fieldConfig?.inputProps}
-  />
-);
+}) => <input id={id} {...inputProps} />;
 ```
 
 ```tsx
@@ -151,19 +142,9 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
-  error,
+  inputProps,
   id,
-}) => (
-  <input
-    id={id}
-    type="number"
-    value={value || ""}
-    onChange={(e) => onChange(Number(e.target.value))}
-    {...field.fieldConfig?.inputProps}
-  />
-);
+}) => <input id={id} type="number" {...inputProps} />;
 ```
 
 ```tsx
@@ -173,19 +154,9 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
-  error,
+  inputProps,
   id,
-}) => (
-  <input
-    id={id}
-    type="date"
-    value={value ? new Date(value).toISOString().split("T")[0] : ""}
-    onChange={(e) => onChange(new Date(e.target.value))}
-    {...field.fieldConfig?.inputProps}
-  />
-);
+}) => <input id={id} type="date" {...inputProps} />;
 ```
 
 Additionally, you can create custom field components for other types like checkboxes, radio buttons, etc. These can later be used by setting a custom `fieldType` in the schema.
@@ -231,28 +202,6 @@ export function AutoForm<T extends Record<string, any>>(
       formComponents={formComponents}
     />
   );
-}
-```
-
-## Implement utility functions
-
-To provide type-safety when selecting field types, you should create a custom wrapper for the `fieldConfig` function.
-
-Create a new file called `src/utils.ts`:
-
-```tsx
-// src/utils.ts
-import { FieldConfig } from "@autoform/core";
-import { SuperRefineFunction } from "@autoform/zod";
-import { fieldConfig as baseFieldConfig } from "@autoform/react";
-import { ReactNode } from "react";
-
-type FieldTypes = "string" | "number" | "date" | string;
-
-export function fieldConfig(
-  config: FieldConfig<ReactNode, FieldTypes>
-): SuperRefineFunction {
-  return baseFieldConfig<FieldTypes>(config);
 }
 ```
 

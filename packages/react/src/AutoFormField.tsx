@@ -1,27 +1,26 @@
 import React from "react";
+import { useFormContext } from "react-hook-form";
 import { useAutoForm } from "./context";
-import { AutoFormFieldProps } from "./types";
-import { getLabel } from "@autoform/core";
+import { getLabel, ParsedField } from "@autoform/core";
 import { ObjectField } from "./ObjectField";
 import { ArrayField } from "./ArrayField";
+import { AutoFormFieldProps } from "./types";
+import { getPathInObject } from "./utils";
 
-export function AutoFormField({ field, path }: AutoFormFieldProps) {
+export const AutoFormField: React.FC<{
+  field: ParsedField;
+  path: string[];
+}> = ({ field, path }) => {
+  const { formComponents, uiComponents } = useAutoForm();
   const {
-    getFieldValue,
-    setFieldValue,
-    getError,
-    formComponents,
-    uiComponents,
-  } = useAutoForm();
+    register,
+    formState: { errors },
+    getValues,
+  } = useFormContext();
 
-  const fieldPathString = path.join(".");
-
-  const value = getFieldValue(fieldPathString);
-  const error = getError(fieldPathString);
-
-  const onChange = (newValue: any) => {
-    setFieldValue(fieldPathString, newValue);
-  };
+  const fullPath = path.join(".");
+  const error = getPathInObject(errors, path)?.message as string | undefined;
+  const value = getValues(fullPath);
 
   let FieldComponent: React.ComponentType<AutoFormFieldProps> = () => (
     <uiComponents.ErrorMessage
@@ -43,19 +42,23 @@ export function AutoFormField({ field, path }: AutoFormFieldProps) {
     <uiComponents.FieldWrapper
       label={getLabel(field)}
       error={error}
-      id={field.key}
+      id={fullPath}
       field={field}
     >
       <FieldComponent
+        label={getLabel(field)}
         field={field}
         value={value}
-        onChange={onChange}
         error={error}
-        id={field.key}
-        label={getLabel(field)}
+        id={fullPath}
         path={path}
+        inputProps={{
+          required: field.required,
+          error: !!error,
+          ...field.fieldConfig?.inputProps,
+          ...register(fullPath),
+        }}
       />
-      {error && <uiComponents.ErrorMessage error={error} />}
     </uiComponents.FieldWrapper>
   );
-}
+};

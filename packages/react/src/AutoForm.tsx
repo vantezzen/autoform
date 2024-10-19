@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useForm, FormProvider, DefaultValues } from "react-hook-form";
 import {
   parseSchema,
-  validateSchema,
   getDefaultValues,
-  getLabel,
+  removeEmptyValues,
 } from "@autoform/core";
 import { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
@@ -13,119 +13,66 @@ export function AutoForm<T extends Record<string, any>>({
   schema,
   onSubmit = () => {},
   defaultValues,
+  values,
   children,
   uiComponents,
   formComponents,
   withSubmit = false,
-
-  setValues: externalSetValues,
-  values: externalValues,
+  onFormInit = () => {},
 }: AutoFormProps<T>) {
   const parsedSchema = parseSchema(schema);
-  const [internalValues, internalSetValues] = useState<Partial<T>>(() => ({
-    ...(getDefaultValues(schema) as T),
-    ...defaultValues,
-  }));
+  const methods = useForm<T>({
+    defaultValues: {
+      ...(getDefaultValues(schema) as Partial<T>),
+      ...defaultValues,
+    } as DefaultValues<T>,
+    values: values as T,
+  });
 
-  const values = externalValues ?? internalValues;
-  const setValues = externalSetValues ?? internalSetValues;
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const getFieldValue = (name: string) => {
-    const keys = name.split(".");
-    let current = values as any;
-    for (const key of keys) {
-      current = current[key];
-
-      if (current === undefined) {
-        return undefined;
-      }
+  useEffect(() => {
+    if (onFormInit) {
+      onFormInit(methods);
     }
-    return current;
-  };
+  }, [onFormInit, methods]);
 
-  const setFieldValue = (name: string, value: any) => {
-    setValues((prev) => {
-      const keys = name.split(".");
-      const lastKey = keys.pop()!;
-      let current = { ...prev } as any;
-      const currentRoot = current;
-
-      for (const key of keys) {
-        if (current[key] === undefined) {
-          current[key] = {};
-        }
-        current = current[key];
-      }
-      current[lastKey] = value;
-
-      return currentRoot;
-    });
-  };
-
-  const getError = (name: string) => {
-    return errors[name];
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-
-    const validationResult = validateSchema(schema, values);
+  const handleSubmit = async (dataRaw: T) => {
+    const data = removeEmptyValues(dataRaw);
+    const validationResult = schema.validateSchema(data as T);
     if (validationResult.success) {
-      await onSubmit(validationResult.data, {
-        setErrors,
-        clearForm: () => {
-          setValues(getDefaultValues(schema) as T);
-        },
-      });
+      await onSubmit(validationResult.data, methods);
     } else {
       const newErrors: Record<string, string> = {};
+      methods.clearErrors();
       validationResult.errors?.forEach((error) => {
         const path = error.path.join(".");
         newErrors[path] = error.message;
-
-        // For some custom errors, zod adds the final element twice for some reason
-        const correctedPath = error.path.slice(0, -1);
-        if (correctedPath.length > 0) {
-          newErrors[correctedPath.join(".")] = error.message;
-        }
+        methods.setError(path as any, {
+          type: "custom",
+          message: error.message,
+        });
       });
-      setErrors(newErrors);
     }
   };
 
   return (
-    <AutoFormProvider
-      value={{
-        schema: parsedSchema,
-        values,
-        errors,
-        getError,
-        setFieldValue,
-        getFieldValue,
-        uiComponents,
-        formComponents,
-      }}
-    >
-      <uiComponents.Form onSubmit={handleSubmit}>
-        {parsedSchema.fields.map((field) => (
-          <AutoFormField
-            key={field.key}
-            field={field}
-            value={values[field.key]}
-            onChange={(value) => setFieldValue(field.key, value)}
-            id={field.key}
-            label={getLabel(field)}
-            path={[field.key]}
-          />
-        ))}
-        {withSubmit && (
-          <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>
-        )}
-        {children}
-      </uiComponents.Form>
-    </AutoFormProvider>
+    <FormProvider {...methods}>
+      <AutoFormProvider
+        value={{
+          schema: parsedSchema,
+          uiComponents,
+          formComponents,
+        }}
+      >
+        <uiComponents.Form onSubmit={methods.handleSubmit(handleSubmit)}>
+          {parsedSchema.fields.map((field) => (
+            <AutoFormField key={field.key} field={field} path={[field.key]} />
+          ))}
+          {withSubmit && (
+            <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>
+          )}
+          {children}
+        </uiComponents.Form>
+      </AutoFormProvider>
+    </FormProvider>
   );
 }
