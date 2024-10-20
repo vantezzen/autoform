@@ -11,7 +11,7 @@ export const ObjectField: React.FC<{
 
   return (
     <uiComponents.ObjectWrapper label={getLabel(field)} field={field}>
-      {Object.entries(field.schema!).map(([key, subField]) => (
+      {Object.entries(field.schema!).map(([_key, subField]) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
           field={subField}

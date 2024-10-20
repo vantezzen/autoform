@@ -10,7 +10,10 @@ import { FieldWrapperProps } from "./types";
 /**
  * @deprecated Use `buildZodFieldConfig` instead.
  */
-export function fieldConfig<FieldTypes = string, CustomData = {}>(
+export function fieldConfig<
+  FieldTypes = string,
+  CustomData = Record<string, any>,
+>(
   config: FieldConfig<
     ReactNode,
     FieldTypes,
@@ -26,7 +29,10 @@ export function fieldConfig<FieldTypes = string, CustomData = {}>(
   >(config);
 }
 
-export function buildZodFieldConfig<FieldTypes = string, CustomData = {}>(): (
+export function buildZodFieldConfig<
+  FieldTypes = string,
+  CustomData = Record<string, any>,
+>(): (
   config: FieldConfig<
     ReactNode,
     FieldTypes,
@@ -43,7 +49,10 @@ export function buildZodFieldConfig<FieldTypes = string, CustomData = {}>(): (
     >(config);
 }
 
-export function buildYupFieldConfig<FieldTypes = string, CustomData = {}>(): (
+export function buildYupFieldConfig<
+  FieldTypes = string,
+  CustomData = Record<string, any>,
+>(): (
   config: FieldConfig<
     ReactNode,
     FieldTypes,

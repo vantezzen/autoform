@@ -2,7 +2,6 @@ import React from "react";
 import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
-  AutoFormFieldComponents,
 } from "@autoform/react";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";

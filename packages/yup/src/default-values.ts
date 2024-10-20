@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { YupField, YupObjectOrWrapped } from "./types";
 
 export function getYupFieldDefaultValue(schema: YupField): any {

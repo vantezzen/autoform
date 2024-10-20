@@ -10,7 +10,7 @@ export interface FieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
   FieldWrapper = any,
-  CustomData = {},
+  CustomData = Record<string, any>,
 > {
   description?: Renderable<AdditionalRenderable>;
   inputProps?: Record<string, any>;
@@ -39,21 +39,6 @@ export interface ParsedSchema<
   FieldTypes = string,
 > {
   fields: ParsedField<AdditionalRenderable, FieldTypes>[];
-}
-
-export enum DependencyType {
-  DISABLES,
-  REQUIRES,
-  HIDES,
-  SETS_OPTIONS,
-}
-
-export interface Dependency {
-  sourceField: string;
-  targetField: string;
-  type: DependencyType;
-  condition: (sourceValue: any, targetValue: any) => boolean;
-  options?: string[];
 }
 
 export type SuccessfulSchemaValidation = {

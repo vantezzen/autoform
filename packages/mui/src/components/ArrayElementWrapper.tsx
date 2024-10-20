@@ -7,7 +7,6 @@ import { ArrayElementWrapperProps } from "@autoform/react";
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
   onRemove,
-  index,
 }) => {
   return (
     <Box

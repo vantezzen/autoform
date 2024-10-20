@@ -19,7 +19,7 @@ export interface SchemaProvider<T = any> {
    *
    * @param values - Form values to validate
    */
-  validateSchema(values: T): SchemaValidation;
+  validateSchema(_values: T): SchemaValidation;
 
   /**
    * Get the default values for the fields.

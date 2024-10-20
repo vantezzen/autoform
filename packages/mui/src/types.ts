@@ -1,7 +1,4 @@
-import {
-  AutoFormProps as BaseAutoFormProps,
-  ExtendableAutoFormProps,
-} from "@autoform/react";
+import { ExtendableAutoFormProps } from "@autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 import { FieldValues } from "react-hook-form";
 

@@ -1,4 +1,3 @@
-import { AutoFormProps as BaseAutoFormProps } from "@autoform/react";
 import { ExtendableAutoFormProps } from "@autoform/react/src/types";
 import { MantineProvider } from "@mantine/core";
 import { FieldValues } from "react-hook-form";

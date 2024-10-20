@@ -7,7 +7,7 @@ export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
   FieldWrapper = any,
-  CustomData = {},
+  CustomData = Record<string, any>,
 >(
   config: FieldConfig<
     AdditionalRenderable,

@@ -3,12 +3,13 @@ import { AutoForm } from "@autoform/mui";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 import { TextField } from "@mui/material";
+import { FieldWrapperProps } from "@autoform/react";
 
 describe("AutoForm UI Customization Tests", () => {
   const customSchema = z.object({
     name: z.string().superRefine(
       fieldConfig({
-        fieldWrapper: ({ label, children }) => (
+        fieldWrapper: ({ label, children }: FieldWrapperProps) => (
           <div className="custom-wrapper">
             <label className="custom-label">{label}</label>
             {children}

@@ -22,7 +22,7 @@ export const AutoFormField: React.FC<{
   const error = getPathInObject(errors, path)?.message as string | undefined;
   const value = getValues(fullPath);
 
-  let FieldWrapper =
+  const FieldWrapper =
     field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
 
   let FieldComponent: React.ComponentType<AutoFormFieldProps> = () => (
