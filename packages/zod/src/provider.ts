@@ -2,8 +2,9 @@ import { z } from "zod";
 import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
+import { ZodObjectOrWrapped } from "./types";
 
-export class ZodProvider<T extends z.ZodObject<any, any>>
+export class ZodProvider<T extends ZodObjectOrWrapped>
   implements SchemaProvider<z.infer<T>>
 {
   /**
