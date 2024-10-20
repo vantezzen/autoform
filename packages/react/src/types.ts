@@ -7,6 +7,7 @@ import {
   FieldConfig as BaseFieldConfig,
 } from "@autoform/core";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+import { AutoForm } from "./AutoForm";
 
 export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
@@ -24,6 +25,14 @@ export interface AutoFormProps<T extends FieldValues> {
   withSubmit?: boolean;
   onFormInit?: (form: UseFormReturn<T, any, undefined>) => void;
 }
+
+export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
+  AutoFormProps<T>,
+  "uiComponents" | "formComponents"
+> & {
+  uiComponents?: Partial<AutoFormUIComponents>;
+  formComponents?: Partial<AutoFormFieldComponents>;
+};
 
 export interface AutoFormUIComponents {
   Form: React.ComponentType<{

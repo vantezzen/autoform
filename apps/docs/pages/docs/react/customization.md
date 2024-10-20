@@ -71,6 +71,47 @@ const schema = z.object({
 
 The list of available fields depends on the UI library you use - use the autocomplete in your IDE to see the available options.
 
+### Custom field types
+
+You can also add your own custom field types. To do this, you need to extend the `formComponents` prop of your AutoForm component and add your custom field type.
+
+```tsx
+<AutoForm
+  formComponents={{
+    custom: ({ field, label, inputProps }: AutoFormFieldProps) => {
+      return (
+        <div>
+          <input
+            type="text"
+            className="bg-red-400 rounded-lg p-4"
+            // You should always pass the "inputProps" to the input component
+            // This includes the handlers for "onChange", "onBlur", etc.
+            {...inputProps}
+          />
+        </div>
+      );
+    },
+  }}
+/>;
+
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes | "custom",
+  {
+    isImportant?: boolean;
+  }
+>();
+
+const schema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      fieldType: "custom",
+    })
+  ),
+});
+```
+
+Please note that this will still render the default `FieldWrapper` around your input field, which contains the label and error message. If you want to customize this, you can use the `fieldWrapper` property ([see below](#custom-field-wrapper)).
+
 ## Description
 
 You can use the `description` property to add a description below the field.
@@ -137,4 +178,24 @@ const schema = z.object({
     })
   ),
 });
+```
+
+## Override UI components
+
+You can also override the default UI components with custom components. This allows you to customize the look and feel of the form.
+
+```tsx
+<AutoForm
+  uiComponents={{
+    FieldWrapper: ({ children, label, error }) => {
+      return (
+        <div>
+          <label>{label}</label>
+          {children}
+          {error}
+        </div>
+      );
+    },
+  }}
+/>
 ```

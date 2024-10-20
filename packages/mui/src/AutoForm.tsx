@@ -42,13 +42,15 @@ export type FieldTypes = keyof typeof MuiAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
   theme,
+  uiComponents,
+  formComponents,
   ...props
 }: AutoFormProps<T>) {
   const ThemedForm = () => (
     <BaseAutoForm
       {...props}
-      uiComponents={MuiUIComponents}
-      formComponents={MuiAutoFormFieldComponents}
+      uiComponents={{ ...MuiUIComponents, ...uiComponents }}
+      formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
     />
   );
 

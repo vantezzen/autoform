@@ -38,13 +38,15 @@ export const ShadcnAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
+  uiComponents,
+  formComponents,
   ...props
 }: AutoFormProps<T>) {
   return (
     <BaseAutoForm
       {...props}
-      uiComponents={ShadcnUIComponents}
-      formComponents={ShadcnAutoFormFieldComponents}
+      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
+      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
     />
   );
 }

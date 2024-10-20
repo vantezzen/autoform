@@ -25,12 +25,13 @@ enum Sports {
 
 const zodFormSchema = z.object({
   hobbies: z
-    .array(z.string())
+    .string()
     .optional()
     .superRefine(
       customFieldConfig({
-        description: "What do you like to do in your free time?",
+        description: "This uses a custom field component",
         order: 1,
+        fieldType: "custom",
         customData: {
           // You can define custom data here
           isImportant: true,
