@@ -1,8 +1,12 @@
 import { SchemaProvider } from "./schema-provider";
-import { ParsedSchema } from "./types";
+import { ParsedField, ParsedSchema } from "./types";
 
 export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
-  return schemaProvider.parseSchema();
+  const schema = schemaProvider.parseSchema();
+  return {
+    ...schema,
+    fields: sortFieldsByOrder(schema.fields),
+  };
 }
 
 export function validateSchema(schemaProvider: SchemaProvider, values: any) {
@@ -42,4 +46,31 @@ export function removeEmptyValues<T extends Record<string, any>>(
   }
 
   return result;
+}
+
+/**
+ * Sort the fields by order.
+ * If no order is set, the field will be sorted based on the order in the schema.
+ */
+export function sortFieldsByOrder(
+  fields: ParsedField[] | undefined
+): ParsedField[] {
+  if (!fields) return [];
+  const sortedFields = fields
+    .map((field): ParsedField => {
+      if (field.schema) {
+        return {
+          ...field,
+          schema: sortFieldsByOrder(field.schema),
+        };
+      }
+      return field;
+    })
+    .sort((a, b) => {
+      const fieldA: number = a.fieldConfig?.order ?? 0;
+      const fieldB = b.fieldConfig?.order ?? 0;
+      return fieldA - fieldB;
+    });
+
+  return sortedFields;
 }

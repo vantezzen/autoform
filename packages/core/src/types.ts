@@ -11,6 +11,7 @@ export interface FieldConfig<AdditionalRenderable = null, FieldTypes = string> {
   inputProps?: Record<string, any>;
   label?: Renderable<AdditionalRenderable>;
   fieldType?: FieldTypes;
+  order?: number;
 }
 
 export interface ParsedField<AdditionalRenderable = null, FieldTypes = string> {

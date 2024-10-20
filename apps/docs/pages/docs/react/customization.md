@@ -2,7 +2,9 @@
 
 The customization of the components is done by providing a `fieldConfig` to your schema fields. This allows you to customize the rendering of the field, add additional props, and more.
 
-With zod, you can use the `superRefine` method to add a `fieldConfig` to your schema field. This method is used to add additional validation and configuration to your field.
+With zod, you can use the `superRefine` method to add a `fieldConfig` to your schema field. For more information, see the [Zod documentation](/docs/schema/zod).
+
+With yup, you can use the `transform` method to add a `fieldConfig` to your schema field. For more information, see the [Yup documentation](/docs/schema/yup). In these examples, we will use Zod.
 
 You should import `fieldConfig` from your AutoForm UI-specific package (e.g. `@autoform/mui`) so it will be type-safe for your specific UI. If you use a custom UI, you can import `fieldConfig` from `@autoform/react` or `@autoform/core`.
 
@@ -17,7 +19,7 @@ const schema = z.object({
       inputProps: {
         placeholder: "Enter your username",
       },
-    }),
+    })
   ),
   // ...
 });
@@ -35,7 +37,7 @@ const schema = z.object({
         type: "text",
         placeholder: "Username",
       },
-    }),
+    })
   ),
 });
 // This will be rendered as:
@@ -51,7 +53,7 @@ const schema = z.object({
   username: z.string().superRefine(
     fieldConfig({
       fieldType: "textarea",
-    }),
+    })
   ),
 });
 ```
@@ -68,9 +70,35 @@ const schema = z.object({
     fieldConfig({
       description:
         "Enter a unique username. This will be shown to other users.",
-    }),
+    })
   ),
 });
 ```
 
 You can use JSX in the description.
+
+## Order
+
+If you want to change the order of fields, use the order config. You can pass an arbitrary number where smaller numbers will be displayed first. All fields without a defined order use "0" so they appear in the same order they are defined in
+
+```tsx
+const schema = z.object({
+  termsOfService: z.boolean().superRefine(
+    fieldConfig({
+      order: 1, // This will be displayed after other fields with order 0
+    })
+  ),
+
+  username: z.string().superRefine(
+    fieldConfig({
+      order: -1, // This will be displayed first
+    })
+  ),
+
+  email: z.string().superRefine(
+    fieldConfig({
+      // Without specifying an order, this will have order 0
+    })
+  ),
+});
+```
