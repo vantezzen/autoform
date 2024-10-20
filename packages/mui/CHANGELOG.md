@@ -1,5 +1,18 @@
 # @autoform/mui
 
+## 2.0.0
+
+### Major Changes
+
+- v2
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/core@2.0.0
+  - @autoform/react@2.0.0
+  - @autoform/zod@2.0.0
+
 ## 1.2.0
 
 ### Minor Changes
