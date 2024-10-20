@@ -5,17 +5,24 @@ import { Label } from "../../label";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   field,
-  value,
-  onChange,
   label,
   id,
+  inputProps,
 }) => (
   <div className="flex items-center space-x-2">
     <Checkbox
       id={id}
-      checked={!!value}
-      onCheckedChange={(checked) => onChange(checked)}
-      {...field.fieldConfig?.inputProps}
+      onCheckedChange={(checked) => {
+        // react-hook-form expects an event object
+        const event = {
+          target: {
+            name: field.key,
+            value: checked,
+          },
+        };
+        inputProps.onChange(event);
+      }}
+      checked={inputProps.value}
     />
     <Label htmlFor={id}>
       {label}

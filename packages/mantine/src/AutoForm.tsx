@@ -2,7 +2,6 @@ import React from "react";
 import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
-  AutoFormFieldComponents,
 } from "@autoform/react";
 import { MantineProvider } from "@mantine/core";
 import { AutoFormProps } from "./types";
@@ -40,13 +39,15 @@ export type FieldTypes = keyof typeof MantineAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
   theme,
+  uiComponents,
+  formComponents,
   ...props
 }: AutoFormProps<T>) {
   const ThemedForm = () => (
     <BaseAutoForm
       {...props}
-      uiComponents={MantineUIComponents}
-      formComponents={MantineAutoFormFieldComponents}
+      uiComponents={{ ...MantineUIComponents, ...uiComponents }}
+      formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
     />
   );
 

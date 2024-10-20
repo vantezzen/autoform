@@ -88,6 +88,7 @@ For releases, AutoForm uses changesets. To create a new release, run:
 
 ```bash
 npm run build
+npm run cypress # Run the component tests
 npx changeset
 ```
 

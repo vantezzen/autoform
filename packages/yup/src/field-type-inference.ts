@@ -1,5 +1,4 @@
 import { FieldConfig } from "@autoform/core";
-import * as yup from "yup";
 import { YupEnumSchema, YupField } from "./types";
 
 export function inferFieldType(

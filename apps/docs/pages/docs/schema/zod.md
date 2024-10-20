@@ -5,8 +5,17 @@ Basic usage:
 ```tsx
 "use client";
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { ZodProvider } from "@autoform/zod";
+import { buildZodFieldConfig } from "@autoform/react";
 import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
+
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes,
+  {
+    // You can define custom props here
+    isImportant?: boolean;
+  }
+>();
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -37,6 +46,10 @@ const formSchema = z.object({
         description: "We recommend to use a strong password.",
         inputProps: {
           type: "password",
+        },
+        customData: {
+          // You can add custom data here
+          isImportant: true,
         },
       })
     ),
@@ -232,12 +245,16 @@ const formSchema = z.object({
 
 You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
 
-It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/zod` and adds your own customizations:
+It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/react` and adds your own customizations:
 
 ```tsx
-import { fieldConfig as baseFieldConfig } from "@autoform/zod";
+import { buildZodFieldConfig } from "@autoform/react";
 import { FieldTypes } from "@autoform/mui";
 
-export const fieldConfig = (config: FieldConfig<React.ReactNode, FieldTypes>) =>
-  baseFieldConfig<React.ReactNode, FieldTypes>(config);
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes,
+  {
+    isImportant?: boolean;
+  }
+>();
 ```

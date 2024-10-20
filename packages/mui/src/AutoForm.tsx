@@ -2,11 +2,8 @@ import React from "react";
 import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
-  AutoFormFieldComponents,
 } from "@autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
@@ -42,13 +39,15 @@ export type FieldTypes = keyof typeof MuiAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
   theme,
+  uiComponents,
+  formComponents,
   ...props
 }: AutoFormProps<T>) {
   const ThemedForm = () => (
     <BaseAutoForm
       {...props}
-      uiComponents={MuiUIComponents}
-      formComponents={MuiAutoFormFieldComponents}
+      uiComponents={{ ...MuiUIComponents, ...uiComponents }}
+      formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
     />
   );
 

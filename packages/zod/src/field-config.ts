@@ -1,23 +1,33 @@
 import { RefinementEffect, z } from "zod";
-import { FieldConfig } from "../../core/dist";
-export const FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
+import { FieldConfig } from "@autoform/core";
+export const ZOD_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
 export type SuperRefineFunction = () => unknown;
 
-export function fieldConfig<AdditionalRenderable = null, FieldTypes = string>(
-  config: FieldConfig<AdditionalRenderable, FieldTypes>,
+export function fieldConfig<
+  AdditionalRenderable = null,
+  FieldTypes = string,
+  FieldWrapper = any,
+  CustomData = Record<string, any>,
+>(
+  config: FieldConfig<
+    AdditionalRenderable,
+    FieldTypes,
+    FieldWrapper,
+    CustomData
+  >
 ): SuperRefineFunction {
   const refinementFunction: SuperRefineFunction = () => {
     // Do nothing.
   };
 
   // @ts-expect-error This is a symbol and not a real value.
-  refinementFunction[FIELD_CONFIG_SYMBOL] = config;
+  refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] = config;
 
   return refinementFunction;
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.ZodTypeAny,
+  schema: z.ZodTypeAny
 ): FieldConfig | undefined {
   const typedSchema = schema as unknown as z.ZodEffects<
     z.ZodNumber | z.ZodString
@@ -27,19 +37,19 @@ export function getFieldConfigInZodStack(
     const effect = typedSchema._def.effect as RefinementEffect<any>;
     const refinementFunction = effect.refinement;
 
-    if (FIELD_CONFIG_SYMBOL in refinementFunction) {
-      return refinementFunction[FIELD_CONFIG_SYMBOL] as FieldConfig;
+    if (ZOD_FIELD_CONFIG_SYMBOL in refinementFunction) {
+      return refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
     }
   }
 
   if ("innerType" in typedSchema._def) {
     return getFieldConfigInZodStack(
-      typedSchema._def.innerType as unknown as z.ZodAny,
+      typedSchema._def.innerType as unknown as z.ZodAny
     );
   }
   if ("schema" in typedSchema._def) {
     return getFieldConfigInZodStack(
-      (typedSchema._def as any).schema as z.ZodAny,
+      (typedSchema._def as any).schema as z.ZodAny
     );
   }
 

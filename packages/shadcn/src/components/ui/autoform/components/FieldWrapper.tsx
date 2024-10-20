@@ -2,14 +2,14 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { FieldWrapperProps } from "@autoform/react";
 
-const DISABLED_LABELS = ["boolean", "date", "object", "array"];
+const DISABLED_LABELS = ["boolean", "object", "array"];
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
-  error,
   children,
   id,
   field,
+  error,
 }) => {
   const isDisabled = DISABLED_LABELS.includes(field.type);
 
@@ -27,6 +27,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
           {field.fieldConfig.description}
         </p>
       )}
+      {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { SchemaProvider } from "@autoform/core";
 import { parseSchema } from "./schema-parser";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
-import { YupObjectOrWrapped } from "./types";
 
 export class YupProvider<T extends yup.AnyObjectSchema>
   implements SchemaProvider

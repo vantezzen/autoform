@@ -3,8 +3,8 @@ import { YupObjectOrWrapped } from "./types";
 
 export function validateSchema(schema: YupObjectOrWrapped, values: any) {
   try {
-    schema.validateSync(values, { abortEarly: false });
-    return { success: true, data: values } as const;
+    const data = schema.validateSync(values, { abortEarly: false });
+    return { success: true, data } as const;
   } catch (error) {
     if (error instanceof yup.ValidationError) {
       return {

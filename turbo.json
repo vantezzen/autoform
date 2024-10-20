@@ -13,6 +13,14 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "cypress": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "cypress:dev": {
+      "dependsOn": ["^dev"],
+      "cache": false
     }
   }
 }

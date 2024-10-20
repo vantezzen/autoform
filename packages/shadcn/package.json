@@ -8,8 +8,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "npx tsx src/scripts/build.ts",
-    "dev": "npx tsx watch src/scripts/build.ts"
+    "build": "npx tsx src/scripts/build.ts"
   },
   "repository": {
     "type": "git",

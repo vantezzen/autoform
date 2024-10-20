@@ -46,7 +46,7 @@ function MyForm() {
   return (
     <AutoForm
       schema={schemaProvider}
-      onSubmit={(data) => {
+      onSubmit={(data, form) => {
         console.log(data);
       }}
       withSubmit
@@ -81,7 +81,7 @@ export default function MyForm() {
 
 ## Accessing the form data
 
-There are two ways to access the form data:
+The form data is managed by react-hook-form. There are two ways to access the form data:
 
 ### onSubmit
 
@@ -89,26 +89,38 @@ The preferred way is to use the `onSubmit` prop. This will be called when the fo
 
 ```tsx
 <AutoForm
-  onSubmit={(data, { setError, clearForm }) => {
+  onSubmit={(data, form) => {
     // Do something with the data
     // Data is validated and coerced with zod automatically
-    // You can use setError to set errors for the fields
-    // You can run clearForm() to clear the form
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // for further information and control over the form
   }}
 />
 ```
 
-### Controlled form
+### Using onFormInit and `values`
 
-You can also use the `values` and `setValues` props to control the form data yourself.
+If you need more control over the form, you can use the `onFormInit` and `values` props to get access to the react-hook-form instance and control data directly:
 
 ```tsx
-const [values, setValues] = useState<Partial<z.infer<typeof formSchema>>>({});
+const [values, setValues] = useState({});
 
-<AutoForm values={values} setValues={setValues} />;
+<AutoForm
+  onFormInit={(form) => {
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // https://www.react-hook-form.com/api/useform/
+    form.watch((data) => {
+      setValues(data);
+    });
+
+    // You can freely save the form instance to a state or context and use it later to access the form state
+    form.formState.isDirty; // => true
+  }}
+  values={values}
+/>;
 ```
 
-Please note that the data is not validated or coerced when using this method as they update immediately.
+This allows you to access form methods and state from the parent component. You can use the `onFormInit` prop independent of controlled forms to access the form instance.
 
 ## Submitting the form
 

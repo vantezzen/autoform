@@ -6,11 +6,13 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@autoform/mantine": "*",
     "@autoform/mui": "*",
+    "@autoform/shadcn": "*",
     "@autoform/yup": "*",
     "@autoform/zod": "*",
     "@emotion/react": "^11.13.3",
@@ -33,6 +35,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "cypress": "^13.15.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8.4.47",

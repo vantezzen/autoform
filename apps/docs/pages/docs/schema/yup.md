@@ -4,8 +4,18 @@ Basic usage:
 
 ```tsx
 "use client";
-import { YupProvider, fieldConfig } from "@autoform/yup";
+import { YupProvider } from "@autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
+import { buildYupFieldConfig } from "@autoform/react";
+import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
+
+const fieldConfig = buildYupFieldConfig<
+  FieldTypes,
+  {
+    // You can define custom props here
+    isImportant?: boolean;
+  }
+>();
 
 // Define your form schema using zod
 
@@ -27,6 +37,10 @@ const yupFormSchema = object({
       fieldConfig<React.ReactNode, FieldTypes>({
         inputProps: {
           type: "email",
+        },
+        customData: {
+          // You can add custom data here
+          isImportant: true,
         },
       })
     ),
@@ -145,12 +159,16 @@ const formSchema = object({
 
 You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
 
-It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/zod` and adds your own customizations:
+It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/react` and adds your own customizations:
 
 ```tsx
-import { fieldConfig as baseFieldConfig } from "@autoform/yup";
+import { buildYupFieldConfig } from "@autoform/react";
 import { FieldTypes } from "@autoform/mui";
 
-export const fieldConfig = (config: FieldConfig<React.ReactNode, FieldTypes>) =>
-  baseFieldConfig<React.ReactNode, FieldTypes>(config);
+export const fieldConfig = buildYupFieldConfig<
+  FieldTypes, // You should provide the "FieldTypes" type from the UI library you use
+  {
+    isImportant?: boolean; // You can add custom props here
+  }
+>();
 ```

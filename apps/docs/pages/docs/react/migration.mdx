@@ -4,11 +4,8 @@ This guide will help you migrate from the old, pure shadcn/ui component to the n
 
 Please note that the new library does not have full feature-partity with the old one - specifically, it does not support the following features (yet):
 
-- AutoForm doesn't use `react-hook-form` under the hood, so information about the form state is not available
-- Custom parent components
-- Custom order
 - Dependencies between fields
-- Declaring custom field components inline
+- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component.
 
 But the new AutoForm library has a lot of new features, such as:
 
@@ -16,6 +13,7 @@ But the new AutoForm library has a lot of new features, such as:
 - Support for other schema libraries, not just zod
 - Cleaner, in-schema fieldConfig definition
 - Cleaner shadcn/ui components, as they are now just wrappers around the AutoForm library
+- Support for customizing the form components and UI components on a per-form basis, not just globally
 
 import { Steps } from "nextra/components";
 
@@ -73,8 +71,10 @@ Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can n
 
 ```diff
 import * as z from "zod";
-+ import { fieldConfig } from "@autoform/zod";
++ import { buildZodFieldConfig } from "@autoform/react";
 + import { FieldTypes } from "@/components/ui/autoform";
+
++ const fieldConfig = buildZodFieldConfig();
 
 const formSchema = z.object({
   password: z
@@ -91,6 +91,64 @@ const formSchema = z.object({
 +     })
 +   ),
 });
+```
+
+## Update callbacks
+
+If you are only using `onSubmit`, your code should be able to work without any changes. If you are using controlled input instead, you need to update your code to use the new `onFormInit` prop to get manual access to the form instance.
+
+```tsx
+const [values, setValues] = useState({});
+
+<AutoForm
+  onFormInit={(form) => {
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // https://www.react-hook-form.com/api/useform/
+    form.watch((data) => {
+      setValues(data);
+    });
+
+    // You can freely save the form instance to a state or context and use it later to access the form state
+    form.formState.isDirty; // => true
+  }}
+  values={values}
+/>;
+```
+
+## Update custom components
+
+If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config.
+
+```tsx
+const schema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      fieldWrapper: (props) => (
+        <div>
+          <label>{props.label}</label>
+          {props.children}
+        </div>
+      ),
+    })
+  ),
+});
+
+<AutoForm
+  schema={schema}
+  formComponents={{
+    custom: ({ field, label, inputProps }) => {
+      return (
+        <div>
+          <input
+            type="text"
+            className="bg-red-400 rounded-lg p-4"
+            {...inputProps}
+          />
+        </div>
+      );
+    },
+  }}
+/>;
 ```
 
 </Steps>

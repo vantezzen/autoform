@@ -27,6 +27,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       {field.fieldConfig?.description && (
         <FormHelperText>{field.fieldConfig.description}</FormHelperText>
       )}
+      {error && <FormHelperText>{error}</FormHelperText>}
     </FormControl>
   );
 };

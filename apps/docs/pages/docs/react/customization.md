@@ -2,13 +2,23 @@
 
 The customization of the components is done by providing a `fieldConfig` to your schema fields. This allows you to customize the rendering of the field, add additional props, and more.
 
-With zod, you can use the `superRefine` method to add a `fieldConfig` to your schema field. This method is used to add additional validation and configuration to your field.
+With zod, you can use the `superRefine` method to add a `fieldConfig` to your schema field. For more information, see the [Zod documentation](/docs/schema/zod).
 
-You should import `fieldConfig` from your AutoForm UI-specific package (e.g. `@autoform/mui`) so it will be type-safe for your specific UI. If you use a custom UI, you can import `fieldConfig` from `@autoform/react` or `@autoform/core`.
+With yup, you can use the `transform` method to add a `fieldConfig` to your schema field. For more information, see the [Yup documentation](/docs/schema/yup). In these examples, we will use Zod.
+
+You should import `buildZodFieldConfig` or `buildYupFieldConfig` from `@autoform/react` and customize it.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@autoform/mui"; // or your UI library
+import { buildZodFieldConfig } from "@autoform/react";
+import { FieldTypes } from "@autoform/mui";
+
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes, // You should provide the "FieldTypes" type from the UI library you use
+  {
+    isImportant?: boolean; // You can add custom props here
+  }
+>();
 
 const schema = z.object({
   username: z.string().superRefine(
@@ -17,7 +27,10 @@ const schema = z.object({
       inputProps: {
         placeholder: "Enter your username",
       },
-    }),
+      customData: {
+        isImportant: true, // You can add custom data here
+      },
+    })
   ),
   // ...
 });
@@ -35,7 +48,7 @@ const schema = z.object({
         type: "text",
         placeholder: "Username",
       },
-    }),
+    })
   ),
 });
 // This will be rendered as:
@@ -51,12 +64,53 @@ const schema = z.object({
   username: z.string().superRefine(
     fieldConfig({
       fieldType: "textarea",
-    }),
+    })
   ),
 });
 ```
 
 The list of available fields depends on the UI library you use - use the autocomplete in your IDE to see the available options.
+
+### Custom field types
+
+You can also add your own custom field types. To do this, you need to extend the `formComponents` prop of your AutoForm component and add your custom field type.
+
+```tsx
+<AutoForm
+  formComponents={{
+    custom: ({ field, label, inputProps }: AutoFormFieldProps) => {
+      return (
+        <div>
+          <input
+            type="text"
+            className="bg-red-400 rounded-lg p-4"
+            // You should always pass the "inputProps" to the input component
+            // This includes the handlers for "onChange", "onBlur", etc.
+            {...inputProps}
+          />
+        </div>
+      );
+    },
+  }}
+/>;
+
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes | "custom",
+  {
+    isImportant?: boolean;
+  }
+>();
+
+const schema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      fieldType: "custom",
+    })
+  ),
+});
+```
+
+Please note that this will still render the default `FieldWrapper` around your input field, which contains the label and error message. If you want to customize this, you can use the `fieldWrapper` property ([see below](#custom-field-wrapper)).
 
 ## Description
 
@@ -68,9 +122,80 @@ const schema = z.object({
     fieldConfig({
       description:
         "Enter a unique username. This will be shown to other users.",
-    }),
+    })
   ),
 });
 ```
 
 You can use JSX in the description.
+
+## Order
+
+If you want to change the order of fields, use the order config. You can pass an arbitrary number where smaller numbers will be displayed first. All fields without a defined order use "0" so they appear in the same order they are defined in
+
+```tsx
+const schema = z.object({
+  termsOfService: z.boolean().superRefine(
+    fieldConfig({
+      order: 1, // This will be displayed after other fields with order 0
+    })
+  ),
+
+  username: z.string().superRefine(
+    fieldConfig({
+      order: -1, // This will be displayed first
+    })
+  ),
+
+  email: z.string().superRefine(
+    fieldConfig({
+      // Without specifying an order, this will have order 0
+    })
+  ),
+});
+```
+
+## Custom field wrapper
+
+You can use the `fieldWrapper` property to wrap the field in a custom component. This is useful if you want to add additional elements to the field.
+
+The `fieldWrapper` is responsible for rendering the field label and error, so when you use a custom `fieldWrapper`, you need to handle these yourself. You can take a look at the `FieldWrapperProps` type to see what props are passed to the `fieldWrapper`.
+
+```tsx
+const schema = z.object({
+  email: z.string().superRefine(
+    fieldConfig({
+      fieldWrapper: (props: FieldWrapperProps) => {
+        return (
+          <>
+            {props.children}
+            <p className="text-muted-foreground text-sm">
+              Don't worry, we won't share your email with anyone!
+            </p>
+          </>
+        );
+      },
+    })
+  ),
+});
+```
+
+## Override UI components
+
+You can also override the default UI components with custom components. This allows you to customize the look and feel of the form.
+
+```tsx
+<AutoForm
+  uiComponents={{
+    FieldWrapper: ({ children, label, error }) => {
+      return (
+        <div>
+          <label>{label}</label>
+          {children}
+          {error}
+        </div>
+      );
+    },
+  }}
+/>
+```

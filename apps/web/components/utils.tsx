@@ -1,8 +1,19 @@
-import { fieldConfig } from "@autoform/react";
+import {
+  fieldConfig,
+  FieldWrapperProps,
+  buildZodFieldConfig,
+} from "@autoform/react";
 import { ZodProvider } from "@autoform/zod";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
 import * as z from "zod";
 import { object, string, number, date, InferType, array, mixed } from "yup";
+
+const customFieldConfig = buildZodFieldConfig<
+  string,
+  {
+    isImportant?: boolean;
+  }
+>();
 
 enum Sports {
   Football = "Football/Soccer",
@@ -13,7 +24,20 @@ enum Sports {
 }
 
 const zodFormSchema = z.object({
-  hobbies: z.array(z.string()).optional(),
+  // hobbies: z
+  //   .string()
+  //   .optional()
+  //   .superRefine(
+  //     customFieldConfig({
+  //       description: "This uses a custom field component",
+  //       order: 1,
+  //       fieldType: "custom",
+  //       customData: {
+  //         // You can define custom data here
+  //         isImportant: true,
+  //       },
+  //     })
+  //   ),
   // username: z
   //   .string({
   //     required_error: "Username is required.",
@@ -48,7 +72,7 @@ const zodFormSchema = z.object({
   //     })
   //   ),
 
-  // favouriteNumber: z.coerce
+  // favouriteNumber: z
   //   .number({
   //     invalid_type_error: "Favourite number must be a number.",
   //   })
@@ -61,15 +85,31 @@ const zodFormSchema = z.object({
   //   .default(1)
   //   .optional(),
 
-  // acceptTerms: z
-  //   .boolean()
-  //   .describe("Accept terms and conditions.")
-  //   .refine((value) => value, {
-  //     message: "You must accept the terms and conditions.",
-  //     path: ["acceptTerms"],
-  //   }),
+  acceptTerms: z
+    .boolean()
+    .describe("Accept terms and conditions.")
+    .refine((value) => value, {
+      message: "You must accept the terms and conditions.",
+      path: ["acceptTerms"],
+    }),
 
-  // sendMeMails: z.boolean().optional(),
+  // sendMeMails: z
+  //   .boolean()
+  //   .optional()
+  //   .superRefine(
+  //     fieldConfig({
+  //       fieldWrapper: (props: FieldWrapperProps) => {
+  //         return (
+  //           <>
+  //             {props.children}
+  //             <p className="text-muted-foreground text-sm">
+  //               Don't worry, we only send important emails!
+  //             </p>
+  //           </>
+  //         );
+  //       },
+  //     })
+  //   ),
 
   // birthday: z.coerce.date().optional(),
 
@@ -83,15 +123,15 @@ const zodFormSchema = z.object({
   // // Native enum example
   // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
 
-  guests: z.array(
-    z.object({
-      name: z.string().optional(),
-      age: z.number().optional(),
-    })
-  ),
+  // guests: z.array(
+  //   z.object({
+  //     name: z.string().optional(),
+  //     age: z.coerce.number().optional(),
+  //   })
+  // ),
 
   // location: z.object({
-  //   city: z.string().optional(),
+  //   city: z.string(),
   //   country: z.string().optional(),
   // }),
 });

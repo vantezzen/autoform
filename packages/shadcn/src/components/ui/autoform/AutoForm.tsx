@@ -2,7 +2,6 @@ import React from "react";
 import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
-  AutoFormFieldComponents,
 } from "@autoform/react";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
@@ -38,13 +37,15 @@ export const ShadcnAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
+  uiComponents,
+  formComponents,
   ...props
 }: AutoFormProps<T>) {
   return (
     <BaseAutoForm
       {...props}
-      uiComponents={ShadcnUIComponents}
-      formComponents={ShadcnAutoFormFieldComponents}
+      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
+      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
     />
   );
 }
