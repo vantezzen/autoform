@@ -14,3 +14,4 @@ jobs:
           project: apps/web
           start: npm run cypress
           browser: chrome
+          component: true
