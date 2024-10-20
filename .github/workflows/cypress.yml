@@ -28,4 +28,4 @@ jobs:
           start: npm run cypress
           browser: chrome
           component: true
-          spec: cypress/component/all.cy.tsx
+          spec: apps/web/cypress/component/all.cy.tsx
