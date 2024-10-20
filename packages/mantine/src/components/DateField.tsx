@@ -7,5 +7,20 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   label,
 }) => (
-  <DateInput label={label} description={field.description} {...inputProps} />
+  <DateInput
+    label={label}
+    description={field.description}
+    error={inputProps.error}
+    onChange={(value) => {
+      // react-hook-form expects an event object
+      const event = {
+        target: {
+          name: field.key,
+          value: value?.toISOString(),
+        },
+      };
+      inputProps.onChange(event);
+    }}
+    value={inputProps.value}
+  />
 );

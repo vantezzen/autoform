@@ -23,8 +23,8 @@ export class ZodProvider<T extends z.ZodObject<any, any>>
 
   validateSchema(values: z.infer<T>): SchemaValidation {
     try {
-      this.schema.parse(values);
-      return { success: true, data: values } as const;
+      const data = this.schema.parse(values);
+      return { success: true, data } as const;
     } catch (error) {
       if (error instanceof z.ZodError) {
         return {

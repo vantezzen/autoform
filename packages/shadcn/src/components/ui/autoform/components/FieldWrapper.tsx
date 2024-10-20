@@ -9,6 +9,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   children,
   id,
   field,
+  error,
 }) => {
   const isDisabled = DISABLED_LABELS.includes(field.type);
 
@@ -26,6 +27,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
           {field.fieldConfig.description}
         </p>
       )}
+      {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
   );
 };

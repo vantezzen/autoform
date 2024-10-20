@@ -29,13 +29,13 @@
     {
       "path": "autoform/utils.ts",
       "target": "components/ui/autoform/utils.ts",
-      "content": "import { FieldConfig } from \"@autoform/core\";\nimport {\n  SuperRefineFunction,\n  fieldConfig as baseFieldConfig,\n} from \"@autoform/zod\";\nimport { ReactNode } from \"react\";\nimport { FieldTypes } from \"./AutoForm\";\n\nexport function fieldConfig(\n  config: FieldConfig<ReactNode, FieldTypes>\n): SuperRefineFunction {\n  return baseFieldConfig<ReactNode, FieldTypes>(config);\n}\n",
+      "content": "import { buildZodFieldConfig } from \"@autoform/react\";\nimport { FieldTypes } from \"./AutoForm\";\n\nexport const fieldConfig = buildZodFieldConfig<\n  FieldTypes,\n  {\n    // Add types for `customData` here.\n  }\n>();\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/types.ts",
       "target": "components/ui/autoform/types.ts",
-      "content": "import { AutoFormProps as BaseAutoFormProps } from \"@autoform/react\";\n\nexport interface AutoFormProps<T>\n  extends Omit<BaseAutoFormProps<T>, \"uiComponents\" | \"formComponents\"> {}\n",
+      "content": "import {\n  AutoFormProps as BaseAutoFormProps,\n  ExtendableAutoFormProps,\n} from \"@autoform/react\";\nimport { FieldValues } from \"react-hook-form\";\n\nexport interface AutoFormProps<T extends FieldValues>\n  extends ExtendableAutoFormProps<T> {}\n",
       "type": "registry:ui"
     },
     {
@@ -47,7 +47,7 @@
     {
       "path": "autoform/AutoForm.tsx",
       "target": "components/ui/autoform/AutoForm.tsx",
-      "content": "import React from \"react\";\nimport {\n  AutoForm as BaseAutoForm,\n  AutoFormUIComponents,\n  AutoFormFieldComponents,\n} from \"@autoform/react\";\nimport { AutoFormProps } from \"./types\";\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { StringField } from \"./components/StringField\";\nimport { NumberField } from \"./components/NumberField\";\nimport { BooleanField } from \"./components/BooleanField\";\nimport { DateField } from \"./components/DateField\";\nimport { SelectField } from \"./components/SelectField\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\n\nconst ShadcnUIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nexport const ShadcnAutoFormFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\nexport type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;\n\nexport function AutoForm<T extends Record<string, any>>({\n  ...props\n}: AutoFormProps<T>) {\n  return (\n    <BaseAutoForm\n      {...props}\n      uiComponents={ShadcnUIComponents}\n      formComponents={ShadcnAutoFormFieldComponents}\n    />\n  );\n}\n",
+      "content": "import React from \"react\";\nimport {\n  AutoForm as BaseAutoForm,\n  AutoFormUIComponents,\n  AutoFormFieldComponents,\n} from \"@autoform/react\";\nimport { AutoFormProps } from \"./types\";\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { StringField } from \"./components/StringField\";\nimport { NumberField } from \"./components/NumberField\";\nimport { BooleanField } from \"./components/BooleanField\";\nimport { DateField } from \"./components/DateField\";\nimport { SelectField } from \"./components/SelectField\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\n\nconst ShadcnUIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nexport const ShadcnAutoFormFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\nexport type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;\n\nexport function AutoForm<T extends Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: AutoFormProps<T>) {\n  return (\n    <BaseAutoForm\n      {...props}\n      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}\n      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
       "type": "registry:ui"
     },
     {

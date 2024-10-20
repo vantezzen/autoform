@@ -12,7 +12,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
     <Box mt="md">
       <Title order={4}>{label}</Title>
       {children}
-      <Button onClick={onAddItem} mt="sm">
+      <Button onClick={onAddItem} mt="sm" data-testid="add-item-button">
         <IconPlus size={14} />
       </Button>
     </Box>

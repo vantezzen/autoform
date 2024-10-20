@@ -5,7 +5,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../../packages/shadcn/src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

@@ -38,18 +38,26 @@ export function AutoForm<T extends Record<string, any>>({
   const handleSubmit = async (dataRaw: T) => {
     const data = removeEmptyValues(dataRaw);
     const validationResult = schema.validateSchema(data as T);
+    console.log("validationResult", { validationResult, dataRaw, data });
     if (validationResult.success) {
       await onSubmit(validationResult.data, methods);
     } else {
-      const newErrors: Record<string, string> = {};
       methods.clearErrors();
       validationResult.errors?.forEach((error) => {
         const path = error.path.join(".");
-        newErrors[path] = error.message;
         methods.setError(path as any, {
           type: "custom",
           message: error.message,
         });
+
+        // For some custom errors, zod adds the final element twice for some reason
+        const correctedPath = error.path?.slice?.(0, -1);
+        if (correctedPath?.length > 0) {
+          methods.setError(correctedPath.join(".") as any, {
+            type: "custom",
+            message: error.message,
+          });
+        }
       });
     }
   };

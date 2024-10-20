@@ -1,5 +1,5 @@
 import React from "react";
-import { NumberInput } from "@mantine/core";
+import { TextInput } from "@mantine/core";
 import { AutoFormFieldProps } from "@autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
@@ -7,5 +7,10 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   label,
 }) => (
-  <NumberInput label={label} description={field.description} {...inputProps} />
+  <TextInput
+    type="number"
+    label={label}
+    description={field.description}
+    {...inputProps}
+  />
 );

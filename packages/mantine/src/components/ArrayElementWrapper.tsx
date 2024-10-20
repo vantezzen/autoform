@@ -19,9 +19,9 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
     >
       <ActionIcon
         onClick={onRemove}
-        style={{ position: "absolute", top: 8, right: 8 }}
         color="red"
         variant="subtle"
+        data-testid="remove-item-button"
       >
         <IconTrash size={16} />
       </ActionIcon>

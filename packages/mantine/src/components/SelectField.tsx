@@ -9,7 +9,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   label,
 }) => (
   <Select
-    error={!!error}
+    error={error}
     label={label}
     data={(field.options || []).map(([key, label]) => ({ value: key, label }))}
     description={field.description}
