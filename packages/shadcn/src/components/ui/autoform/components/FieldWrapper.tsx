@@ -2,7 +2,7 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { FieldWrapperProps } from "@autoform/react";
 
-const DISABLED_LABELS = ["boolean", "date", "object", "array"];
+const DISABLED_LABELS = ["boolean", "object", "array"];
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,

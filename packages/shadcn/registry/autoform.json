@@ -59,13 +59,13 @@
     {
       "path": "autoform/components/StringField.tsx",
       "target": "components/ui/autoform/components/StringField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  field,\n  value,\n  onChange,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    value={value || \"\"}\n    onChange={(e) => onChange(e.target.value)}\n    className={error ? \"border-destructive\" : \"\"}\n    {...field.fieldConfig?.inputProps}\n  />\n);\n",
+      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/components/SelectField.tsx",
       "target": "components/ui/autoform/components/SelectField.tsx",
-      "content": "import React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  value,\n  onChange,\n  error,\n  id,\n}) => (\n  <Select value={value || \"\"} onValueChange={onChange}>\n    <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\n      <SelectValue placeholder=\"Select an option\" />\n    </SelectTrigger>\n    <SelectContent>\n      {(field.options || []).map(([key, label]) => (\n        <SelectItem key={key} value={key}>\n          {label}\n        </SelectItem>\n      ))}\n    </SelectContent>\n  </Select>\n);\n",
+      "content": "import React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id,\n}) => (\n  <Select {...inputProps}>\n    <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\n      <SelectValue placeholder=\"Select an option\" />\n    </SelectTrigger>\n    <SelectContent>\n      {(field.options || []).map(([key, label]) => (\n        <SelectItem key={key} value={key}>\n          {label}\n        </SelectItem>\n      ))}\n    </SelectContent>\n  </Select>\n);\n",
       "type": "registry:ui"
     },
     {
@@ -77,7 +77,7 @@
     {
       "path": "autoform/components/NumberField.tsx",
       "target": "components/ui/autoform/components/NumberField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  field,\n  value,\n  onChange,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"number\"\n    value={value || \"\"}\n    onChange={(e) => onChange(Number(e.target.value))}\n    className={error ? \"border-destructive\" : \"\"}\n    {...field.fieldConfig?.inputProps}\n  />\n);\n",
+      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"number\"\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
       "type": "registry:ui"
     },
     {
@@ -89,7 +89,7 @@
     {
       "path": "autoform/components/FieldWrapper.tsx",
       "target": "components/ui/autoform/components/FieldWrapper.tsx",
-      "content": "import React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapperProps } from \"@autoform/react\";\n\nconst DISABLED_LABELS = [\"boolean\", \"date\", \"object\", \"array\"];\n\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\n  label,\n  error,\n  children,\n  id,\n  field,\n}) => {\n  const isDisabled = DISABLED_LABELS.includes(field.type);\n\n  return (\n    <div className=\"space-y-2\">\n      {!isDisabled && (\n        <Label htmlFor={id}>\n          {label}\n          {field.required && <span className=\"text-destructive\"> *</span>}\n        </Label>\n      )}\n      {children}\n      {field.fieldConfig?.description && (\n        <p className=\"text-sm text-muted-foreground\">\n          {field.fieldConfig.description}\n        </p>\n      )}\n    </div>\n  );\n};\n",
+      "content": "import React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapperProps } from \"@autoform/react\";\n\nconst DISABLED_LABELS = [\"boolean\", \"object\", \"array\"];\n\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\n  label,\n  children,\n  id,\n  field,\n}) => {\n  const isDisabled = DISABLED_LABELS.includes(field.type);\n\n  return (\n    <div className=\"space-y-2\">\n      {!isDisabled && (\n        <Label htmlFor={id}>\n          {label}\n          {field.required && <span className=\"text-destructive\"> *</span>}\n        </Label>\n      )}\n      {children}\n      {field.fieldConfig?.description && (\n        <p className=\"text-sm text-muted-foreground\">\n          {field.fieldConfig.description}\n        </p>\n      )}\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -101,13 +101,13 @@
     {
       "path": "autoform/components/DateField.tsx",
       "target": "components/ui/autoform/components/DateField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  field,\n  value,\n  onChange,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"date\"\n    value={value ? new Date(value).toISOString().split(\"T\")[0] : \"\"}\n    onChange={(e) => onChange(new Date(e.target.value))}\n    className={error ? \"border-destructive\" : \"\"}\n    {...field.fieldConfig?.inputProps}\n  />\n);\n",
+      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"date\"\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/components/BooleanField.tsx",
       "target": "components/ui/autoform/components/BooleanField.tsx",
-      "content": "import React from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport { Label } from \"../../label\";\n\nexport const BooleanField: React.FC<AutoFormFieldProps> = ({\n  field,\n  value,\n  onChange,\n  label,\n  id,\n}) => (\n  <div className=\"flex items-center space-x-2\">\n    <Checkbox\n      id={id}\n      checked={!!value}\n      onCheckedChange={(checked) => onChange(checked)}\n      {...field.fieldConfig?.inputProps}\n    />\n    <Label htmlFor={id}>\n      {label}\n      {field.required && <span className=\"text-destructive\"> *</span>}\n    </Label>\n  </div>\n);\n",
+      "content": "import React from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport { Label } from \"../../label\";\n\nexport const BooleanField: React.FC<AutoFormFieldProps> = ({\n  field,\n  label,\n  id,\n  inputProps,\n}) => (\n  <div className=\"flex items-center space-x-2\">\n    <Checkbox id={id} {...inputProps} />\n    <Label htmlFor={id}>\n      {label}\n      {field.required && <span className=\"text-destructive\"> *</span>}\n    </Label>\n  </div>\n);\n",
       "type": "registry:ui"
     },
     {
