@@ -73,8 +73,10 @@ Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can n
 
 ```diff
 import * as z from "zod";
-+ import { fieldConfig } from "@autoform/zod";
++ import { buildZodFieldConfig } from "@autoform/react";
 + import { FieldTypes } from "@/components/ui/autoform";
+
++ const fieldConfig = buildZodFieldConfig();
 
 const formSchema = z.object({
   password: z

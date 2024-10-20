@@ -4,6 +4,7 @@ import {
   ParsedSchema,
   Renderable,
   SchemaProvider,
+  FieldConfig as BaseFieldConfig,
 } from "@autoform/core";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
@@ -84,3 +85,10 @@ export interface AutoFormContextType {
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
 }
+
+export type FieldConfig<FieldTypes = string, CustomData = {}> = BaseFieldConfig<
+  ReactNode,
+  FieldTypes,
+  React.ComponentType<FieldWrapperProps>,
+  CustomData
+>;

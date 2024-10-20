@@ -22,6 +22,9 @@ export const AutoFormField: React.FC<{
   const error = getPathInObject(errors, path)?.message as string | undefined;
   const value = getValues(fullPath);
 
+  let FieldWrapper =
+    field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
+
   let FieldComponent: React.ComponentType<AutoFormFieldProps> = () => (
     <uiComponents.ErrorMessage
       error={`[AutoForm Configuration Error] No component found for type "${field.type}" nor a fallback`}
@@ -39,7 +42,7 @@ export const AutoFormField: React.FC<{
   }
 
   return (
-    <uiComponents.FieldWrapper
+    <FieldWrapper
       label={getLabel(field)}
       error={error}
       id={fullPath}
@@ -59,6 +62,6 @@ export const AutoFormField: React.FC<{
           ...register(fullPath),
         }}
       />
-    </uiComponents.FieldWrapper>
+    </FieldWrapper>
   );
 };

@@ -6,11 +6,19 @@ With zod, you can use the `superRefine` method to add a `fieldConfig` to your sc
 
 With yup, you can use the `transform` method to add a `fieldConfig` to your schema field. For more information, see the [Yup documentation](/docs/schema/yup). In these examples, we will use Zod.
 
-You should import `fieldConfig` from your AutoForm UI-specific package (e.g. `@autoform/mui`) so it will be type-safe for your specific UI. If you use a custom UI, you can import `fieldConfig` from `@autoform/react` or `@autoform/core`.
+You should import `buildZodFieldConfig` or `buildYupFieldConfig` from `@autoform/react` and customize it.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@autoform/mui"; // or your UI library
+import { buildZodFieldConfig } from "@autoform/react";
+import { FieldTypes } from "@autoform/mui";
+
+const fieldConfig = buildZodFieldConfig<
+  FieldTypes, // You should provide the "FieldTypes" type from the UI library you use
+  {
+    isImportant?: boolean; // You can add custom props here
+  }
+>();
 
 const schema = z.object({
   username: z.string().superRefine(
@@ -18,6 +26,9 @@ const schema = z.object({
       label: "Username",
       inputProps: {
         placeholder: "Enter your username",
+      },
+      customData: {
+        isImportant: true, // You can add custom data here
       },
     })
   ),
@@ -98,6 +109,31 @@ const schema = z.object({
   email: z.string().superRefine(
     fieldConfig({
       // Without specifying an order, this will have order 0
+    })
+  ),
+});
+```
+
+## Custom field wrapper
+
+You can use the `fieldWrapper` property to wrap the field in a custom component. This is useful if you want to add additional elements to the field.
+
+The `fieldWrapper` is responsible for rendering the field label and error, so when you use a custom `fieldWrapper`, you need to handle these yourself. You can take a look at the `FieldWrapperProps` type to see what props are passed to the `fieldWrapper`.
+
+```tsx
+const schema = z.object({
+  email: z.string().superRefine(
+    fieldConfig({
+      fieldWrapper: (props: FieldWrapperProps) => {
+        return (
+          <>
+            {props.children}
+            <p className="text-muted-foreground text-sm">
+              Don't worry, we won't share your email with anyone!
+            </p>
+          </>
+        );
+      },
     })
   ),
 });

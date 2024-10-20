@@ -6,12 +6,19 @@ export type Renderable<AdditionalRenderable = null> =
   | undefined
   | AdditionalRenderable;
 
-export interface FieldConfig<AdditionalRenderable = null, FieldTypes = string> {
+export interface FieldConfig<
+  AdditionalRenderable = null,
+  FieldTypes = string,
+  FieldWrapper = any,
+  CustomData = {},
+> {
   description?: Renderable<AdditionalRenderable>;
   inputProps?: Record<string, any>;
   label?: Renderable<AdditionalRenderable>;
   fieldType?: FieldTypes;
   order?: number;
+  fieldWrapper?: FieldWrapper;
+  customData?: CustomData;
 }
 
 export interface ParsedField<AdditionalRenderable = null, FieldTypes = string> {

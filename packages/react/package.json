@@ -28,6 +28,7 @@
   "dependencies": {
     "@autoform/core": "*",
     "@autoform/zod": "*",
+    "@autoform/yup": "*",
     "@hookform/resolvers": "^3.9.0",
     "react": "^18.2.0",
     "react-hook-form": "^7.53.0"
