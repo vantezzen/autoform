@@ -1,13 +1,9 @@
-import { FieldConfig } from "@autoform/core";
-import {
-  SuperRefineFunction,
-  fieldConfig as baseFieldConfig,
-} from "@autoform/zod";
-import { ReactNode } from "react";
+import { buildZodFieldConfig } from "@autoform/react";
 import { FieldTypes } from "./AutoForm";
 
-export function fieldConfig(
-  config: FieldConfig<ReactNode, FieldTypes>
-): SuperRefineFunction {
-  return baseFieldConfig<ReactNode, FieldTypes>(config);
-}
+export const fieldConfig = buildZodFieldConfig<
+  FieldTypes,
+  {
+    // Add types for `customData` here.
+  }
+>();
