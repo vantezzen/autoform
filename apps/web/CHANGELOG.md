@@ -1,5 +1,18 @@
 # web
 
+## 1.1.0
+
+### Minor Changes
+
+- Add formProps
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/mantine@2.1.0
+  - @autoform/shadcn@2.1.0
+  - @autoform/mui@2.1.0
+
 ## 1.0.0
 
 ### Major Changes
