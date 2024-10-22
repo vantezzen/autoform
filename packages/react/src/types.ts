@@ -23,6 +23,7 @@ export interface AutoFormProps<T extends FieldValues> {
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
   onFormInit?: (form: UseFormReturn<T, any, undefined>) => void;
+  formProps?: React.ComponentProps<"form"> & Record<string, any>;
 }
 
 export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
@@ -34,10 +35,7 @@ export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
 };
 
 export interface AutoFormUIComponents {
-  Form: React.ComponentType<{
-    onSubmit: (e: React.FormEvent) => void;
-    children: ReactNode;
-  }>;
+  Form: React.ComponentType<React.ComponentProps<"form">>;
   FieldWrapper: React.ComponentType<FieldWrapperProps>;
   ErrorMessage: React.ComponentType<{ error: string }>;
   SubmitButton: React.ComponentType<{ children: ReactNode }>;

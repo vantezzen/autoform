@@ -199,3 +199,24 @@ You can also override the default UI components with custom components. This all
   }}
 />
 ```
+
+## Form element customization
+
+In addition to overriding UI components, you can also customize the form element itself using the `formProps` prop:
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{
+    className: "my-custom-form",
+    "data-testid": "user-form",
+    noValidate: true,
+    onTouchStart: (e) => {
+      console.log("onTouchStart", e);
+    },
+  }}
+/>
+```
+
+This allows you to add custom classes, data attributes, or other properties directly to the form element.

@@ -122,6 +122,25 @@ const [values, setValues] = useState({});
 
 This allows you to access form methods and state from the parent component. You can use the `onFormInit` prop independent of controlled forms to access the form instance.
 
+## Passing props to the form element
+
+You can pass additional props to the underlying form element using the `formProps` prop:
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{
+    className: "my-custom-form-class",
+    onKeyDown: (e) => {
+      if (e.key === "Enter") e.preventDefault();
+    },
+  }}
+/>
+```
+
+This allows you to customize the form element's attributes and behavior as needed.
+
 ## Submitting the form
 
 You can use the `withSubmit` prop to automatically add a submit button to the form.

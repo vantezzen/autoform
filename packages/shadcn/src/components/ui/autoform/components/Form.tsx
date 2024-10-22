@@ -1,12 +1,12 @@
 import React from "react";
 
-export const Form: React.FC<{
-  onSubmit: (e: React.FormEvent) => void;
-  children: React.ReactNode;
-}> = ({ onSubmit, children }) => {
+export const Form = React.forwardRef<
+  HTMLFormElement,
+  React.ComponentProps<"form">
+>(({ children, ...props }, ref) => {
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form ref={ref} className="space-y-4" {...props}>
       {children}
     </form>
   );
-};
+});
