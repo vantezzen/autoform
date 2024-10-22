@@ -1,13 +1,13 @@
 import React from "react";
 import Box from "@mui/material/Box";
 
-export const Form: React.FC<{
-  onSubmit: (e: React.FormEvent) => void;
-  children: React.ReactNode;
-}> = ({ onSubmit, children }) => {
+export const Form = React.forwardRef<
+  HTMLFormElement,
+  React.ComponentProps<"form">
+>(({ children, ...props }, ref) => {
   return (
-    <Box component="form" onSubmit={onSubmit} noValidate autoComplete="off">
+    <Box component="form" ref={ref} noValidate autoComplete="off" {...props}>
       {children}
     </Box>
   );
-};
+});

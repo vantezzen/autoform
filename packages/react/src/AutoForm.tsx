@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FormEventHandler, useEffect } from "react";
 import { useForm, FormProvider, DefaultValues } from "react-hook-form";
 import {
   parseSchema,
@@ -19,6 +19,7 @@ export function AutoForm<T extends Record<string, any>>({
   formComponents,
   withSubmit = false,
   onFormInit = () => {},
+  formProps = {},
 }: AutoFormProps<T>) {
   const parsedSchema = parseSchema(schema);
   const methods = useForm<T>({
@@ -71,7 +72,10 @@ export function AutoForm<T extends Record<string, any>>({
           formComponents,
         }}
       >
-        <uiComponents.Form onSubmit={methods.handleSubmit(handleSubmit)}>
+        <uiComponents.Form
+          onSubmit={methods.handleSubmit(handleSubmit)}
+          {...formProps}
+        >
           {parsedSchema.fields.map((field) => (
             <AutoFormField key={field.key} field={field} path={[field.key]} />
           ))}

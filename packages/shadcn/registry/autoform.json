@@ -83,7 +83,7 @@
     {
       "path": "autoform/components/Form.tsx",
       "target": "components/ui/autoform/components/Form.tsx",
-      "content": "import React from \"react\";\n\nexport const Form: React.FC<{\n  onSubmit: (e: React.FormEvent) => void;\n  children: React.ReactNode;\n}> = ({ onSubmit, children }) => {\n  return (\n    <form onSubmit={onSubmit} className=\"space-y-4\">\n      {children}\n    </form>\n  );\n};\n",
+      "content": "import React from \"react\";\n\nexport const Form = React.forwardRef<\n  HTMLFormElement,\n  React.ComponentProps<\"form\">\n>(({ children, ...props }, ref) => {\n  return (\n    <form ref={ref} className=\"space-y-4\" {...props}>\n      {children}\n    </form>\n  );\n});\n",
       "type": "registry:ui"
     },
     {
