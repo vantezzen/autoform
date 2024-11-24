@@ -7,7 +7,7 @@ import { ZodProvider } from "@autoform/zod";
 
 const defaultCode = `z.object({
   name: z.string(),
-  age: z.number(),
+  age: z.coerce.number(),
   isHuman: z.boolean(),
 })`;
 const globalZod = z;
@@ -17,7 +17,7 @@ function InteractiveDemo() {
   const [schema, setSchema] = React.useState<z.ZodObject<any, any> | null>(
     z.object({
       name: z.string(),
-      age: z.number(),
+      age: z.coerce.number(),
       isHuman: z.boolean(),
     }),
   );
