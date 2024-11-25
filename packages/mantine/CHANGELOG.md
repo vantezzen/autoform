@@ -1,5 +1,11 @@
 # @autoform/mantine
 
+## 2.2.0
+
+### Minor Changes
+
+- f664c5a: Fixed import path in Mantine integration
+
 ## 2.1.0
 
 ### Minor Changes
