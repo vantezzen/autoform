@@ -17,8 +17,7 @@ const fieldConfig = buildYupFieldConfig<
   }
 >();
 
-// Define your form schema using zod
-
+// Define your form schema using yup
 const yupFormSchema = object({
   name: string().required().label("Your Name").default("John Doe"),
 
