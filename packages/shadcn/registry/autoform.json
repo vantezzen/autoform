@@ -59,13 +59,13 @@
     {
       "path": "autoform/components/StringField.tsx",
       "target": "components/ui/autoform/components/StringField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input id={id} className={error ? \"border-destructive\" : \"\"} {...props} />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/components/SelectField.tsx",
       "target": "components/ui/autoform/components/SelectField.tsx",
-      "content": "import React from \"react\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id,\n}) => (\n  <Select {...inputProps}>\n    <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\n      <SelectValue placeholder=\"Select an option\" />\n    </SelectTrigger>\n    <SelectContent>\n      {(field.options || []).map(([key, label]) => (\n        <SelectItem key={key} value={key}>\n          {label}\n        </SelectItem>\n      ))}\n    </SelectContent>\n  </Select>\n);\n",
+      "content": "import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Select {...props}>\n      <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\n        <SelectValue placeholder=\"Select an option\" />\n      </SelectTrigger>\n      <SelectContent>\n        {(field.options || []).map(([key, label]) => (\n          <SelectItem key={key} value={key}>\n            {label}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -77,7 +77,7 @@
     {
       "path": "autoform/components/NumberField.tsx",
       "target": "components/ui/autoform/components/NumberField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"number\"\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input\n      id={id}\n      type=\"number\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -101,7 +101,7 @@
     {
       "path": "autoform/components/DateField.tsx",
       "target": "components/ui/autoform/components/DateField.tsx",
-      "content": "import React from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => (\n  <Input\n    id={id}\n    type=\"date\"\n    className={error ? \"border-destructive\" : \"\"}\n    {...inputProps}\n  />\n);\n",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input\n      id={id}\n      type=\"date\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
