@@ -23,10 +23,13 @@
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
     "tsup": "^8.3.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "zod": "^3.23.8"
   },
   "dependencies": {
-    "@autoform/core": "*",
-    "zod": "^3.23.8"
+    "@autoform/core": "*"
+  },
+  "peerDependencies": {
+    "zod": "^3"
   }
 }
