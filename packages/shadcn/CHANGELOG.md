@@ -1,5 +1,21 @@
 # @autoform/shadcn
 
+## 3.0.0
+
+### Major Changes
+
+- 422cec8: fix spreading keys warning for shadcn components
+
+### Minor Changes
+
+- df38752: Mark react and zod as peerDependencies, allow React 19 as a peer dependency
+
+### Patch Changes
+
+- Updated dependencies [df38752]
+  - @autoform/react@2.2.0
+  - @autoform/zod@2.1.0
+
 ## 2.1.0
 
 ### Minor Changes

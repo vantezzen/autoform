@@ -1,5 +1,17 @@
 # @autoform/react
 
+## 2.2.0
+
+### Minor Changes
+
+- df38752: Mark react and zod as peerDependencies, allow React 19 as a peer dependency
+
+### Patch Changes
+
+- Updated dependencies [df38752]
+  - @autoform/yup@2.1.0
+  - @autoform/zod@2.1.0
+
 ## 2.1.0
 
 ### Minor Changes
