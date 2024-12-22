@@ -22,18 +22,19 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
+    "react": "^18.3.1",
+    "react-hook-form": "^7.53.0",
     "tsup": "^8.3.0",
-    "typescript": "^5.3.3",
-    "react-hook-form": "^7.53.0"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@autoform/core": "*",
     "@autoform/zod": "*",
     "@autoform/yup": "*",
-    "@hookform/resolvers": "^3.9.0",
-    "react": "^18.2.0"
+    "@hookform/resolvers": "^3.9.0"
   },
   "peerDependencies": {
-    "react-hook-form": "^7.53.0"
+    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-hook-form": "^7"
   }
 }

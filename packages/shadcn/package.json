@@ -31,11 +31,16 @@
     "@types/react-dom": "^18.2.19",
     "autoprefixer": "^10",
     "eslint": "^8.57.0",
-    "react-hook-form": "^7.53.0",
     "postcss": "^8",
     "postcss-load-config": "^6",
+    "react": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "tailwind-merge": "^2.3.0",
     "tailwindcss": "*",
-    "typescript": "^5.3.3"
+    "tailwindcss-animate": "^1.0.7",
+    "tsup": "^8.3.0",
+    "typescript": "^5.3.3",
+    "zod": "^3.23.8"
   },
   "dependencies": {
     "@autoform/core": "*",
@@ -53,15 +58,11 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "lucide-react": "*",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-day-picker": "^8.10.1",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "tsup": "^8.3.0",
-    "zod": "^3.23.8"
+    "react-day-picker": "^8.10.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-hook-form": "^7.53.0"
+    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-hook-form": "^7",
+    "zod": "^3"
   }
 }

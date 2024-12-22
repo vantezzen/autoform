@@ -21,6 +21,8 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
+    "react": "^18.3.1",
+    "tsup": "^8.3.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -29,11 +31,9 @@
     "@autoform/zod": "*",
     "@mantine/core": "^7.0.0",
     "@mantine/dates": "^7.0.0",
-    "@tabler/icons-react": "^3.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "tsup": "^8.3.0"
+    "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "^16.8.0 || ^17 || ^18 || ^19"
   }
 }
