@@ -12,10 +12,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
 }) => {
   if (field.type === "object" && field.schema?.length)
     return (
-      <Form.List key={field.key} name={path}>
-        {() => [<section>{children}</section>]}
+      <Form.List key={field.key} name={String(path[0])}>
+        {() => children}
       </Form.List>
     );
+  if (field.type === "array") return children;
+
   return (
     <Form.Item
       key={field.key}

@@ -12,10 +12,11 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
       span={24}
       style={{
         position: "relative",
-        marginTop: "2px",
-        padding: "2px",
-        border: "1px solid #ccc",
-        borderRadius: "1px",
+        marginTop: "20px",
+        marginBottom: "20px",
+        padding: "4rem 10px 5px 10px",
+        border: "1px solid #ddd",
+        borderRadius: "4px",
       }}
     >
       <Button
@@ -25,13 +26,14 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
         style={{
           position: "absolute",
           cursor: "pointer",
-          top: "8%",
-          right: "8%",
+          border: "none",
+          top: "3%",
+          left: "3%",
         }}
       >
         <DeleteOutlined />
       </Button>
-      {children}
+      <div>{children}</div>
     </Col>
   );
 };

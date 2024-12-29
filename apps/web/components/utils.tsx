@@ -106,7 +106,7 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
-  birthday: z.coerce.date({ message: "aaa" }).optional(),
+  // birthday: z.coerce.date({ message: "aaa" }).optional(),
   // color: z.enum(["red", "green", "blue"]).optional(),
   // // Another enum example
   // marshmallows: z
@@ -114,12 +114,12 @@ const zodFormSchema = z.object({
   //   .describe("How many marshmallows fit in your mouth?"),
   // // Native enum example
   // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
-  // guests: z.array(
-  //   z.object({
-  //     name: z.string().optional(),
-  //     age: z.coerce.number().optional(),
-  //   })
-  // ),
+  guests: z.array(
+    z.object({
+      name: z.string().optional(),
+      age: z.coerce.number().optional(),
+    })
+  ),
   // location: z.object({
   //   city: z.string(),
   //   country: z.string().optional(),

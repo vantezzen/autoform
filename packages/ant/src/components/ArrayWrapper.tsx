@@ -1,7 +1,7 @@
-import React from "react";
-import { Typography, Button, Row } from "antd";
-import { ArrayWrapperProps } from "@autoform/react";
 import { PlusOutlined } from "@ant-design/icons";
+import { ArrayWrapperProps } from "@autoform/react";
+import { Button, Typography } from "antd";
+import React from "react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
@@ -9,12 +9,14 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   onAddItem,
 }) => {
   return (
-    <Row>
-      <Typography.Title level={5}>{label}</Typography.Title>
+    <section style={{ marginBottom: "20px" }}>
+      <Typography.Paragraph style={{ marginRight: "5px" }}>
+        {label}
+      </Typography.Paragraph>
       {children}
-      <Button onClick={onAddItem} variant="outlined" style={{ marginTop: 1 }}>
-        <PlusOutlined />
+      <Button onClick={onAddItem} data-testid="add-item-button">
+        <PlusOutlined size={14} />
       </Button>
-    </Row>
+    </section>
   );
 };
