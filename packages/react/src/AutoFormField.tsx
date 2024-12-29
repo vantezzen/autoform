@@ -16,6 +16,7 @@ export const AutoFormField: React.FC<{
     register,
     formState: { errors },
     getValues,
+    control,
   } = useFormContext();
 
   const fullPath = path.join(".");
@@ -56,6 +57,8 @@ export const AutoFormField: React.FC<{
         id={fullPath}
         key={fullPath}
         path={path}
+        // add control to the props from antd-design
+        control={control}
         inputProps={{
           required: field.required,
           error: error,

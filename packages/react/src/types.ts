@@ -6,7 +6,7 @@ import {
   SchemaProvider,
   FieldConfig as BaseFieldConfig,
 } from "@autoform/core";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { Control, FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
@@ -82,7 +82,7 @@ export interface AutoFormFieldProps {
   error?: string;
   id: string;
   path: string[];
-
+  control: Control<any>;
   inputProps: any;
 }
 

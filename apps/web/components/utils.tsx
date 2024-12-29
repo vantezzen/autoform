@@ -38,39 +38,39 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
-  // username: z
-  //   .string({
-  //     required_error: "Username is required.",
-  //   })
-  //   .min(2, {
-  //     message: "Username must be at least 2 characters.",
-  //   })
-  //   .superRefine(
-  //     fieldConfig({
-  //       description: "You cannot change this later.",
-  //     })
-  //   ),
+  username: z
+    .string({
+      required_error: "Username is required.",
+    })
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .superRefine(
+      fieldConfig({
+        description: "You cannot change this later.",
+      })
+    ),
 
-  // password: z
-  //   .string({
-  //     required_error: "Password is required.",
-  //   })
-  //   .describe("Your secure password")
-  //   .min(8, {
-  //     message: "Password must be at least 8 characters.",
-  //   })
-  //   .superRefine(
-  //     fieldConfig({
-  //       description: (
-  //         <>
-  //           Always use a <b>secure password</b>!
-  //         </>
-  //       ),
-  //       inputProps: {
-  //         type: "password",
-  //       },
-  //     })
-  //   ),
+  password: z
+    .string({
+      required_error: "Password is required.",
+    })
+    .describe("Your secure password")
+    .min(8, {
+      message: "Password must be at least 8 characters.",
+    })
+    .superRefine(
+      fieldConfig({
+        description: (
+          <>
+            Always use a <b>secure password</b>!
+          </>
+        ),
+        inputProps: {
+          type: "password",
+        },
+      })
+    ),
 
   // favouriteNumber: z
   //   .number({
