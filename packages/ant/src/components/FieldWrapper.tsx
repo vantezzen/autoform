@@ -2,7 +2,7 @@ import React from "react";
 import { FieldWrapperProps } from "@autoform/react";
 import { Form, Typography } from "antd";
 
-// const DISABLED_LABELS = ["boolean", "date", "object", "array"];
+const DISABLED_LABELS = ["boolean", "date", "object", "array"];
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
@@ -17,11 +17,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
         {() => [<section>{children}</section>]}
       </Form.List>
     );
+  console.log({ field, label });
   return (
     <Form.Item
       key={field.key}
       name={field.key}
-      label={label}
+      label={!DISABLED_LABELS.includes(field.type) ? label : ""}
       required={field.required}
       extra={field.fieldConfig?.description}
       validateStatus={error ? "error" : undefined}

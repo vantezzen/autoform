@@ -38,18 +38,18 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
-  username: z
-    .string({
-      required_error: "Username is required.",
-    })
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .superRefine(
-      fieldConfig({
-        description: "You cannot change this later.",
-      })
-    ),
+  // username: z
+  //   .string({
+  //     required_error: "Username is required.",
+  //   })
+  //   .min(2, {
+  //     message: "Username must be at least 2 characters.",
+  //   })
+  //   .superRefine(
+  //     fieldConfig({
+  //       description: "You cannot change this later.",
+  //     })
+  //   ),
 
   // password: z
   //   .string({
@@ -85,35 +85,35 @@ const zodFormSchema = z.object({
   //   .default(1)
   //   .optional(),
 
-  // acceptTerms: z
-  //   .boolean()
-  //   .describe("Accept terms and conditions.")
-  //   .refine((value) => value, {
-  //     message: "You must accept the terms and conditions.",
-  //     path: ["acceptTerms"],
-  //   }),
+  acceptTerms: z
+    .boolean()
+    .describe("Accept terms and conditions.")
+    .refine((value) => value, {
+      message: "You must accept the terms and conditions.",
+      path: ["acceptTerms"],
+    }),
 
-  // sendMeMails: z
-  //   .boolean()
-  //   .optional()
-  //   .superRefine(
-  //     fieldConfig({
-  //       fieldWrapper: (props: FieldWrapperProps) => {
-  //         return (
-  //           <>
-  //             {props.children}
-  //             <p className="text-muted-foreground text-sm">
-  //               Don't worry, we only send important emails!
-  //             </p>
-  //           </>
-  //         );
-  //       },
-  //     })
-  //   ),
+  sendMeMails: z
+    .boolean()
+    .optional()
+    .superRefine(
+      fieldConfig({
+        fieldWrapper: (props: FieldWrapperProps) => {
+          return (
+            <>
+              {props.children}
+              <p className="text-muted-foreground text-sm">
+                Don't worry, we only send important emails!
+              </p>
+            </>
+          );
+        },
+      })
+    ),
 
   // birthday: z.coerce.date().optional(),
 
-  color: z.enum(["red", "green", "blue"]).optional(),
+  // color: z.enum(["red", "green", "blue"]).optional(),
 
   // // Another enum example
   // marshmallows: z
@@ -121,7 +121,7 @@ const zodFormSchema = z.object({
   //   .describe("How many marshmallows fit in your mouth?"),
 
   // // Native enum example
-  sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
+  // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
 
   // guests: z.array(
   //   z.object({

@@ -1,5 +1,5 @@
 import { AutoFormFieldProps } from "@autoform/react";
-import { Select } from "antd";
+import { Select, Typography } from "antd";
 import React from "react";
 import { Controller } from "react-hook-form";
 export const SelectField: React.FC<AutoFormFieldProps> = ({
@@ -24,6 +24,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
           );
         }}
       />
+      <Typography.Text type="secondary">{field.description}</Typography.Text>
     </div>
   );
 };

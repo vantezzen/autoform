@@ -7,10 +7,20 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   // label,
   inputProps,
   control,
-}) => (
-  <Controller
-    control={control}
-    name={inputProps.name}
-    render={({ field }) => <Checkbox {...field} checked={field.value} />}
-  />
-);
+  field,
+}) => {
+  console.log({ field, inputProps });
+  return (
+    <Controller
+      control={control}
+      name={field.key}
+      render={({ field: fields }) => {
+        return (
+          <Checkbox {...fields} checked={fields.value}>
+            <span style={{ lineHeight: "16px" }}>{field.key}</span>
+          </Checkbox>
+        );
+      }}
+    />
+  );
+};
