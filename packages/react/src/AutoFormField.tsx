@@ -48,6 +48,8 @@ export const AutoFormField: React.FC<{
       error={error}
       id={fullPath}
       field={field}
+      // add path to the props from antd-design
+      path={path}
     >
       <FieldComponent
         label={getLabel(field)}

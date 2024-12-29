@@ -54,6 +54,7 @@ export interface FieldWrapperProps {
   children: ReactNode;
   id: string;
   field: ParsedField;
+  path: string[];
 }
 
 export interface ArrayWrapperProps {

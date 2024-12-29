@@ -1,15 +1,5 @@
-import React from "react";
 import { ObjectWrapperProps } from "@autoform/react";
-import { Row, Typography } from "antd";
+import React from "react";
 
-export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
-  label,
-  children,
-}) => {
-  return (
-    <Row>
-      <Typography.Title level={4}>{label}</Typography.Title>
-      {children}
-    </Row>
-  );
-};
+export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({ children }) =>
+  children;

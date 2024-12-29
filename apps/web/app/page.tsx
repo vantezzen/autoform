@@ -1,7 +1,8 @@
 "use client";
-import { Card, CardContent, Typography, Container } from "@mui/material";
+import { Card, CardContent, Container, Typography } from "@mui/material";
 // import Basics from "../components/Basics";
 import Ant from "../components/Ant";
+// import Mantine from "components/Mantine";
 export default function Home() {
   return (
     <div>

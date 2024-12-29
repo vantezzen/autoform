@@ -8,3 +8,8 @@ export interface AntAutoFormProps<T extends FieldValues>
   AntProviderProps?: ConfigProviderProps;
   AntFormProps?: FormProps;
 }
+
+export interface AntFormProviderProps {
+  formProps: FormProps | undefined;
+  children: React.ReactNode;
+}

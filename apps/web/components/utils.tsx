@@ -51,26 +51,26 @@ const zodFormSchema = z.object({
       })
     ),
 
-  password: z
-    .string({
-      required_error: "Password is required.",
-    })
-    .describe("Your secure password")
-    .min(8, {
-      message: "Password must be at least 8 characters.",
-    })
-    .superRefine(
-      fieldConfig({
-        description: (
-          <>
-            Always use a <b>secure password</b>!
-          </>
-        ),
-        inputProps: {
-          type: "password",
-        },
-      })
-    ),
+  // password: z
+  //   .string({
+  //     required_error: "Password is required.",
+  //   })
+  //   .describe("Your secure password")
+  //   .min(8, {
+  //     message: "Password must be at least 8 characters.",
+  //   })
+  //   .superRefine(
+  //     fieldConfig({
+  //       description: (
+  //         <>
+  //           Always use a <b>secure password</b>!
+  //         </>
+  //       ),
+  //       inputProps: {
+  //         type: "password",
+  //       },
+  //     })
+  //   ),
 
   // favouriteNumber: z
   //   .number({
@@ -85,13 +85,13 @@ const zodFormSchema = z.object({
   //   .default(1)
   //   .optional(),
 
-  acceptTerms: z
-    .boolean()
-    .describe("Accept terms and conditions.")
-    .refine((value) => value, {
-      message: "You must accept the terms and conditions.",
-      path: ["acceptTerms"],
-    }),
+  // acceptTerms: z
+  //   .boolean()
+  //   .describe("Accept terms and conditions.")
+  //   .refine((value) => value, {
+  //     message: "You must accept the terms and conditions.",
+  //     path: ["acceptTerms"],
+  //   }),
 
   // sendMeMails: z
   //   .boolean()
@@ -113,7 +113,7 @@ const zodFormSchema = z.object({
 
   // birthday: z.coerce.date().optional(),
 
-  // color: z.enum(["red", "green", "blue"]).optional(),
+  color: z.enum(["red", "green", "blue"]).optional(),
 
   // // Another enum example
   // marshmallows: z
@@ -121,7 +121,7 @@ const zodFormSchema = z.object({
   //   .describe("How many marshmallows fit in your mouth?"),
 
   // // Native enum example
-  // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
+  sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
 
   // guests: z.array(
   //   z.object({

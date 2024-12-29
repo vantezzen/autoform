@@ -6,7 +6,7 @@ export const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <Form.Item label={null}>
-    <Button type="primary" htmlType="submit">
+    <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
       {children}
     </Button>
   </Form.Item>

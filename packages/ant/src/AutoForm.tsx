@@ -17,6 +17,7 @@ import { SelectField } from "./components/SelectField";
 import { StringField } from "./components/StringField";
 import { SubmitButton } from "./components/SubmitButton";
 import { AntAutoFormProps } from "./types";
+import FormProvider from "./Context/Form";
 
 const AntUIComponents: AutoFormUIComponents = {
   Form,
@@ -43,14 +44,16 @@ export function AntAutoForm<T extends FieldValues>({
 }: AntAutoFormProps<T>) {
   return (
     <ConfigProvider {...props.AntProviderProps}>
-      <BaseAutoForm
-        {...props}
-        uiComponents={{
-          ...AntUIComponents,
-          ...uiComponents,
-        }}
-        formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
-      />
+      <FormProvider formProps={props.AntFormProps}>
+        <BaseAutoForm
+          {...props}
+          uiComponents={{
+            ...AntUIComponents,
+            ...uiComponents,
+          }}
+          formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
+        />
+      </FormProvider>
     </ConfigProvider>
   );
 }

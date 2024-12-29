@@ -4,25 +4,26 @@ import React from "react";
 import { Controller } from "react-hook-form";
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   field,
-  inputProps,
-  error,
+  // error,
   control,
 }) => {
   const options =
     field.options?.map((option) => ({
-      label: option[1],
-      value: option[0],
+      label: option[0],
+      value: option[1],
     })) || [];
   return (
-    <Controller
-      name={field.key}
-      control={control}
-      defaultValue={field.default}
-      render={({ field }) => {
-        return (
-          <Select style={{ width: "100%" }} {...field} options={options} />
-        );
-      }}
-    />
+    <div>
+      <Controller
+        name={field.key}
+        control={control}
+        defaultValue={field.default}
+        render={({ field }) => {
+          return (
+            <Select style={{ width: "100%" }} {...field} options={options} />
+          );
+        }}
+      />
+    </div>
   );
 };
