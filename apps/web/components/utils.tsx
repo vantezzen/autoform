@@ -50,7 +50,6 @@ const zodFormSchema = z.object({
   //       description: "You cannot change this later.",
   //     })
   //   ),
-
   // password: z
   //   .string({
   //     required_error: "Password is required.",
@@ -71,20 +70,18 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
-
-  favouriteNumber: z
-    .number({
-      invalid_type_error: "Favourite number must be a number.",
-    })
-    .min(1, {
-      message: "Favourite number must be at least 1.",
-    })
-    .max(10, {
-      message: "Favourite number must be at most 10.",
-    })
-    .default(1)
-    .optional(),
-
+  // favouriteNumber: z
+  //   .number({
+  //     invalid_type_error: "Favourite number must be a number.",
+  //   })
+  //   .min(1, {
+  //     message: "Favourite number must be at least 1.",
+  //   })
+  //   .max(10, {
+  //     message: "Favourite number must be at most 10.",
+  //   })
+  //   .default(1)
+  //   .optional(),
   // acceptTerms: z
   //   .boolean()
   //   .describe("Accept terms and conditions.")
@@ -92,7 +89,6 @@ const zodFormSchema = z.object({
   //     message: "You must accept the terms and conditions.",
   //     path: ["acceptTerms"],
   //   }),
-
   // sendMeMails: z
   //   .boolean()
   //   .optional()
@@ -110,26 +106,20 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
-
-  // birthday: z.coerce.date().optional(),
-
+  birthday: z.coerce.date({ message: "aaa" }).optional(),
   // color: z.enum(["red", "green", "blue"]).optional(),
-
   // // Another enum example
   // marshmallows: z
   //   .enum(["not many", "a few", "a lot", "too many"])
   //   .describe("How many marshmallows fit in your mouth?"),
-
   // // Native enum example
   // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
-
   // guests: z.array(
   //   z.object({
   //     name: z.string().optional(),
   //     age: z.coerce.number().optional(),
   //   })
   // ),
-
   // location: z.object({
   //   city: z.string(),
   //   country: z.string().optional(),

@@ -2,12 +2,11 @@ import React from "react";
 import { FieldWrapperProps } from "@autoform/react";
 import { Form, Typography } from "antd";
 
-const DISABLED_LABELS = ["boolean", "date", "object", "array"];
+const DISABLED_LABELS = ["boolean", "object", "array"];
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
   children,
-  // id,
   field,
   path,
 }) => {
@@ -17,7 +16,6 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
         {() => [<section>{children}</section>]}
       </Form.List>
     );
-  console.log({ field, label });
   return (
     <Form.Item
       key={field.key}
