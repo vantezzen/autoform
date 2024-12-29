@@ -72,44 +72,44 @@ const zodFormSchema = z.object({
   //     })
   //   ),
 
-  // favouriteNumber: z
-  //   .number({
-  //     invalid_type_error: "Favourite number must be a number.",
-  //   })
-  //   .min(1, {
-  //     message: "Favourite number must be at least 1.",
-  //   })
-  //   .max(10, {
-  //     message: "Favourite number must be at most 10.",
-  //   })
-  //   .default(1)
-  //   .optional(),
+  favouriteNumber: z
+    .number({
+      invalid_type_error: "Favourite number must be a number.",
+    })
+    .min(1, {
+      message: "Favourite number must be at least 1.",
+    })
+    .max(10, {
+      message: "Favourite number must be at most 10.",
+    })
+    .default(1)
+    .optional(),
 
-  acceptTerms: z
-    .boolean()
-    .describe("Accept terms and conditions.")
-    .refine((value) => value, {
-      message: "You must accept the terms and conditions.",
-      path: ["acceptTerms"],
-    }),
+  // acceptTerms: z
+  //   .boolean()
+  //   .describe("Accept terms and conditions.")
+  //   .refine((value) => value, {
+  //     message: "You must accept the terms and conditions.",
+  //     path: ["acceptTerms"],
+  //   }),
 
-  sendMeMails: z
-    .boolean()
-    .optional()
-    .superRefine(
-      fieldConfig({
-        fieldWrapper: (props: FieldWrapperProps) => {
-          return (
-            <>
-              {props.children}
-              <p className="text-muted-foreground text-sm">
-                Don't worry, we only send important emails!
-              </p>
-            </>
-          );
-        },
-      })
-    ),
+  // sendMeMails: z
+  //   .boolean()
+  //   .optional()
+  //   .superRefine(
+  //     fieldConfig({
+  //       fieldWrapper: (props: FieldWrapperProps) => {
+  //         return (
+  //           <>
+  //             {props.children}
+  //             <p className="text-muted-foreground text-sm">
+  //               Don't worry, we only send important emails!
+  //             </p>
+  //           </>
+  //         );
+  //       },
+  //     })
+  //   ),
 
   // birthday: z.coerce.date().optional(),
 

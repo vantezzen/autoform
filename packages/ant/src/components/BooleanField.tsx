@@ -16,7 +16,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       name={field.key}
       render={({ field: fields }) => {
         return (
-          <Checkbox {...fields} checked={fields.value}>
+          <Checkbox {...fields} checked={fields.value} key={fields.name}>
             <span style={{ lineHeight: "16px" }}>{field.key}</span>
           </Checkbox>
         );
