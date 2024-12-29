@@ -16,8 +16,20 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
         {() => children}
       </Form.List>
     );
-  if (field.type === "array") return children;
-
+  if (field.type === "array")
+    return (
+      <Form.Item
+        key={field.key}
+        name={field.key}
+        label={!DISABLED_LABELS.includes(field.type) ? label : ""}
+        required={field.required}
+        extra={field.fieldConfig?.description}
+        validateStatus={error ? "error" : undefined}
+      >
+        {children}
+      </Form.Item>
+    );
+  console.log(field);
   return (
     <Form.Item
       key={field.key}
