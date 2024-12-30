@@ -53,6 +53,7 @@ export const AutoFormField: React.FC<{
     >
       <FieldComponent
         label={getLabel(field)}
+        getObjectValue={getValues}
         field={field}
         value={value}
         error={error}

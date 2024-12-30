@@ -1,6 +1,6 @@
-import React from "react";
 import { FieldWrapperProps } from "@autoform/react";
 import { Form, Typography } from "antd";
+import React from "react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
@@ -10,30 +10,14 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   field,
   path,
 }) => {
-  if (field.type === "object" && field.schema?.length)
-    return (
-      <Form.List key={field.key} name={String(path[0])}>
-        {() => children}
-      </Form.List>
-    );
-  if (field.type === "array")
-    return (
-      <Form.Item
-        key={field.key}
-        name={field.key}
-        label={!DISABLED_LABELS.includes(field.type) ? label : ""}
-        required={field.required}
-        extra={field.fieldConfig?.description}
-        validateStatus={error ? "error" : undefined}
-      >
-        {children}
-      </Form.Item>
-    );
-  console.log(field);
+  // if the field is nested, we need to wrap it in a Form.Item
+  if (field.type === "array" || field.type === "object") {
+    return children;
+  }
   return (
     <Form.Item
       key={field.key}
-      name={field.key}
+      name={path.length === 1 ? field.key : path.at(-1)}
       label={!DISABLED_LABELS.includes(field.type) ? label : ""}
       required={field.required}
       extra={field.fieldConfig?.description}

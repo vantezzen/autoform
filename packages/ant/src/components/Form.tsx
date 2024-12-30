@@ -19,8 +19,8 @@ export const Form = React.forwardRef<
     <AntForm
       ref={refForm}
       {...formContext?.formProps}
-      onFinish={(...e) => {
-        console.log(e);
+      // use onSubmit to submit the form
+      onFinish={(e) => {
         props.onSubmit?.(e[0]);
       }}
     >

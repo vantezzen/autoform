@@ -14,7 +14,7 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
         position: "relative",
         marginTop: "20px",
         marginBottom: "20px",
-        padding: "4rem 10px 5px 10px",
+        padding: "0 10px 5px 10px",
         border: "1px solid #ddd",
         borderRadius: "4px",
       }}

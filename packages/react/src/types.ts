@@ -74,12 +74,15 @@ export interface ObjectWrapperProps {
   label: Renderable<ReactNode>;
   children: ReactNode;
   field: ParsedField;
+  control: Control<any>;
+  getObjectValue: (value?: any) => any;
 }
 
 export interface AutoFormFieldProps {
   label: Renderable<ReactNode>;
   field: ParsedField;
   value: any;
+  getObjectValue: (value?: any) => any;
   error?: string;
   id: string;
   path: string[];
