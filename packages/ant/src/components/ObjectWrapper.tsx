@@ -16,8 +16,19 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
     control,
     defaultValue: getObjectValue(field.key),
   });
+  // Collapse
+  // const items: CollapseProps["items"] = React.useMemo(
+  //   () => [
+  //     {
+  //       key: field.key,
+  //       label,
+  //       children,
+  //     },
+  //   ],
+  //   [field.key]
+  // );
   return (
-    <section style={{ marginBottom: "20px" }}>
+    <section>
       <ObjectProvider
         control={fieldController}
         label={field.key}
@@ -25,9 +36,13 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
       >
         <Form.Item
           label={<Typography.Title level={4}>{label}</Typography.Title>}
-          labelCol={{ span: 24 }}
+          labelCol={{
+            span: 24,
+            style: { fontWeight: "600" },
+          }}
         >
           {children}
+          {/* <Collapse items={items} /> */}
         </Form.Item>
       </ObjectProvider>
     </section>

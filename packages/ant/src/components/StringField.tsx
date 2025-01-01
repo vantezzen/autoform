@@ -1,8 +1,9 @@
 import { AutoFormFieldProps } from "@autoform/react";
 import { Input } from "antd";
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useObjectContext } from "../Context/Object";
+import { onChange } from "../utils";
 export const StringField: React.FC<AutoFormFieldProps> = ({
   // error,
   // id,
@@ -12,6 +13,7 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   path,
 }) => {
   const controls = useObjectContext();
+  const { setValue } = useFormContext();
   return (
     <Controller
       name={field.key}
@@ -22,49 +24,17 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
           key={inputProps.key}
           style={{ width: "100%" }}
           {...field}
-          onChange={(e) => {
-            // if not children Items
-            if (path.length === 1) return field.onChange(e);
-            // if children Items
-
-            // check if children Items
-            const findPath = path.findIndex((item) => item === field.name);
-            // no children Items
-            if (findPath === 1)
-              return controls?.control?.onChange({
-                ...controls.getValues(controls?.label),
-                [field.name]: e.target.value,
-              });
-            const a = path.slice(1).reduce((acc, item) => {
-              console.log(acc, itemitem);
-              if (item === field.name) {
-                acc[item] = e.target.value;
-                return acc;
-              }
-              acc[item] = {};
-              return acc;
-            }, {});
-            console.log(a);
-            controls?.control?.onChange(e.target.value);
-            // const oldData = controls?.getValues(path[0]);
-            // const obj: Record<string, string> = {};
-            // for (let i = 1; i < path.length; i++) {
-            //   if (path[i] === field.name) {
-            //     obj[path[i] as keyof typeof obj] = e.target.value;
-            //     continue;
-            //   }
-            // }
-            // console.log(obj);
-            // return controls?.control?.onChange({
-            //   [path[0] as string]: {
-            //     ...oldData,
-            //     ...obj,
-            //   },
-            // });
-          }}
           disabled={
             path.length > 1 ? controls?.control?.disabled : field.disabled
           }
+          {...inputProps}
+          onChange={(e) => {
+            onChange(path, e.target.value, field, setValue, controls);
+            // if inputProps?.onChange is a function, call it
+            if (typeof inputProps?.onChange === "function") {
+              inputProps?.onChange?.(e);
+            }
+          }}
         />
       )}
     />

@@ -11,7 +11,6 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
     <Col
       span={24}
       style={{
-        position: "relative",
         marginTop: "20px",
         marginBottom: "20px",
         padding: "0 10px 5px 10px",
@@ -22,13 +21,6 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
       <Button
         onClick={() => {
           onRemove?.();
-        }}
-        style={{
-          position: "absolute",
-          cursor: "pointer",
-          border: "none",
-          top: "3%",
-          left: "3%",
         }}
       >
         <DeleteOutlined />

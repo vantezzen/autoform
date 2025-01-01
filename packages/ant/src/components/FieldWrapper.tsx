@@ -17,11 +17,17 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   return (
     <Form.Item
       key={field.key}
+      colon={false}
       name={path.length === 1 ? field.key : path.at(-1)}
       label={!DISABLED_LABELS.includes(field.type) ? label : ""}
       required={field.required}
       extra={field.fieldConfig?.description}
       validateStatus={error ? "error" : undefined}
+      labelCol={{
+        style: { fontWeight: "600" },
+      }}
+      style={{ paddingBottom: "25px" }}
+      layout="vertical"
     >
       <div>
         {children}

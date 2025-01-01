@@ -1,7 +1,8 @@
-import { PlusOutlined } from "@ant-design/icons";
 import { ArrayWrapperProps } from "@autoform/react";
-import { Button, Form, Row, Typography } from "antd";
+import { Button, Form, Input } from "antd";
 import React from "react";
+import { useFormContext } from "react-hook-form";
+import { useObjectContext } from "../Context/Object";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
@@ -9,23 +10,31 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   children,
   onAddItem,
 }) => {
+  const controls = useObjectContext();
+  const { setValue } = useFormContext();
   return (
     <section style={{ marginBottom: "20px" }}>
-      <Typography.Text>{label}</Typography.Text>
-      <Form.Item label={field.key}>
-        <Row>
-          {children}
-          <Button
-            onClick={() => {
-              // add();
-              onAddItem();
-            }}
-            data-testid="add-item-button"
-          >
-            <PlusOutlined size={14} />
-          </Button>
-        </Row>
-      </Form.Item>
+      {/* {fields.map((field) => children)} */}
+      <Form.List
+        name={field.key}
+        initialValue={field.schema?.map((item) => item.key)}
+      >
+        {(fields, { add }) =>
+          fields.map((field) => (
+            <Form.Item {...field}>
+              {children}
+              <Button
+                onClick={() => {
+                  onAddItem();
+                  add();
+                }}
+              >
+                add
+              </Button>
+            </Form.Item>
+          ))
+        }
+      </Form.List>
     </section>
   );
 };

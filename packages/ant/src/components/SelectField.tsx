@@ -1,15 +1,18 @@
 import { AutoFormFieldProps } from "@autoform/react";
 import { Select, Typography } from "antd";
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useObjectContext } from "../Context/Object";
+import { onChange } from "../utils";
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   field,
   // error,
   control,
   path,
+  inputProps,
 }) => {
   const controls = useObjectContext();
+  const { setValue } = useFormContext();
   const options =
     field.options?.map((option) => ({
       label: option[0],
@@ -26,19 +29,18 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
             <Select
               style={{ width: "100%" }}
               {...field}
-              options={options}
-              onChange={(e) => {
-                // if not children Items
-                if (path.length === 1) return field.onChange(e);
-                // if children Items
-                controls?.control?.onChange({
-                  ...controls.getValues(controls?.label),
-                  [field.name]: e.target.value,
-                });
-              }}
               disabled={
                 path.length > 1 ? controls?.control?.disabled : field.disabled
               }
+              options={options}
+              {...inputProps}
+              onChange={(e) => {
+                onChange(path, e, field, setValue, controls);
+                // if inputProps?.onChange is a function, call it
+                if (typeof inputProps?.onChange === "function") {
+                  inputProps?.onChange?.(e);
+                }
+              }}
             />
           );
         }}

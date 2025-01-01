@@ -114,20 +114,33 @@ const zodFormSchema = z.object({
   //   .describe("How many marshmallows fit in your mouth?"),
   // // Native enum example
   // sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
-  // guests: z.array(
-  //   z.object({
-  //     name: z.string().optional(),
-  //     age: z.coerce.number().optional(),
-  //   })
-  // ),
-  location: z.object({
-    city: z.string(),
-    country: z.string().optional(),
-    test: z.object({
+  guests: z.array(
+    z.object({
       name: z.string().optional(),
       age: z.coerce.number().optional(),
-    }),
-  }),
+    })
+  ),
+  // objk
+  // location: z.object({
+  //   city: z.string(),
+  //   country: z.string().optional(),
+  //    test: z.object({
+  //      name: z.string(),
+  //      age: z.coerce.number(),
+  //        test: z.object({
+  //       name: z.string(),
+  //        age: z.coerce.number(),
+  //       test: z.object({
+  //          name: z.string(),
+  //         age: z.coerce.number(),
+  //       test: z.object({
+  //         name: z.string(),
+  //         age: z.coerce.number(),
+  //       }),
+  //     }),
+  //   }),
+  // }),
+  // }),
 });
 
 export const zodSchemaProvider = new ZodProvider(zodFormSchema);

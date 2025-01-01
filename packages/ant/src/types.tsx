@@ -21,3 +21,9 @@ export interface AntObjectProviderProps {
   label: string;
   getValues: (value?: string) => any;
 }
+
+export interface AntFormContext {
+  control: ControllerRenderProps<any> | undefined;
+  label: string;
+  getValues: (value?: string) => any;
+}

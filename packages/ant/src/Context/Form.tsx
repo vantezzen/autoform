@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { AntFormProviderProps } from "../types";
 
 // add formProps to useFormContext
-const FormContext = createContext<{
+export const FormContext = createContext<{
   formProps: FormProps | undefined;
 } | null>(null);
 
