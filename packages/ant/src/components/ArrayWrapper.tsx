@@ -19,29 +19,31 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
     defaultValue: getArrayValue(field.key),
   });
   return (
-    <ObjectProvider
-      control={fieldController}
-      label={field.key}
-      getValues={getArrayValue}
-    >
-      <Form.Item
+    <section style={{ marginBottom: "20px" }}>
+      <ObjectProvider
+        control={fieldController}
+        label={field.key}
+        getValues={getArrayValue}
+      >
+        {/* <Form.Item
         labelCol={{
           style: { fontWeight: "600" },
         }}
-      >
+      > */}
         <Typography.Title level={4}>{label}</Typography.Title>
         {children}
-      </Form.Item>
-      <section>
-        <Button
-          type="primary"
-          onClick={() => {
-            onAddItem();
-          }}
-        >
-          <PlusOutlined />
-        </Button>
-      </section>
-    </ObjectProvider>
+        {/* </Form.Item> */}
+        <section>
+          <Button
+            type="primary"
+            onClick={() => {
+              onAddItem();
+            }}
+          >
+            <PlusOutlined />
+          </Button>
+        </section>
+      </ObjectProvider>
+    </section>
   );
 };

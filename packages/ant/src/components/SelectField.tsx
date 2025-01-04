@@ -45,10 +45,15 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
                   controls,
                   type: "select",
                 });
-                inputProps?.onChange?.({ target: { value: e } });
+                // if not children, call inputProps?.onChange
+                if (path.length > 1) {
+                  inputProps?.onChange?.({ target: { value: e } });
+                }
               }}
               onBlur={(e) => {
-                inputProps?.onBlur?.({ target: { value: e } });
+                if (path.length > 1) {
+                  inputProps?.onBlur?.({ target: { value: e } });
+                }
                 field.onBlur();
               }}
             />

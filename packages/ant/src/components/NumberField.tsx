@@ -24,6 +24,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
             {...fields}
             // number can't be use with inputProps
             // {...inputProps}
+            required={inputProps?.required}
             key={inputProps.key}
             onChange={(e) => {
               onChange({

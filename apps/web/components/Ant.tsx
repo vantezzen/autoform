@@ -12,12 +12,13 @@ const Ant = () => {
       // Ant Design Form Props
       AntFormProps={{
         layout: "horizontal",
-        // onChange: (e) => {
-        //   console.log(e);
-        // },
+        className: "no-margin-form",
         onValuesChange: (e) => {
           // console.log("inputChange", e);
         },
+        // onFinish: (e) => {
+        //   console.log("onFinish", e);
+        // },
       }}
       withSubmit
     />

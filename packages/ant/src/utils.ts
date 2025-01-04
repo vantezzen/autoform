@@ -19,7 +19,7 @@ export const onChange = ({
 }) => {
   // if not children Items
   if (path.length === 1) {
-    if (type === "select" || type === "number") return field.onChange(event);
+    if (type === "select") return field.onChange(event);
     else return setValue(path[0]!, event);
   }
   // find path

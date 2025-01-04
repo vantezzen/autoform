@@ -26,8 +26,8 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
           disabled={
             path.length > 1 ? controls?.control?.disabled : field.disabled
           }
-          {...inputProps}
-          key={inputProps.key}
+          required={inputProps?.required}
+          key={field?.name}
           onChange={(e) => {
             onChange({
               path,
@@ -37,13 +37,15 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
               controls,
               type: "input",
             });
-            // if inputProps?.onChange is a function, call it
-            if (typeof inputProps?.onChange === "function") {
+            // if not children, call inputProps?.onChange
+            if (path.length > 1) {
               inputProps?.onChange?.(e);
             }
           }}
           onBlur={(e) => {
-            inputProps?.onBlur?.(e);
+            if (path.length > 1) {
+              inputProps?.onBlur?.(e);
+            }
             field.onBlur();
           }}
         />

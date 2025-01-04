@@ -26,6 +26,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
               checked={fields.value}
               key={fields.name}
               {...inputProps}
+              required={inputProps?.required}
               onChange={(e) => {
                 onChange({
                   path,
@@ -35,11 +36,15 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
                   controls,
                   type: "boolean",
                 });
-                // if inputProps?.onChange is a function, call it
-                inputProps?.onChange?.(e);
+                // if not children, call inputProps?.onChange
+                if (path.length > 1) {
+                  inputProps?.onChange?.(e);
+                }
               }}
               onBlur={(e) => {
-                inputProps?.onBlur?.(e);
+                if (path.length > 1) {
+                  inputProps?.onBlur?.(e);
+                }
                 fields.onBlur();
               }}
             >

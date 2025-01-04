@@ -27,7 +27,6 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           style={{ width: "100%" }}
           {...fields}
           {...field}
-          key={field.key}
           // DatePicker can't use value is string
           value={
             typeof fields.value === "string"
@@ -35,6 +34,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
               : fields.value
           }
           {...inputProps}
+          key={fields.name}
           // z.coerce use IOS.sting
           onChange={(date) => {
             onChange({
@@ -45,10 +45,12 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
               controls,
               type: "date",
             });
-            // if inputProps?.onChange is a function, call it
-            inputProps?.onChange?.({ target: { value: date.toISOString() } });
+            // if not children, call inputProps?.onChange
+            if (path.length > 1) {
+              inputProps?.onChange?.({ target: { value: date.toISOString() } });
+            }
           }}
-          // use allowClear have bug when use zod
+          // use allowClear have bug
           allowClear={false}
         />
       )}
