@@ -1,6 +1,7 @@
 import { FieldWrapperProps } from "@autoform/react";
 import { Form, Typography } from "antd";
 import React from "react";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
@@ -26,14 +27,22 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       labelCol={{
         style: { fontWeight: "600" },
       }}
-      style={{ paddingBottom: "25px" }}
+      style={{
+        paddingBottom: field.fieldConfig?.description ? "50px" : "30px",
+        marginBottom: field.type === "select" ? "45px" : "20px",
+      }}
       layout="vertical"
     >
       <div>
         {children}
         {/* antd-design's error message */}
-        {field.schema?.length ? null : (
-          <Typography.Text type="danger">{error}</Typography.Text>
+        {field.schema?.length || !error ? null : (
+          <div style={{ color: "red", height: "20px" }}>
+            <CloseCircleOutlined className="site-result-demo-error-icon" />
+            <Typography.Text type="danger" style={{ marginTop: "10px" }}>
+              {error}
+            </Typography.Text>
+          </div>
         )}
       </div>
     </Form.Item>

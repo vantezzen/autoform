@@ -6,6 +6,7 @@ import { useObjectContext } from "../Context/Object";
 import { onChange } from "../utils";
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   field,
+  inputProps,
   control,
   path,
 }) => {
@@ -21,12 +22,27 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
           <InputNumber
             style={{ width: "100%" }}
             {...fields}
+            // number can't be use with inputProps
+            // {...inputProps}
+            key={inputProps.key}
             onChange={(e) => {
-              onChange(path, e, fields, setValue, controls);
+              onChange({
+                path,
+                event: e,
+                field: fields,
+                setValue,
+                controls,
+                type: "input",
+              });
+              // if inputProps?.onChange is a function, call it
+              if (typeof inputProps?.onChange === "function") {
+                inputProps?.onChange?.({ target: { value: e } });
+              }
             }}
-            disabled={
-              path.length > 1 ? controls?.control?.disabled : field.required
-            }
+            onBlur={(e) => {
+              inputProps?.onBlur?.({ target: { value: e } });
+              fields.onBlur();
+            }}
           />
         );
       }}

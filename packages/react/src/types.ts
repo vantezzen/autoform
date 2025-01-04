@@ -62,6 +62,8 @@ export interface ArrayWrapperProps {
   children: ReactNode;
   field: ParsedField;
   onAddItem: () => void;
+  getArrayValue: (value?: any) => any;
+  control: Control<any>;
 }
 
 export interface ArrayElementWrapperProps {

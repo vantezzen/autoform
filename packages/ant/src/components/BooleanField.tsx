@@ -7,7 +7,6 @@ import { onChange } from "../utils";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   // label,
-  // inputProps,
   control,
   path,
   inputProps,
@@ -21,24 +20,34 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       name={field.key}
       render={({ field: fields }) => {
         return (
-          <Checkbox
-            {...fields}
-            checked={fields.value}
-            key={fields.name}
-            disabled={
-              path.length > 1 ? controls?.control?.disabled || true : false
-            }
-            {...inputProps}
-            onChange={(e) => {
-              onChange(path, e.target.value, fields, setValue, controls);
-              // if inputProps?.onChange is a function, call it
-              if (typeof inputProps?.onChange === "function") {
+          <>
+            <Checkbox
+              {...fields}
+              checked={fields.value}
+              key={fields.name}
+              {...inputProps}
+              onChange={(e) => {
+                onChange({
+                  path,
+                  event: e.target.checked,
+                  field: fields,
+                  setValue,
+                  controls,
+                  type: "boolean",
+                });
+                // if inputProps?.onChange is a function, call it
                 inputProps?.onChange?.(e);
-              }
-            }}
-          >
-            <span style={{ lineHeight: "16px" }}>{field.key}</span>
-          </Checkbox>
+              }}
+              onBlur={(e) => {
+                inputProps?.onBlur?.(e);
+                fields.onBlur();
+              }}
+            >
+              <span style={{ lineHeight: "16px" }}>
+                {field.description || field.key}
+              </span>
+            </Checkbox>
+          </>
         );
       }}
     />

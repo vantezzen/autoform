@@ -21,19 +21,30 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
       defaultValue={field.default}
       render={({ field }) => (
         <Input
-          key={inputProps.key}
           style={{ width: "100%" }}
           {...field}
           disabled={
             path.length > 1 ? controls?.control?.disabled : field.disabled
           }
           {...inputProps}
+          key={inputProps.key}
           onChange={(e) => {
-            onChange(path, e.target.value, field, setValue, controls);
+            onChange({
+              path,
+              event: e.target.value,
+              field,
+              setValue,
+              controls,
+              type: "input",
+            });
             // if inputProps?.onChange is a function, call it
             if (typeof inputProps?.onChange === "function") {
               inputProps?.onChange?.(e);
             }
+          }}
+          onBlur={(e) => {
+            inputProps?.onBlur?.(e);
+            field.onBlur();
           }}
         />
       )}

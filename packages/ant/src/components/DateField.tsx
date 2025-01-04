@@ -35,16 +35,18 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
               : fields.value
           }
           {...inputProps}
-          disabled={
-            path.length > 1 ? controls?.control?.disabled : fields.disabled
-          }
           // z.coerce use IOS.sting
           onChange={(date) => {
-            onChange(path, date.toISOString(), fields, setValue, controls);
+            onChange({
+              path,
+              event: date.toISOString(),
+              field: fields,
+              setValue,
+              controls,
+              type: "date",
+            });
             // if inputProps?.onChange is a function, call it
-            if (typeof inputProps?.onChange === "function") {
-              inputProps?.onChange?.(date.toISOString());
-            }
+            inputProps?.onChange?.({ target: { value: date.toISOString() } });
           }}
           // use allowClear have bug when use zod
           allowClear={false}

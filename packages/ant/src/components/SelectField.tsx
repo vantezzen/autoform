@@ -32,14 +32,24 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
               disabled={
                 path.length > 1 ? controls?.control?.disabled : field.disabled
               }
-              options={options}
               {...inputProps}
+              key={field.name}
+              options={options}
               onChange={(e) => {
-                onChange(path, e, field, setValue, controls);
-                // if inputProps?.onChange is a function, call it
-                if (typeof inputProps?.onChange === "function") {
-                  inputProps?.onChange?.(e);
-                }
+                field.onChange(e);
+                onChange({
+                  path,
+                  event: e,
+                  field,
+                  setValue,
+                  controls,
+                  type: "select",
+                });
+                inputProps?.onChange?.({ target: { value: e } });
+              }}
+              onBlur={(e) => {
+                inputProps?.onBlur?.({ target: { value: e } });
+                field.onBlur();
               }}
             />
           );

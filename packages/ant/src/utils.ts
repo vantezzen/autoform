@@ -2,25 +2,36 @@ import { ControllerRenderProps } from "react-hook-form";
 import { AntFormContext } from "./types";
 
 // object onChange of inject to field
-export const onChange = (
-  path: string[],
-  event: string | number | Date,
-  field: ControllerRenderProps<any, string>,
-  setValue: (path: string, value: any) => void,
-  controls: AntFormContext | undefined
-) => {
+export const onChange = ({
+  path,
+  event,
+  field,
+  setValue,
+  controls,
+  type,
+}: {
+  path: string[];
+  event: string | number | Date | boolean | null;
+  field: ControllerRenderProps<any, string>;
+  setValue: (path: string, value: any) => void;
+  controls: AntFormContext | undefined;
+  type: "select" | "input" | "date" | "boolean" | "number";
+}) => {
   // if not children Items
-  if (path.length === 1) return field.onChange(event);
+  if (path.length === 1) {
+    if (type === "select" || type === "number") return field.onChange(event);
+    else return setValue(path[0]!, event);
+  }
   // find path
   const findPath = path.findIndex((item) => item === field.name);
-  // if findPath is smaller than 1, it means that the field is the first item in the path
+  // if not children Items
   if (findPath <= 1) {
-    controls?.control?.onChange({
+    return controls?.control?.onChange({
       ...controls?.getValues(controls?.label),
       [field.name]: event,
     });
   }
-  // set new data
+  // set new data, if children Items
   const newData = controls?.getValues(path[0]);
   let changedData = newData;
   // change path of items
@@ -32,5 +43,4 @@ export const onChange = (
       changedData[item] = event;
     }
   });
-  setValue(path[0]!, newData);
 };

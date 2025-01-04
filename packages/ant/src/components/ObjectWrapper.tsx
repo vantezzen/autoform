@@ -3,7 +3,7 @@ import { Form, Typography } from "antd";
 import React from "react";
 import { useController } from "react-hook-form";
 import ObjectProvider from "../Context/Object";
-
+// import { CollapseProps, Collapse } from "antd";
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   children,
   label,
@@ -17,34 +17,29 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
     defaultValue: getObjectValue(field.key),
   });
   // Collapse
-  // const items: CollapseProps["items"] = React.useMemo(
-  //   () => [
-  //     {
-  //       key: field.key,
-  //       label,
-  //       children,
-  //     },
-  //   ],
-  //   [field.key]
-  // );
+  // const items: CollapseProps["items"] = [
+  //   {
+  //     key: field.key,
+  //     label,
+  //     children,
+  //   },
+  // ];
   return (
-    <section>
-      <ObjectProvider
-        control={fieldController}
-        label={field.key}
-        getValues={getObjectValue}
+    <ObjectProvider
+      control={fieldController}
+      label={field.key}
+      getValues={getObjectValue}
+    >
+      <Form.Item
+        label={<Typography.Title level={4}>{label}</Typography.Title>}
+        labelCol={{
+          span: 24,
+          style: { fontWeight: "600" },
+        }}
       >
-        <Form.Item
-          label={<Typography.Title level={4}>{label}</Typography.Title>}
-          labelCol={{
-            span: 24,
-            style: { fontWeight: "600" },
-          }}
-        >
-          {children}
-          {/* <Collapse items={items} /> */}
-        </Form.Item>
-      </ObjectProvider>
-    </section>
+        {/* <Collapse items={items} /> */}
+        {children}
+      </Form.Item>
+    </ObjectProvider>
   );
 };
