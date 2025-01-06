@@ -12,6 +12,7 @@
   "dependencies": {
     "@autoform/mantine": "*",
     "@autoform/mui": "*",
+    "@autoform/ant": "*",
     "@autoform/shadcn": "*",
     "@autoform/yup": "*",
     "@autoform/zod": "*",

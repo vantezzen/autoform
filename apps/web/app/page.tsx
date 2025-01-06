@@ -1,7 +1,8 @@
 "use client";
-import { Card, CardContent, Typography, Container } from "@mui/material";
-import Basics from "../components/Basics";
-
+import { Card, CardContent, Container, Typography } from "@mui/material";
+// import Basics from "../components/Basics";
+import Ant from "../components/Ant";
+// import Mantine from "components/Mantine";
 export default function Home() {
   return (
     <div>
@@ -11,10 +12,11 @@ export default function Home() {
             <Typography variant="h4" component="h1" gutterBottom>
               Auto Form demo
             </Typography>
-            <Basics />
+            {/* <Basics /> */}
             {/* <Array /> */}
             {/* <Mantine /> */}
             {/* <Shadcn /> */}
+            <Ant />
           </CardContent>
         </Card>
       </Container>

@@ -2,15 +2,23 @@ import React from "react";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "./context";
 import { getLabel, ParsedField } from "@autoform/core";
+import { Control } from "react-hook-form";
 
 export const ObjectField: React.FC<{
   field: ParsedField;
   path: string[];
-}> = ({ field, path }) => {
+  control: Control;
+  getObjectValue: any;
+}> = ({ field, path, control, getObjectValue }) => {
   const { uiComponents } = useAutoForm();
 
   return (
-    <uiComponents.ObjectWrapper label={getLabel(field)} field={field}>
+    <uiComponents.ObjectWrapper
+      control={control}
+      label={getLabel(field)}
+      field={field}
+      getObjectValue={getObjectValue}
+    >
       {Object.entries(field.schema!).map(([_key, subField]) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
