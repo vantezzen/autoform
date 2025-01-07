@@ -1,6 +1,6 @@
 {
   "name": "@autoform/react",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

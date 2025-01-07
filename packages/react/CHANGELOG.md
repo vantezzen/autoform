@@ -1,5 +1,11 @@
 # @autoform/react
 
+## 3.0.0
+
+### Major Changes
+
+- b10ea83: add ant-design support
+
 ## 2.2.0
 
 ### Minor Changes

@@ -37,7 +37,7 @@ const AntAutoFormFieldComponents = {
 } as const;
 
 export type FieldTypes = keyof typeof AntAutoFormFieldComponents;
-export function AntAutoForm<T extends FieldValues>({
+export function AutoForm<T extends FieldValues>({
   uiComponents,
   formComponents,
   ...props

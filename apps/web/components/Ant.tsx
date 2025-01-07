@@ -1,10 +1,10 @@
 "use client";
-import { AntAutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/ant";
 import { zodSchemaProvider } from "./utils";
 
 const Ant = () => {
   return (
-    <AntAutoForm
+    <AutoForm
       schema={zodSchemaProvider}
       onSubmit={(data) => {
         console.log(JSON.stringify(data, null, 2));
