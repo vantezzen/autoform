@@ -70,7 +70,7 @@ describe("AutoForm Advanced Features Tests", () => {
     cy.get(".mantine-InputWrapper-root")
       .eq(2)
       .find(".mantine-Select-wrapper")
-      .find("input")
+      .find("input");
     cy.get(".mantine-InputWrapper-root")
       .eq(3)
       .find("input")
@@ -113,24 +113,23 @@ describe("AutoForm Advanced Features Tests", () => {
 
   it("renders select field correctly", () => {
     cy.mount(
-      <AutoForm
-        schema={schemaProvider}
-        onSubmit={cy.stub().as("onSubmit")}
-        withSubmit
-      />
+      <TestWrapper>
+        <AutoForm
+          schema={schemaProvider}
+          onSubmit={cy.stub().as("onSubmit")}
+          withSubmit
+        />
+      </TestWrapper>
     );
 
-    cy.get(".mantine-Select-input")
-    .eq(0)
-    .click();
+    cy.get(".mantine-Select-input").eq(0).click();
 
     cy.get(".mantine-Popover-dropdown").within(() => {
       cy.contains("red").should("exist");
       cy.contains("green").should("exist");
       cy.contains("blue").should("exist");
     });
-    // mantine select fields portal has auto-generated aria-label and names.  
-
+    // mantine select fields portal has auto-generated aria-label and names.
   });
 
   it("renders textarea field correctly", () => {
