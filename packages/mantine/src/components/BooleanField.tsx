@@ -5,4 +5,8 @@ import { AutoFormFieldProps } from "@autoform/react";
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   label,
-}) => <Checkbox label={label} {...inputProps} />;
+}) => {
+  const { key, ...props } = inputProps;
+
+  return <Checkbox label={label} key={key} {...props} />;
+};

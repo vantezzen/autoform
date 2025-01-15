@@ -6,11 +6,16 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   field,
   inputProps,
   label,
-}) => (
-  <TextInput
-    type="number"
-    label={label}
-    description={field.description}
-    {...inputProps}
-  />
-);
+}) => {
+  const { key, ...props } = inputProps;
+
+  return (
+    <TextInput
+      key={key}
+      type="number"
+      label={label}
+      description={field.fieldConfig?.description}
+      {...props}
+    />
+  );
+};

@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@autoform/mantine";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
@@ -59,16 +59,19 @@ describe("AutoForm Advanced Features Tests", () => {
       </TestWrapper>
     );
 
-    cy.get(".MuiFormControl-root")
+    cy.get(".mantine-InputWrapper-root")
       .eq(0)
       .find("input")
       .should("have.attr", "name", "username");
-    cy.get(".MuiFormControl-root")
+    cy.get(".mantine-InputWrapper-root")
       .eq(1)
       .find("input")
       .should("have.attr", "name", "password");
-    cy.get(".MuiFormControl-root").eq(2).find(".MuiSelect-select");
-    cy.get(".MuiFormControl-root")
+    cy.get(".mantine-InputWrapper-root")
+      .eq(2)
+      .find(".mantine-Select-wrapper")
+      .find("input")
+    cy.get(".mantine-InputWrapper-root")
       .eq(3)
       .find("input")
       .should("have.attr", "name", "bio");
@@ -110,23 +113,24 @@ describe("AutoForm Advanced Features Tests", () => {
 
   it("renders select field correctly", () => {
     cy.mount(
-      <TestWrapper>
-        <AutoForm
-          schema={schemaProvider}
-          onSubmit={cy.stub().as("onSubmit")}
-          withSubmit
-        />
-      </TestWrapper>
+      <AutoForm
+        schema={schemaProvider}
+        onSubmit={cy.stub().as("onSubmit")}
+        withSubmit
+      />
     );
 
-    cy.get('.MuiSelect-select[aria-labelledby*="favoriteColor"]').should(
-      "exist"
-    );
-    cy.get('.MuiSelect-select[aria-labelledby*="favoriteColor"]').click();
-    cy.get('.MuiMenu-list[role="listbox"] .MuiMenuItem-root').should(
-      "have.length",
-      3
-    );
+    cy.get(".mantine-Select-input")
+    .eq(0)
+    .click();
+
+    cy.get(".mantine-Popover-dropdown").within(() => {
+      cy.contains("red").should("exist");
+      cy.contains("green").should("exist");
+      cy.contains("blue").should("exist");
+    });
+    // mantine select fields portal has auto-generated aria-label and names.  
+
   });
 
   it("renders textarea field correctly", () => {

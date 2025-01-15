@@ -51,11 +51,9 @@ export function AutoForm<T extends Record<string, any>>({
     />
   );
 
-  return theme ? (
+  return (
     <MantineProvider theme={theme}>
       <ThemedForm />
     </MantineProvider>
-  ) : (
-    <ThemedForm />
   );
 }

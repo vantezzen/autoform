@@ -1,4 +1,5 @@
 import React from "react";
+import '@mantine/dates/styles.css';
 import { Box } from "@mantine/core";
 
 export const Form = React.forwardRef<
