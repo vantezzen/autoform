@@ -9,8 +9,9 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   error,
   children,
   field,
-  path,
+  id,
 }) => {
+  const isDisabled = DISABLED_LABELS.includes(field.type);
   // if the field is nested, we need to wrap it in a Form.Item
   if (field.type === "array" || field.type === "object") {
     return children;
@@ -19,8 +20,9 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
     <Form.Item
       key={field.key}
       colon={false}
-      name={path.length === 1 ? field.key : path.at(-1)}
-      label={!DISABLED_LABELS.includes(field.type) ? label : ""}
+      name={id}
+      htmlFor={id}
+      label={isDisabled ? "" : label}
       required={field.required}
       extra={field.fieldConfig?.description}
       validateStatus={error ? "error" : undefined}
@@ -33,18 +35,16 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       }}
       layout="vertical"
     >
-      <div>
-        {children}
-        {/* antd-design's error message */}
-        {field.schema?.length || !error ? null : (
-          <div style={{ color: "red", height: "20px" }}>
-            <CloseCircleOutlined className="site-result-demo-error-icon" />
-            <Typography.Text type="danger" style={{ marginTop: "10px" }}>
-              {error}
-            </Typography.Text>
-          </div>
-        )}
-      </div>
+      {children}
+      {/* antd-design's error message */}
+      {field.schema?.length || !error ? null : (
+        <div style={{ color: "red", height: "20px" }}>
+          <CloseCircleOutlined className="site-result-demo-error-icon" />
+          <Typography.Text type="danger" style={{ marginTop: "10px" }}>
+            {error}
+          </Typography.Text>
+        </div>
+      )}
     </Form.Item>
   );
 };
