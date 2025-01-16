@@ -9,7 +9,7 @@ export const ArrayField: React.FC<{
   path: string[];
 }> = ({ field, path }) => {
   const { uiComponents } = useAutoForm();
-  const { control, getValues } = useFormContext();
+  const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: path.join("."),
@@ -30,8 +30,6 @@ export const ArrayField: React.FC<{
       label={getLabel(field)}
       field={field}
       onAddItem={() => append(defaultValue)}
-      control={control}
-      getArrayValue={getValues}
     >
       {fields.map((item, index) => (
         <uiComponents.ArrayElementWrapper

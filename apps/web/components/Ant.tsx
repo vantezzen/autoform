@@ -10,11 +10,11 @@ const Ant = () => {
         console.log(JSON.stringify(data, null, 2));
       }}
       // Ant Design Form Props
-      AntFormProps={{
+      antFormProps={{
         layout: "horizontal",
         className: "no-margin-form",
         onValuesChange: (e) => {
-          // console.log("inputChange", e);
+          console.log("inputChange", e);
         },
         // onFinish: (e) => {
         //   console.log("onFinish", e);

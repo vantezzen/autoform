@@ -1,12 +1,10 @@
 import { Form as AntForm, FormInstance } from "antd";
 import React from "react";
-import { useFormContext } from "../Context/Form";
 
 export const Form = React.forwardRef<
   HTMLFormElement,
   React.ComponentProps<"form">
 >(({ children, ...props }, ref) => {
-  const formContext = useFormContext();
   const refForm = React.useRef<
     FormInstance & { nativeElement: HTMLFormElement }
   >(null);
@@ -17,13 +15,11 @@ export const Form = React.forwardRef<
   );
   return (
     <AntForm
+      {...props}
       ref={refForm}
-      {...formContext?.formProps}
-      // use onSubmit to submit the form
       onFinish={(e) => {
         props.onSubmit?.(e[0]);
       }}
-      {...props}
     >
       {children}
     </AntForm>
