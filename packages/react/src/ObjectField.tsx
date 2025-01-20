@@ -19,7 +19,7 @@ export const ObjectField: React.FC<{
       field={field}
       getObjectValue={getObjectValue}
     >
-      {Object.entries(field.schema!).map(([_key, subField]) => (
+      {Object.values(field.schema!).map((subField) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
           field={subField}
