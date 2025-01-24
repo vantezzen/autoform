@@ -2,35 +2,32 @@ import React from "react";
 import { DatePicker } from "antd";
 import { useController } from "react-hook-form";
 import { AutoFormFieldProps } from "@autoform/react";
-import dateFnsGenerateConfig from "rc-picker/es/generate/dateFns";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
-// use ant-design date-picker of dayjs will be error,so use other library to generate picker
-const MyDatePicker = DatePicker.generatePicker<Date>(dateFnsGenerateConfig);
+dayjs.extend(utc);
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   id,
   inputProps,
-  value,
 }) => {
   const { key, onChange, onBlur, ref, ...props } = inputProps;
   const { field: formField } = useController({ name: id });
 
   return (
-    <MyDatePicker
+    <DatePicker
       id={id}
       key={key}
       {...props}
       {...formField}
       style={{ width: "100%" }}
-      // DatePicker can't use value is string
+      // Ignore ts and eslint error when giving date as string in defaultValues 
+      // DatePicker can't use string value
       value={
-        typeof formField.value === "string"
-          ? new Date(formField.value)
-          : formField.value
+        dayjs.utc(formField.value)
       }
-      // z.coerce use ISO.string
-      onChange={(date) => {
-        formField.onChange(date.toISOString());
+      onChange={(date, dateString) => {
+        formField.onChange(dateString);
       }}
       // use allowClear have bug
       allowClear={false}

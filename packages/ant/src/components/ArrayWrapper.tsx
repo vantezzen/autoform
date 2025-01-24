@@ -12,16 +12,9 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
     <section style={{ marginBottom: "20px" }}>
       <Typography.Title level={4}>{label}</Typography.Title>
       {children}
-      <section>
-        <Button
-          type="primary"
-          onClick={() => {
-            onAddItem();
-          }}
-        >
-          <PlusOutlined />
-        </Button>
-      </section>
+      <Button type="primary" onClick={onAddItem}>
+        <PlusOutlined />
+      </Button>
     </section>
   );
 };
