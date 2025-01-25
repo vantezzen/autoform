@@ -37,8 +37,8 @@ const AntAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof AntAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
-  AntFormProps,
-  AntProviderProps,
+  antFormProps,
+  antProviderProps,
   uiComponents,
   formComponents,
   ...props
@@ -46,14 +46,14 @@ export function AutoForm<T extends Record<string, any>>({
   const AntBaseForm = () => (
     <BaseAutoForm
       {...props}
-      formProps={{ ...AntFormProps, ...props.formProps }}
+      formProps={{ ...antFormProps, ...props.formProps }}
       uiComponents={{ ...AntUIComponents, ...uiComponents }}
       formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
     />
   );
 
-  return AntProviderProps ? (
-    <ConfigProvider {...AntProviderProps}>
+  return antProviderProps ? (
+    <ConfigProvider {...antProviderProps}>
       <AntBaseForm />
     </ConfigProvider>
   ) : (
