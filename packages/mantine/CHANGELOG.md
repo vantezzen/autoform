@@ -1,5 +1,14 @@
 # @autoform/mantine
 
+## 2.3.1
+
+### Patch Changes
+
+- - fixed description not showing in mantine package
+  - fixed select not working properly
+  - added mantine styles to date picker
+  - corrected key props via spread
+
 ## 2.3.0
 
 ### Minor Changes
