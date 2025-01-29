@@ -10,9 +10,10 @@
     "cypress": "cypress open"
   },
   "dependencies": {
+    "@autoform/ant": "*",
+    "@autoform/chakra": "*",
     "@autoform/mantine": "*",
     "@autoform/mui": "*",
-    "@autoform/ant": "*",
     "@autoform/shadcn": "*",
     "@autoform/yup": "*",
     "@autoform/zod": "*",
