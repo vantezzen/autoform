@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import "@autoform/shadcn/globals.css";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { ColorSchemeScript } from "@mantine/core";
+import { StrictMode } from "react";
 
 const theme = createTheme({});
 
