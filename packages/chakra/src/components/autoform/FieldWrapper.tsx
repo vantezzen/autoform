@@ -1,6 +1,6 @@
 import React from "react";
+import { Field } from "../ui/field";
 import { FieldWrapperProps } from "@autoform/react";
-import { Stack } from "@chakra-ui/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 
@@ -14,16 +14,21 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   const isDisabled = DISABLED_LABELS.includes(field.type);
 
   return (
-    <Stack gap="2">
-      {!isDisabled && (
-        <label htmlFor={id}>
-          {label}
-          {field.required && <span className="text-destructive"> *</span>}
-        </label>
-      )}
+    <Field
+      label={
+        !isDisabled && (
+          <label htmlFor={id}>
+            {label}
+            {field.required && <span className="text-destructive"> *</span>}
+          </label>
+        )
+      }
+      helperText={field.fieldConfig?.description}
+      errorText={error}
+      marginBottom={6}
+      marginTop={6}
+    >
       {children}
-      {field.fieldConfig?.description && <p>{field.fieldConfig.description}</p>}
-      {error && <p className="text-sm text-destructive">{error}</p>}
-    </Stack>
+    </Field>
   );
 };
