@@ -8,6 +8,9 @@ function Chakra() {
       onSubmit={(data) => {
         console.log(JSON.stringify(data, null, 2));
       }}
+      colorModeProps={{
+        enableSystem: false,
+      }}
       withSubmit
     />
   );

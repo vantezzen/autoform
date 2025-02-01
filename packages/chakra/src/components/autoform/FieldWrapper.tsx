@@ -9,7 +9,6 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   error,
   children,
   field,
-  id,
 }) => {
   const isDisabled = DISABLED_LABELS.includes(field.type);
 
@@ -17,16 +16,15 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
     <Field
       label={
         !isDisabled && (
-          <label htmlFor={id}>
+          <span>
             {label}
-            {field.required && <span className="text-destructive"> *</span>}
-          </label>
+            {field.required && <span style={{color:"red", opacity:0.8}}> *</span>}
+          </span>
         )
       }
       helperText={field.fieldConfig?.description}
       errorText={error}
-      marginBottom={6}
-      marginTop={6}
+      marginY={!isDisabled ? 6: undefined}
     >
       {children}
     </Field>

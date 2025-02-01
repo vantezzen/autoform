@@ -16,6 +16,7 @@ import { ObjectWrapper } from "./components/autoform/ObjectWrapper";
 import { ArrayWrapper } from "./components/autoform/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/autoform/ArrayElementWrapper";
 import { Provider } from "./components/ui/provider";
+import { useState, useEffect } from "react";
 
 const ChakraUIComponents: AutoFormUIComponents = {
   Form,
@@ -39,10 +40,21 @@ export type FieldTypes = keyof typeof ChakraAutoFormFieldComponents;
 export function AutoForm<T extends Record<string, any>>({
   uiComponents,
   formComponents,
+  colorModeProps,
   ...props
 }: AutoFormProps<T>) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <Provider>
+    <Provider {...colorModeProps}>
       <BaseAutoForm
         {...props}
         uiComponents={{ ...ChakraUIComponents, ...uiComponents }}

@@ -1,7 +1,7 @@
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider } from "@autoform/zod";
-import { zodSchemaProvider } from "./utils";
 import { AutoFormFieldProps } from "@autoform/react";
+import { zodSchemaProvider } from "./utils";
+import "@autoform/shadcn/globals.css";
 
 function Basics() {
   return (

@@ -1,10 +1,10 @@
 "use client";
 import { Card, CardContent, Container, Typography } from "@mui/material";
 // import Basics from "../components/Basics";
+// import Mantine from "components/Mantine";
 // import Ant from "../components/Ant";
 import Chakra from "components/Chakra";
 
-// import Mantine from "components/Mantine";
 export default function Home() {
   return (
     <div>

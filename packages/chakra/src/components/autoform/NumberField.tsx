@@ -16,12 +16,10 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   return (
     <NumberInputRoot
       key={key}
-      disabled={field.disabled}
-      name={field.name}
-      value={field.value}
       onValueChange={({ value }) => {
         field.onChange(value);
       }}
+      w={"full"}
       {...props}
     >
       <NumberInputField onBlur={field.onBlur} />
