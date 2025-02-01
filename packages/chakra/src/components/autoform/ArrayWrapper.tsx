@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrayWrapperProps } from "@autoform/react";
-import { Button, Stack } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
+import { Button, Card, Heading, Stack } from "@chakra-ui/react";
+import { FiPlus } from "react-icons/fi";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
@@ -9,10 +9,13 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   onAddItem,
 }) => {
   return (
-    <Stack>
+    <Stack w={"full"} marginBottom={6}>
+      <Heading size={"md"} fontWeight={"medium"}>
+        {label}
+      </Heading>
       {children}
-      <Button onClick={onAddItem} variant="solid" rounded="md" type="button" marginLeft="4">
-        <FaPlus />
+      <Button onClick={onAddItem} variant="surface" rounded="md" type="button" >
+        <FiPlus style={{ height: 22, width: 22 }} />
       </Button>
     </Stack>
   );

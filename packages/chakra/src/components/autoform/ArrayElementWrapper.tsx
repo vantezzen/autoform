@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrayElementWrapperProps } from "@autoform/react";
 import { Card, Stack, Button } from "@chakra-ui/react";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { FiTrash2 } from "react-icons/fi";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
@@ -11,16 +11,17 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
     <Card.Root>
       <Card.Header>
         <Card.Title>
-          <Button onClick={onRemove} variant="solid" rounded="md" type="button">
-            <FaRegTrashCan />
+          <Button
+            onClick={onRemove}
+            variant="surface"
+            rounded="md"
+            type="button"
+          >
+            <FiTrash2 style={{ height: 19, width: 19 }} />
           </Button>
         </Card.Title>
       </Card.Header>
-      <Card.Body>
-        <Stack gap="4" w="full">
-          {children}
-        </Stack>
-      </Card.Body>
+      <Card.Body>{children}</Card.Body>
     </Card.Root>
   );
 };

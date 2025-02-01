@@ -23,11 +23,13 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       onCheckedChange={({ checked }) => formField.onChange(checked)}
       style={{ display: "flex", marginTop: "15px", marginBottom: "5px" }}
     >
-      <label htmlFor={id} style={{ lineHeight: "16px", cursor: "pointer" }}>
+      <span style={{ lineHeight: "16px", cursor: "pointer" }}>
         {label}
-        {field.required && <span style={{ color: "red" }}> *</span>}
+        {field.required && (
+          <span style={{ color: "red", opacity: 0.8 }}> *</span>
+        )}
         {error}
-      </label>
+      </span>
     </Checkbox>
   );
 };

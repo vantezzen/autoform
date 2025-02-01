@@ -5,7 +5,7 @@ export const Form = React.forwardRef<
   React.ComponentProps<"form">
 >(({ children, ...props }, ref) => {
   return (
-    <form ref={ref} className="space-y-4" {...props}>
+    <form ref={ref} {...props}>
       {children}
     </form>
   );
