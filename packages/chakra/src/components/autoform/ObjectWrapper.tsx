@@ -7,8 +7,10 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   children,
 }) => {
   return (
-    <Box w={"full"} marginTop={"2"}>
-      <Heading size={"lg"} fontWeight={"semibold"}>{label}</Heading>
+    <Box w={"full"} marginTop={"1"}>
+      <Heading size={"lg"} fontWeight={"semibold"} marginBottom={"-2"}>
+        {label}
+      </Heading>
       {children}
     </Box>
   );
