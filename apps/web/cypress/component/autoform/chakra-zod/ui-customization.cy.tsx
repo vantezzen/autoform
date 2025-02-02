@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/chakra";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 import { TextField } from "@mui/material";

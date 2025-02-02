@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/chakra";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
@@ -25,11 +25,8 @@ describe("AutoForm Arrays Tests", () => {
       />
     );
 
-    cy.get('.ant-btn').eq(0)
-    .should('exist')
-    .within(() => {
-      cy.get('span[aria-label="plus"]').should('exist');
-    });
+    cy.get('button[name="add-array-item"]').eq(0).should('exist');
+    cy.get('button[name="add-array-item"]').eq(1).should('exist'); 
   });
 
   it("allows adding and removing array items", () => {
@@ -42,22 +39,22 @@ describe("AutoForm Arrays Tests", () => {
     );
 
     // Add tags
-    cy.get('span[aria-label="plus"]').eq(0).click();
+    cy.get('button[name="add-array-item"]').eq(0).click();
     cy.get('input[name="tags.0"]').type("tag1");
-    cy.get('span[aria-label="plus"]').eq(0).click();
+    cy.get('button[name="add-array-item"]').eq(0).click();
     cy.get('input[name="tags.1"]').type("tag2");
 
     // Add friends
-    cy.get('span[aria-label="plus"]').eq(1).click();
+    cy.get('button[name="add-array-item"]').eq(1).click();
     cy.get('input[name="friends.0.name"]').type("Alice");
     cy.get('input[name="friends.0.age"]').type("25");
-    cy.get('span[aria-label="plus"]').eq(1).click();
+    cy.get('button[name="add-array-item"]').eq(1).click();
     cy.get('input[name="friends.1.name"]').type("Bob");
     cy.get('input[name="friends.1.age"]').type("30");
 
     // Remove a tag and a friend
-    cy.get('span[aria-label="delete"]').eq(0).click();
-    cy.get('span[aria-label="delete"]').eq(1).click();
+    cy.get('button[name="remove-array-item"]').eq(0).click();
+    cy.get('button[name="remove-array-item"]').eq(1).click();
 
     cy.get('button[type="submit"]').click();
 

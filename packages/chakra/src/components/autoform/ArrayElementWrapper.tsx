@@ -16,6 +16,7 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
             variant="surface"
             rounded="md"
             type="button"
+            name="remove-array-item"
           >
             <FiTrash2 style={{ height: 19, width: 19 }} />
           </Button>

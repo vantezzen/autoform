@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/chakra";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { AutoFormFieldProps } from "@autoform/react";

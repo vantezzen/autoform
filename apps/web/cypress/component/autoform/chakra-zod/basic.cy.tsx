@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/chakra";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
@@ -25,11 +25,19 @@ describe("AutoForm Basic Tests", () => {
     );
 
     cy.get('input[name="name"]').should("exist");
-    cy.get('input[name="age"]').should("have.class", "ant-input-number-input");
+    cy.get('input[name="age"]').should(
+      "have.attr",
+      "data-scope",
+      "number-input"
+    );
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
     cy.get('input[name="birthdate"]');
-    cy.get('input[name="isStudent"]').should("have.class", "ant-checkbox-input");
+    cy.get('input[name="isStudent"]').should(
+      "have.attr",
+      "type",
+      "checkbox"
+    );
   });
 
   it("submits form with correct data types", () => {
@@ -43,7 +51,7 @@ describe("AutoForm Basic Tests", () => {
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
     cy.get('input[name="birthdate"]').clear().type("1990-01-01");
-    cy.get('input[name="isStudent"]').check();
+    cy.get('input[name="isStudent"]').parent().find('.chakra-checkbox__control').click();
 
     cy.get('button[type="submit"]').click();
 

@@ -14,7 +14,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         {label}
       </Heading>
       {children}
-      <Button onClick={onAddItem} variant="surface" rounded="md" type="button" >
+      <Button onClick={onAddItem} variant="surface" rounded="md" type="button" name="add-array-item">
         <FiPlus style={{ height: 22, width: 22 }} />
       </Button>
     </Stack>

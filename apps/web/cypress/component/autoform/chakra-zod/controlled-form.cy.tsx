@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/chakra";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 

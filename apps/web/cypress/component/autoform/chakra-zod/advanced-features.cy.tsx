@@ -56,16 +56,16 @@ describe("AutoForm Advanced Features Tests", () => {
       />
     );
 
-    cy.get(".ant-form-item")
+    cy.get(".chakra-field__root")
       .eq(0)
       .find("input")
       .should("have.attr", "name", "username");
-    cy.get(".ant-form-item")
+    cy.get(".chakra-field__root")
       .eq(1)
       .find("input")
       .should("have.attr", "name", "password");
-    cy.get(".ant-form-item").eq(2).find(".ant-select").find(".ant-select-selection-search-input");
-    cy.get(".ant-form-item")
+    cy.get(".chakra-field__root").eq(2).find("select");
+    cy.get(".chakra-field__root")
       .eq(3)
       .find("input")
       .should("have.attr", "name", "bio");
@@ -110,10 +110,15 @@ describe("AutoForm Advanced Features Tests", () => {
       />
     );
 
-    cy.get('.ant-select[name*="favoriteColor"]').should("exist").click().find('input#favoriteColor').click();
-    cy.get('.ant-select-item[title="red"]').should('exist');
-    cy.get('.ant-select-item[title="green"]').should('exist');
-    cy.get('.ant-select-item[title="blue"]').should('exist');
+    cy.get('.chakra-select__root').should("exist").within(() => {
+      cy.get('select').should("have.attr", "name", "favoriteColor");
+    }).click();
+
+    cy.get('.chakra-select__content').should("exist").within(() => {
+      cy.get('.chakra-select__item').should('exist').should('contain', 'red');
+      cy.get('.chakra-select__item').should('exist').should('contain', 'green');
+      cy.get('.chakra-select__item').should('exist').should('contain', 'blue');
+    });
 
   });
 
