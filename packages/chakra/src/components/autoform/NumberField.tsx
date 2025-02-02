@@ -10,7 +10,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
+  const { key, onChange, ...props } = inputProps;
   const { field } = useController({ name: id });
 
   return (
@@ -20,9 +20,8 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
         field.onChange(value);
       }}
       w={"full"}
-      {...props}
     >
-      <NumberInputField onBlur={field.onBlur} />
+      <NumberInputField {...props} />
     </NumberInputRoot>
   );
 };
