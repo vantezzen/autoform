@@ -13,7 +13,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
     const { label, children, helperText, errorText, optionalText, ...rest } =
       props
     return (
-      <ChakraField.Root ref={ref} {...rest}>
+      <ChakraField.Root ref={ref} {...rest} invalid={!!errorText}>
         {label && (
           <ChakraField.Label>
             {label}

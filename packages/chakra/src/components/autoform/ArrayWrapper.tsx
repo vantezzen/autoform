@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrayWrapperProps } from "@autoform/react";
-import { Button, Card, Heading, Stack } from "@chakra-ui/react";
+import { Button, Heading, Stack } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({

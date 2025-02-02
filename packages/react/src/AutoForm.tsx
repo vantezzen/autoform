@@ -44,12 +44,19 @@ export function AutoForm<T extends Record<string, any>>({
       await onSubmit(validationResult.data, methods);
     } else {
       methods.clearErrors();
+      let isFocused: boolean = false;
       validationResult.errors?.forEach((error) => {
         const path = error.path.join(".");
-        methods.setError(path as any, {
-          type: "custom",
-          message: error.message,
-        });
+        methods.setError(
+          path as any,
+          {
+            type: "custom",
+            message: error.message,
+          },
+          { shouldFocus: !isFocused }
+        );
+
+        isFocused = true;
 
         // For some custom errors, zod adds the final element twice for some reason
         const correctedPath = error.path?.slice?.(0, -1);

@@ -23,7 +23,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
         )
       }
       helperText={field.fieldConfig?.description}
-      errorText={error}
+      errorText={!isDisabled ? error : undefined}
       marginY={!isDisabled ? 6: undefined}
     >
       {children}

@@ -15,7 +15,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   field,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
+  const { key, onChange, ...props } = inputProps;
   const { field: formField } = useController({ name: id });
 
   const options = createListCollection({
@@ -34,10 +34,11 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       onValueChange={({ value }) => formField.onChange(value[0])}
       onInteractOutside={() => formField.onBlur()}
       collection={options}
-      {...props}
     >
-      <SelectTrigger>
-        <SelectValueText placeholder={props.placeholder ?? "Select an option"} />
+      <SelectTrigger {...props}>
+        <SelectValueText
+          placeholder={props.placeholder ?? "Select an option"}
+        />
       </SelectTrigger>
       <SelectContent>
         {options.items.map((item) => (
