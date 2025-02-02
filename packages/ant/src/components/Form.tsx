@@ -15,11 +15,11 @@ export const Form = React.forwardRef<
   );
   return (
     <AntForm
-      {...props}
       ref={refForm}
       onFinish={(e) => {
         props.onSubmit?.(e[0]);
       }}
+      {...props}
     >
       {children}
     </AntForm>

@@ -16,6 +16,7 @@ import { SelectField } from "./components/SelectField";
 import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
+import { useEffect, useState } from "react";
 
 const AntUIComponents: AutoFormUIComponents = {
   Form,
@@ -43,6 +44,16 @@ export function AutoForm<T extends Record<string, any>>({
   formComponents,
   ...props
 }: AutoFormProps<T>) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const AntBaseForm = () => (
     <BaseAutoForm
       {...props}
