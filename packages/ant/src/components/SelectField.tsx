@@ -19,7 +19,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   return (
     <Select
       id={id}
-      key={formField.name}
+      key={key}
       {...props}
       {...formField}
       options={options}

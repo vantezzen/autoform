@@ -20,11 +20,11 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
 
   else return (
     <Form.Item
-      name={id}
       htmlFor={id}
       colon={false}
       label={label}
       key={field.key}
+      hasFeedback
       required={field.required}
       extra={field.fieldConfig?.description}
       validateStatus={error ? "error" : undefined}
@@ -33,18 +33,19 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       }}
       style={{
         paddingBottom: field.fieldConfig?.description ? "50px" : "30px",
-        marginBottom: field.type === "select" ? "35px" : "20px",
+        marginBottom: field.type === "select" ? "30px" : "25px",
       }}
       layout="vertical"
     >
-      {children}
-      {/* antd-design's error message */}
+      <Form.Item noStyle name={id}>
+        {children}
+      </Form.Item>
+
       {error && (
         <div style={{ color: "red", height: "20px" }}>
-          <CloseCircleOutlined className="site-result-demo-error-icon" />
           <Typography.Text
             type="danger"
-            style={{ margin: "5px", marginTop: "10px" }}
+            style={{ marginBottom: "10px", marginTop: "10px" }}
           >
             {error}
           </Typography.Text>
