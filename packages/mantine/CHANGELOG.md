@@ -1,5 +1,15 @@
 # @autoform/mantine
 
+## 2.3.1
+
+### Patch Changes
+
+- - fixed description not showing in mantine package
+  - fixed select not working properly
+  - added mantine styles to date picker
+  - corrected key props via spread
+  - supported default value for date field (e.g. `birthdate: "1990-01-01" as unknown as Date,`)
+
 ## 2.3.0
 
 ### Minor Changes

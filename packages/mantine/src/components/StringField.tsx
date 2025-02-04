@@ -8,12 +8,15 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   label,
   id,
 }) => {
+  const { key, ...props } = inputProps;
+
   return (
     <TextInput
       id={id}
+      key={key}
       label={label}
-      description={field.description}
-      {...inputProps}
+      description={field.fieldConfig?.description}
+      {...props}
     />
   );
 };

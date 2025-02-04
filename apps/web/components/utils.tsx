@@ -70,7 +70,7 @@ const zodFormSchema = z.object({
         },
       })
     ),
-  favouriteNumber: z
+  favouriteNumber: z.coerce
     .number({
       invalid_type_error: "Favourite number must be a number.",
     })
@@ -123,16 +123,16 @@ const zodFormSchema = z.object({
         country: z.string().optional(),
         test: z.object({
           name: z.string(),
-          age: z.number(),
+          age: z.coerce.number(),
           test: z.object({
             name: z.string(),
-            age: z.number(),
+            age: z.coerce.number(),
             test: z.object({
               name: z.string(),
-              age: z.number(),
+              age: z.coerce.number(),
               test: z.object({
                 name: z.string(),
-                age: z.number(),
+                age: z.coerce.number(),
               }),
             }),
           }),
@@ -145,16 +145,16 @@ const zodFormSchema = z.object({
   //   country: z.string().optional(),
   //   test: z.object({
   //     name: z.string(),
-  //     age: z.number(),
+  //     age: z.coerce.number(),
   //     test: z.object({
   //       name: z.string(),
-  //       age: z.number(),
+  //       age: z.coerce.number(),
   //       test: z.object({
   //         name: z.string(),
-  //         age: z.number(),
+  //         age: z.coerce.number(),
   //         test: z.object({
   //           name: z.string(),
-  //           age: z.number(),
+  //           age: z.coerce.number(),
   //         }),
   //       }),
   //     }),
