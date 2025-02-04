@@ -8,7 +8,6 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   label,
   id,
   inputProps,
-  value
 }) => (
   <div className="flex items-center space-x-2">
     <Checkbox
@@ -23,7 +22,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         };
         inputProps.onChange(event);
       }}
-      checked={value}
+      checked={inputProps.value}
     />
     <Label htmlFor={id}>
       {label}
