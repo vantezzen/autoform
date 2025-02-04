@@ -8,6 +8,7 @@
   - fixed select not working properly
   - added mantine styles to date picker
   - corrected key props via spread
+  - supported default value for date field (e.g. `birthdate: "1990-01-01" as unknown as Date,`)
 
 ## 2.3.0
 
