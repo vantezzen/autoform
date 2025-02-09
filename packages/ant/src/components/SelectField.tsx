@@ -13,7 +13,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
 
   const options =
     field.options?.map((option) => ({
-      label: option[0],
+      label: option[1],
       value: option[1],
     })) || [];
   return (
