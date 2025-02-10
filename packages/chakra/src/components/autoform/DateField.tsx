@@ -5,5 +5,5 @@ import { Input } from "@chakra-ui/react";
 export const DateField: React.FC<AutoFormFieldProps> = ({ id, inputProps }) => {
   const { key, ...props } = inputProps;
 
-  return <Input type="date" {...props} />;
+  return <Input id={id} type="date" {...props} />;
 };

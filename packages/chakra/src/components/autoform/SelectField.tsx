@@ -21,7 +21,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   const options = createListCollection({
     items:
       field.options?.map((option) => ({
-        label: option[0],
+        label: option[1],
         value: option[1],
       })) || [],
   });
@@ -34,9 +34,10 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       value={[formField.value]}
       onValueChange={({ value }) => formField.onChange(value[0])}
       onInteractOutside={() => formField.onBlur()}
+      onBlur={formField.onBlur}
       collection={options}
     >
-      <SelectTrigger ref={ref}>
+      <SelectTrigger>
         <SelectValueText
           placeholder={props.placeholder ?? "Select an option"}
         />
