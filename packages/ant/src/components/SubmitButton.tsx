@@ -5,7 +5,7 @@ import React from "react";
 export const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <Form.Item label={null}>
+  <Form.Item>
     <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
       {children}
     </Button>

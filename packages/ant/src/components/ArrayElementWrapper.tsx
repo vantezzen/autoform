@@ -13,19 +13,15 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
       style={{
         marginTop: "20px",
         marginBottom: "20px",
-        padding: "0 10px 5px 10px",
+        padding: "20px 10px 0 10px",
         border: "1px solid #ddd",
-        borderRadius: "4px",
+        borderRadius: "7px",
       }}
     >
-      <Button
-        onClick={() => {
-          onRemove?.();
-        }}
-      >
+      <Button onClick={onRemove}>
         <DeleteOutlined />
       </Button>
-      <div>{children}</div>
+      {children}
     </Col>
   );
 };

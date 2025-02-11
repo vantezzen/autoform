@@ -1,60 +1,35 @@
 import React from "react";
 import { AutoFormFieldProps } from "@autoform/react";
 import { Checkbox } from "antd";
-import { Controller, useFormContext } from "react-hook-form";
-import { useObjectContext } from "../Context/Object";
-import { onChange } from "../utils";
+import { useController } from "react-hook-form";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
-  // label,
-  control,
-  path,
-  inputProps,
+  id,
+  label,
   field,
+  error,
+  inputProps,
 }) => {
-  const controls = useObjectContext();
-  const { setValue } = useFormContext();
+  const { key, onChange, onBlur, ref, ...props } = inputProps;
+  const { field: formField } = useController({ name: id });
+  
   return (
-    <Controller
-      control={control}
-      name={field.key}
-      render={({ field: fields }) => {
-        return (
-          <>
-            <Checkbox
-              {...fields}
-              checked={fields.value}
-              key={fields.name}
-              {...inputProps}
-              required={inputProps?.required}
-              onChange={(e) => {
-                onChange({
-                  path,
-                  event: e.target.checked,
-                  field: fields,
-                  setValue,
-                  controls,
-                  type: "boolean",
-                });
-                // if not children, call inputProps?.onChange
-                if (path.length > 1) {
-                  inputProps?.onChange?.(e);
-                }
-              }}
-              onBlur={(e) => {
-                if (path.length > 1) {
-                  inputProps?.onBlur?.(e);
-                }
-                fields.onBlur();
-              }}
-            >
-              <span style={{ lineHeight: "16px" }}>
-                {field.description || field.key}
-              </span>
-            </Checkbox>
-          </>
-        );
+    <Checkbox
+      id={id}
+      key={key}
+      {...props}
+      {...formField}
+      checked={formField.value}
+      onChange={(e) => {
+        formField.onChange(e.target.checked);
       }}
-    />
+      style={{display: "flex", marginTop: "15px", marginBottom: "5px"}}
+    >
+      <label htmlFor={id} style={{ lineHeight: "16px", cursor: "pointer" }}>
+        {label}
+        {field.required && <span style={{ color: "red" }}> *</span>}
+        {error}
+      </label>
+    </Checkbox>
   );
 };

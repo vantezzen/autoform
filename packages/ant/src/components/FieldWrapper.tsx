@@ -1,26 +1,30 @@
-import { FieldWrapperProps } from "@autoform/react";
-import { Form, Typography } from "antd";
 import React from "react";
+import { Form, Typography } from "antd";
+import { FieldWrapperProps } from "@autoform/react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
+
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
   children,
   field,
-  path,
+  id,
 }) => {
-  // if the field is nested, we need to wrap it in a Form.Item
-  if (field.type === "array" || field.type === "object") {
-    return children;
+  const isDisabled = DISABLED_LABELS.includes(field.type);
+
+  if (isDisabled) {
+    return <>{children}</>;
   }
-  return (
+
+  else return (
     <Form.Item
-      key={field.key}
+      htmlFor={id}
       colon={false}
-      name={path.length === 1 ? field.key : path.at(-1)}
-      label={!DISABLED_LABELS.includes(field.type) ? label : ""}
+      label={label}
+      key={field.key}
+      hasFeedback
       required={field.required}
       extra={field.fieldConfig?.description}
       validateStatus={error ? "error" : undefined}
@@ -29,22 +33,24 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       }}
       style={{
         paddingBottom: field.fieldConfig?.description ? "50px" : "30px",
-        marginBottom: field.type === "select" ? "45px" : "20px",
+        marginBottom: field.type === "select" ? "30px" : "25px",
       }}
       layout="vertical"
     >
-      <div>
+      <Form.Item noStyle name={id}>
         {children}
-        {/* antd-design's error message */}
-        {field.schema?.length || !error ? null : (
-          <div style={{ color: "red", height: "20px" }}>
-            <CloseCircleOutlined className="site-result-demo-error-icon" />
-            <Typography.Text type="danger" style={{ marginTop: "10px" }}>
-              {error}
-            </Typography.Text>
-          </div>
-        )}
-      </div>
+      </Form.Item>
+
+      {error && (
+        <div style={{ color: "red", height: "20px" }}>
+          <Typography.Text
+            type="danger"
+            style={{ marginBottom: "10px", marginTop: "10px" }}
+          >
+            {error}
+          </Typography.Text>
+        </div>
+      )}
     </Form.Item>
   );
 };

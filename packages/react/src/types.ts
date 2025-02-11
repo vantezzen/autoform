@@ -6,7 +6,7 @@ import {
   SchemaProvider,
   FieldConfig as BaseFieldConfig,
 } from "@autoform/core";
-import { Control, FieldValues, UseFormReturn } from "react-hook-form";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
@@ -23,7 +23,7 @@ export interface AutoFormProps<T extends FieldValues> {
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
   onFormInit?: (form: UseFormReturn<T, any, undefined>) => void;
-  formProps?: React.ComponentProps<"form"> & Record<string, any>;
+  formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
 
 export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
@@ -54,7 +54,6 @@ export interface FieldWrapperProps {
   children: ReactNode;
   id: string;
   field: ParsedField;
-  path: string[];
 }
 
 export interface ArrayWrapperProps {
@@ -62,8 +61,6 @@ export interface ArrayWrapperProps {
   children: ReactNode;
   field: ParsedField;
   onAddItem: () => void;
-  getArrayValue: (value?: any) => any;
-  control: Control<any>;
 }
 
 export interface ArrayElementWrapperProps {
@@ -76,19 +73,15 @@ export interface ObjectWrapperProps {
   label: Renderable<ReactNode>;
   children: ReactNode;
   field: ParsedField;
-  control: Control<any>;
-  getObjectValue: (value?: any) => any;
 }
 
 export interface AutoFormFieldProps {
   label: Renderable<ReactNode>;
   field: ParsedField;
   value: any;
-  getObjectValue: (value?: any) => any;
   error?: string;
   id: string;
   path: string[];
-  control: Control<any>;
   inputProps: any;
 }
 

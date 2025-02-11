@@ -1,46 +1,14 @@
-import { ControllerRenderProps } from "react-hook-form";
-import { AntFormContext } from "./types";
+import { FieldConfig } from "@autoform/core";
+import { SuperRefineFunction } from "@autoform/zod";
+import { fieldConfig as baseFieldConfig } from "@autoform/react";
+import { ReactNode } from "react";
+import { FieldTypes } from "./AutoForm";
 
-// object onChange of inject to field
-export const onChange = ({
-  path,
-  event,
-  field,
-  setValue,
-  controls,
-  type,
-}: {
-  path: string[];
-  event: string | number | Date | boolean | null;
-  field: ControllerRenderProps<any, string>;
-  setValue: (path: string, value: any) => void;
-  controls: AntFormContext | undefined;
-  type: "select" | "input" | "date" | "boolean" | "number";
-}) => {
-  // if not children Items
-  if (path.length === 1) {
-    if (type === "select") return field.onChange(event);
-    else return setValue(path[0]!, event);
-  }
-  // find path
-  const findPath = path.findIndex((item) => item === field.name);
-  // if not children Items
-  if (findPath <= 1) {
-    return controls?.control?.onChange({
-      ...controls?.getValues(controls?.label),
-      [field.name]: event,
-    });
-  }
-  // set new data, if children Items
-  const newData = controls?.getValues(path[0]);
-  let changedData = newData;
-  // change path of items
-  path.slice(1).forEach((item) => {
-    if (item !== field.name) {
-      changedData = changedData[item];
-    } else {
-      // change newData
-      changedData[item] = event;
-    }
-  });
-};
+/**
+ * @deprecated Use `fieldConfig` from `@autoform/zod` or `@autoform/yup` with the "FieldTypes" type exported by this package instead.
+ */
+export function fieldConfig(
+  config: FieldConfig<ReactNode, FieldTypes>
+): SuperRefineFunction {
+  return baseFieldConfig<FieldTypes>(config);
+}
