@@ -1,6 +1,6 @@
-# MUI integration for AutoForm
+# ANT integration for AutoForm
 
-This package provides a MUI integration for AutoForm.
+This package provides a ANT Design integration for AutoForm.
 
 ## Installation
 
