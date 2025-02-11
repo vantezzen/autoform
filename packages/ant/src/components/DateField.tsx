@@ -21,8 +21,6 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
       {...props}
       {...formField}
       style={{ width: "100%" }}
-      // Ignore ts and eslint error when giving date as string in defaultValues 
-      // DatePicker can't use string value
       value={
         dayjs.utc(formField.value)
       }

@@ -16,10 +16,7 @@
     "textarea",
     "toggle"
   ],
-  "dependencies": [
-    "zod",
-    "@autoform/react"
-  ],
+  "dependencies": ["zod", "@autoform/react"],
   "devDependencies": [],
   "tailwind": {
     "config": {}
@@ -63,9 +60,9 @@
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\SelectField.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\SelectField.tsx",
-      "content": "import {\r\n  Select,\r\n  SelectContent,\r\n  SelectItem,\r\n  SelectTrigger,\r\n  SelectValue,\r\n} from \"@/components/ui/select\";\r\nimport { AutoFormFieldProps } from \"@autoform/react\";\r\nimport React from \"react\";\r\n\r\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\r\n  field,\r\n  inputProps,\r\n  error,\r\n  id,\r\n}) => {\r\n  const { key, ...props } = inputProps;\r\n\r\n  return (\r\n    <Select {...props}>\r\n      <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\r\n        <SelectValue placeholder=\"Select an option\" />\r\n      </SelectTrigger>\r\n      <SelectContent>\r\n        {(field.options || []).map(([key, label]) => (\r\n          <SelectItem key={key} value={key}>\r\n            {label}\r\n          </SelectItem>\r\n        ))}\r\n      </SelectContent>\r\n    </Select>\r\n  );\r\n};\r\n",
+      "path": "autoform/components/SelectField.tsx",
+      "target": "components/ui/autoform/components/SelectField.tsx",
+      "content": "import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Select\n      {...props}\n      onValueChange={(value) => {\n        const syntheticEvent = {\n          target: {\n            value,\n            name: field.key,\n          },\n        } as React.ChangeEvent<HTMLInputElement>;\n        props.onChange(syntheticEvent);\n      }}\n      defaultValue={field.default}\n    >\n      <SelectTrigger id={id} className={error ? \"border-destructive\" : \"\"}>\n        <SelectValue placeholder=\"Select an option\" />\n      </SelectTrigger>\n      <SelectContent>\n        {(field.options || []).map(([key, label]) => (\n          <SelectItem key={key} value={key}>\n            {label}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -105,9 +102,9 @@
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\BooleanField.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\BooleanField.tsx",
-      "content": "import React from \"react\";\r\nimport { Checkbox } from \"@/components/ui/checkbox\";\r\nimport { AutoFormFieldProps } from \"@autoform/react\";\r\nimport { Label } from \"../../label\";\r\n\r\nexport const BooleanField: React.FC<AutoFormFieldProps> = ({\r\n  field,\r\n  label,\r\n  id,\r\n  inputProps,\r\n  value\r\n}) => (\r\n  <div className=\"flex items-center space-x-2\">\r\n    <Checkbox\r\n      id={id}\r\n      onCheckedChange={(checked) => {\r\n        // react-hook-form expects an event object\r\n        const event = {\r\n          target: {\r\n            name: field.key,\r\n            value: checked,\r\n          },\r\n        };\r\n        inputProps.onChange(event);\r\n      }}\r\n      checked={value}\r\n    />\r\n    <Label htmlFor={id}>\r\n      {label}\r\n      {field.required && <span className=\"text-destructive\"> *</span>}\r\n    </Label>\r\n  </div>\r\n);\r\n",
+      "path": "autoform/components/BooleanField.tsx",
+      "target": "components/ui/autoform/components/BooleanField.tsx",
+      "content": "import React from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport { Label } from \"../../label\";\n\nexport const BooleanField: React.FC<AutoFormFieldProps> = ({\n  field,\n  label,\n  id,\n  inputProps,\n}) => (\n  <div className=\"flex items-center space-x-2\">\n    <Checkbox\n      id={id}\n      onCheckedChange={(checked) => {\n        // react-hook-form expects an event object\n        const event = {\n          target: {\n            name: field.key,\n            value: checked,\n          },\n        };\n        inputProps.onChange(event);\n      }}\n      checked={inputProps.value}\n    />\n    <Label htmlFor={id}>\n      {label}\n      {field.required && <span className=\"text-destructive\"> *</span>}\n    </Label>\n  </div>\n);\n",
       "type": "registry:ui"
     },
     {

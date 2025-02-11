@@ -6,6 +6,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   field,
   inputProps,
   label,
+  value
 }) => {
   const { key, ...props } = inputProps;
 
@@ -26,7 +27,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
         };
         inputProps.onChange(event);
       }}
-      value={inputProps.value}
+      defaultValue={value ? new Date(value) : undefined}
     />
   );
 };
