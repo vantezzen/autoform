@@ -16,7 +16,10 @@
     "textarea",
     "toggle"
   ],
-  "dependencies": ["zod", "@autoform/react"],
+  "dependencies": [
+    "zod",
+    "@autoform/react"
+  ],
   "devDependencies": [],
   "tailwind": {
     "config": {}
@@ -24,39 +27,39 @@
   "cssVars": {},
   "files": [
     {
-      "path": "src\\components\\ui\\autoform\\utils.ts",
-      "target": "src\\components\\ui\\autoform\\utils.ts",
-      "content": "import { buildZodFieldConfig } from \"@autoform/react\";\r\nimport { FieldTypes } from \"./AutoForm\";\r\n\r\nexport const fieldConfig = buildZodFieldConfig<\r\n  FieldTypes,\r\n  {\r\n    // Add types for `customData` here.\r\n  }\r\n>();\r\n",
+      "path": "autoform/utils.ts",
+      "target": "components/ui/autoform/utils.ts",
+      "content": "import { buildZodFieldConfig } from \"@autoform/react\";\nimport { FieldTypes } from \"./AutoForm\";\n\nexport const fieldConfig = buildZodFieldConfig<\n  FieldTypes,\n  {\n    // Add types for `customData` here.\n  }\n>();\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\types.ts",
-      "target": "src\\components\\ui\\autoform\\types.ts",
-      "content": "import { ExtendableAutoFormProps } from \"@autoform/react\";\r\nimport { FieldValues } from \"react-hook-form\";\r\n\r\nexport interface AutoFormProps<T extends FieldValues>\r\n  extends ExtendableAutoFormProps<T> {}\r\n",
+      "path": "autoform/types.ts",
+      "target": "components/ui/autoform/types.ts",
+      "content": "import { ExtendableAutoFormProps } from \"@autoform/react\";\nimport { FieldValues } from \"react-hook-form\";\n\nexport interface AutoFormProps<T extends FieldValues>\n  extends ExtendableAutoFormProps<T> {}\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\index.ts",
-      "target": "src\\components\\ui\\autoform\\index.ts",
-      "content": "export * from \"./AutoForm\";\r\nexport * from \"./types\";\r\nexport * from \"./utils\";\r\n",
+      "path": "autoform/index.ts",
+      "target": "components/ui/autoform/index.ts",
+      "content": "export * from \"./AutoForm\";\nexport * from \"./types\";\nexport * from \"./utils\";\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\AutoForm.tsx",
-      "target": "src\\components\\ui\\autoform\\AutoForm.tsx",
-      "content": "import React from \"react\";\r\nimport {\r\n  AutoForm as BaseAutoForm,\r\n  AutoFormUIComponents,\r\n} from \"@autoform/react\";\r\nimport { AutoFormProps } from \"./types\";\r\nimport { Form } from \"./components/Form\";\r\nimport { FieldWrapper } from \"./components/FieldWrapper\";\r\nimport { ErrorMessage } from \"./components/ErrorMessage\";\r\nimport { SubmitButton } from \"./components/SubmitButton\";\r\nimport { StringField } from \"./components/StringField\";\r\nimport { NumberField } from \"./components/NumberField\";\r\nimport { BooleanField } from \"./components/BooleanField\";\r\nimport { DateField } from \"./components/DateField\";\r\nimport { SelectField } from \"./components/SelectField\";\r\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\r\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\r\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\r\n\r\nconst ShadcnUIComponents: AutoFormUIComponents = {\r\n  Form,\r\n  FieldWrapper,\r\n  ErrorMessage,\r\n  SubmitButton,\r\n  ObjectWrapper,\r\n  ArrayWrapper,\r\n  ArrayElementWrapper,\r\n};\r\n\r\nexport const ShadcnAutoFormFieldComponents = {\r\n  string: StringField,\r\n  number: NumberField,\r\n  boolean: BooleanField,\r\n  date: DateField,\r\n  select: SelectField,\r\n} as const;\r\nexport type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;\r\n\r\nexport function AutoForm<T extends Record<string, any>>({\r\n  uiComponents,\r\n  formComponents,\r\n  ...props\r\n}: AutoFormProps<T>) {\r\n  return (\r\n    <BaseAutoForm\r\n      {...props}\r\n      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}\r\n      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}\r\n    />\r\n  );\r\n}\r\n",
+      "path": "autoform/AutoForm.tsx",
+      "target": "components/ui/autoform/AutoForm.tsx",
+      "content": "import React from \"react\";\nimport {\n  AutoForm as BaseAutoForm,\n  AutoFormUIComponents,\n} from \"@autoform/react\";\nimport { AutoFormProps } from \"./types\";\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { StringField } from \"./components/StringField\";\nimport { NumberField } from \"./components/NumberField\";\nimport { BooleanField } from \"./components/BooleanField\";\nimport { DateField } from \"./components/DateField\";\nimport { SelectField } from \"./components/SelectField\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\n\nconst ShadcnUIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nexport const ShadcnAutoFormFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\nexport type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;\n\nexport function AutoForm<T extends Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: AutoFormProps<T>) {\n  return (\n    <BaseAutoForm\n      {...props}\n      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}\n      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\SubmitButton.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\SubmitButton.tsx",
-      "content": "import React from \"react\";\r\nimport { Button } from \"@/components/ui/button\";\r\n\r\nexport const SubmitButton: React.FC<{ children: React.ReactNode }> = ({\r\n  children,\r\n}) => <Button type=\"submit\">{children}</Button>;\r\n",
+      "path": "autoform/components/SubmitButton.tsx",
+      "target": "components/ui/autoform/components/SubmitButton.tsx",
+      "content": "import React from \"react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const SubmitButton: React.FC<{ children: React.ReactNode }> = ({\n  children,\n}) => <Button type=\"submit\">{children}</Button>;\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\StringField.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\StringField.tsx",
-      "content": "import { Input } from \"@/components/ui/input\";\r\nimport { AutoFormFieldProps } from \"@autoform/react\";\r\nimport React from \"react\";\r\n\r\nexport const StringField: React.FC<AutoFormFieldProps> = ({\r\n  inputProps,\r\n  error,\r\n  id,\r\n}) => {\r\n  const { key, ...props } = inputProps;\r\n\r\n  return (\r\n    <Input id={id} className={error ? \"border-destructive\" : \"\"} {...props} />\r\n  );\r\n};\r\n",
+      "path": "autoform/components/StringField.tsx",
+      "target": "components/ui/autoform/components/StringField.tsx",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input id={id} className={error ? \"border-destructive\" : \"\"} {...props} />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -66,39 +69,39 @@
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\ObjectWrapper.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\ObjectWrapper.tsx",
-      "content": "import React from \"react\";\r\nimport { ObjectWrapperProps } from \"@autoform/react\";\r\n\r\nexport const ObjectWrapper: React.FC<ObjectWrapperProps> = ({\r\n  label,\r\n  children,\r\n}) => {\r\n  return (\r\n    <div className=\"space-y-4\">\r\n      <h3 className=\"text-lg font-medium\">{label}</h3>\r\n      {children}\r\n    </div>\r\n  );\r\n};\r\n",
+      "path": "autoform/components/ObjectWrapper.tsx",
+      "target": "components/ui/autoform/components/ObjectWrapper.tsx",
+      "content": "import React from \"react\";\nimport { ObjectWrapperProps } from \"@autoform/react\";\n\nexport const ObjectWrapper: React.FC<ObjectWrapperProps> = ({\n  label,\n  children,\n}) => {\n  return (\n    <div className=\"space-y-4\">\n      <h3 className=\"text-lg font-medium\">{label}</h3>\n      {children}\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\NumberField.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\NumberField.tsx",
-      "content": "import { Input } from \"@/components/ui/input\";\r\nimport { AutoFormFieldProps } from \"@autoform/react\";\r\nimport React from \"react\";\r\n\r\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\r\n  inputProps,\r\n  error,\r\n  id,\r\n}) => {\r\n  const { key, ...props } = inputProps;\r\n\r\n  return (\r\n    <Input\r\n      id={id}\r\n      type=\"number\"\r\n      className={error ? \"border-destructive\" : \"\"}\r\n      {...props}\r\n    />\r\n  );\r\n};\r\n",
+      "path": "autoform/components/NumberField.tsx",
+      "target": "components/ui/autoform/components/NumberField.tsx",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input\n      id={id}\n      type=\"number\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\Form.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\Form.tsx",
-      "content": "import React from \"react\";\r\n\r\nexport const Form = React.forwardRef<\r\n  HTMLFormElement,\r\n  React.ComponentProps<\"form\">\r\n>(({ children, ...props }, ref) => {\r\n  return (\r\n    <form ref={ref} className=\"space-y-4\" {...props}>\r\n      {children}\r\n    </form>\r\n  );\r\n});\r\n",
+      "path": "autoform/components/Form.tsx",
+      "target": "components/ui/autoform/components/Form.tsx",
+      "content": "import React from \"react\";\n\nexport const Form = React.forwardRef<\n  HTMLFormElement,\n  React.ComponentProps<\"form\">\n>(({ children, ...props }, ref) => {\n  return (\n    <form ref={ref} className=\"space-y-4\" {...props}>\n      {children}\n    </form>\n  );\n});\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\FieldWrapper.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\FieldWrapper.tsx",
-      "content": "import React from \"react\";\r\nimport { Label } from \"@/components/ui/label\";\r\nimport { FieldWrapperProps } from \"@autoform/react\";\r\n\r\nconst DISABLED_LABELS = [\"boolean\", \"object\", \"array\"];\r\n\r\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\r\n  label,\r\n  children,\r\n  id,\r\n  field,\r\n  error,\r\n}) => {\r\n  const isDisabled = DISABLED_LABELS.includes(field.type);\r\n\r\n  return (\r\n    <div className=\"space-y-2\">\r\n      {!isDisabled && (\r\n        <Label htmlFor={id}>\r\n          {label}\r\n          {field.required && <span className=\"text-destructive\"> *</span>}\r\n        </Label>\r\n      )}\r\n      {children}\r\n      {field.fieldConfig?.description && (\r\n        <p className=\"text-sm text-muted-foreground\">\r\n          {field.fieldConfig.description}\r\n        </p>\r\n      )}\r\n      {error && <p className=\"text-sm text-destructive\">{error}</p>}\r\n    </div>\r\n  );\r\n};\r\n",
+      "path": "autoform/components/FieldWrapper.tsx",
+      "target": "components/ui/autoform/components/FieldWrapper.tsx",
+      "content": "import React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapperProps } from \"@autoform/react\";\n\nconst DISABLED_LABELS = [\"boolean\", \"object\", \"array\"];\n\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\n  label,\n  children,\n  id,\n  field,\n  error,\n}) => {\n  const isDisabled = DISABLED_LABELS.includes(field.type);\n\n  return (\n    <div className=\"space-y-2\">\n      {!isDisabled && (\n        <Label htmlFor={id}>\n          {label}\n          {field.required && <span className=\"text-destructive\"> *</span>}\n        </Label>\n      )}\n      {children}\n      {field.fieldConfig?.description && (\n        <p className=\"text-sm text-muted-foreground\">\n          {field.fieldConfig.description}\n        </p>\n      )}\n      {error && <p className=\"text-sm text-destructive\">{error}</p>}\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\ErrorMessage.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\ErrorMessage.tsx",
-      "content": "import React from \"react\";\r\nimport { AlertCircle } from \"lucide-react\";\r\n\r\nimport { Alert, AlertTitle } from \"@/components/ui/alert\";\r\n\r\nexport const ErrorMessage: React.FC<{ error: string }> = ({ error }) => (\r\n  <Alert variant=\"destructive\">\r\n    <AlertCircle className=\"h-4 w-4\" />\r\n    <AlertTitle>{error}</AlertTitle>\r\n  </Alert>\r\n);\r\n",
+      "path": "autoform/components/ErrorMessage.tsx",
+      "target": "components/ui/autoform/components/ErrorMessage.tsx",
+      "content": "import React from \"react\";\nimport { AlertCircle } from \"lucide-react\";\n\nimport { Alert, AlertTitle } from \"@/components/ui/alert\";\n\nexport const ErrorMessage: React.FC<{ error: string }> = ({ error }) => (\n  <Alert variant=\"destructive\">\n    <AlertCircle className=\"h-4 w-4\" />\n    <AlertTitle>{error}</AlertTitle>\n  </Alert>\n);\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\DateField.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\DateField.tsx",
-      "content": "import { Input } from \"@/components/ui/input\";\r\nimport { AutoFormFieldProps } from \"@autoform/react\";\r\nimport React from \"react\";\r\n\r\nexport const DateField: React.FC<AutoFormFieldProps> = ({\r\n  inputProps,\r\n  error,\r\n  id,\r\n}) => {\r\n  const { key, ...props } = inputProps;\r\n\r\n  return (\r\n    <Input\r\n      id={id}\r\n      type=\"date\"\r\n      className={error ? \"border-destructive\" : \"\"}\r\n      {...props}\r\n    />\r\n  );\r\n};\r\n",
+      "path": "autoform/components/DateField.tsx",
+      "target": "components/ui/autoform/components/DateField.tsx",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport { AutoFormFieldProps } from \"@autoform/react\";\nimport React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Input\n      id={id}\n      type=\"date\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -108,15 +111,15 @@
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\ArrayWrapper.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\ArrayWrapper.tsx",
-      "content": "import React from \"react\";\r\nimport { Button } from \"@/components/ui/button\";\r\nimport { PlusIcon } from \"lucide-react\";\r\nimport { ArrayWrapperProps } from \"@autoform/react\";\r\n\r\nexport const ArrayWrapper: React.FC<ArrayWrapperProps> = ({\r\n  label,\r\n  children,\r\n  onAddItem,\r\n}) => {\r\n  return (\r\n    <div className=\"space-y-4\">\r\n      <h3 className=\"text-lg font-medium\">{label}</h3>\r\n      {children}\r\n      <Button onClick={onAddItem} variant=\"outline\" size=\"sm\" type=\"button\">\r\n        <PlusIcon className=\"h-4 w-4\" />\r\n      </Button>\r\n    </div>\r\n  );\r\n};\r\n",
+      "path": "autoform/components/ArrayWrapper.tsx",
+      "target": "components/ui/autoform/components/ArrayWrapper.tsx",
+      "content": "import React from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { PlusIcon } from \"lucide-react\";\nimport { ArrayWrapperProps } from \"@autoform/react\";\n\nexport const ArrayWrapper: React.FC<ArrayWrapperProps> = ({\n  label,\n  children,\n  onAddItem,\n}) => {\n  return (\n    <div className=\"space-y-4\">\n      <h3 className=\"text-lg font-medium\">{label}</h3>\n      {children}\n      <Button onClick={onAddItem} variant=\"outline\" size=\"sm\" type=\"button\">\n        <PlusIcon className=\"h-4 w-4\" />\n      </Button>\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
-      "path": "src\\components\\ui\\autoform\\components\\ArrayElementWrapper.tsx",
-      "target": "src\\components\\ui\\autoform\\components\\ArrayElementWrapper.tsx",
-      "content": "import React from \"react\";\r\nimport { Button } from \"@/components/ui/button\";\r\nimport { TrashIcon } from \"lucide-react\";\r\nimport { ArrayElementWrapperProps } from \"@autoform/react\";\r\n\r\nexport const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({\r\n  children,\r\n  onRemove,\r\n}) => {\r\n  return (\r\n    <div className=\"relative border p-4 rounded-md mt-2\">\r\n      <Button\r\n        onClick={onRemove}\r\n        variant=\"ghost\"\r\n        size=\"sm\"\r\n        className=\"absolute top-2 right-2\"\r\n        type=\"button\"\r\n      >\r\n        <TrashIcon className=\"h-4 w-4\" />\r\n      </Button>\r\n      {children}\r\n    </div>\r\n  );\r\n};\r\n",
+      "path": "autoform/components/ArrayElementWrapper.tsx",
+      "target": "components/ui/autoform/components/ArrayElementWrapper.tsx",
+      "content": "import React from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { TrashIcon } from \"lucide-react\";\nimport { ArrayElementWrapperProps } from \"@autoform/react\";\n\nexport const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({\n  children,\n  onRemove,\n}) => {\n  return (\n    <div className=\"relative border p-4 rounded-md mt-2\">\n      <Button\n        onClick={onRemove}\n        variant=\"ghost\"\n        size=\"sm\"\n        className=\"absolute top-2 right-2\"\n        type=\"button\"\n      >\n        <TrashIcon className=\"h-4 w-4\" />\n      </Button>\n      {children}\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     }
   ]
