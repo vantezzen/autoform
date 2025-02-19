@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import "@mantine/core/styles.css";
-import "@autoform/shadcn/globals.css";
-import { createTheme, MantineProvider } from "@mantine/core";
-import { ColorSchemeScript } from "@mantine/core";
+// import "./globals.css";
+// import { ColorSchemeScript } from "@mantine/core";
 
-const theme = createTheme({});
 
 export const metadata: Metadata = {
   title: "AutoForm Demo",
@@ -20,10 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <ColorSchemeScript />
+        {/* <ColorSchemeScript /> */}
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        {children}
       </body>
     </html>
   );
