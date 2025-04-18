@@ -1,5 +1,4 @@
-import { z } from "zod";
+import type { ObjectSchema, Schema } from "joi";
 
-export type ZodObjectOrWrapped =
-  | z.ZodObject<any, any>
-  | z.ZodEffects<z.ZodObject<any, any>>;
+export type JoiObjectOrWrapped = ObjectSchema<any>;
+export type JoiField = Schema<any>;
