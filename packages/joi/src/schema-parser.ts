@@ -16,24 +16,23 @@ function parseField(key: string, schema: JoiField): ParsedField {
   const isRequired = schema._flags?.presence === "required";
 
   // Enums
+  const options = (schema as unknown as JoiEnumSchema)?._valids?._values;
   let optionValues: [string, string][] = [];
-  const enumSchema = (schema as unknown as JoiEnumSchema)._valids;
-  if (enumSchema._values && enumSchema._values.size > 0) {
-    const options = enumSchema._values;
+  if (options instanceof Set && options.size > 0) {
     optionValues = [...options].map((value) => [value, value]);
   }
 
   // Arrays and objects
   let subSchema: ParsedField[] = [];
-  const objectFields = schema.$_terms.keys as TObjectFields;
+  const objectFields: undefined | TObjectFields = schema?.$_terms?.keys;
   if (schema.type === "object" && objectFields) {
     subSchema = Object.values(objectFields).map((field) =>
       parseField(field.key, field.schema)
     );
   }
-  const arrayFields = schema.$_terms.items[0] as JoiField;
-  if (schema.type === "array" && arrayFields) {
-    subSchema = [parseField("0", arrayFields)];
+  const arrayFields: undefined | JoiField[] = schema?.$_terms?.items;
+  if (schema.type === "array" && Array.isArray(arrayFields) && arrayFields[0]) {
+    subSchema = [parseField("0", arrayFields[0])];
   }
 
   return {

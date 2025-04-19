@@ -3,10 +3,12 @@ import {
   FieldWrapperProps,
   buildZodFieldConfig,
 } from "@autoform/react";
+import * as z from "zod";
+import Joi from "joi";
+import { object, string, number, date, InferType, array, mixed } from "yup";
 import { ZodProvider } from "@autoform/zod";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
-import * as z from "zod";
-import { object, string, number, date, InferType, array, mixed } from "yup";
+import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
 
 const customFieldConfig = buildZodFieldConfig<
   string,
@@ -194,3 +196,117 @@ const yupFormSchema = object({
 });
 
 export const yupSchemaProvider = new YupProvider(yupFormSchema);
+
+const joiFormSchema = Joi.object({
+  username: Joi.string()
+    .min(2)
+    .required()
+    .messages({
+      "any.required": "Username is required.",
+      "string.min": "Username must be at least 2 characters.",
+    })
+    .meta(
+      joiFieldConfig({
+        description: "You cannot change this later.",
+        inputProps: {
+          placeholder: "Enter your username",
+        },
+      })
+    ),
+
+  password: Joi.string()
+    .min(8)
+    .required()
+    .messages({
+      "any.required": "Password is required.",
+      "string.min": "Password must be at least 8 characters.",
+    })
+    .meta(
+      joiFieldConfig({
+        description: (
+          <>
+            Always use a <b>secure password</b>!
+          </>
+        ),
+        inputProps: {
+          type: "password",
+        },
+      })
+    ),
+
+  favouriteNumber: Joi.number().min(1).max(10).default(1).messages({
+    "number.base": "Favourite number must be a number.",
+    "number.min": "Favourite number must be at least 1.",
+    "number.max": "Favourite number must be at most 10.",
+  }),
+
+  acceptTerms: Joi.boolean()
+    .valid(true)
+    .required()
+    .messages({
+      "any.only": "You must accept the terms and conditions.",
+    })
+    .label("Accept terms and conditions."),
+
+  sendMeMails: Joi.boolean()
+    .optional()
+    .meta(
+      joiFieldConfig({
+        fieldWrapper: (props: any) => {
+          return (
+            <>
+              {props.children}
+              <p className="text-muted-foreground text-xs">
+                Don't worry, we only send important emails!
+              </p>
+            </>
+          );
+        },
+      })
+    ),
+
+  birthday: Joi.date().optional().messages({
+    "date.base": "aaa",
+  }),
+
+  color: Joi.any().valid("red", "green", "blue").optional(),
+
+  marshmallows: Joi.any()
+    .valid("not many", "a few", "a lot", "too many")
+    .required()
+    .label("How many marshmallows fit in your mouth?"),
+
+  sports: Joi.any()
+    .valid(...Object.values(Sports))
+    .required()
+    .label("What is your favourite sport?"),
+
+  guests: Joi.array().items(
+    Joi.object({
+      name: Joi.string().required(),
+      age: Joi.number().optional(),
+      location: Joi.object({
+        city: Joi.string().required(),
+        country: Joi.string().optional(),
+        test: Joi.object({
+          name: Joi.string().required(),
+          age: Joi.number().required(),
+          test: Joi.object({
+            name: Joi.string().required(),
+            age: Joi.number().required(),
+            test: Joi.object({
+              name: Joi.string().required(),
+              age: Joi.number().required(),
+              test: Joi.object({
+                name: Joi.string().required(),
+                age: Joi.number().required(),
+              }),
+            }),
+          }),
+        }),
+      }),
+    })
+  ),
+});
+
+export const joiSchemaProvider = new JoiProvider(joiFormSchema);

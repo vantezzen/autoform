@@ -1,11 +1,11 @@
 "use client";
 import { AutoForm } from "@autoform/ant";
-import { zodSchemaProvider } from "./utils";
+import { joiSchemaProvider } from "./utils";
 
 const Ant = () => {
   return (
     <AutoForm
-      schema={zodSchemaProvider}
+      schema={joiSchemaProvider}
       onSubmit={(data) => {
         console.log(JSON.stringify(data, null, 2));
       }}

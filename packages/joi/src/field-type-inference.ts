@@ -10,7 +10,7 @@ export function inferFieldType(
   }
 
   const isEnum: boolean =
-    (schema as any)._valids && (schema as any)._valids._values.size > 0;
+    schema?.type === "any" && (schema as any)?._valids?._values?.size > 0;
   if (isEnum) {
     return "select";
   }
@@ -18,7 +18,7 @@ export function inferFieldType(
   if (
     schema.type &&
     ["string", "number", "boolean", "date", "array", "object"].includes(
-      schema.describe().type as string
+      schema.type
     )
   ) {
     return schema.type;
