@@ -1,4 +1,4 @@
-# Zod integration for AutoForm
+# Joi integration for AutoForm
 
 This package allows using your Joi schema with AutoForm.
 
