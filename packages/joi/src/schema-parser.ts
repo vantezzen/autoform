@@ -1,70 +1,58 @@
-import { z } from "zod";
 import { inferFieldType } from "./field-type-inference";
-import { getDefaultValueInZodStack } from "./default-values";
-import { getFieldConfigInZodStack } from "./field-config";
+import { getJoiDefaultValue } from "./default-values";
+import { getJoiFieldConfig } from "./field-config";
 import { ParsedField, ParsedSchema } from "@autoform/core";
-import { ZodObjectOrWrapped } from "./types";
+import {
+  JoiEnumSchema,
+  JoiField,
+  JoiObjectOrWrapped,
+  TObjectFields,
+} from "./types";
 
-function parseField(key: string, schema: z.ZodTypeAny): ParsedField {
-  const baseSchema = getBaseSchema(schema);
-  const fieldConfig = getFieldConfigInZodStack(schema);
-  const type = inferFieldType(baseSchema, fieldConfig);
-  const defaultValue = getDefaultValueInZodStack(schema);
+function parseField(key: string, schema: JoiField): ParsedField {
+  const fieldConfig = getJoiFieldConfig(schema);
+  const type = inferFieldType(schema, fieldConfig);
+  const defaultValue = getJoiDefaultValue(schema);
+  const isRequired = schema._flags?.presence === "required";
 
   // Enums
-  const options = baseSchema._def.values;
   let optionValues: [string, string][] = [];
-  if (options) {
-    if (!Array.isArray(options)) {
-      optionValues = Object.entries(options);
-    } else {
-      optionValues = options.map((value) => [value, value]);
-    }
+  const enumSchema = (schema as unknown as JoiEnumSchema)._valids;
+  if (enumSchema._values && enumSchema._values.size > 0) {
+    const options = enumSchema._values;
+    optionValues = [...options].map((value) => [value, value]);
   }
 
   // Arrays and objects
   let subSchema: ParsedField[] = [];
-  if (baseSchema instanceof z.ZodObject) {
-    subSchema = Object.entries(baseSchema.shape).map(([key, field]) =>
-      parseField(key, field as z.ZodTypeAny),
+  const objectFields = schema.$_terms.keys as TObjectFields;
+  if (schema.type === "object" && objectFields) {
+    subSchema = Object.values(objectFields).map((field) =>
+      parseField(field.key, field.schema)
     );
   }
-  if (baseSchema instanceof z.ZodArray) {
-    subSchema = [parseField("0", baseSchema._def.type)];
+  const arrayFields = schema.$_terms.items[0] as JoiField;
+  if (schema.type === "array" && arrayFields) {
+    subSchema = [parseField("0", arrayFields)];
   }
 
   return {
     key,
     type,
-    required: !schema.isOptional(),
+    required: !!isRequired,
     default: defaultValue,
-    description: baseSchema.description,
+    description: schema._flags?.label,
     fieldConfig,
     options: optionValues,
     schema: subSchema,
   };
 }
 
-function getBaseSchema<
-  ChildType extends z.ZodAny | z.ZodTypeAny | z.AnyZodObject = z.ZodAny,
->(schema: ChildType | z.ZodEffects<ChildType>): ChildType {
-  if ("innerType" in schema._def) {
-    return getBaseSchema(schema._def.innerType as ChildType);
-  }
-  if ("schema" in schema._def) {
-    return getBaseSchema(schema._def.schema as ChildType);
-  }
+export function parseSchema(schema: JoiObjectOrWrapped): ParsedSchema {
+  const objectFields = schema.$_terms.keys as TObjectFields;
 
-  return schema as ChildType;
-}
-
-export function parseSchema(schema: ZodObjectOrWrapped): ParsedSchema {
-  const objectSchema =
-    schema instanceof z.ZodEffects ? schema.innerType() : schema;
-  const shape = objectSchema.shape;
-
-  const fields: ParsedField[] = Object.entries(shape).map(([key, field]) =>
-    parseField(key, field as z.ZodTypeAny),
+  const fields: ParsedField[] = Object.values(objectFields).map((field) =>
+    parseField(field.key, field.schema as JoiField)
   );
 
   return { fields };

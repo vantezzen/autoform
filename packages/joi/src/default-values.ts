@@ -1,31 +1,21 @@
-import { z } from "zod";
-import { ZodObjectOrWrapped } from "./types";
+import { JoiField, JoiObjectOrWrapped, TObjectFields } from "./types";
 
-export function getDefaultValueInZodStack(schema: z.ZodTypeAny): any {
-  if (schema instanceof z.ZodDefault) {
-    return schema._def.defaultValue();
-  }
-
-  if (schema instanceof z.ZodEffects) {
-    return getDefaultValueInZodStack(schema.innerType());
-  }
-
-  return undefined;
+export function getJoiDefaultValue(schema: JoiField): any {
+  return schema._flags.default;
 }
 
 export function getDefaultValues(
-  schema: ZodObjectOrWrapped
+  schema: JoiObjectOrWrapped
 ): Record<string, any> {
-  const objectSchema =
-    schema instanceof z.ZodEffects ? schema.innerType() : schema;
-  const shape = objectSchema.shape;
+  const fields = schema.$_terms.keys as TObjectFields;
 
   const defaultValues: Record<string, any> = {};
 
-  for (const [key, field] of Object.entries(shape)) {
-    const defaultValue = getDefaultValueInZodStack(field as z.ZodTypeAny);
+  for (const field of Object.values(fields)) {
+    if (!field.key || !field.schema) continue;
+    const defaultValue = getJoiDefaultValue(field.schema);
     if (defaultValue !== undefined) {
-      defaultValues[key] = defaultValue;
+      defaultValues[field.key] = defaultValue;
     }
   }
 

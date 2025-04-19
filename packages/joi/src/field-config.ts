@@ -1,7 +1,7 @@
-import { RefinementEffect, z } from "zod";
 import { FieldConfig } from "@autoform/core";
-export const ZOD_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
-export type SuperRefineFunction = () => unknown;
+import { JoiField } from "./types";
+
+export const JOI_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
 
 export function fieldConfig<
   AdditionalRenderable = null,
@@ -15,42 +15,20 @@ export function fieldConfig<
     FieldWrapper,
     CustomData
   >
-): SuperRefineFunction {
-  const refinementFunction: SuperRefineFunction = () => {
-    // Do nothing.
+) {
+  const transformFunction = function (value: any) {
+    return value; // Always pass, we're just using this for metadata
   };
+  transformFunction[JOI_FIELD_CONFIG_SYMBOL] = config;
 
-  // @ts-expect-error This is a symbol and not a real value.
-  refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] = config;
-
-  return refinementFunction;
+  return transformFunction;
 }
 
-export function getFieldConfigInZodStack(
-  schema: z.ZodTypeAny
-): FieldConfig | undefined {
-  const typedSchema = schema as unknown as z.ZodEffects<
-    z.ZodNumber | z.ZodString
-  >;
-
-  if (typedSchema._def.typeName === "ZodEffects") {
-    const effect = typedSchema._def.effect as RefinementEffect<any>;
-    const refinementFunction = effect.refinement;
-
-    if (ZOD_FIELD_CONFIG_SYMBOL in refinementFunction) {
-      return refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
+export function getJoiFieldConfig(schema: JoiField): FieldConfig | undefined {
+  for (const meta of schema.$_terms.metas) {
+    if (JOI_FIELD_CONFIG_SYMBOL in meta) {
+      return (meta as any)[JOI_FIELD_CONFIG_SYMBOL];
     }
-  }
-
-  if ("innerType" in typedSchema._def) {
-    return getFieldConfigInZodStack(
-      typedSchema._def.innerType as unknown as z.ZodAny
-    );
-  }
-  if ("schema" in typedSchema._def) {
-    return getFieldConfigInZodStack(
-      (typedSchema._def as any).schema as z.ZodAny
-    );
   }
 
   return undefined;

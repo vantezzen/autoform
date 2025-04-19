@@ -1,22 +1,27 @@
 import { FieldConfig } from "@autoform/core";
-import { z } from "zod";
+import { JoiField } from "./types";
 
 export function inferFieldType(
-  schema: z.ZodTypeAny,
-  fieldConfig?: FieldConfig,
+  schema: JoiField,
+  fieldConfig?: FieldConfig
 ): string {
   if (fieldConfig?.fieldType) {
     return fieldConfig.fieldType;
   }
 
-  if (schema instanceof z.ZodObject) return "object";
-  if (schema instanceof z.ZodString) return "string";
-  if (schema instanceof z.ZodNumber) return "number";
-  if (schema instanceof z.ZodBoolean) return "boolean";
-  if (schema instanceof z.ZodDate) return "date";
-  if (schema instanceof z.ZodEnum) return "select";
-  if (schema instanceof z.ZodNativeEnum) return "select";
-  if (schema instanceof z.ZodArray) return "array";
+  const isEnum: boolean =
+    (schema as any)._valids && (schema as any)._valids._values.size > 0;
+  if (isEnum) {
+    return "select";
+  }
 
+  if (
+    schema.type &&
+    ["string", "number", "boolean", "date", "array", "object"].includes(
+      schema.describe().type as string
+    )
+  ) {
+    return schema.type;
+  }
   return "string"; // Default to string for unknown types
 }

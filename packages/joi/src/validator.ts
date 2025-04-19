@@ -1,14 +1,14 @@
-import { z } from "zod";
-import { ZodObjectOrWrapped } from "./types";
+import { JoiObjectOrWrapped } from "./types";
 
-export function validateSchema(schema: ZodObjectOrWrapped, values: any) {
-  try {
-    schema.parse(values);
-    return { success: true, data: values };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { success: false, errors: error.errors };
-    }
-    throw error;
-  }
+export function validateSchema(schema: JoiObjectOrWrapped, values: any) {
+  const { error, value } = schema.validate(values, { abortEarly: false });
+  if (error) {
+    return {
+      success: false,
+      errors: error.details.map((item) => ({
+        path: item.path,
+        message: item.message,
+      })),
+    } as const;
+  } else return { success: true, data: value } as const;
 }

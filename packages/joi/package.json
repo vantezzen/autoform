@@ -24,13 +24,12 @@
     "eslint": "^8.57.0",
     "joi": "^17.13.3",
     "tsup": "^8.3.0",
-    "typescript": "^5.3.3",
-    "zod": "^3.23.8"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@autoform/core": "*"
   },
   "peerDependencies": {
-    "zod": "^3"
+    "joi": "^17.13.0"
   }
 }
