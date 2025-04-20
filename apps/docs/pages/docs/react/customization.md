@@ -4,9 +4,13 @@ The customization of the components is done by providing a `fieldConfig` to your
 
 With zod, you can use the `superRefine` method to add a `fieldConfig` to your schema field. For more information, see the [Zod documentation](/docs/schema/zod).
 
-With yup, you can use the `transform` method to add a `fieldConfig` to your schema field. For more information, see the [Yup documentation](/docs/schema/yup). In these examples, we will use Zod.
+With yup, you can use the `transform` method to add a `fieldConfig` to your schema field. For more information, see the [Yup documentation](/docs/schema/yup).
 
-You should import `buildZodFieldConfig` or `buildYupFieldConfig` from `@autoform/react` and customize it.
+With joi, you can use the `meta` method to add a `fieldConfig` to your schema field. For more information, see the [Joi documentation](/docs/schema/joi).
+
+In these examples, we will use Zod.
+
+Depending on the validation library you are using, import `buildZodFieldConfig`, `buildYupFieldConfig`, or `buildJoiFieldConfig` from `@autoform/react` and customize it.
 
 ```tsx
 import * as z from "zod";
