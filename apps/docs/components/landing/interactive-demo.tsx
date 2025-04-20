@@ -58,7 +58,9 @@ function InteractiveDemo() {
         />
 
         {data && (
-          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4">{data}</pre>
+          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4 text-gray-800">
+            {data}
+          </pre>
         )}
       </div>
     </div>
