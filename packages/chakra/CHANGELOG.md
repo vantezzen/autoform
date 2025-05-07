@@ -1,4 +1,4 @@
-# @autoform/joi
+# @autoform/chakra
 
 ## 1.1.0
 
@@ -10,3 +10,5 @@
 
 - Updated dependencies
   - @autoform/core@2.2.0
+  - @autoform/react@3.1.0
+  - @autoform/zod@2.2.0

@@ -1,5 +1,11 @@
 # @autoform/core
 
+## 2.2.0
+
+### Minor Changes
+
+- Update
+
 ## 2.1.0
 
 ### Minor Changes

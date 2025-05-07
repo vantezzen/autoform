@@ -1,5 +1,18 @@
 # @autoform/mantine
 
+## 2.4.0
+
+### Minor Changes
+
+- Update
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/core@2.2.0
+  - @autoform/react@3.1.0
+  - @autoform/zod@2.2.0
+
 ## 2.3.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # docs
 
+## 2.1.0
+
+### Minor Changes
+
+- Update
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/core@2.2.0
+  - @autoform/mui@2.3.0
+  - @autoform/react@3.1.0
+
 ## 2.0.0
 
 ### Major Changes

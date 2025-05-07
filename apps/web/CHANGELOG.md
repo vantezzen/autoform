@@ -1,5 +1,23 @@
 # web
 
+## 2.1.0
+
+### Minor Changes
+
+- Update
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/ant@1.3.0
+  - @autoform/chakra@1.1.0
+  - @autoform/joi@1.1.0
+  - @autoform/mantine@2.4.0
+  - @autoform/mui@2.3.0
+  - @autoform/shadcn@3.1.0
+  - @autoform/yup@2.2.0
+  - @autoform/zod@2.2.0
+
 ## 2.0.0
 
 ### Major Changes
