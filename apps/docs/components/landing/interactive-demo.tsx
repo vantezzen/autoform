@@ -19,10 +19,10 @@ function InteractiveDemo() {
       name: z.string(),
       age: z.coerce.number(),
       isHuman: z.boolean(),
-    }),
+    })
   );
   const [schemaProvider, setSchemaProvider] = React.useState<SchemaProvider>(
-    () => new ZodProvider(schema),
+    () => new ZodProvider(schema)
   );
   const [data, setData] = useState("");
 
@@ -30,8 +30,10 @@ function InteractiveDemo() {
     try {
       const z = globalZod;
       const parsedSchema = eval(code);
+      const provider = new ZodProvider(parsedSchema);
+      provider.parseSchema();
       setSchema(parsedSchema);
-      setSchemaProvider(new ZodProvider(parsedSchema));
+      setSchemaProvider(provider);
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +58,9 @@ function InteractiveDemo() {
         />
 
         {data && (
-          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4">{data}</pre>
+          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4 text-gray-800">
+            {data}
+          </pre>
         )}
       </div>
     </div>

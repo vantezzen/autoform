@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -8,7 +9,17 @@ import Link from "next/link";
 import InteractiveDemo from "../interactive-demo";
 
 export const HeroSection = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const { theme } = useTheme();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <section className="container w-full">
       <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
