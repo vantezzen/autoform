@@ -4,14 +4,26 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.mts"
+    },
+    "./v4": {
+      "import": "./dist/v4/index.mjs",
+      "require": "./dist/v4/index.js",
+      "types": "./dist/v4/index.d.mts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vantezzen/autoform"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "devDependencies": {
     "@autoform/eslint-config": "*",
@@ -24,7 +36,7 @@
     "eslint": "^8.57.0",
     "tsup": "^8.3.0",
     "typescript": "^5.3.3",
-    "zod": "^3.23.8"
+    "zod": "^3.25.46"
   },
   "dependencies": {
     "@autoform/core": "*"
