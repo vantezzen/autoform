@@ -2,18 +2,6 @@
 
 > Automatically render forms for your existing data schema.
 
----
-
-> [!NOTE]
->
-> **Work in Progress** AutoForm as a standalone package is still work in progress. If you want to help out, please check out the [GitHub repository](https://github.com/vantezzen/autoform) and add your own integrations!
-
-Find the full documentation at [autoform.vantezzen.io](https://autoform.vantezzen.io).
-
----
-
-> AutoForm is now a full library!
-
 AutoForm quickly grew from a small component into a codebase larger than any shadcn component should be. To let AutoForm grow without bloating your shadcn/ui components, AutoForm is now a full library!
 
 Don't worry, you can still use AutoForm with your shadcn components and expand it with your own components - but it now also supports integration into other UI libraries like MUI and Mantine and we plan on adding support for other schema libraries than zod too.

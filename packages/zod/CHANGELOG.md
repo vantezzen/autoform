@@ -1,5 +1,15 @@
 # @autoform/zod
 
+## 3.0.0
+
+### Major Changes
+
+- Add Zod 4 support
+
+### Minor Changes
+
+- 565c335: add zod v4 support
+
 ## 2.2.0
 
 ### Minor Changes

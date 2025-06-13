@@ -1,5 +1,11 @@
 # docs
 
+## 2.2.0
+
+### Minor Changes
+
+- Add Zod 4 support
+
 ## 2.1.0
 
 ### Minor Changes
