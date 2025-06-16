@@ -23,6 +23,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         inputProps.onChange(event);
       }}
       checked={inputProps.value}
+      defaultChecked={field.default}
     />
     <Label htmlFor={id}>
       {label}
