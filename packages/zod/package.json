@@ -1,47 +1,52 @@
 {
-  "name": "@autoform/zod",
-  "version": "3.1.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.mts"
-    },
-    "./v4": {
-      "import": "./dist/v4/index.mjs",
-      "require": "./dist/v4/index.js",
-      "types": "./dist/v4/index.d.mts"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
-  },
-  "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "build": "tsup",
-    "dev": "tsup --watch"
-  },
-  "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
-    "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
-    "eslint": "^8.57.0",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3",
-    "zod": "^3.25.46"
-  },
-  "dependencies": {
-    "@autoform/core": "*"
-  },
-  "peerDependencies": {
-    "zod": "^3"
-  }
+	"name": "@autoform/zod",
+	"version": "3.2.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.mts"
+		},
+		"./v4": {
+			"import": "./dist/v4/index.mjs",
+			"require": "./dist/v4/index.js",
+			"types": "./dist/v4/index.d.mts"
+		},
+		"./v4-mini": {
+			"import": "./dist/v4-mini/index.mjs",
+			"require": "./dist/v4-mini/index.js",
+			"types": "./dist/v4-mini/index.d.mts"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vantezzen/autoform"
+	},
+	"scripts": {
+		"lint": "eslint . --max-warnings 0",
+		"build": "tsup",
+		"dev": "tsup --watch"
+	},
+	"devDependencies": {
+		"@autoform/eslint-config": "*",
+		"@autoform/typescript-config": "*",
+		"@turbo/gen": "^1.12.4",
+		"@types/eslint": "^8.56.5",
+		"@types/node": "^20.11.24",
+		"@types/react": "^18.2.61",
+		"@types/react-dom": "^18.2.19",
+		"eslint": "^8.57.0",
+		"tsup": "^8.3.0",
+		"typescript": "^5.3.3",
+		"zod": "^3.25.46"
+	},
+	"dependencies": {
+		"@autoform/core": "*"
+	},
+	"peerDependencies": {
+		"zod": "^3"
+	}
 }
