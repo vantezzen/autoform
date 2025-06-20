@@ -37,7 +37,7 @@ function parseField(key: string, schema: z.$ZodType): ParsedField {
     type,
     required: !isOptional(schema),
     default: defaultValue,
-    description: z.globalRegistry.get(schema)?.description,
+    description: getDescription(schema),
     fieldConfig,
     options: optionValues,
     schema: subSchema,
@@ -65,9 +65,9 @@ function getBaseSchema<SchemaType extends z.$ZodType>(
 }
 
 function isOptional<SchemaType extends z.$ZodType>(
-  schema: SchemaType | z.$ZodDefault<SchemaType>
+  schema: SchemaType
 ): boolean {
-  if(schema._zod.def.type === "optional") {
+  if (schema._zod.def.type === "optional") {
     return true;
   }
 
@@ -76,4 +76,19 @@ function isOptional<SchemaType extends z.$ZodType>(
   }
 
   return false;
+}
+
+function getDescription<SchemaType extends z.$ZodType>(
+  schema: SchemaType
+): string | undefined {
+  const description = z.globalRegistry.get(schema)?.description;
+  if (description) {
+    return description;
+  }
+
+  if ("innerType" in schema._zod.def) {
+    return getDescription(schema._zod.def.innerType as SchemaType);
+  }
+
+  return undefined;
 }
