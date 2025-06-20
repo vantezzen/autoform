@@ -219,8 +219,8 @@ const zodFormSchema4 = z4.object({
     .optional(),
   acceptTerms: z4
     .boolean()
-    .default(true)
     .describe("Accept terms and conditions.")
+    .default(true)
     .refine((value) => value, {
       message: "You must accept the terms and conditions.",
     }),
