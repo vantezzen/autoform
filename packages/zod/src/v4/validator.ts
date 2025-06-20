@@ -1,11 +1,11 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4/core";
 
-export function validateSchema(schema: z.ZodObject, values: any) {
+export function validateSchema(schema: z.$ZodObject, values: any) {
   try {
-    schema.parse(values);
+    z.parse(schema, values);
     return { success: true, data: values };
   } catch (error) {
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.$ZodError) {
       return { success: false, errors: error.issues };
     }
     throw error;

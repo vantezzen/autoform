@@ -3,8 +3,14 @@ import {
   FieldWrapperProps,
   buildZodFieldConfig,
 } from "@autoform/react";
-import * as z from "zod";
 import Joi from "joi";
+import * as z from "zod";
+import * as z4 from "zod/v4";
+import * as zm from "zod/v4-mini";
+import {
+  ZodProvider as ZodProvider4,
+  fieldConfig as config,
+} from "@autoform/zod/v4";
 import { object, string, number, date, InferType, array, mixed } from "yup";
 import { ZodProvider } from "@autoform/zod";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
@@ -163,6 +169,195 @@ const zodFormSchema = z.object({
   //   }),
   // }),
   // obj
+});
+
+const zodFormSchema4 = z4.object({
+  username: z4
+    .string({
+      error: "Username is required.",
+    })
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .register(
+      ...config({
+        description: "You cannot change this later.",
+      })
+    ),
+  password: z4
+    .string({
+      error: "Password is required.",
+    })
+    .min(8, {
+      message: "Password must be at least 8 characters.",
+    })
+    .default("this ia s good pass")
+    .describe("Your secure password")
+    .register(
+      ...config({
+        description: (
+          <>
+            Always use a <b>secure password</b>!
+          </>
+        ),
+        inputProps: {
+          type: "password",
+        },
+      })
+    ),
+  favouriteNumber: z4.coerce
+    .number({
+      error: "Favourite number must be a number.",
+    })
+    .min(1, {
+      message: "Favourite number must be at least 1.",
+    })
+    .max(10, {
+      message: "Favourite number must be at most 10.",
+    })
+    .default(9)
+    .optional(),
+  acceptTerms: z4
+    .boolean()
+    .default(true)
+    .describe("Accept terms and conditions.")
+    .refine((value) => value, {
+      message: "You must accept the terms and conditions.",
+    }),
+  sendMeMails: z4
+    .boolean()
+    .optional()
+    .default(false)
+    .register(
+      ...config({
+        fieldWrapper: (props: FieldWrapperProps) => {
+          return (
+            <>
+              {props.children}
+              <p className="text-muted-foreground text-sm">
+                Don't worry, we only send important emails!
+              </p>
+            </>
+          );
+        },
+      })
+    ),
+  birthday: z4.coerce.date({ message: "aaa" }).optional(),
+  color: z4.enum(["red", "green", "blue"]).default("red").optional(),
+  // Another enum example
+  marshmallows: z4
+    .enum(["not many", "a few", "a lot", "too many"])
+    .describe("How many marshmallows fit in your mouth?"),
+  // Native enum example
+  sports: z4.enum(Sports).describe("What is your favourite sport?"),
+  guests: z4
+    .array(
+      z4.object({
+        name: z4.string(),
+        age: z4.coerce.number().optional(),
+        location: z4.object({
+          city: z4.string(),
+          country: z4.string().optional(),
+          test: z4.object({
+            name: z4.string(),
+            age: z4.coerce.number(),
+            test: z4.object({
+              name: z4.string(),
+              age: z4.coerce.number(),
+              test: z4.object({
+                name: z4.string(),
+                age: z4.coerce.number(),
+                test: z4.object({
+                  name: z4.string(),
+                  age: z4.coerce.number(),
+                }),
+              }),
+            }),
+          }),
+        }),
+      })
+    )
+    .min(1, "minimum one guest is required")
+    .optional(),
+});
+
+// zod mini
+const zodFormSchema4mini = zm.object({
+  username: zm
+    .string({
+      error: "Username is required.",
+    })
+    .check(
+      zm.minLength(2, {
+        message: "Username must be at least 2 characters.",
+      })
+    )
+    .register(
+      ...config({
+        // Changed from superRefine to register
+        description: "You cannot change this later.",
+      })
+    ),
+
+  password: zm
+    .string({
+      error: "Password is required.",
+    })
+    .check(
+      zm.minLength(8, {
+        message: "Password must be at least 8 characters.",
+      })
+    )
+    .register(
+      ...config({
+        // Changed from superRefine to register
+        description: "Always use a <b>secure password</b>!",
+        inputProps: {
+          type: "password",
+        },
+      })
+    ),
+
+  sendMeMails: zm.optional(zm.boolean()).register(
+    ...config({
+      // Changed from superRefine to register
+      fieldWrapper: (props: FieldWrapperProps) => (
+        <>
+          {props.children}
+          <p className="text-muted-foreground text-sm">
+            Don't worry, we only send important emails!
+          </p>
+        </>
+      ),
+    })
+  ),
+
+  favouriteNumber: zm.optional(zm._default(zm.number(), 4)).register(
+    ...config({
+      description: "Enter your favourite number",
+      label: "Favourite Number !!!",
+    })
+  ),
+
+  favouriteSport: zm.enum(["red", "green", "blue"]).register(
+    ...config({
+      description: "Your favourite sport",
+    })
+  ),
+
+  Birthdate: zm.optional(zm.date()),
+  array: zm.array(
+    zm.object({
+      super: zm.string(),
+      age: zm.number(),
+      isStudent: zm._default(zm.boolean(), true),
+    })
+  ),
+  object: zm.object({
+    super: zm.optional(zm.string()),
+    age: zm.optional(zm.number()),
+    isStudent: zm.optional(zm.boolean()),
+  }),
 });
 
 export const zodSchemaProvider = new ZodProvider(zodFormSchema);
