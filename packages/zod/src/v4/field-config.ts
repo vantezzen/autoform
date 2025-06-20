@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4/core";
 import { FieldConfig } from "@autoform/core";
 
 interface FieldConfigMeta {
@@ -21,13 +21,13 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >,
+  >
 ): FieldConfigReturn {
   return [fieldConfigRegistry, { fieldConfig: config }];
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.ZodType,
+  schema: z.$ZodType
 ): FieldConfig | undefined {
   return fieldConfigRegistry.get(schema)?.fieldConfig;
 }
