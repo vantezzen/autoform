@@ -250,14 +250,16 @@ const zodFormSchema4 = z4.object({
     .describe("How many marshmallows fit in your mouth?"),
   // Native enum example
   sports: z4.enum(Sports).describe("What is your favourite sport?"),
-  guests: z4
-    .array(
-      z4.object({
-        name: z4.string(),
-        age: z4.coerce.number().optional(),
-        location: z4.object({
-          city: z4.string(),
-          country: z4.string().optional(),
+  guests: z4.array(
+    z4.object({
+      name: z4.string(),
+      age: z4.coerce.number().optional(),
+      location: z4.object({
+        city: z4.string(),
+        country: z4.string().optional(),
+        test: z4.object({
+          name: z4.string(),
+          age: z4.coerce.number(),
           test: z4.object({
             name: z4.string(),
             age: z4.coerce.number(),
@@ -267,18 +269,13 @@ const zodFormSchema4 = z4.object({
               test: z4.object({
                 name: z4.string(),
                 age: z4.coerce.number(),
-                test: z4.object({
-                  name: z4.string(),
-                  age: z4.coerce.number(),
-                }),
               }),
             }),
           }),
         }),
-      })
-    )
-    .min(1, "minimum one guest is required")
-    .optional(),
+      }),
+    })
+  ),
 });
 
 // zod mini
@@ -311,7 +308,7 @@ const zodFormSchema4mini = zm.object({
     .register(
       ...config({
         // Changed from superRefine to register
-        description: "Always use a <b>secure password</b>!",
+        description: "Always use a secure password!",
         inputProps: {
           type: "password",
         },
@@ -348,19 +345,19 @@ const zodFormSchema4mini = zm.object({
   Birthdate: zm.optional(zm.date()),
   array: zm.array(
     zm.object({
-      super: zm.string(),
+      mini: zm.string(),
       age: zm.number(),
       isStudent: zm._default(zm.boolean(), true),
     })
   ),
   object: zm.object({
-    super: zm.optional(zm.string()),
+    mini: zm.optional(zm.string()),
     age: zm.optional(zm.number()),
     isStudent: zm.optional(zm.boolean()),
   }),
 });
 
-export const zodSchemaProvider = new ZodProvider(zodFormSchema);
+export const zodSchemaProvider = new ZodProvider4(zodFormSchema4mini);
 
 const yupFormSchema = object({
   name: string().required().label("Your Name").default("John Doe"),
