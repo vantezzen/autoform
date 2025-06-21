@@ -1,6 +1,6 @@
 import * as z from "zod/v4/core";
 import { FieldConfig } from "@autoform/core";
-export const ZOD_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
+import { ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
 
 export function fieldConfig<
   AdditionalRenderable = null,

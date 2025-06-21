@@ -1,18 +1,16 @@
 import {
-  fieldConfig,
+  // fieldConfig,
   FieldWrapperProps,
   buildZodFieldConfig,
 } from "@autoform/react";
 import Joi from "joi";
 import * as z from "zod";
 import * as z4 from "zod/v4";
+import * as zc from "zod/v4/core";
 import * as zm from "zod/v4-mini";
-import {
-  ZodProvider as ZodProvider4,
-  fieldConfig as config,
-} from "@autoform/zod/v4";
-import { object, string, number, date, InferType, array, mixed } from "yup";
-import { ZodProvider } from "@autoform/zod";
+import { fieldConfig as config } from "@autoform/zod/v4";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { object, string, number, date, array, mixed } from "yup";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
 import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
 
@@ -194,7 +192,7 @@ const zodFormSchema4 = z4.object({
     .default("this ia s good pass")
     .describe("Your secure password")
     .check(
-      config({
+      fieldConfig({
         description: (
           <>
             Always use a <b>secure password</b>!
@@ -229,7 +227,7 @@ const zodFormSchema4 = z4.object({
     .optional()
     .default(false)
     .check(
-      config({
+      fieldConfig({
         fieldWrapper: (props: FieldWrapperProps) => {
           return (
             <>
@@ -290,7 +288,7 @@ const zodFormSchema4mini = zm.object({
       })
     )
     .check(
-      config({
+      fieldConfig({
         // Changed from superRefine to register
         description: "You cannot change this later.",
       })
@@ -306,7 +304,7 @@ const zodFormSchema4mini = zm.object({
       })
     )
     .check(
-      config({
+      fieldConfig({
         // Changed from superRefine to register
         description: "Always use a secure password!",
         inputProps: {
@@ -316,7 +314,7 @@ const zodFormSchema4mini = zm.object({
     ),
 
   sendMeMails: zm.optional(zm.boolean()).check(
-    config({
+    fieldConfig({
       // Changed from superRefine to register
       fieldWrapper: (props: FieldWrapperProps) => (
         <>
@@ -330,14 +328,14 @@ const zodFormSchema4mini = zm.object({
   ),
 
   favouriteNumber: zm.optional(zm._default(zm.number(), 4)).check(
-    config({
+    fieldConfig({
       description: "Enter your favourite number",
       label: "Favourite Number !!!",
     })
   ),
 
   favouriteSport: zm.enum(["red", "green", "blue"]).check(
-    config({
+    fieldConfig({
       description: "Your favourite sport",
     })
   ),
@@ -357,7 +355,7 @@ const zodFormSchema4mini = zm.object({
   }),
 });
 
-export const zodSchemaProvider = new ZodProvider4(zodFormSchema4);
+export const zodSchemaProvider = new ZodProvider(zodFormSchema4mini);
 
 const yupFormSchema = object({
   name: string().required().label("Your Name").default("John Doe"),
