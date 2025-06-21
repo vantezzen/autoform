@@ -179,8 +179,8 @@ const zodFormSchema4 = z4.object({
     .min(2, {
       message: "Username must be at least 2 characters.",
     })
-    .register(
-      ...config({
+    .check(
+      config({
         description: "You cannot change this later.",
       })
     ),
@@ -193,8 +193,8 @@ const zodFormSchema4 = z4.object({
     })
     .default("this ia s good pass")
     .describe("Your secure password")
-    .register(
-      ...config({
+    .check(
+      config({
         description: (
           <>
             Always use a <b>secure password</b>!
@@ -228,8 +228,8 @@ const zodFormSchema4 = z4.object({
     .boolean()
     .optional()
     .default(false)
-    .register(
-      ...config({
+    .check(
+      config({
         fieldWrapper: (props: FieldWrapperProps) => {
           return (
             <>
@@ -289,8 +289,8 @@ const zodFormSchema4mini = zm.object({
         message: "Username must be at least 2 characters.",
       })
     )
-    .register(
-      ...config({
+    .check(
+      config({
         // Changed from superRefine to register
         description: "You cannot change this later.",
       })
@@ -305,8 +305,8 @@ const zodFormSchema4mini = zm.object({
         message: "Password must be at least 8 characters.",
       })
     )
-    .register(
-      ...config({
+    .check(
+      config({
         // Changed from superRefine to register
         description: "Always use a secure password!",
         inputProps: {
@@ -315,8 +315,8 @@ const zodFormSchema4mini = zm.object({
       })
     ),
 
-  sendMeMails: zm.optional(zm.boolean()).register(
-    ...config({
+  sendMeMails: zm.optional(zm.boolean()).check(
+    config({
       // Changed from superRefine to register
       fieldWrapper: (props: FieldWrapperProps) => (
         <>
@@ -329,15 +329,15 @@ const zodFormSchema4mini = zm.object({
     })
   ),
 
-  favouriteNumber: zm.optional(zm._default(zm.number(), 4)).register(
-    ...config({
+  favouriteNumber: zm.optional(zm._default(zm.number(), 4)).check(
+    config({
       description: "Enter your favourite number",
       label: "Favourite Number !!!",
     })
   ),
 
-  favouriteSport: zm.enum(["red", "green", "blue"]).register(
-    ...config({
+  favouriteSport: zm.enum(["red", "green", "blue"]).check(
+    config({
       description: "Your favourite sport",
     })
   ),
@@ -357,7 +357,7 @@ const zodFormSchema4mini = zm.object({
   }),
 });
 
-export const zodSchemaProvider = new ZodProvider4(zodFormSchema4mini);
+export const zodSchemaProvider = new ZodProvider4(zodFormSchema4);
 
 const yupFormSchema = object({
   name: string().required().label("Your Name").default("John Doe"),

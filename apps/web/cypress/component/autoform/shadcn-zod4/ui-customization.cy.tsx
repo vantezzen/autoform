@@ -8,15 +8,15 @@ import { FieldWrapperProps } from "@autoform/react";
 
 describe("AutoForm UI Customization Tests", () => {
   const customSchema = z.object({
-    name: z.string().register(
-      ...fieldConfig({
+    name: z.string().check(
+      fieldConfig({
         fieldWrapper: ({ label, children }: FieldWrapperProps) => (
           <div className="custom-wrapper">
             <label className="custom-label">{label}</label>
             {children}
           </div>
         ),
-      }),
+      })
     ),
     email: z.string().email(),
   });
@@ -31,7 +31,7 @@ describe("AutoForm UI Customization Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -54,7 +54,7 @@ describe("AutoForm UI Customization Tests", () => {
             ),
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -78,7 +78,7 @@ describe("AutoForm UI Customization Tests", () => {
             ),
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-text-field").should("exist");
