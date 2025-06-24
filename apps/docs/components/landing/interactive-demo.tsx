@@ -16,6 +16,9 @@ const globalZod = z;
 const editorOptions = {
   minimap: { enabled: false },
   scrollBeyondLastLine: false,
+  lineNumbersMinChars: 2,
+  glyphMargin: false,
+  folding: false,
   scrollbar: {
     useShadows: false,
     verticalScrollbarSize: 10,
@@ -52,10 +55,10 @@ function InteractiveDemo() {
   }, [code]);
 
   return (
-    <div className="grid md:grid-cols-2 gap-3 w-full">
-      <div className="bg-white rounded-lg md:p-6">
+    <div className="grid md:grid-cols-2 gap-1 w-full">
+      <div className="bg-white rounded-lg md:py-6 md:px-0">
         <Editor
-          className="md:h-[600px] md:border-0 h-[300px] border"
+          className="md:h-[500px] md:border-0 h-[310px] border"
           options={editorOptions}
           defaultLanguage="javascript"
           defaultValue={defaultCode}
