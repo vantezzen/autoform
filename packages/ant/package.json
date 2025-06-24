@@ -14,26 +14,30 @@
     "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@autoform/core": "*",
     "@autoform/eslint-config": "*",
     "@autoform/typescript-config": "*",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "antd": "^5.22.7",
+    "dayjs": "^1.11.13",
     "eslint": "^8.57.0",
-    "react": "^18.3.1",
+    "react": "^19.1.0",
+    "react-hook-form": "^7.53.0",
     "tsup": "^8.3.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.2",
-    "@autoform/core": "*",
-    "@autoform/react": "*",
-    "@autoform/zod": "*",
-    "antd": "^5.22.7",
-    "dayjs": "^1.11.13"
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@autoform/react": "*"
   },
   "peerDependencies": {
+    "@ant-design/icons": "^5 || ^6",
+    "antd": "^5",
+    "dayjs": "^1.11",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "react-hook-form": "^7"
   }

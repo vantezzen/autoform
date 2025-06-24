@@ -17,6 +17,7 @@ import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
 import { useEffect, useState } from "react";
+import "@ant-design/v5-patch-for-react-19";
 
 const AntUIComponents: AutoFormUIComponents = {
   Form,
