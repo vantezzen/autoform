@@ -10,8 +10,6 @@ import InteractiveDemo from "../interactive-demo";
 
 export const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const { setTheme } = useTheme();
-  setTheme("light");
 
   useEffect(() => {
     setIsMounted(true);
