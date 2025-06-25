@@ -12,12 +12,91 @@ title: Getting Started
 
 AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
 
-- For Material UI: `npm install @autoform/mui`
-- For Mantine: `npm install @autoform/mantine`
-- For Ant Design: `npm install @autoform/ant`
-- For shadcn/ui: `npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json`
+Before installing an @autoform UI package
 
-  Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
+    - Install `react-hook-form@^7`
+    - Install required peer dependencies.
+
+### Material UI
+
+<Tabs  persist items={['manual', 'cli']} label='peer dependencies'>
+```json tab="manual"
+{
+  "@mui/material": "^6",
+  "@emotion/react": "^11",
+  "@emotion/styled": "^11"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-t-0"
+    command="@mui/material@^6 @emotion/react@^11 @emotion/styled@^11"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@autoform/mui" />
+
+### Mantine
+
+<Tabs  persist items={['manual', 'cli']} label='peer dependencies'>
+```json tab="manual"
+{
+  "@mantine/core": "^7",
+  "@mantine/dates": "^7"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-t-0"
+    command="@mantine/core@^7 @mantine/dates@^7"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@autoform/mantine" />
+
+### Ant Design
+
+<Tabs  persist items={['manual', 'cli']} label='peer dependencies'>
+```json tab="manual"
+{
+  "antd": "^5"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-t-0"
+    command="antd@^5"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@autoform/ant" />
+
+### Chakra UI
+
+<Tabs  persist items={['manual', 'cli']} label='peer dependencies'>
+```json tab="manual"
+{
+  "@chakra-ui/react": "^3.8",
+  "@emotion/react": "^11.14"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-t-0"
+    command="@chakra-ui/react@^3.8 @emotion/react@^11.14"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@autoform/chakra" />
+
+### Shadcn/ui
+
+<ModeTab
+  mode="cli"
+  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+/>
+
+Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
 
 - more to come...
 
@@ -27,9 +106,18 @@ In the docs, we will use Material UI as an example but simply replace the import
 
 ## Install AutoForm's integration to your schema library
 
-- `npm install @autoform/zod` for Zod
-- `npm install @autoform/yup` for Yup
-- more to come...
+#### Zod
+
+<ModeTab command="@autoform/zod" />
+
+#### Yup
+
+<ModeTab command="@autoform/yup" />
+
+#### Joi
+
+<ModeTab command="@autoform/joi" />
+more to come...
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
