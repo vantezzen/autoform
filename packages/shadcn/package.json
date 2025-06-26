@@ -32,6 +32,7 @@
     "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10",
     "eslint": "^8.57.0",
+    "glob": "^11.0.3",
     "postcss": "^8",
     "postcss-load-config": "^6",
     "react": "^19.1.0",
