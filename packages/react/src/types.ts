@@ -12,7 +12,7 @@ export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
   onSubmit?: (
     values: T,
-    form: UseFormReturn<T, any, undefined>
+    form: UseFormReturn<T, any, T>
   ) => void | Promise<void>;
 
   defaultValues?: Partial<T>;
@@ -22,7 +22,7 @@ export interface AutoFormProps<T extends FieldValues> {
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
-  onFormInit?: (form: UseFormReturn<T, any, undefined>) => void;
+  onFormInit?: (form: UseFormReturn<T, any, T>) => void;
   formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
 

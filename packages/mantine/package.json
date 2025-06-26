@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "build": "tsup src/index.tsx --format cjs,esm --dts ",
     "dev": "tsup src/index.tsx --format cjs,esm --dts --watch"
   },
   "repository": {
@@ -14,26 +14,29 @@
     "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
+    "@autoform/core": "*",
     "@autoform/eslint-config": "*",
     "@autoform/typescript-config": "*",
+    "@mantine/core": "^7.16.0",
+    "@mantine/dates": "^7.16.0",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "eslint": "^8.57.0",
-    "react": "^18.3.1",
+    "react": "^19.1.0",
+    "react-hook-form": "^7.53.0",
     "tsup": "^8.3.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@autoform/core": "*",
     "@autoform/react": "*",
-    "@autoform/zod": "*",
-    "@mantine/core": "^7.0.0",
-    "@mantine/dates": "^7.0.0",
     "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17 || ^18 || ^19"
+    "@mantine/core": "^7",
+    "@mantine/dates": "^7",
+    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-hook-form": "^7"
   }
 }

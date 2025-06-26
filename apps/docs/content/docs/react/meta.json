@@ -1,0 +1,14 @@
+{
+  "title": "React",
+  "icon": "Atom",
+  "pages": [
+    "---Guide---",
+    "getting-started",
+    "customization",
+    "api",
+    "---Migration---",
+    "migration",
+    "---Custom---",
+    "custom-integration"
+  ]
+}
