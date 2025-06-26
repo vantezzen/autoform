@@ -8,4 +8,4 @@ This package allows using your Zod schema with AutoForm.
 npm install @autoform/zod
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schemas/zod).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schema-providers/zod).

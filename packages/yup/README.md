@@ -8,4 +8,4 @@ This package allows using your Yup schema with AutoForm.
 npm install @autoform/yup
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schemas/yup).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schema-providers/yup).
