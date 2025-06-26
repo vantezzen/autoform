@@ -16,7 +16,10 @@
     "textarea",
     "toggle"
   ],
-  "dependencies": ["zod", "@autoform/react"],
+  "dependencies": [
+    "zod",
+    "@autoform/react"
+  ],
   "devDependencies": [],
   "tailwind": {
     "config": {}
