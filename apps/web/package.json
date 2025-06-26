@@ -34,8 +34,8 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@autoform/eslint-config": "*",
+    "@autoform/typescript-config": "*",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/node": "^20",
     "@types/react": "^19.1.8",
