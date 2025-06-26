@@ -1,5 +1,16 @@
 # @autoform/react
 
+## 4.0.0
+
+### Major Changes
+
+- Rework dependency system
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/core@3.0.0
+
 ## 3.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @autoform/zod
 
+## 4.0.0
+
+### Major Changes
+
+- Rework dependency system
+
 ## 3.1.0
 
 ### Minor Changes

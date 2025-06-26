@@ -1,5 +1,18 @@
 # docs
 
+## 3.0.0
+
+### Major Changes
+
+- Rework dependency system
+
+### Patch Changes
+
+- Updated dependencies
+  - @autoform/core@3.0.0
+  - @autoform/mui@3.0.0
+  - @autoform/zod@4.0.0
+
 ## 2.2.0
 
 ### Minor Changes
