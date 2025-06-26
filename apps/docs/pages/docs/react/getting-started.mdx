@@ -1,0 +1,178 @@
+# Getting Started
+
+> New to AutoForm? Check out the [introduction](/docs) first.
+
+> Migrating from the old shadcn/ui component? Check out the [migration guide](/docs/react/migration).
+
+import { Steps } from "nextra/components";
+
+<Steps>
+## Install AutoForm's integration to your UI library
+
+AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
+
+- For Material UI: `npm install @autoform/mui`
+- For Mantine: `npm install @autoform/mantine`
+- For Ant Design: `npm install @autoform/ant`
+- For shadcn/ui: `npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json`
+
+  Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
+
+- more to come...
+
+If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/react/custom-integration).
+
+In the docs, we will use Material UI as an example but simply replace the imports with the ones from your UI library.
+
+## Install AutoForm's integration to your schema library
+
+- `npm install @autoform/zod` for Zod
+- `npm install @autoform/yup` for Yup
+- more to come...
+
+In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
+
+## Create a form
+
+```tsx
+import { AutoForm } from "@autoform/mui";
+import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  // ...
+});
+const schemaProvider = new ZodProvider(mySchema);
+
+function MyForm() {
+  return (
+    <AutoForm
+      schema={schemaProvider}
+      onSubmit={(data, form) => {
+        console.log(data);
+      }}
+      withSubmit
+    />
+  );
+}
+```
+
+</Steps>
+
+## Next.js and RSC
+
+AutoForm can only be used inside a client-side React component due to serialization of the schema and values to your event listeners. If you want to use it in a Next.js app, simply mark your component with "use client":
+
+```tsx
+// MyPage.tsx
+export default function MyPage() {
+  return (
+    <div>
+      <MyForm />
+    </div>
+  );
+}
+
+// MyForm.tsx
+"use client";
+import { AutoForm } from "@autoform/mui";
+export default function MyForm() {
+  return <AutoForm ... />;
+}
+```
+
+## Accessing the form data
+
+The form data is managed by react-hook-form. There are two ways to access the form data:
+
+### onSubmit
+
+The preferred way is to use the `onSubmit` prop. This will be called when the form is submitted and the data is valid.
+
+```tsx
+<AutoForm
+  onSubmit={(data, form) => {
+    // Do something with the data
+    // Data is validated and coerced with zod automatically
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // for further information and control over the form
+  }}
+/>
+```
+
+### Using onFormInit and `values`
+
+If you need more control over the form, you can use the `onFormInit` and `values` props to get access to the react-hook-form instance and control data directly:
+
+```tsx
+const [values, setValues] = useState({});
+
+<AutoForm
+  onFormInit={(form) => {
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // https://www.react-hook-form.com/api/useform/
+    form.watch((data) => {
+      setValues(data);
+    });
+
+    // You can freely save the form instance to a state or context and use it later to access the form state
+    form.formState.isDirty; // => true
+  }}
+  values={values}
+/>;
+```
+
+This allows you to access form methods and state from the parent component. You can use the `onFormInit` prop independent of controlled forms to access the form instance.
+
+## Passing props to the form element
+
+You can pass additional props to the underlying form element using the `formProps` prop:
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{
+    className: "my-custom-form-class",
+    onKeyDown: (e) => {
+      if (e.key === "Enter") e.preventDefault();
+    },
+  }}
+/>
+```
+
+This allows you to customize the form element's attributes and behavior as needed.
+
+## Submitting the form
+
+You can use the `withSubmit` prop to automatically add a submit button to the form.
+
+```tsx
+<AutoForm
+  // ...
+  withSubmit
+/>
+```
+
+## Adding other elements
+
+All children passed to the `AutoForm` component will be rendered below the form.
+
+```tsx
+<AutoForm>
+  <p className="text-gray-500 text-sm">
+    By submitting this form, you agree to our{" "}
+    <a href="#" className="text-primary underline">
+      terms and conditions
+    </a>
+    .
+  </p>
+</AutoForm>
+```
+
+## Next Steps
+
+- [How to define your zod schema](/docs/schema/zod)
+- [How to define your yup schema](/docs/schema/yup)
+- [How to define your joi schema](/docs/schema/joi)
+- [How to customize your form](/docs/react/customization)
+- [How to use AutoForm with other UI libraries](/docs/react/custom-integration)
