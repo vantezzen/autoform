@@ -1,0 +1,154 @@
+---
+title: Migration from V1
+description: This guide will help you migrate from the old, pure shadcn/ui component to the new AutoForm library.
+---
+
+Please note that the new library does not have full feature-partity with the old one - specifically, it does not support the following features (yet):
+
+- Dependencies between fields
+- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component.
+
+But the new AutoForm library has a lot of new features, such as:
+
+- Support for any array, not just arrays of objects
+- Support for other schema libraries, not just zod
+- Cleaner, in-schema fieldConfig definition
+- Cleaner shadcn/ui components, as they are now just wrappers around the AutoForm library
+- Support for customizing the form components and UI components on a per-form basis, not just globally
+
+<div className='fd-steps [&_h2]:fd-step'>
+
+## Remove existing shadcn/ui component
+
+First, remove the `components/ui/auto-form` folder from your project.
+
+## Install AutoForm
+
+To install AutoForm, run the following command:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
+npm install @autoform/zod
+```
+
+## Update form components
+
+The new AutoForm uses the `autoform` folder for a more consistent naming schema.
+
+You also need to wrap your schema in a `ZodProvider` and pass it to the `AutoForm` component. Instead of passing the `AutoFormSubmit` component as a child of `AutoForm`, you can simply use the `withSubmit` prop.
+
+```diff
+- import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
++ import { AutoForm } from "@/components/ui/autoform";
++ import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  // ...
+});
+
++ const schemaProvider = new ZodProvider(mySchema);
+
+function MyForm() {
+  return (
+    <AutoForm
+-     formSchema={mySchema}
++     schema={schemaProvider}
+      onSubmit={(data) => {
+        console.log(data);
+      }}
+-     fieldConfig={...}
++     withSubmit
+    >
+-     <AutoFormSubmit />
+    </AutoForm>
+  );
+}
+```
+
+## Update fieldConfig
+
+Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can now define the field config directly in the schema using the `fieldConfig` function.
+
+```diff
+import * as z from "zod";
++ import { buildZodFieldConfig } from "@autoform/react";
++ import { FieldTypes } from "@/components/ui/autoform";
+
++ const fieldConfig = buildZodFieldConfig();
+
+const formSchema = z.object({
+  password: z
+    .string()
+    .min(8, {
+      message: "Please use a secure password.",
+    })
++   .superRefine(
++     fieldConfig<React.ReactNode, FieldTypes>({
++       description: "We recommend to use a strong password.",
++       inputProps: {
++         type: "password",
++       },
++     })
++   ),
+});
+```
+
+## Update callbacks
+
+If you are only using `onSubmit`, your code should be able to work without any changes. If you are using controlled input instead, you need to update your code to use the new `onFormInit` prop to get manual access to the form instance.
+
+```tsx
+const [values, setValues] = useState({});
+
+<AutoForm
+  onFormInit={(form) => {
+    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // https://www.react-hook-form.com/api/useform/
+    form.watch((data) => {
+      setValues(data);
+    });
+
+    // You can freely save the form instance to a state or context and use it later to access the form state
+    form.formState.isDirty; // => true
+  }}
+  values={values}
+/>;
+```
+
+## Update custom components
+
+If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config.
+
+```tsx
+const schema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      fieldWrapper: (props) => (
+        <div>
+          <label>{props.label}</label>
+          {props.children}
+        </div>
+      ),
+    })
+  ),
+});
+
+<AutoForm
+  schema={schema}
+  formComponents={{
+    custom: ({ field, label, inputProps }) => {
+      return (
+        <div>
+          <input
+            type="text"
+            className="bg-red-400 rounded-lg p-4"
+            {...inputProps}
+          />
+        </div>
+      );
+    },
+  }}
+/>;
+```
+
+</div>

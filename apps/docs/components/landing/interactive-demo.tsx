@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { z } from "zod";
@@ -12,9 +13,23 @@ const defaultCode = `z.object({
 })`;
 const globalZod = z;
 
+const editorOptions = {
+  minimap: { enabled: false },
+  scrollBeyondLastLine: false,
+  lineNumbersMinChars: 2,
+  glyphMargin: false,
+  folding: false,
+  scrollbar: {
+    useShadows: false,
+    verticalScrollbarSize: 10,
+    horizontalScrollbarSize: 10,
+    alwaysConsumeMouseWheel: false,
+  },
+};
+
 function InteractiveDemo() {
   const [code, setCode] = React.useState(defaultCode);
-  const [schema, setSchema] = React.useState<z.ZodObject<any, any> | null>(
+  const [schema, setSchema] = React.useState<z.ZodObject<any, any>>(
     z.object({
       name: z.string(),
       age: z.coerce.number(),
@@ -40,10 +55,11 @@ function InteractiveDemo() {
   }, [code]);
 
   return (
-    <div className="grid grid-cols-2 gap-3 w-full">
-      <div className="bg-white rounded-lg p-6">
+    <div className="grid md:grid-cols-2 gap-1 w-full">
+      <div className="bg-white rounded-lg md:py-6 md:px-0">
         <Editor
-          height="600px"
+          className="md:h-[500px] md:border-0 h-[310px] border"
+          options={editorOptions}
           defaultLanguage="javascript"
           defaultValue={defaultCode}
           onChange={(value) => setCode(value || "")}
