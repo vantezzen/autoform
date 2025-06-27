@@ -22,10 +22,10 @@ describe("AutoForm Custom Fields Tests", () => {
     customField: z
       .string()
       .min(5, "Must be at least 5 characters")
-      .register(
-        ...fieldConfig({
+      .check(
+        fieldConfig({
           fieldType: "custom",
-        }),
+        })
       ),
   });
 
@@ -42,7 +42,7 @@ describe("AutoForm Custom Fields Tests", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-input").should("exist");
@@ -68,7 +68,7 @@ describe("AutoForm Custom Fields Tests", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-input").type("Hi");

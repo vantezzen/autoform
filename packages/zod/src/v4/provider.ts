@@ -1,9 +1,9 @@
-import { z } from "zod/v4";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
+import * as z from "zod/v4/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
+import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
 
-export class ZodProvider<T extends z.ZodObject>
+export class ZodProvider<T extends z.$ZodObject>
   implements SchemaProvider<z.infer<T>>
 {
   /**
@@ -23,10 +23,10 @@ export class ZodProvider<T extends z.ZodObject>
 
   validateSchema(values: z.infer<T>): SchemaValidation {
     try {
-      const data = this.schema.parse(values);
+      const data = z.parse(this.schema, values);
       return { success: true, data } as const;
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      if (error instanceof z.$ZodError) {
         return {
           success: false,
           errors: error.issues.map((error) => ({
