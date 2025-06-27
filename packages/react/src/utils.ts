@@ -5,28 +5,6 @@ import { fieldConfig as joiBaseFieldConfig } from "@autoform/joi";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
 
-/**
- * @deprecated Use `buildZodFieldConfig` instead.
- */
-export function fieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-): ReturnType<typeof zodBaseFieldConfig> {
-  return zodBaseFieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >(config);
-}
-
 export function buildZodFieldConfig<
   FieldTypes = string,
   CustomData = Record<string, any>,

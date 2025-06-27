@@ -1,6 +1,6 @@
 import "./ant-joi/all.cy";
 import "./ant-zod/all.cy";
-import "./ant-zod-v4-mini/all.cy";
+import "./ant-zod4-mini/all.cy";
 import "./chakra-zod/all.cy";
 import "./mantine-zod/all.cy";
 import "./mui-yup/all.cy";

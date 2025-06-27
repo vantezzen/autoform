@@ -1,5 +1,5 @@
 import { createTheme, MantineProvider } from "@mantine/core";
-import { AutoForm, fieldConfig } from "@autoform/mantine";
+import { AutoForm } from "@autoform/mantine";
 import { zodSchemaProvider } from "./utils";
 import "@mantine/core/styles.css";
 

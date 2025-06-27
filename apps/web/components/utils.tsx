@@ -1,14 +1,8 @@
-import {
-  // fieldConfig,
-  FieldWrapperProps,
-  buildZodFieldConfig,
-} from "@autoform/react";
+import { FieldWrapperProps, buildZodFieldConfig } from "@autoform/react";
 import Joi from "joi";
 import * as z from "zod";
 import * as z4 from "zod/v4";
-import * as zc from "zod/v4/core";
 import * as zm from "zod/v4-mini";
-import { fieldConfig as config } from "@autoform/zod/v4";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { object, string, number, date, array, mixed } from "yup";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
@@ -177,8 +171,9 @@ const zodFormSchema4 = z4.object({
     .min(2, {
       message: "Username must be at least 2 characters.",
     })
+    .default("Default username !!")
     .check(
-      config({
+      fieldConfig({
         description: "You cannot change this later.",
       })
     ),
@@ -278,21 +273,24 @@ const zodFormSchema4 = z4.object({
 
 // zod mini
 const zodFormSchema4mini = zm.object({
-  username: zm
-    .string({
-      error: "Username is required.",
-    })
-    .check(
-      zm.minLength(2, {
-        message: "Username must be at least 2 characters.",
+  username: zm._default(
+    zm
+      .string({
+        error: "Username is required.",
       })
-    )
-    .check(
-      fieldConfig({
-        // Changed from superRefine to register
-        description: "You cannot change this later.",
-      })
-    ),
+      .check(
+        zm.minLength(2, {
+          message: "Username must be at least 2 characters.",
+        })
+      )
+      .check(
+        fieldConfig({
+          // Changed from superRefine to register
+          description: "You cannot change this later.",
+        })
+      ),
+    "Default username !"
+  ),
 
   password: zm
     .string({
@@ -319,7 +317,7 @@ const zodFormSchema4mini = zm.object({
       fieldWrapper: (props: FieldWrapperProps) => (
         <>
           {props.children}
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs">
             Don't worry, we only send important emails!
           </p>
         </>
@@ -355,7 +353,7 @@ const zodFormSchema4mini = zm.object({
   }),
 });
 
-export const zodSchemaProvider = new ZodProvider(zodFormSchema4mini);
+export const zodSchemaProvider = new ZodProvider(zodFormSchema);
 
 const yupFormSchema = object({
   name: string().required().label("Your Name").default("John Doe"),
