@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/ant";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Form Props Tests (MUI)", () => {
+describe("AutoForm Form Props Tests (ANT-ZOD)", () => {
   const schema = z.object({
     name: z.string(),
   });

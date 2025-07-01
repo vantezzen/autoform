@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/ant";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Advanced Features Tests", () => {
+describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
   const advancedSchema = z.object({
     username: z
       .string()
@@ -64,7 +64,10 @@ describe("AutoForm Advanced Features Tests", () => {
       .eq(1)
       .find("input")
       .should("have.attr", "name", "password");
-    cy.get(".ant-form-item").eq(2).find(".ant-select").find(".ant-select-selection-search-input");
+    cy.get(".ant-form-item")
+      .eq(2)
+      .find(".ant-select")
+      .find(".ant-select-selection-search-input");
     cy.get(".ant-form-item")
       .eq(3)
       .find("input")
@@ -110,11 +113,14 @@ describe("AutoForm Advanced Features Tests", () => {
       />
     );
 
-    cy.get('.ant-select[name*="favoriteColor"]').should("exist").click().find('input#favoriteColor').click();
-    cy.get('.ant-select-item[title="red"]').should('exist');
-    cy.get('.ant-select-item[title="green"]').should('exist');
-    cy.get('.ant-select-item[title="blue"]').should('exist');
-
+    cy.get('.ant-select[name*="favoriteColor"]')
+      .should("exist")
+      .click()
+      .find("input#favoriteColor")
+      .click();
+    cy.get('.ant-select-item[title="red"]').should("exist");
+    cy.get('.ant-select-item[title="green"]').should("exist");
+    cy.get('.ant-select-item[title="blue"]').should("exist");
   });
 
   it("renders textarea field correctly", () => {

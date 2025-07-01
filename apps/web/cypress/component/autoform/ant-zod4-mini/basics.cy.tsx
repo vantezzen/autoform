@@ -1,9 +1,9 @@
 import React from "react";
 import { AutoForm } from "@autoform/ant";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4-mini";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (ANT-ZOD-V4-MINI)", () => {
   const basicSchema = z.object({
     name: z.string().check(
       z.minLength(2)

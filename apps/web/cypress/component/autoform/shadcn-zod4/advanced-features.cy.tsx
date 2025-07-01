@@ -1,10 +1,10 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider, fieldConfig } from "@autoform/zod/v4";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Advanced Features Tests", () => {
+describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
   const advancedSchema = z.object({
     username: z
       .string()

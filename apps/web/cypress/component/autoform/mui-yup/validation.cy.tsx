@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/mui";
 import { YupProvider } from "@autoform/yup";
 import * as Yup from "yup";
 
-describe("AutoForm Validation Tests", () => {
+describe("AutoForm Validation Tests (MUI-YUP)", () => {
   const validationSchema = Yup.object({
     username: Yup.string().min(3, "Username must be at least 3 characters"),
     password: Yup.string().min(8, "Password must be at least 8 characters"),

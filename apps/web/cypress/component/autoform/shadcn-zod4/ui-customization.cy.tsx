@@ -1,12 +1,12 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider, fieldConfig } from "@autoform/zod/v4";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TextField } from "@mui/material";
 import { TestWrapper } from "./utils";
 import { FieldWrapperProps } from "@autoform/react";
 
-describe("AutoForm UI Customization Tests", () => {
+describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
   const customSchema = z.object({
     name: z.string().check(
       fieldConfig({

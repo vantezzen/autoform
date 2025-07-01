@@ -5,7 +5,7 @@ import { z } from "zod";
 import { AutoFormFieldProps } from "@autoform/react";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Custom Fields Tests", () => {
+describe("AutoForm Custom Fields Tests (SHADCN-ZOD)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     field,
     inputProps,

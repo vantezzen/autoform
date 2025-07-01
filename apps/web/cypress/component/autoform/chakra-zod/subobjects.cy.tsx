@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/chakra";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Sub-objects Tests", () => {
+describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),

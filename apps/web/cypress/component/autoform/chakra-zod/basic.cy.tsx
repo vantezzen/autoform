@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/chakra";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
@@ -33,11 +33,7 @@ describe("AutoForm Basic Tests", () => {
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
     cy.get('input[name="birthdate"]');
-    cy.get('input[name="isStudent"]').should(
-      "have.attr",
-      "type",
-      "checkbox"
-    );
+    cy.get('input[name="isStudent"]').should("have.attr", "type", "checkbox");
   });
 
   it("submits form with correct data types", () => {
@@ -51,7 +47,10 @@ describe("AutoForm Basic Tests", () => {
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
     cy.get('input[name="birthdate"]').clear().type("1990-01-01");
-    cy.get('input[name="isStudent"]').parent().find('.chakra-checkbox__control').click();
+    cy.get('input[name="isStudent"]')
+      .parent()
+      .find(".chakra-checkbox__control")
+      .click();
 
     cy.get('button[type="submit"]').click();
 

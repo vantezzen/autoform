@@ -4,7 +4,7 @@ import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Sub-objects Tests", () => {
+describe("AutoForm Sub-objects Tests (MANTINE-ZOD)", () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),

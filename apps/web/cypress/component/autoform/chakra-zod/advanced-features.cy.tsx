@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/chakra";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Advanced Features Tests", () => {
+describe("AutoForm Advanced Features Tests (CHAKRA-ZOD)", () => {
   const advancedSchema = z.object({
     username: z
       .string()
@@ -110,16 +110,24 @@ describe("AutoForm Advanced Features Tests", () => {
       />
     );
 
-    cy.get('.chakra-select__root').should("exist").within(() => {
-      cy.get('select').should("have.attr", "name", "favoriteColor");
-    }).click();
+    cy.get(".chakra-select__root")
+      .should("exist")
+      .within(() => {
+        cy.get("select").should("have.attr", "name", "favoriteColor");
+      })
+      .click();
 
-    cy.get('.chakra-select__content').should("exist").within(() => {
-      cy.get('.chakra-select__item').should('exist').should('contain', 'red');
-      cy.get('.chakra-select__item').should('exist').should('contain', 'green');
-      cy.get('.chakra-select__item').should('exist').should('contain', 'blue');
-    });
-
+    cy.get(".chakra-select__content")
+      .should("exist")
+      .within(() => {
+        cy.get(".chakra-select__item").should("exist").should("contain", "red");
+        cy.get(".chakra-select__item")
+          .should("exist")
+          .should("contain", "green");
+        cy.get(".chakra-select__item")
+          .should("exist")
+          .should("contain", "blue");
+      });
   });
 
   it("renders textarea field correctly", () => {

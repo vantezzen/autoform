@@ -34,7 +34,7 @@ const ControlledForm = () => {
   );
 };
 
-describe("AutoForm Controlled Form Tests", () => {
+describe("AutoForm Controlled Form Tests (MANTINE-ZOD)", () => {
   it("renders with initial values", () => {
     cy.mount(<ControlledForm />);
 

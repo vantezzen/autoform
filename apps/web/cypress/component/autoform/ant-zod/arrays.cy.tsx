@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/ant";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Arrays Tests", () => {
+describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
@@ -25,11 +25,12 @@ describe("AutoForm Arrays Tests", () => {
       />
     );
 
-    cy.get('.ant-btn').eq(0)
-    .should('exist')
-    .within(() => {
-      cy.get('span[aria-label="plus"]').should('exist');
-    });
+    cy.get(".ant-btn")
+      .eq(0)
+      .should("exist")
+      .within(() => {
+        cy.get('span[aria-label="plus"]').should("exist");
+      });
   });
 
   it("allows adding and removing array items", () => {

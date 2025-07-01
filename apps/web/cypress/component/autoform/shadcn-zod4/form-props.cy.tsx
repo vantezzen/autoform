@@ -1,10 +1,10 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Form Props Tests (shadcn)", () => {
+describe("AutoForm Form Props Tests (SHADCN-ZOD-V4)", () => {
   const schema = z.object({
     name: z.string(),
   });
@@ -24,7 +24,7 @@ describe("AutoForm Form Props Tests (shadcn)", () => {
             onKeyDown: cy.stub().as("onKeyDown"),
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get("form")
@@ -48,7 +48,7 @@ describe("AutoForm Form Props Tests (shadcn)", () => {
             },
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="name"]').type("John Doe{enter}");

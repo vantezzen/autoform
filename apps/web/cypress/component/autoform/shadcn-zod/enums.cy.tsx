@@ -4,7 +4,7 @@ import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Enums Tests", () => {
+describe("AutoForm Enums Tests (SHADCN-ZOD)", () => {
   const arraySchema = z.object({
     gender: z.enum(["male", "female"]),
   });
@@ -23,7 +23,7 @@ describe("AutoForm Enums Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     // Check if select trigger exists
@@ -53,7 +53,7 @@ describe("AutoForm Enums Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     // Verify default value is selected

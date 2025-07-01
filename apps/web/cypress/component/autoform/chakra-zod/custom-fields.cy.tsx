@@ -4,7 +4,7 @@ import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { AutoFormFieldProps } from "@autoform/react";
 
-describe("AutoForm Custom Fields Tests", () => {
+describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     field,
     inputProps,

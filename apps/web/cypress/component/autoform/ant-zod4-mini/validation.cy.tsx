@@ -1,13 +1,17 @@
 import React from "react";
 import { AutoForm } from "@autoform/ant";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4-mini";
 
-describe("AutoForm Validation Tests", () => {
+describe("AutoForm Validation Tests (ANT-ZOD-V4-MINI)", () => {
   const validationSchema = z.object({
-    username: z.string().check(z.minLength(3)),
-    password: z.string().check(z.minLength(8)),
-    email: z.string(),
+    username: z
+      .string()
+      .check(z.minLength(3, "Username must be at least 3 characters")),
+    password: z
+      .string()
+      .check(z.minLength(8, "Password must be at least 8 characters")),
+    email: z.email("Invalid email address"),
   });
   const schemaProvider = new ZodProvider(validationSchema);
 
@@ -26,9 +30,9 @@ describe("AutoForm Validation Tests", () => {
 
     cy.get('button[type="submit"]').click();
 
-    cy.contains("Invalid input").should("be.visible");
-    cy.contains("Invalid input").should("be.visible");
-    cy.contains("Invalid input").should("be.visible");
+    cy.contains("Username must be at least 3 characters").should("be.visible");
+    cy.contains("Password must be at least 8 characters").should("be.visible");
+    cy.contains("Invalid email address").should("be.visible");
 
     cy.get("@onSubmit").should("not.have.been.called");
   });
