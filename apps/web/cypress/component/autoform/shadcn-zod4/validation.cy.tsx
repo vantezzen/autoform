@@ -1,10 +1,10 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Validation Tests", () => {
+describe("AutoForm Validation Tests (SHADCN-ZOD-V4)", () => {
   const validationSchema = z.object({
     username: z.string().min(3, "Username must be at least 3 characters"),
     password: z.string().min(8, "Password must be at least 8 characters"),
@@ -21,7 +21,7 @@ describe("AutoForm Validation Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="username"]').type("ab");
@@ -45,7 +45,7 @@ describe("AutoForm Validation Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="username"]').type("johndoe");

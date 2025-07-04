@@ -4,7 +4,7 @@ import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Advanced Features Tests", () => {
+describe("AutoForm Advanced Features Tests (SHADCN-ZOD)", () => {
   const advancedSchema = z.object({
     username: z
       .string()

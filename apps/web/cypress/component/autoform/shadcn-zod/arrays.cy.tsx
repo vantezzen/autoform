@@ -4,7 +4,7 @@ import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Arrays Tests", () => {
+describe("AutoForm Arrays Tests (SHADCN-ZOD)", () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(

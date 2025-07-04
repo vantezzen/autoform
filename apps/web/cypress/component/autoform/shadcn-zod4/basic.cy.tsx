@@ -1,10 +1,10 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider, fieldConfig } from "@autoform/zod/v4";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
@@ -24,7 +24,7 @@ describe("AutoForm Basic Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -40,7 +40,7 @@ describe("AutoForm Basic Tests", () => {
     cy.mount(
       <TestWrapper>
         <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="name"]').type("John Doe");

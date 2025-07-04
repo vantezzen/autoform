@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/mui";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Sub-objects Tests", () => {
+describe("AutoForm Sub-objects Tests (MUI-ZOD)", () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),

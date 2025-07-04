@@ -31,7 +31,7 @@ const ControlledForm = () => {
   );
 };
 
-describe("AutoForm Controlled Form Tests", () => {
+describe("AutoForm Controlled Form Tests (MUI-ZOD)", () => {
   it("renders with initial values", () => {
     cy.mount(<ControlledForm />);
 

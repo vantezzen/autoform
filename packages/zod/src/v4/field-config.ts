@@ -1,14 +1,6 @@
-import { z } from "zod/v4";
+import * as z from "zod/v4/core";
 import { FieldConfig } from "@autoform/core";
-
-interface FieldConfigMeta {
-  fieldConfig: FieldConfig<any, any, any, any>;
-  [key: string]: unknown;
-}
-
-const fieldConfigRegistry = z.registry<FieldConfigMeta>();
-
-type FieldConfigReturn = [typeof fieldConfigRegistry, FieldConfigMeta];
+import { ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
 
 export function fieldConfig<
   AdditionalRenderable = null,
@@ -21,13 +13,31 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >,
-): FieldConfigReturn {
-  return [fieldConfigRegistry, { fieldConfig: config }];
+  >
+): z.CheckFn<any> {
+  const refinementFunction = () => {};
+
+  refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] = config;
+
+  return refinementFunction;
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.ZodType,
+  schema: z.$ZodType
 ): FieldConfig | undefined {
-  return fieldConfigRegistry.get(schema)?.fieldConfig;
+  const checks = schema._zod.def.checks;
+  if (checks) {
+    for (const check of checks) {
+      const checkFn = check._zod.check;
+      if (ZOD_FIELD_CONFIG_SYMBOL in checkFn) {
+        return checkFn[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
+      }
+    }
+  }
+
+  if ("innerType" in schema._zod.def) {
+    return getFieldConfigInZodStack(schema._zod.def.innerType as z.$ZodType);
+  }
+
+  return undefined;
 }

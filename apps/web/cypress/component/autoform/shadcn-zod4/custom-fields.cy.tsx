@@ -1,11 +1,11 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { fieldConfig, ZodProvider } from "@autoform/zod/v4";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { AutoFormFieldProps } from "@autoform/react";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Custom Fields Tests", () => {
+describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     field,
     inputProps,
@@ -22,10 +22,10 @@ describe("AutoForm Custom Fields Tests", () => {
     customField: z
       .string()
       .min(5, "Must be at least 5 characters")
-      .register(
-        ...fieldConfig({
+      .check(
+        fieldConfig({
           fieldType: "custom",
-        }),
+        })
       ),
   });
 
@@ -42,7 +42,7 @@ describe("AutoForm Custom Fields Tests", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-input").should("exist");
@@ -68,7 +68,7 @@ describe("AutoForm Custom Fields Tests", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get(".custom-input").type("Hi");

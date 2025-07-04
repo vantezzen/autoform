@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/chakra";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Arrays Tests", () => {
+describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
@@ -25,8 +25,8 @@ describe("AutoForm Arrays Tests", () => {
       />
     );
 
-    cy.get('button[name="add-array-item"]').eq(0).should('exist');
-    cy.get('button[name="add-array-item"]').eq(1).should('exist'); 
+    cy.get('button[name="add-array-item"]').eq(0).should("exist");
+    cy.get('button[name="add-array-item"]').eq(1).should("exist");
   });
 
   it("allows adding and removing array items", () => {

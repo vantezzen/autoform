@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/ant";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (ANT-ZOD)", () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
@@ -29,7 +29,10 @@ describe("AutoForm Basic Tests", () => {
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
     cy.get('input[name="birthdate"]');
-    cy.get('input[name="isStudent"]').should("have.class", "ant-checkbox-input");
+    cy.get('input[name="isStudent"]').should(
+      "have.class",
+      "ant-checkbox-input"
+    );
   });
 
   it("submits form with correct data types", () => {

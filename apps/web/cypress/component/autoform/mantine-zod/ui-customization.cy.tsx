@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import { TestWrapper } from "./utils";
 import { FieldWrapperProps } from "@autoform/react";
 
-describe("AutoForm UI Customization Tests", () => {
+describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
   const customSchema = z.object({
     name: z.string().superRefine(
       fieldConfig({

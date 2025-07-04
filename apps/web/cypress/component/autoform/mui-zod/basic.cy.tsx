@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/mui";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (MUI-ZOD)", () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),

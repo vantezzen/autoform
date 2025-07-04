@@ -3,7 +3,7 @@ import Joi from "joi";
 import { AutoForm } from "@autoform/ant";
 import { JoiProvider } from "@autoform/joi";
 
-describe("AutoForm Validation Tests", () => {
+describe("AutoForm Validation Tests (ANT-JOI)", () => {
   const validationSchema = Joi.object({
     username: Joi.string().min(3).required().messages({
       "string.min": "Username must be at least 3 characters",

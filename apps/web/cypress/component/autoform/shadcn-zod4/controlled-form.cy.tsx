@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
@@ -34,7 +34,7 @@ const ControlledForm = () => {
   );
 };
 
-describe("AutoForm Controlled Form Tests", () => {
+describe("AutoForm Controlled Form Tests (SHADCN-ZOD-V4)", () => {
   it("renders with initial values", () => {
     cy.mount(<ControlledForm />);
 

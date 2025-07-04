@@ -1,34 +1,9 @@
 import { FieldConfig } from "@autoform/core";
-import {
-  SuperRefineFunction,
-  fieldConfig as zodBaseFieldConfig,
-} from "@autoform/zod";
+import { fieldConfig as zodBaseFieldConfig } from "@autoform/zod";
 import { fieldConfig as yupBaseFieldConfig } from "@autoform/yup";
 import { fieldConfig as joiBaseFieldConfig } from "@autoform/joi";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
-
-/**
- * @deprecated Use `buildZodFieldConfig` instead.
- */
-export function fieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-): SuperRefineFunction {
-  return zodBaseFieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >(config);
-}
 
 export function buildZodFieldConfig<
   FieldTypes = string,
@@ -40,7 +15,7 @@ export function buildZodFieldConfig<
     React.ComponentType<FieldWrapperProps>,
     CustomData
   >
-) => SuperRefineFunction {
+) => ReturnType<typeof zodBaseFieldConfig> {
   return (config) =>
     zodBaseFieldConfig<
       ReactNode,

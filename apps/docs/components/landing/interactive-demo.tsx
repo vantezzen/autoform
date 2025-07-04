@@ -56,7 +56,7 @@ function InteractiveDemo() {
 
   return (
     <div className="grid md:grid-cols-2 gap-1 w-full">
-      <div className="bg-white rounded-lg md:py-6 md:px-0">
+      <div className="bg-white rounded-lg p-1 md:py-6 md:px-1">
         <Editor
           className="md:h-[500px] md:border-0 h-[310px] border"
           options={editorOptions}

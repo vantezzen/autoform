@@ -115,9 +115,9 @@ Autoform is able to automatically transform some of zod's validation elements in
 
 Validation methods that are not supported by HTML will automatically be checked when the form is submitted.
 
-#### Descriptions
+#### Labels
 
-You can use the `describe` method to set a label and description for each field. If no label is set, the field name will be used and un-camel-cased.
+You can use the `describe` method to set a label for each field. If no label is set, the field name will be used and un-camel-cased.
 
 ```tsx
 const formSchema = z.object({
@@ -246,14 +246,19 @@ const formSchema = z.object({
 #### Field configuration
 
 You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
+It's recommended to create your own `fieldConfig` function. Use the base `buildZodFieldConfig` from `@autoform/react` and extend it with your customizations to ensure full TypeScript support.
 
-**Zod v3:**
+> `ZodProvider` and `fieldConfig` from `@autoform/zod` are fully compatible with all Zod versions including v3, v4, and Zod Mini, allowing you to use them across any Zod version.
 
-For Zod v3, it's recommended that you create your own fieldConfig function that uses the base `buildZodFieldConfig` function from `@autoform/react` and adds your own customizations. You apply this configuration using the `.superRefine()` method.
+#### Zod v3
+
+With Zod v3, you apply this configuration using the `.superRefine()` method.
 
 ```tsx
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { buildZodFieldConfig } from "@autoform/react";
 import { FieldTypes } from "@autoform/mui"; // or your UI library's FieldTypes
+import * as z from "zod";
 
 const fieldConfig = buildZodFieldConfig<
   FieldTypes,
@@ -264,6 +269,15 @@ const fieldConfig = buildZodFieldConfig<
 
 // Example usage with Zod v3
 const formSchemaV3 = z.object({
+  username: z
+    .string({
+      required_error: "Username is required.",
+    })
+    .superRefine(
+      fieldConfig({
+        description: "You cannot change this later.",
+      })
+    ),
   password: z.string().superRefine(
     fieldConfig<React.ReactNode, FieldTypes>({
       description: "We recommend to use a strong password.",
@@ -278,16 +292,15 @@ const formSchemaV3 = z.object({
 });
 ```
 
-**Zod v4:**
+#### Zod v4
 
-With Zod v4, the method for applying `fieldConfig` has changed. You now use the `fieldConfig` function directly from `@autoform/zod/v4` and apply it using the `.register()` method provided by Zod v4.
-
+With Zod v4, you apply this configuration using the `.check()` method.
 Here's an example demonstrating the new usage:
 
 ```tsx
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm, FieldTypes } from "@autoform/mui";
 import * as z from "zod/v4";
-import { ZodProvider, fieldConfig } from "@autoform/zod/v4"; // Import fieldConfig from v4
-import { AutoForm, FieldTypes } from "@autoform/mui"; // or your UI library's FieldTypes
 
 // Define your form schema using zod v4
 const formSchemaV4 = z.object({
@@ -302,8 +315,8 @@ const formSchemaV4 = z.object({
       message: "Password must be at least 8 characters.",
     })
     // Use .register() with the spread operator (...)
-    .register(
-      ...fieldConfig<React.ReactNode, FieldTypes>({
+    .check(
+      fieldConfig<React.ReactNode, FieldTypes>({
         description: "We recommend to use a strong password.",
         inputProps: {
           type: "password",
@@ -318,12 +331,12 @@ const formSchemaV4 = z.object({
   // ... other fields
 });
 
-const schemaProviderV4 = new ZodProvider(formSchemaV4);
+const schemaProvider = new ZodProvider(formSchemaV4);
 
 function AppV4() {
   return (
     <AutoForm
-      schema={schemaProviderV4}
+      schema={schemaProvider}
       onSubmit={(data) => {
         console.log(data);
       }}
@@ -333,16 +346,48 @@ function AppV4() {
 }
 ```
 
-Notice the use of the spread operator (`...`) before `fieldConfig` when calling `.register()`. This is necessary because `register` expects two arguments, and the `fieldConfig` function from `@autoform/zod/v4` returns a tuple `[key, value]`. Also note that you should import `ZodProvider` and `fieldConfig` from `@autoform/zod/v4` when using Zod v4.
+#### Zod Mini
+
+With Zod mini, you apply this configuration using the `.check()` method.
 
 ```tsx
-import { buildZodFieldConfig } from "@autoform/react";
-import { FieldTypes } from "@autoform/mui";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm, FieldTypes } from "@autoform/mui";
+import * as z from "zod/v4-mini";
 
-const fieldConfig = buildZodFieldConfig<
-  FieldTypes,
-  {
-    isImportant?: boolean;
-  }
->();
+// Define your form schema using zod mini
+const formSchemaMini = z.object({
+  password: zm
+    .string({
+      error: "Password is required.",
+    })
+    .check(
+      zm.minLength(8, {
+        message: "Password must be at least 8 characters.",
+      })
+    )
+    .check(
+      fieldConfig({
+        // Changed from superRefine to register
+        description: "Always use a secure password!",
+        inputProps: {
+          type: "password",
+        },
+      })
+    ),
+
+  sendMeMails: zm.optional(zm.boolean()).check(
+    fieldConfig({
+      // Changed from superRefine to register
+      fieldWrapper: (props: FieldWrapperProps) => (
+        <>
+          {props.children}
+          <p className="text-muted-foreground text-xs">
+            Don't worry, we only send important emails!
+          </p>
+        </>
+      ),
+    })
+  ),
+});
 ```

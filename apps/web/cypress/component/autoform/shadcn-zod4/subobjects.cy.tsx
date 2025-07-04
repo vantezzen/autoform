@@ -1,10 +1,10 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
-import { ZodProvider } from "@autoform/zod/v4";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Sub-objects Tests", () => {
+describe("AutoForm Sub-objects Tests (SHADCN-ZOD-V4)", () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),
@@ -25,7 +25,7 @@ describe("AutoForm Sub-objects Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="user.name"]').should("exist");
@@ -41,7 +41,7 @@ describe("AutoForm Sub-objects Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -85,7 +85,7 @@ describe("AutoForm Sub-objects Tests", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>,
+      </TestWrapper>
     );
 
     cy.get('input[name="user.name"]').type("John Doe");

@@ -4,7 +4,7 @@ import { ZodProvider } from "@autoform/zod";
 import { z } from "zod";
 import { TestWrapper } from "./utils";
 
-describe("AutoForm Form Props Tests (Mantine)", () => {
+describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
   const schema = z.object({
     name: z.string(),
   });

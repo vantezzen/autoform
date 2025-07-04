@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/mui";
 import { YupProvider, fieldConfig } from "@autoform/yup";
 import * as Yup from "yup";
 
-describe("AutoForm Basic Tests", () => {
+describe("AutoForm Basic Tests (MUI-YUP)", () => {
   const basicSchema = Yup.object({
     name: Yup.string().min(2, "Name must be at least 2 characters"),
     age: Yup.number().min(18, "Must be at least 18 years old"),

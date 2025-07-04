@@ -1,4 +1,4 @@
-import { AutoForm, fieldConfig } from "@autoform/chakra";
+import { AutoForm } from "@autoform/chakra";
 import { zodSchemaProvider } from "./utils";
 
 function Chakra() {
