@@ -66,7 +66,7 @@ function InteractiveDemo() {
         />
       </div>
 
-      <div className="bg-white rounded-lg p-6">
+      <div className="bg-white rounded-lg p-6 pb-20 md:pb-24">
         <AutoForm
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
