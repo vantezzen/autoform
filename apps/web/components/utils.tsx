@@ -1,6 +1,6 @@
 import { FieldWrapperProps, buildZodFieldConfig } from "@autoform/react";
 import Joi from "joi";
-import * as z from "zod";
+import * as z from "zod/v3";
 import * as z4 from "zod/v4";
 import * as zm from "zod/v4-mini";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
