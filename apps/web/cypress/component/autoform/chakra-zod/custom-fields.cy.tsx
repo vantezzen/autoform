@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/chakra";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 import { AutoFormFieldProps } from "@autoform/react";
 
 describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/chakra";
 import { ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("AutoForm Form Props Tests (CHAKRA-ZOD)", () => {
   const schema = z.object({

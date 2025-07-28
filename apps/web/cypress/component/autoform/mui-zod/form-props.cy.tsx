@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/mui";
 import { ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("AutoForm Form Props Tests (MUI-ZOD)", () => {
   const schema = z.object({

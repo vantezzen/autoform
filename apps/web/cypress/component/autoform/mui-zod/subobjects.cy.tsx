@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/mui";
 import { ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("AutoForm Sub-objects Tests (MUI-ZOD)", () => {
   const subObjectSchema = z.object({

@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/mui";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
   const advancedSchema = z.object({
