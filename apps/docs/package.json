@@ -26,12 +26,13 @@
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-separator": "^1.1.7",
     "fumadocs-core": "15.5.3",
-    "fumadocs-mdx": "11.6.9",
+    "fumadocs-mdx": "11.7.1",
     "fumadocs-ui": "15.5.3",
     "lucide-react": "^0.522.0",
     "next": "15.3.3",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v3";
 import { inferFieldType } from "./field-type-inference";
 import { getDefaultValueInZodStack } from "./default-values";
 import { getFieldConfigInZodStack } from "./field-config";
@@ -26,7 +26,7 @@ function parseField(key: string, schema: z.ZodTypeAny): ParsedField {
   let subSchema: ParsedField[] = [];
   if (baseSchema instanceof z.ZodObject) {
     subSchema = Object.entries(baseSchema.shape).map(([key, field]) =>
-      parseField(key, field as z.ZodTypeAny),
+      parseField(key, field as z.ZodTypeAny)
     );
   }
   if (baseSchema instanceof z.ZodArray) {
@@ -64,7 +64,7 @@ export function parseSchema(schema: ZodObjectOrWrapped): ParsedSchema {
   const shape = objectSchema.shape;
 
   const fields: ParsedField[] = Object.entries(shape).map(([key, field]) =>
-    parseField(key, field as z.ZodTypeAny),
+    parseField(key, field as z.ZodTypeAny)
   );
 
   return { fields };

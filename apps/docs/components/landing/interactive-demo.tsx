@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-import { z } from "zod";
+import { z } from "zod/v3";
 import { AutoForm } from "@autoform/mui";
 import { SchemaProvider } from "@autoform/core";
 import { ZodProvider } from "@autoform/zod";
@@ -66,7 +66,7 @@ function InteractiveDemo() {
         />
       </div>
 
-      <div className="bg-white rounded-lg p-6">
+      <div className="bg-white rounded-lg p-6 pb-20 md:pb-24">
         <AutoForm
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}

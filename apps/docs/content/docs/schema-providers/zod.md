@@ -353,7 +353,7 @@ With Zod mini, you apply this configuration using the `.check()` method.
 ```tsx
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { AutoForm, FieldTypes } from "@autoform/mui";
-import * as z from "zod/v4-mini";
+import * as z from "zod/mini";
 
 // Define your form schema using zod mini
 const formSchemaMini = z.object({

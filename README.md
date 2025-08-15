@@ -18,19 +18,22 @@ What is AutoForm? Let's say you have a zod schema that you already use for your 
 
 ```ts
 import { z } from "zod";
+import { ZodProvider } from "@autoform/zod";
 
 const userSchema = z.object({
   name: z.string(),
   birthday: z.coerce.date(),
   email: z.string().email(),
 });
+
+export const schemaProvider = new ZodProvider(userSchema);
 ```
 
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
 import { AutoForm } from "@autoform/mui";
-import { ZodProvider } from "@autoform/zod";
+import { schemaProvider } from "./schema";
 
 function MyForm() {
   return (
