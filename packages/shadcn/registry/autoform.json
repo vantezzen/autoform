@@ -27,12 +27,6 @@
   "cssVars": {},
   "files": [
     {
-      "path": "autoform/utils.ts",
-      "target": "components/ui/autoform/utils.ts",
-      "content": "import { buildZodFieldConfig } from \"@autoform/react\";\nimport { FieldTypes } from \"./AutoForm\";\n\nexport const fieldConfig = buildZodFieldConfig<\n  FieldTypes,\n  {\n    // Add types for `customData` here.\n  }\n>();\n",
-      "type": "registry:ui"
-    },
-    {
       "path": "autoform/types.ts",
       "target": "components/ui/autoform/types.ts",
       "content": "import { ExtendableAutoFormProps } from \"@autoform/react\";\nimport { FieldValues } from \"react-hook-form\";\n\nexport interface AutoFormProps<T extends FieldValues>\n  extends ExtendableAutoFormProps<T> {}\n",
@@ -41,7 +35,7 @@
     {
       "path": "autoform/index.ts",
       "target": "components/ui/autoform/index.ts",
-      "content": "export * from \"./AutoForm\";\nexport * from \"./types\";\nexport * from \"./utils\";\n",
+      "content": "export * from \"./AutoForm\";\nexport * from \"./types\";\n",
       "type": "registry:ui"
     },
     {
