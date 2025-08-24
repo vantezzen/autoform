@@ -3,12 +3,21 @@ import { AutoForm } from "@autoform/mui";
 import { YupProvider, fieldConfig } from "@autoform/yup";
 import * as Yup from "yup";
 
+enum Sports {
+  Football = "Football/Soccer",
+  Basketball = "Basketballs",
+  Baseball = "Baseballs",
+  Hockey = "Hockey (Ice)",
+  None = "I don't like sports",
+}
+
 describe("AutoForm Basic Tests (MUI-YUP)", () => {
   const basicSchema = Yup.object({
     name: Yup.string().min(2, "Name must be at least 2 characters"),
     age: Yup.number().min(18, "Must be at least 18 years old"),
     email: Yup.string().email("Invalid email address"),
     website: Yup.string().url("Invalid URL").optional(),
+    sports: Yup.mixed().oneOf(Object.values(Sports)),
     birthdate: Yup.date(),
     isStudent: Yup.boolean(),
   });
@@ -28,6 +37,7 @@ describe("AutoForm Basic Tests (MUI-YUP)", () => {
     cy.get('input[name="age"]').should("have.attr", "type", "number");
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
+    cy.get('input[name="sports"]').should("exist");
     cy.get('input[name="birthdate"]').should("have.attr", "type", "date");
     cy.get('input[name="isStudent"]').should("have.attr", "type", "checkbox");
   });
@@ -42,6 +52,8 @@ describe("AutoForm Basic Tests (MUI-YUP)", () => {
     cy.get('input[name="age"]').type("25");
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
+    cy.get("#mui-component-select-sports").click();
+    cy.get('.MuiMenuItem-root[data-value="Hockey (Ice)"]').click();
     cy.get('input[name="birthdate"]').type("1990-01-01");
     cy.get('input[name="isStudent"]').check();
 
@@ -53,6 +65,7 @@ describe("AutoForm Basic Tests (MUI-YUP)", () => {
       age: 25,
       email: "john@example.com",
       website: "https://example.com",
+      sports: "Hockey (Ice)",
       birthdate: new Date("1990-01-01"),
       isStudent: true,
     });

@@ -12,6 +12,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   error,
 }) => {
   const isDisabled = DISABLED_LABELS.includes(field.type);
+  const hideError = ["array", "object"].includes(field.type);
 
   return (
     <div className="space-y-2">
@@ -27,7 +28,9 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
           {field.fieldConfig.description}
         </p>
       )}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {!hideError && error && (
+        <p className="text-sm text-destructive">{error}</p>
+      )}
     </div>
   );
 };

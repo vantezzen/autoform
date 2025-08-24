@@ -30,7 +30,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       defaultValue={value}
       description={field.fieldConfig?.description}
       data={(field.options || []).map(([key, label]) => ({
-        value: key,
+        value: label,
         label,
       }))}
     />
