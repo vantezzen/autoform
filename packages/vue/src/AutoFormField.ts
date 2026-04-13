@@ -23,10 +23,19 @@ export const AutoFormField = defineComponent({
 
     return () => {
       const fullPath = props.path.join(".");
-      const error = getPathInObject(errors, props.path.join(".").split("."))
-        ?? errors[fullPath as keyof typeof errors];
+      const error =
+        getPathInObject(errors, props.path.join(".").split(".")) ??
+        errors[fullPath as keyof typeof errors];
       const value = getPathInObject(values, props.path);
       const label = getLabel(props.field);
+
+      // Compute description, avoiding duplicate when it matches the label
+      const rawDescription =
+        props.field.fieldConfig?.description ?? props.field.description;
+      const description =
+        typeof rawDescription === "string" && rawDescription !== label
+          ? rawDescription
+          : undefined;
 
       const FieldWrapper =
         props.field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
@@ -51,7 +60,8 @@ export const AutoFormField = defineComponent({
         FieldWrapper,
         {
           label,
-          error: typeof error === 'string' ? error : undefined,
+          description,
+          error: typeof error === "string" ? error : undefined,
           id: fullPath,
           field: props.field,
         },
@@ -61,7 +71,7 @@ export const AutoFormField = defineComponent({
               label,
               field: props.field,
               value,
-              error: typeof error === 'string' ? error : undefined,
+              error: typeof error === "string" ? error : undefined,
               id: fullPath,
               path: props.path,
               inputProps: {

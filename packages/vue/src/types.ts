@@ -41,6 +41,7 @@ export interface AutoFormFieldComponents {
 
 export interface FieldWrapperProps {
   label: Renderable<VNode>;
+  description?: string;
   error?: Renderable<VNode>;
   id: string;
   field: ParsedField;
