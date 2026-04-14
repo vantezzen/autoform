@@ -1,0 +1,125 @@
+---
+title: API Reference
+---
+
+## AutoForm component
+
+The main component that renders a form from a schema.
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `schema` | `SchemaProvider` | **required** | Schema provider instance (e.g. `ZodProvider`) |
+| `uiComponents` | `AutoFormUIComponents` | **required** | UI wrapper components |
+| `formComponents` | `AutoFormFieldComponents` | **required** | Field type components |
+| `withSubmit` | `boolean` | `false` | Show a submit button |
+| `defaultValues` | `Record<string, any>` | — | Initial form values |
+| `values` | `Record<string, any>` | — | Controlled form values (watched for changes) |
+| `formProps` | `Record<string, any>` | — | Extra attributes for the `<form>` element |
+
+### Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `submit` | `data: any` | Emitted with validated data on successful submit |
+| `formInit` | `{ values, errors, isSubmitting, reset, clearErrors }` | Emitted once on mount with form controls |
+
+### Exposed (via template ref)
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `values` | `Record<string, any>` | Reactive form values |
+| `errors` | `Ref<Record<string, string>>` | Validation errors |
+| `isSubmitting` | `Ref<boolean>` | Submission state |
+| `reset()` | `() => void` | Reset form to default values |
+
+```vue
+<script setup>
+const formRef = ref();
+// formRef.value.values, formRef.value.reset(), etc.
+</script>
+
+<template>
+  <AutoForm ref="formRef" ... />
+</template>
+```
+
+---
+
+## useAutoForm composable
+
+Injected context available in any component rendered inside `<AutoForm>`.
+
+```ts
+import { useAutoForm } from "@autoform/vue";
+
+const ctx = useAutoForm();
+```
+
+### Returns
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `schema` | `ParsedSchema` | Parsed schema with all fields |
+| `uiComponents` | `AutoFormUIComponents` | UI components passed to AutoForm |
+| `formComponents` | `AutoFormFieldComponents` | Field components passed to AutoForm |
+| `values` | `Record<string, any>` | Reactive form values |
+| `errors` | `Record<string, string>` | Current validation errors |
+| `setFieldValue(path, value)` | `Function` | Set a field value by dot-separated path |
+| `getFieldValue(path)` | `Function` | Get a field value by dot-separated path |
+| `getFieldError(path)` | `Function` | Get a field's error message |
+
+---
+
+## Utility functions
+
+### buildZodFieldConfig
+
+Type-safe helper for creating Zod field configs with Vue component types:
+
+```ts
+import { buildZodFieldConfig } from "@autoform/vue";
+
+const fieldConfig = buildZodFieldConfig();
+// Use with: z.string().superRefine(fieldConfig({ fieldType: "textarea" }))
+```
+
+### buildYupFieldConfig
+
+Same as above but for Yup schemas:
+
+```ts
+import { buildYupFieldConfig } from "@autoform/vue";
+```
+
+### getPathInObject / setPathInObject
+
+Utility functions for reading/writing nested values:
+
+```ts
+import { getPathInObject, setPathInObject } from "@autoform/vue";
+
+const obj = { user: { name: "John" } };
+getPathInObject(obj, ["user", "name"]); // "John"
+setPathInObject(obj, ["user", "age"], 30);
+```
+
+---
+
+## TypeScript types
+
+```ts
+import type {
+  AutoFormProps,
+  AutoFormUIComponents,
+  AutoFormFieldComponents,
+  AutoFormFieldProps,
+  AutoFormContextType,
+  FieldWrapperProps,
+  ObjectWrapperProps,
+  ArrayWrapperProps,
+  ArrayElementWrapperProps,
+  FieldConfig,
+} from "@autoform/vue";
+```

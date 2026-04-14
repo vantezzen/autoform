@@ -1,0 +1,292 @@
+---
+title: Getting Started
+---
+
+> New to AutoForm? Check out the [introduction](/docs) first.
+
+<div className='fd-steps [&_h2]:fd-step'>
+
+## Install the Vue integration
+
+```bash
+# Install the core package and Vue integration
+pnpm add @autoform/vue @autoform/core
+
+# Or with npm
+npm install @autoform/vue @autoform/core
+```
+
+## Install a schema provider
+
+#### Zod
+
+<ModeTab command="@autoform/zod" />
+
+#### Yup
+
+<ModeTab command="@autoform/yup" />
+
+In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
+
+## Create a form
+
+AutoForm for Vue requires two sets of components: **UI components** (form wrapper, field wrapper, submit button, etc.) and **field components** (text input, number input, select, etc.). You provide these as props, giving you full control over the rendering.
+
+```vue
+<script setup lang="ts">
+import { AutoForm } from "@autoform/vue";
+import { ZodProvider } from "@autoform/zod";
+import { z } from "zod";
+
+// Import your custom UI and field components
+import { uiComponents, fieldComponents } from "./my-autoform-components";
+
+const schema = new ZodProvider(
+  z.object({
+    name: z.string().min(2).describe("Full Name"),
+    email: z.string().email(),
+    age: z.number().min(18),
+    role: z.enum(["developer", "designer", "manager"]),
+  })
+);
+
+function onSubmit(data: any) {
+  console.log("Validated data:", data);
+}
+</script>
+
+<template>
+  <AutoForm
+    :schema="schema"
+    :ui-components="uiComponents"
+    :form-components="fieldComponents"
+    with-submit
+    @submit="onSubmit"
+  />
+</template>
+```
+
+## Defining UI components
+
+UI components are the structural wrappers for your form. You need to provide all of these:
+
+```ts
+import { defineComponent, h } from "vue";
+import type { AutoFormUIComponents } from "@autoform/vue";
+
+const Form = defineComponent({
+  setup(_, { slots, attrs }) {
+    return () => h("form", { ...attrs }, slots.default?.());
+  },
+});
+
+const FieldWrapper = defineComponent({
+  props: ["label", "error", "id", "field"],
+  setup(props, { slots }) {
+    return () =>
+      h("div", { class: "field" }, [
+        h("label", { for: props.id }, props.label),
+        slots.default?.(),
+        props.error ? h("p", { class: "error" }, props.error) : null,
+      ]);
+  },
+});
+
+const ErrorMessage = defineComponent({
+  props: ["error"],
+  setup(props) {
+    return () => h("p", { class: "error" }, props.error);
+  },
+});
+
+const SubmitButton = defineComponent({
+  setup(_, { slots }) {
+    return () => h("button", { type: "submit" }, slots.default?.());
+  },
+});
+
+const ObjectWrapper = defineComponent({
+  props: ["label", "field"],
+  setup(props, { slots }) {
+    return () =>
+      h("fieldset", [
+        h("legend", props.label),
+        slots.default?.(),
+      ]);
+  },
+});
+
+const ArrayWrapper = defineComponent({
+  props: ["label", "field"],
+  emits: ["addItem"],
+  setup(props, { slots, emit }) {
+    return () =>
+      h("div", [
+        h("h4", props.label),
+        slots.default?.(),
+        h("button", { type: "button", onClick: () => emit("addItem") }, "+ Add"),
+      ]);
+  },
+});
+
+const ArrayElementWrapper = defineComponent({
+  props: ["index"],
+  emits: ["remove"],
+  setup(props, { slots, emit }) {
+    return () =>
+      h("div", [
+        slots.default?.(),
+        h("button", { type: "button", onClick: () => emit("remove") }, "Remove"),
+      ]);
+  },
+});
+
+export const uiComponents: AutoFormUIComponents = {
+  Form,
+  FieldWrapper,
+  ErrorMessage,
+  SubmitButton,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper,
+};
+```
+
+## Defining field components
+
+Field components render the actual inputs. Each receives `inputProps` with `modelValue` and `onUpdate:modelValue` for v-model compatibility:
+
+```ts
+import { defineComponent, h } from "vue";
+import type { AutoFormFieldComponents } from "@autoform/vue";
+
+const StringField = defineComponent({
+  props: ["field", "value", "error", "id", "inputProps"],
+  setup(props) {
+    return () =>
+      h("input", {
+        type: "text",
+        id: props.id,
+        value: props.inputProps?.modelValue ?? "",
+        onInput: (e: Event) =>
+          props.inputProps?.["onUpdate:modelValue"]?.(
+            (e.target as HTMLInputElement).value
+          ),
+      });
+  },
+});
+
+const NumberField = defineComponent({
+  props: ["field", "value", "error", "id", "inputProps"],
+  setup(props) {
+    return () =>
+      h("input", {
+        type: "number",
+        id: props.id,
+        value: props.inputProps?.modelValue ?? "",
+        onInput: (e: Event) => {
+          const val = (e.target as HTMLInputElement).value;
+          props.inputProps?.["onUpdate:modelValue"]?.(
+            val === "" ? undefined : Number(val)
+          );
+        },
+      });
+  },
+});
+
+const BooleanField = defineComponent({
+  props: ["field", "value", "error", "id", "inputProps"],
+  setup(props) {
+    return () =>
+      h("input", {
+        type: "checkbox",
+        id: props.id,
+        checked: !!props.inputProps?.modelValue,
+        onChange: (e: Event) =>
+          props.inputProps?.["onUpdate:modelValue"]?.(
+            (e.target as HTMLInputElement).checked
+          ),
+      });
+  },
+});
+
+const SelectField = defineComponent({
+  props: ["field", "value", "error", "id", "inputProps"],
+  setup(props) {
+    return () =>
+      h(
+        "select",
+        {
+          id: props.id,
+          value: props.inputProps?.modelValue ?? "",
+          onChange: (e: Event) =>
+            props.inputProps?.["onUpdate:modelValue"]?.(
+              (e.target as HTMLSelectElement).value
+            ),
+        },
+        [
+          h("option", { value: "", disabled: true }, "Select..."),
+          ...(props.field?.options || []).map(([val, label]: [string, string]) =>
+            h("option", { value: val, key: val }, label)
+          ),
+        ]
+      );
+  },
+});
+
+export const fieldComponents: AutoFormFieldComponents = {
+  string: StringField,
+  number: NumberField,
+  boolean: BooleanField,
+  select: SelectField,
+  fallback: StringField,
+};
+```
+
+</div>
+
+## Accessing form state
+
+Use a template ref to access the form's internal state:
+
+```vue
+<script setup>
+import { ref } from "vue";
+
+const formRef = ref();
+
+function resetForm() {
+  formRef.value?.reset();
+}
+</script>
+
+<template>
+  <AutoForm ref="formRef" :schema="schema" ... @submit="onSubmit" />
+  <button @click="resetForm">Reset</button>
+</template>
+```
+
+The exposed properties are: `values`, `errors`, `isSubmitting`, `reset()`.
+
+## Using the composable directly
+
+For full control over form state without the `AutoForm` component, use the `useAutoForm` composable inside the component tree:
+
+```ts
+import { useAutoForm } from "@autoform/vue";
+
+const { values, errors, setFieldValue, getFieldValue } = useAutoForm();
+```
+
+> Note: `useAutoForm()` must be called inside a component rendered within `<AutoForm>`.
+
+## Live Demo
+
+Check out the [live demo](https://mvtandas.github.io/autoform-vue-demo/) to see `@autoform/vue` in action.
+
+## Next Steps
+
+- [How to define your zod schema](/docs/schema-providers/zod)
+- [How to define your yup schema](/docs/schema-providers/yup)
+- [How to customize your form](/docs/vue/customization)
+- [API reference](/docs/vue/api)
