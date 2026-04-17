@@ -1,0 +1,10 @@
+{
+  "title": "Vue",
+  "icon": "Component",
+  "pages": [
+    "---Guide---",
+    "getting-started",
+    "customization",
+    "api"
+  ]
+}
