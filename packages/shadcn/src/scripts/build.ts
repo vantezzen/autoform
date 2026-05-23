@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
-import { z } from "zod";
+import { z } from "zod/v3";
 import { registryEntrySchema } from "./schema";
 import { glob } from "glob";
 

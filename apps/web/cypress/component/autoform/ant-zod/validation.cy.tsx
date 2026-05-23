@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/ant";
 import { ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("AutoForm Validation Tests (ANT-ZOD)", () => {
   const validationSchema = z.object({

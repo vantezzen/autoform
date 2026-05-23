@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev --concurrency=12 --filter=!docs  --filter=!@autoform/joi --filter=!@autoform/core --filter=!@autoform/yup --filter=!@autoform/ant --filter=!@autoform/chakra --filter=!@autoform/zod --filter=!@autoform/mui --filter=!@autoform/shadcn",
+    "dev": "turbo dev --concurrency 20",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cypress": "turbo run cypress --filter=web",

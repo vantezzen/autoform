@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 import { TextField } from "@mui/material";
 import { TestWrapper } from "./utils";
 import { FieldWrapperProps } from "@autoform/react";

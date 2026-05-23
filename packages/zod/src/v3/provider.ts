@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { ParsedSchema, SchemaProvider, SchemaValidation } from "@autoform/core";
+import { z } from "zod/v3";
+import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 import { ZodObjectOrWrapped } from "./types";

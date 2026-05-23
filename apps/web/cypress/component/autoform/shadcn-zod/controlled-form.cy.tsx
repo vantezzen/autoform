@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
 import { ZodProvider } from "@autoform/zod";
-import { z } from "zod";
+import { z } from "zod/v3";
 import { TestWrapper } from "./utils";
 
 const ControlledForm = () => {
