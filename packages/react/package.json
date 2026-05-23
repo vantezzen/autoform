@@ -35,7 +35,7 @@
     "@autoform/core": "*"
   },
   "peerDependencies": {
-    "@hookform/resolvers": "^3.9.0",
+    "@hookform/resolvers": "^3.9.0 || ^4 || ^5",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "react-hook-form": "^7.55.0"
   }

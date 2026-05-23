@@ -6,20 +6,13 @@ import {
   UseFormProps,
   SubmitHandler,
   SubmitErrorHandler,
-  Resolver,
-  ResolverOptions,
-  ResolverResult,
   DefaultValues,
 } from "react-hook-form";
-import {
-  getDefaultValues,
-  parseSchema,
-  replaceEmptyValue,
-} from "@autoform/core";
+import { getDefaultValues, parseSchema } from "@autoform/core";
 import { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
-import { focusError, preventPropagation } from "./utils";
+import { createSchemaResolver, focusError, preventPropagation } from "./utils";
 
 export function AutoForm<T extends FieldValues = FieldValues>({
   form,
@@ -37,18 +30,9 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   const shouldFocusError = form?.shouldFocusError !== false;
   const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
-
-  const resolver: Resolver<T> = async (
-    values: T,
-    ctx: any,
-    options: ResolverOptions<T>
-  ): Promise<ResolverResult<T>> => {
-    const cleanedValues = replaceEmptyValue(values);
-    return schema.resolver(cleanedValues, ctx, options);
-  };
+  const resolver = createSchemaResolver(schema);
 
   const methods = useForm<T, any, T>({
-    formControl: form?.formControl as UseFormProps<T>["formControl"],
     defaultValues: {
       ...(getDefaultValues(schema) as Partial<T>),
       ...defaultValues,
@@ -56,6 +40,7 @@ export function AutoForm<T extends FieldValues = FieldValues>({
     shouldFocusError: false,
     values: values as T,
     resolver,
+    formControl: form?.formControl as UseFormProps<T>["formControl"],
   });
 
   useEffect(() => {
@@ -83,7 +68,7 @@ export function AutoForm<T extends FieldValues = FieldValues>({
       >
         <uiComponents.Form
           onSubmit={preventPropagation(
-            methods.handleSubmit(handleSubmit, handleError)
+            methods.handleSubmit(handleSubmit, handleError),
           )}
           ref={formProps?.ref}
           {...restFormProps}

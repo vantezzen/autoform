@@ -3,11 +3,12 @@ import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 import { JoiObjectOrWrapped } from "./types";
-import { joiResolver } from "@hookform/resolvers/joi";
 
 export class JoiProvider<T extends JoiObjectOrWrapped>
   implements SchemaProvider
 {
+  schemaType = "joi" as const;
+
   /**
    * Provider to use Joi schemas for AutoForm
    *
@@ -31,7 +32,7 @@ export class JoiProvider<T extends JoiObjectOrWrapped>
     return getDefaultValues(this.schema);
   }
 
-  get resolver() {
-    return joiResolver(this.schema);
+  getSchema(): T {
+    return this.schema;
   }
 }

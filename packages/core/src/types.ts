@@ -1,8 +1,3 @@
-import type {
-  Resolver as hookformResolver,
-  FieldValues,
-} from "react-hook-form";
-
 export type Renderable<AdditionalRenderable = null> =
   | string
   | number
@@ -62,4 +57,4 @@ export type SchemaValidation =
   | SuccessfulSchemaValidation
   | ErrorSchemaValidation;
 
-export type Resolver<T extends FieldValues = any> = hookformResolver<T>;
+export type SchemaType = "zod" | "yup" | "joi";

@@ -29,7 +29,6 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "yup": "^1.4.0",
-    "@hookform/resolvers": "^5"
+    "yup": "^1.4.0"
   }
 }

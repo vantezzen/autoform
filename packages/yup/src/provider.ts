@@ -3,11 +3,12 @@ import { ParsedSchema, SchemaProvider, SchemaValidation } from "@autoform/core";
 import { parseSchema } from "./schema-parser";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 export class YupProvider<T extends yup.AnyObjectSchema>
   implements SchemaProvider
 {
+  schemaType = "yup" as const;
+
   /**
    * Provider to use Yup schemas for AutoForm
    *
@@ -31,7 +32,7 @@ export class YupProvider<T extends yup.AnyObjectSchema>
     return getDefaultValues(this.schema);
   }
 
-  get resolver() {
-    return yupResolver(this.schema);
+  getSchema(): T {
+    return this.schema;
   }
 }

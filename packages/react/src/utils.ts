@@ -1,4 +1,4 @@
-import { FieldConfig, SchemaProvider, getDefaultValues } from "@autoform/core";
+import { FieldConfig, SchemaProvider, replaceEmptyValue } from "@autoform/core";
 import { fieldConfig as zodBaseFieldConfig } from "@autoform/zod";
 import { fieldConfig as yupBaseFieldConfig } from "@autoform/yup";
 import { fieldConfig as joiBaseFieldConfig } from "@autoform/joi";
@@ -8,6 +8,9 @@ import {
   createFormControl,
   FieldPath,
   FieldValues,
+  Resolver,
+  ResolverOptions,
+  ResolverResult,
   useController,
   useFormContext,
   UseFormRegister,
@@ -24,7 +27,7 @@ import {
  * @returns An object returning value of `createFormControl<T>` {@link ReturnType<typeof createFormControl<T>>}.
  */
 export function createForm<T extends FieldValues = FieldValues>(
-  props?: Omit<Parameters<typeof createFormControl<T>>, "resolver">[0]
+  props?: Omit<Parameters<typeof createFormControl<T>>, "resolver">[0],
 ): ReturnType<typeof createFormControl<T>> & {
   shouldFocusError?: boolean;
 } {
@@ -141,7 +144,7 @@ export function buildZodFieldConfig<
     FieldTypes,
     React.ComponentType<FieldWrapperProps>,
     CustomData
-  >
+  >,
 ) => ReturnType<typeof zodBaseFieldConfig> {
   return (config) =>
     zodBaseFieldConfig<
@@ -164,7 +167,7 @@ export function buildYupFieldConfig<
     FieldTypes,
     React.ComponentType<FieldWrapperProps>,
     CustomData
-  >
+  >,
 ) => ReturnType<typeof yupBaseFieldConfig> {
   return (config) =>
     yupBaseFieldConfig<
@@ -187,7 +190,7 @@ export function buildJoiFieldConfig<
     FieldTypes,
     React.ComponentType<FieldWrapperProps>,
     CustomData
-  >
+  >,
 ) => ReturnType<typeof joiBaseFieldConfig> {
   return (config) =>
     joiBaseFieldConfig<
@@ -196,4 +199,63 @@ export function buildJoiFieldConfig<
       React.ComponentType<FieldWrapperProps>,
       CustomData
     >(config);
+}
+
+/**
+ * Creates a React Hook Form resolver for an AutoForm schema provider.
+ *
+ * @param schema - AutoForm schema provider with `schemaType` and `getSchema`.
+ *
+ * @returns A React Hook Form resolver that validates cleaned form values.
+ */
+export function createSchemaResolver<T extends FieldValues>(
+  schema: SchemaProvider<T>,
+): Resolver<T> {
+  let resolverPromise: Promise<Resolver<T>> | undefined;
+
+  return async (
+    values: T,
+    ctx: any,
+    options: ResolverOptions<T>,
+  ): Promise<ResolverResult<T>> => {
+    const cleanedValues = replaceEmptyValue(values);
+    resolverPromise ??= getSchemaResolver(schema);
+    const resolver = await resolverPromise;
+    return resolver(cleanedValues, ctx, options);
+  };
+}
+
+/**
+ * Gets the library-specific React Hook Form resolver for a schema provider.
+ *
+ * @param schema - AutoForm schema provider with resolver metadata.
+ *
+ * @returns The matching resolver.
+ */
+async function getSchemaResolver<T extends FieldValues>(
+  schema: SchemaProvider<T>,
+): Promise<Resolver<T>> {
+  const rawSchema = schema.getSchema?.();
+  if (!schema.schemaType || !rawSchema) {
+    throw new Error(
+      "AutoForm: schema provider must expose schemaType and getSchema() to use resolver validation.",
+    );
+  }
+
+  switch (schema.schemaType) {
+    case "zod": {
+      const { zodResolver } = await import("@hookform/resolvers/zod");
+      return zodResolver(rawSchema as any) as Resolver<T>;
+    }
+    case "yup": {
+      const { yupResolver } = await import("@hookform/resolvers/yup");
+      return yupResolver(rawSchema as any) as Resolver<T>;
+    }
+    case "joi": {
+      const { joiResolver } = await import("@hookform/resolvers/joi");
+      return joiResolver(rawSchema as any) as Resolver<T>;
+    }
+  }
+
+  throw new Error(`AutoForm: unsupported schema type "${schema.schemaType}".`);
 }

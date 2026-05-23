@@ -1,4 +1,4 @@
-import { ParsedSchema, Resolver, SchemaValidation } from "./types";
+import { ParsedSchema, SchemaType, SchemaValidation } from "./types";
 
 /**
  * Schema provider interface
@@ -30,10 +30,12 @@ export interface SchemaProvider<T = any> {
   getDefaultValues(): Record<string, any>;
 
   /**
-   * Get the resolver.
-   * This provides resolver for useForm hook.
-   *
-   * @returns Resolver for useForm hook
+   * Schema library used by consumers that need library-specific integrations.
    */
-  resolver: Resolver;
+  schemaType?: SchemaType;
+
+  /**
+   * Get the original schema instance.
+   */
+  getSchema?(): unknown;
 }
