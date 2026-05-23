@@ -1,9 +1,6 @@
-import { FieldConfig, SchemaProvider, replaceEmptyValue } from "@autoform/core";
-import { fieldConfig as zodBaseFieldConfig } from "@autoform/zod";
-import { fieldConfig as yupBaseFieldConfig } from "@autoform/yup";
-import { fieldConfig as joiBaseFieldConfig } from "@autoform/joi";
-import React, { ReactNode } from "react";
-import { FieldReturn, FieldWrapperProps } from "./types";
+import { SchemaProvider, replaceEmptyValue } from "@autoform/core";
+import React from "react";
+import { FieldReturn } from "./types";
 import {
   createFormControl,
   FieldPath,
@@ -131,75 +128,6 @@ export const preventPropagation =
     e.stopPropagation();
     await callback(e);
   };
-
-/**
- * Use the buildZodFieldConfig to extend it with your customizations to ensure full TypeScript support.
- */
-export function buildZodFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >,
-) => ReturnType<typeof zodBaseFieldConfig> {
-  return (config) =>
-    zodBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
-}
-
-/**
- * Use the buildYupFieldConfig to extend it with your customizations to ensure full TypeScript support.
- */
-export function buildYupFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >,
-) => ReturnType<typeof yupBaseFieldConfig> {
-  return (config) =>
-    yupBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
-}
-
-/**
- * Use the buildJoiFieldConfig to extend it with your customizations to ensure full TypeScript support.
- */
-export function buildJoiFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >,
-) => ReturnType<typeof joiBaseFieldConfig> {
-  return (config) =>
-    joiBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
-}
 
 /**
  * Creates a React Hook Form resolver for an AutoForm schema provider.
