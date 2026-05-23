@@ -10,7 +10,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   onAddItem,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, value, ref, ...props } = inputProps;
+  const { key, ref, ...props } = inputProps;
 
   return (
     <section style={{ marginBottom: "20px" }}>

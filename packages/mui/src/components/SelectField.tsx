@@ -7,23 +7,21 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
   field,
   label,
-  value,
+  useField,
   inputProps,
 }) => {
-  const { key, ref, ...props } = inputProps;
-
+  const formField = useField();
   return (
     <Select
-      key={key}
+      key={id}
       fullWidth
-      {...props}
+      {...inputProps}
+      {...formField}
       labelId={id}
       label={label}
-      inputRef={ref}
-      defaultValue={value || ""}
     >
       {(field.options || []).map(([key, label]) => (
-        <MenuItem key={key} value={label}>
+        <MenuItem key={id} value={label}>
           {label}
         </MenuItem>
       ))}

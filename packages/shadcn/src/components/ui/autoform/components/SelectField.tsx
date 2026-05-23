@@ -7,33 +7,36 @@ import {
 } from "@/components/ui/select";
 import { AutoFormFieldProps } from "@autoform/react";
 import React from "react";
-import { useController } from "react-hook-form";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   field,
+  useField,
   inputProps,
   error,
   id,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
-  const { field: formField } = useController({ name: id });
+  const formField = useField();
+  const { value, onChange, ...formFieldRest } = formField;
 
   return (
     <Select
-      onValueChange={formField.onChange}
-      value={formField.value}
-      {...props}
+      onValueChange={onChange}
+      value={value}
+      {...inputProps}
+      {...formFieldRest}
     >
       <SelectTrigger
         id={id}
         {...formField}
         className={error ? "border-destructive" : ""}
       >
-        <SelectValue placeholder={props.placeholder ?? "Select an option"} />
+        <SelectValue
+          placeholder={inputProps.placeholder ?? "Select an option"}
+        />
       </SelectTrigger>
       <SelectContent>
         {(field.options || []).map(([key, label]) => (
-          <SelectItem key={key} value={label}>
+          <SelectItem key={id} value={label}>
             {label}
           </SelectItem>
         ))}

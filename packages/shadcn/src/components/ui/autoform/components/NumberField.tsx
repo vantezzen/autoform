@@ -3,18 +3,19 @@ import { AutoFormFieldProps } from "@autoform/react";
 import React from "react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
+  useField,
   inputProps,
   error,
   id,
 }) => {
-  const { key, ...props } = inputProps;
-
+  const formField = useField();
   return (
     <Input
       id={id}
       type="number"
       className={error ? "border-destructive" : ""}
-      {...props}
+      {...inputProps}
+      {...formField}
     />
   );
 };

@@ -3,21 +3,23 @@ import TextField from "@mui/material/TextField";
 import { AutoFormFieldProps } from "@autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
+  id,
+  useField,
   inputProps,
   error,
   label,
 }) => {
-  const { key, ...props } = inputProps;
-
+  const formField = useField();
   return (
     <TextField
-      key={key}
+      key={id}
       type="date"
       error={!!error}
       fullWidth
       label={label}
-      InputLabelProps={{ shrink: true }}
-      {...props}
+      slotProps={{ inputLabel: { shrink: true } }}
+      {...inputProps}
+      {...formField}
     />
   );
 };

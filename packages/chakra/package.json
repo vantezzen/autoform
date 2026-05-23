@@ -37,7 +37,6 @@
   "peerDependencies": {
     "@chakra-ui/react": "^3.8",
     "@emotion/react": "^11.14",
-    "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-hook-form": "^7.55.0"
+    "react": "^16.8.0 || ^17 || ^18 || ^19"
   }
 }

@@ -4,9 +4,19 @@ import React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   id,
+  useField,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
+  const formField = useField();
 
-  return <Input id={id} key={key} {...props} style={{ width: "100%" }} />;
+  return (
+    <Input
+      id={id}
+      key={id}
+      {...inputProps}
+      {...formField}
+      value={formField.value ?? ""}
+      style={{ width: "100%" }}
+    />
+  );
 };

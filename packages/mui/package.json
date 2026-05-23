@@ -38,7 +38,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^6.0.0",
-    "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-hook-form": "^7"
+    "react": "^16.8.0 || ^17 || ^18 || ^19"
   }
 }

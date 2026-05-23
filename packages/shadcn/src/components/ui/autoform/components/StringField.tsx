@@ -3,13 +3,18 @@ import { AutoFormFieldProps } from "@autoform/react";
 import React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
+  useField,
   inputProps,
   error,
   id,
 }) => {
-  const { key, ...props } = inputProps;
-
+  const formField = useField();
   return (
-    <Input id={id} className={error ? "border-destructive" : ""} {...props} />
+    <Input
+      id={id}
+      className={error ? "border-destructive" : ""}
+      {...inputProps}
+      {...formField}
+    />
   );
 };

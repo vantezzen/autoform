@@ -5,9 +5,10 @@ import React from "react";
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
   field,
+  useField,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
+  const formField = useField();
 
   const options =
     field.options?.map((option) => ({
@@ -17,8 +18,9 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   return (
     <Select
       id={id}
-      key={key}
-      {...props}
+      key={id}
+      {...inputProps}
+      {...formField}
       options={options}
       style={{ width: "100%" }}
     />

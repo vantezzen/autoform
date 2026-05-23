@@ -10,7 +10,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   onAddItem,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, value, ref, ...props } = inputProps;
+  const { key, ref, ...props } = inputProps;
 
   return (
     <div className="space-y-2">

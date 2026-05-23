@@ -4,9 +4,18 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,
+  useField,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
-
-  return <Input id={id} key={key} fullWidth type="number" {...props} />;
+  const formField = useField();
+  return (
+    <Input
+      id={id}
+      key={id}
+      fullWidth
+      type="number"
+      {...inputProps}
+      {...formField}
+    />
+  );
 };

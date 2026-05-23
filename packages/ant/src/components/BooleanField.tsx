@@ -7,19 +7,21 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   label,
   field,
   error,
+  useField,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
+  const formField = useField();
 
   return (
     <>
       <Checkbox
         id={id}
-        key={key}
-        {...props}
-        checked={props.value}
+        key={id}
+        {...inputProps}
+        {...formField}
+        checked={formField.value}
         onChange={(e) => {
-          props.onChange(e.target.checked);
+          formField.onChange(e.target.checked);
         }}
         style={{
           display: "flex",

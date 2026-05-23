@@ -6,18 +6,23 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
-export const DateField: React.FC<AutoFormFieldProps> = ({ id, inputProps }) => {
-  const { key, ...props } = inputProps;
+export const DateField: React.FC<AutoFormFieldProps> = ({
+  id,
+  useField,
+  inputProps,
+}) => {
+  const formField = useField();
 
   return (
     <DatePicker
       id={id}
-      key={key}
-      {...props}
+      key={id}
+      {...inputProps}
+      {...formField}
       style={{ width: "100%" }}
-      value={dayjs.utc(props.value)}
+      value={formField.value ? dayjs.utc(formField.value) : undefined}
       onChange={(date, dateString) => {
-        props.onChange(dateString);
+        formField.onChange(dateString);
       }}
       // use allowClear have bug
       allowClear={false}

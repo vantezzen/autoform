@@ -4,9 +4,9 @@ import { Input } from "@chakra-ui/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   id,
+  useField,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
-
-  return <Input id={id} key={key} {...props} />;
+  const formField = useField();
+  return <Input id={id} key={id} {...inputProps} {...formField} />;
 };

@@ -3,18 +3,19 @@ import { AutoFormFieldProps } from "@autoform/react";
 import React from "react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
+  useField,
   inputProps,
   error,
   id,
 }) => {
-  const { key, ...props } = inputProps;
-
+  const formField = useField();
   return (
     <Input
       id={id}
       type="date"
       className={error ? "border-destructive" : ""}
-      {...props}
+      {...inputProps}
+      {...formField}
     />
   );
 };

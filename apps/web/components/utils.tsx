@@ -1,4 +1,4 @@
-import { FieldWrapperProps, buildZodFieldConfig } from "@autoform/react";
+import { FieldWrapperProps } from "@autoform/react";
 import Joi from "joi";
 import * as z from "zod/v3";
 import * as z4 from "zod/v4";
@@ -7,13 +7,6 @@ import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { object, string, number, date, array, mixed } from "yup";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
 import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
-
-const customFieldConfig = buildZodFieldConfig<
-  string,
-  {
-    isImportant?: boolean;
-  }
->();
 
 enum Sports {
   Football = "Football/Soccer",
@@ -48,7 +41,7 @@ const zodFormSchema = z.object({
     .superRefine(
       fieldConfig({
         description: "You cannot change this later.",
-      })
+      }),
     ),
   password: z
     .string({
@@ -68,7 +61,7 @@ const zodFormSchema = z.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
   favouriteNumber: z.coerce
     .number({
@@ -103,7 +96,7 @@ const zodFormSchema = z.object({
             </>
           );
         },
-      })
+      }),
     ),
   birthday: z.coerce.date({ message: "aaa" }).optional(),
   color: z.enum(["red", "green", "blue"]).optional(),
@@ -138,7 +131,7 @@ const zodFormSchema = z.object({
             }),
           }),
         }),
-      })
+      }),
     )
     .min(1, "minimum one guest is required"),
   // location: z.object({
@@ -176,7 +169,7 @@ const zodFormSchema4 = z4.object({
     .check(
       fieldConfig({
         description: "You cannot change this later.",
-      })
+      }),
     ),
   password: z4
     .string({
@@ -197,7 +190,7 @@ const zodFormSchema4 = z4.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
   favouriteNumber: z4.coerce
     .number({
@@ -234,7 +227,7 @@ const zodFormSchema4 = z4.object({
             </>
           );
         },
-      })
+      }),
     ),
   birthday: z4.coerce.date({ message: "aaa" }).optional(),
   color: z4.enum(["red", "green", "blue"]).default("red").optional(),
@@ -268,7 +261,7 @@ const zodFormSchema4 = z4.object({
           }),
         }),
       }),
-    })
+    }),
   ),
 });
 
@@ -282,15 +275,15 @@ const zodFormSchema4mini = zm.object({
       .check(
         zm.minLength(2, {
           message: "Username must be at least 2 characters.",
-        })
+        }),
       )
       .check(
         fieldConfig({
           // Changed from superRefine to register
           description: "You cannot change this later.",
-        })
+        }),
       ),
-    "Default username !"
+    "Default username !",
   ),
 
   password: zm
@@ -300,7 +293,7 @@ const zodFormSchema4mini = zm.object({
     .check(
       zm.minLength(8, {
         message: "Password must be at least 8 characters.",
-      })
+      }),
     )
     .check(
       fieldConfig({
@@ -309,7 +302,7 @@ const zodFormSchema4mini = zm.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
 
   sendMeMails: zm.optional(zm.boolean()).check(
@@ -323,20 +316,20 @@ const zodFormSchema4mini = zm.object({
           </p>
         </>
       ),
-    })
+    }),
   ),
 
   favouriteNumber: zm.optional(zm._default(zm.number(), 4)).check(
     fieldConfig({
       description: "Enter your favourite number",
       label: "Favourite Number !!!",
-    })
+    }),
   ),
 
   favouriteSport: zm.enum(["red", "green", "blue"]).check(
     fieldConfig({
       description: "Your favourite sport",
-    })
+    }),
   ),
 
   Birthdate: zm.optional(zm.date()),
@@ -345,7 +338,7 @@ const zodFormSchema4mini = zm.object({
       mini: zm.string(),
       age: zm.number(),
       isStudent: zm._default(zm.boolean(), true),
-    })
+    }),
   ),
   object: zm.object({
     mini: zm.optional(zm.string()),
@@ -367,7 +360,7 @@ const yupFormSchema = object({
       inputProps: {
         type: "password",
       },
-    })
+    }),
   ),
   email: string()
     .email()
@@ -378,7 +371,7 @@ const yupFormSchema = object({
     .of(
       object({
         name: string().required(),
-      })
+      }),
     )
     .min(1, "At least one guest is required"),
   abc: date().optional(),
@@ -402,7 +395,7 @@ const joiFormSchema = Joi.object({
         inputProps: {
           placeholder: "Enter your username",
         },
-      })
+      }),
     ),
 
   password: Joi.string()
@@ -422,7 +415,7 @@ const joiFormSchema = Joi.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
 
   favouriteNumber: Joi.number().min(1).max(10).default(1).messages({
@@ -453,7 +446,7 @@ const joiFormSchema = Joi.object({
             </>
           );
         },
-      })
+      }),
     ),
 
   birthday: Joi.date().optional().messages({
@@ -496,7 +489,7 @@ const joiFormSchema = Joi.object({
           }),
         }),
       }),
-    })
+    }),
   ),
 });
 

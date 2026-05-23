@@ -1,6 +1,5 @@
 import React from "react";
 import { AutoFormFieldProps } from "@autoform/react";
-import { useController } from "react-hook-form";
 import { Checkbox } from "../ui/checkbox";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
@@ -8,16 +7,17 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   label,
   field,
   error,
+  useField,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
-  const { field: formField } = useController({ name: id });
+  const formField = useField();
 
   return (
     <Checkbox
       id={id}
-      key={key}
-      {...props}
+      key={id}
+      {...inputProps}
+      {...formField}
       {...formField}
       invalid={!!error}
       checked={formField.value}
