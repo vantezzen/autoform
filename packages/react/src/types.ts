@@ -28,6 +28,8 @@ export interface AutoFormProps<T extends FieldValues = FieldValues> {
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
+  /** @deprecated Prefer passing a form created with createForm(). */
+  onFormInit?: (form: UseFormReturn<T, any, T>) => void;
   formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
 

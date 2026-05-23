@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   useForm,
   FieldValues,
@@ -30,10 +31,11 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   uiComponents,
   formComponents,
   withSubmit = false,
+  onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
   const shouldFocusError = form?.shouldFocusError !== false;
-  const { ref, ...restFormProps } = formProps;
+  const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
 
   const resolver: Resolver<T> = async (
@@ -55,6 +57,10 @@ export function AutoForm<T extends FieldValues = FieldValues>({
     values: values as T,
     resolver,
   });
+
+  useEffect(() => {
+    onFormInit?.(methods);
+  }, [methods, onFormInit]);
 
   const handleSubmit: SubmitHandler<T> = async (data: T, e) => {
     await onSubmit(data, methods, e);
