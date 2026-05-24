@@ -1,5 +1,4 @@
-import { ExtendableAutoFormProps } from "@autoform/react";
-import { FieldValues } from "react-hook-form";
+import type { ExtendableAutoFormProps, FieldValues } from "@autoform/react";
 import { ColorModeProviderProps } from "./components/ui/color-mode";
 
 export interface AutoFormProps<T extends FieldValues>

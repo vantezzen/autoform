@@ -2,11 +2,12 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import { AutoForm } from "@autoform/mantine";
 import { zodSchemaProvider } from "./utils";
 import "@mantine/core/styles.css";
-import { createForm } from "@autoform/react";
+import { createFormControl } from "react-hook-form";
 
 function Mantine() {
   const theme = createTheme({});
-  const form = createForm();
+  const form = createFormControl({ shouldFocusError: false });
+  console.log(form);
   return (
     <MantineProvider theme={theme}>
       <AutoForm

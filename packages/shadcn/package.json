@@ -36,7 +36,7 @@
     "postcss": "^8",
     "postcss-load-config": "^6",
     "react": "^19.1.0",
-    "react-hook-form": "^7.55.0",
+    "react-hook-form": "^7",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "*",
     "tailwindcss-animate": "^1.0.7",
@@ -60,6 +60,7 @@
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-hook-form": "^7",
     "zod": "^3"
   }
 }

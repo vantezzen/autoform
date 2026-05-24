@@ -3,7 +3,6 @@ import {
   useForm,
   FieldValues,
   FormProvider,
-  UseFormProps,
   SubmitHandler,
   SubmitErrorHandler,
   DefaultValues,
@@ -15,7 +14,7 @@ import { AutoFormField } from "./AutoFormField";
 import { createSchemaResolver, focusError, preventPropagation } from "./utils";
 
 export function AutoForm<T extends FieldValues = FieldValues>({
-  form,
+  formControl,
   schema,
   onSubmit = () => {},
   values,
@@ -27,20 +26,21 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
-  const shouldFocusError = form?.shouldFocusError !== false;
+  const shouldFocusError =
+    formControl?.control?._options?.shouldFocusError !== false;
   const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
   const resolver = createSchemaResolver(schema);
 
   const methods = useForm<T, any, T>({
+    resolver,
     defaultValues: {
       ...(getDefaultValues(schema) as Partial<T>),
       ...defaultValues,
     } as DefaultValues<T>,
-    shouldFocusError: false,
     values: values as T,
-    resolver,
-    formControl: form?.formControl as UseFormProps<T>["formControl"],
+    formControl,
+    shouldFocusError: false,
   });
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function AutoForm<T extends FieldValues = FieldValues>({
           onSubmit={preventPropagation(
             methods.handleSubmit(handleSubmit, handleError),
           )}
-          ref={formProps?.ref}
+          ref={_ref}
           {...restFormProps}
         >
           {parsedSchema.fields.map((field) => (

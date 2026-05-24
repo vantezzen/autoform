@@ -25,7 +25,6 @@
     "@types/react-dom": "^19.1.6",
     "eslint": "^8.57.0",
     "react": "^19.1.0",
-    "react-hook-form": "^7.55.0",
     "react-icons": "^5.4.0",
     "tsup": "^8.3.0",
     "typescript": "^5.3.3"

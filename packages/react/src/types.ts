@@ -12,15 +12,16 @@ import {
   UseControllerProps,
   UseFormReturn,
 } from "react-hook-form";
-import { createForm } from "./utils";
+
+export type { FieldValues } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues = FieldValues> {
   schema: SchemaProvider<T>;
-  form?: ReturnType<typeof createForm>;
+  formControl?: Omit<UseFormReturn<T, any, T>, "formState">;
   onSubmit?: (
     values: T,
     form: UseFormReturn<T, any, T>,
-    e?: React.BaseSyntheticEvent
+    e?: React.BaseSyntheticEvent,
   ) => void | Promise<void>;
   defaultValues?: Partial<T>;
   values?: Partial<T>;
@@ -28,7 +29,7 @@ export interface AutoFormProps<T extends FieldValues = FieldValues> {
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
-  /** @deprecated Prefer passing a form created with createForm(). */
+  /** @deprecated Prefer passing an external form control through the `formControl` prop. */
   onFormInit?: (form: UseFormReturn<T, any, T>) => void;
   formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
@@ -118,7 +119,7 @@ export type FieldReturn<
   props?: Omit<
     UseControllerProps<TFieldValues, TName, TTransformedValues>,
     "name"
-  >
+  >,
 ) => {
   [key: string]: any;
   onChange: (...event: any[]) => void;

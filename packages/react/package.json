@@ -24,7 +24,7 @@
     "@types/react-dom": "^19.1.6",
     "eslint": "^8.57.0",
     "react": "^19.1.0",
-    "react-hook-form": "^7.55.0",
+    "react-hook-form": "^7",
     "tsup": "^8.3.0",
     "typescript": "^5.3.3"
   },
@@ -34,6 +34,6 @@
   "peerDependencies": {
     "@hookform/resolvers": "^3.9.0 || ^4 || ^5",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-hook-form": "^7.55.0"
+    "react-hook-form": "^7"
   }
 }

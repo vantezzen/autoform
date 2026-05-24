@@ -2,7 +2,6 @@ import { SchemaProvider, replaceEmptyValue } from "@autoform/core";
 import React from "react";
 import { FieldReturn } from "./types";
 import {
-  createFormControl,
   FieldPath,
   FieldValues,
   Resolver,
@@ -12,32 +11,6 @@ import {
   useFormContext,
   UseFormRegister,
 } from "react-hook-form";
-
-/**
- * Creates the entire form object.
- * Internally uses `createFormControl` from react-hook-form to create the formControl instance.
- * manages shouldFocusError properly.
- *
- * @template T - The type of field values.
- * @param props - An object containing: `useForm` props, excluding the `resolver` (optional).
- *
- * @returns An object returning value of `createFormControl<T>` {@link ReturnType<typeof createFormControl<T>>}.
- */
-export function createForm<T extends FieldValues = FieldValues>(
-  props?: Omit<Parameters<typeof createFormControl<T>>, "resolver">[0],
-): ReturnType<typeof createFormControl<T>> & {
-  shouldFocusError?: boolean;
-} {
-  const form = createFormControl<T>({
-    ...props,
-    shouldFocusError: false, // custom focus implemented in AutoForm
-  });
-
-  return {
-    ...form,
-    shouldFocusError: props?.shouldFocusError ?? true,
-  };
-}
 
 /**
  * Factory function that creates a hook for accessing form methods of a specific field.

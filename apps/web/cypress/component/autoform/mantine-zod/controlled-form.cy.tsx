@@ -3,14 +3,9 @@ import { AutoForm } from "@autoform/mantine";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 import { TestWrapper } from "./utils";
-import { createForm } from "@autoform/react";
 
 const ControlledForm = () => {
-  const form = createForm();
-  form.watch((data) => {
-    setFormValues(data as typeof formValues);
-  });
-  const [formValues, setFormValues] = useState({
+  const [formValues] = useState({
     name: "John Doe",
     email: "john@example.com",
   });
