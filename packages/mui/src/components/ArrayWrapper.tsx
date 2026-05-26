@@ -6,6 +6,7 @@ import { ArrayWrapperProps } from "@autoform/react";
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   field,
+  error,
   children,
   onAddItem,
   inputProps,
@@ -19,6 +20,13 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         ref={ref}
         tabIndex={-1}
         aria-describedby={`${key}-error ${key}-description`}
+        sx={{
+          "&:focus-visible": {
+            outline: "2px solid color-mix(in srgb, Highlight 50%, transparent)",
+            outlineOffset: "5px",
+            borderRadius: "5px",
+          },
+        }}
       >
         {label}
         {field.required && <span style={{ opacity: 0.8 }}> * </span>}
@@ -28,9 +36,9 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           {field.fieldConfig.description}
         </FormHelperText>
       )}
-      {props.error && (
+      {error && (
         <FormHelperText variant="standard" id={key + "-error"}>
-          {props.error}
+          {error}
         </FormHelperText>
       )}
       {children}

@@ -10,21 +10,24 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formFieldProps } = useField();
 
   return (
     <FormControlLabel
       key={id}
       {...inputProps}
-      {...formField}
-      {...formField}
       label={
         <span style={{ color: error && "#d32f2f", opacity: 0.8 }}>
           {label} {field.required && " *"}
         </span>
       }
-      checked={formField.value}
-      control={<Checkbox />}
+      control={
+        <Checkbox
+          slotProps={{ input: { ref } }}
+          {...formFieldProps}
+          checked={formFieldProps.value || false}
+        />
+      }
     />
   );
 };

@@ -9,7 +9,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   error,
   label,
 }) => {
-  const formField = useField();
+  const { ref, ...formFieldProps } = useField();
   return (
     <TextField
       key={id}
@@ -19,7 +19,8 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
       label={label}
       slotProps={{ inputLabel: { shrink: true } }}
       {...inputProps}
-      {...formField}
+      {...formFieldProps}
+      inputRef={ref}
     />
   );
 };

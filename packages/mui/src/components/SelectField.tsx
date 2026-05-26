@@ -10,19 +10,21 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formFieldProps } = useField();
   return (
     <Select
       key={id}
       fullWidth
       {...inputProps}
-      {...formField}
+      {...formFieldProps}
+      value={formFieldProps.value ?? ""}
+      inputRef={ref}
       labelId={id}
       label={label}
     >
-      {(field.options || []).map(([key, label]) => (
-        <MenuItem key={id} value={label}>
-          {label}
+      {(field.options || []).map(([key, optionLabel], index) => (
+        <MenuItem key={`${id}-${index}`} value={optionLabel}>
+          {optionLabel}
         </MenuItem>
       ))}
     </Select>

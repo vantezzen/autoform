@@ -7,7 +7,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formFieldProps } = useField();
   return (
     <Input
       id={id}
@@ -15,7 +15,8 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
       fullWidth
       type="number"
       {...inputProps}
-      {...formField}
+      {...formFieldProps}
+      inputRef={ref}
     />
   );
 };
