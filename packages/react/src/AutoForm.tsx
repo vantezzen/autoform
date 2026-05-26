@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   useForm,
   FieldValues,
@@ -26,8 +26,9 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
-  const shouldFocusError =
-    formControl?.control?._options?.shouldFocusError !== false;
+  const shouldFocusError = useRef(
+    formControl?.control?._options?.shouldFocusError !== false,
+  ).current;
   const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
   const resolver = createSchemaResolver(schema);
