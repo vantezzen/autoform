@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons";
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   field,
+  error,
   children,
   onAddItem,
   inputProps,
@@ -33,12 +34,12 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         )}
         {label}
       </Typography.Title>
-      {props.error && (
+      {error && (
         <div
           style={{ marginBottom: "10px", marginTop: "-10px" }}
           id={key + "-error"}
         >
-          <Typography.Text type="danger">{props.error}</Typography.Text>
+          <Typography.Text type="danger">{error}</Typography.Text>
         </div>
       )}
       {field.fieldConfig?.description && (

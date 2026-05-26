@@ -10,11 +10,12 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formField } = useField();
 
   return (
     <>
       <Checkbox
+        ref={ref}
         id={id}
         key={id}
         {...inputProps}

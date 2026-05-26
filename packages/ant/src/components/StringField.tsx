@@ -7,10 +7,11 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formField } = useField();
 
   return (
     <Input
+      ref={ref}
       id={id}
       key={id}
       {...inputProps}

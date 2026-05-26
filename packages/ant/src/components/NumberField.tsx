@@ -7,10 +7,11 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formField } = useField();
 
   return (
     <InputNumber
+      ref={ref}
       id={id}
       key={id}
       {...inputProps}

@@ -11,10 +11,11 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formField } = useField();
 
   return (
     <DatePicker
+      ref={ref}
       id={id}
       key={id}
       {...inputProps}
