@@ -21,7 +21,7 @@ describe("AutoForm Form Props Tests (CHAKRA-ZOD)", () => {
           "data-testid": "custom-form",
           onKeyDown: cy.stub().as("onKeyDown"),
         }}
-      />
+      />,
     );
 
     cy.get("form")
@@ -43,7 +43,7 @@ describe("AutoForm Form Props Tests (CHAKRA-ZOD)", () => {
             if (e.key === "Enter") e.preventDefault();
           },
         }}
-      />
+      />,
     );
 
     cy.get('input[name="name"]').type("John Doe{enter}");

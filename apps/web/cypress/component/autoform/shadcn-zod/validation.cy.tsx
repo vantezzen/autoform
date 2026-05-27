@@ -21,7 +21,7 @@ describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="username"]').type("ab");
@@ -45,7 +45,7 @@ describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="username"]').type("johndoe");
@@ -79,7 +79,7 @@ describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
     const newSchemaProvider = new ZodProvider(basicSchema);
 
     cy.mount(
-      <AutoForm schema={newSchemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={newSchemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("J");

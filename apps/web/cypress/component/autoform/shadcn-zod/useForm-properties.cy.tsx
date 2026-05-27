@@ -3,7 +3,7 @@ import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import HookTest from "components/Hook-test";
 import { TestWrapper } from "./utils";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
   const fieldSchema = z.object({
@@ -20,7 +20,7 @@ describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
   const schemaProvider = new ZodProvider(fieldSchema);
@@ -49,6 +49,9 @@ describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
 
   it("checks useForm properties", () => {
     cy.mount(<TestForm />);
+
+    // Wait for form to render
+    cy.get('button[name="dirtyFields"]').should("exist");
 
     // formState before changes.
     cy.get('button[name="dirtyFields"]')
@@ -112,7 +115,7 @@ describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
     // check trigger - empty fields
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "true");
+      .should("have.attr", "data-item", "false");
 
     // check setValue
     cy.get('button[name="setValue"]')
@@ -122,6 +125,6 @@ describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
     // check trigger - filled values
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "false");
+      .should("have.attr", "data-item", "true");
   });
 });

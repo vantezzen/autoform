@@ -2,7 +2,7 @@ import React from "react";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { AutoForm } from "@autoform/chakra";
 import HookTest from "components/Hook-test";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {
   const fieldSchema = z.object({
@@ -19,7 +19,7 @@ describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
   const schemaProvider = new ZodProvider(fieldSchema);
@@ -46,6 +46,9 @@ describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {
 
   it("checks useForm properties", () => {
     cy.mount(<TestForm />);
+
+    // Wait for form to render
+    cy.get('button[name="dirtyFields"]').should("exist");
 
     // formState before changes.
     cy.get('button[name="dirtyFields"]')
@@ -113,7 +116,7 @@ describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {
     // check trigger - empty fields
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "true");
+      .should("have.attr", "data-item", "false");
 
     // check setValue
     cy.get('button[name="setValue"]')
@@ -123,6 +126,6 @@ describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {
     // check trigger - filled values
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "false");
+      .should("have.attr", "data-item", "true");
   });
 });

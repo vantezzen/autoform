@@ -24,7 +24,7 @@ describe("AutoForm Form Props Tests (SHADCN-ZOD)", () => {
             onKeyDown: cy.stub().as("onKeyDown"),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get("form")
@@ -48,7 +48,7 @@ describe("AutoForm Form Props Tests (SHADCN-ZOD)", () => {
             },
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').type("John Doe{enter}");

@@ -10,7 +10,7 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -22,7 +22,7 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".ant-btn")
@@ -39,7 +39,7 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     // Add tags

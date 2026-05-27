@@ -15,7 +15,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
           inputProps: {
             placeholder: "Enter username",
           },
-        })
+        }),
       ),
     password: z
       .string()
@@ -28,7 +28,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
           inputProps: {
             type: "password",
           },
-        })
+        }),
       ),
     favoriteColor: z.enum(["red", "green", "blue"]).superRefine(
       fieldConfig({
@@ -38,7 +38,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         inputProps: {
           placeholder: "select one color",
         },
-      })
+      }),
     ),
     bio: z
       .string()
@@ -46,7 +46,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
       .superRefine(
         fieldConfig({
           order: 4,
-        })
+        }),
       ),
   });
 
@@ -58,7 +58,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".MuiFormControl-root")
@@ -82,7 +82,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.contains("Choose a unique username").should("be.visible");
@@ -95,7 +95,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.contains("Create a password").should("be.visible");
@@ -108,13 +108,13 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').should(
       "have.attr",
       "placeholder",
-      "Enter username"
+      "Enter username",
     );
     cy.get('input[name="password"]').should("have.attr", "type", "password");
   });
@@ -125,16 +125,16 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('.MuiSelect-select[aria-labelledby*="favoriteColor"]').should(
-      "exist"
+      "exist",
     );
     cy.get('.MuiSelect-select[aria-labelledby*="favoriteColor"]').click();
     cy.get('.MuiMenu-list[role="listbox"] .MuiMenuItem-root').should(
       "have.length",
-      3
+      3,
     );
   });
 
@@ -144,7 +144,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="bio"]').should("exist");
@@ -157,35 +157,35 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       age: z.coerce.number().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       color: z.enum(["red", "green", "blue"]).superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       birthdate: z.coerce.date().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       isStudent: z.boolean().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
     });
     const newSchemaProvider = new ZodProvider(disableSchema);
@@ -195,7 +195,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
         schema={newSchemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("be.disabled");
@@ -203,7 +203,7 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
     cy.get("#mui-component-select-color").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.get('input[name="birthdate"]').should("be.disabled");
     cy.get('input[name="isStudent"]').should("be.disabled");

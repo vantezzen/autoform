@@ -6,21 +6,18 @@ import { createFormControl } from "react-hook-form";
 
 function Mantine() {
   const theme = createTheme({});
-  const form = createFormControl({ shouldFocusError: false });
-  console.log(form);
+  const { formControl, setValue } = createFormControl();
   return (
     <MantineProvider theme={theme}>
       <AutoForm
-        form={form}
+        formControl={formControl}
         schema={zodSchemaProvider}
         onSubmit={(data) => {
           console.log(JSON.stringify(data, null, 2));
         }}
         withSubmit
       />
-      <button onClick={() => form.setValue("username", "wow")}>
-        Set Username
-      </button>
+      <button onClick={() => setValue("username", "wow")}>Set Username</button>
     </MantineProvider>
   );
 }

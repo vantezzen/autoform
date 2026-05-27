@@ -21,7 +21,7 @@ describe("AutoForm Validation Tests (ANT-ZOD-V4-MINI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("ab");
@@ -43,7 +43,7 @@ describe("AutoForm Validation Tests (ANT-ZOD-V4-MINI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("johndoe");

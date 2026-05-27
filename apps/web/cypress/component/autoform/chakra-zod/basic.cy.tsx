@@ -30,14 +30,14 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
     cy.get('input[name="age"]').should(
       "have.attr",
       "data-scope",
-      "number-input"
+      "number-input",
     );
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
@@ -49,7 +49,7 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");

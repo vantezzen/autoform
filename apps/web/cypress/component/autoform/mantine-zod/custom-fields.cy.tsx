@@ -35,7 +35,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
 
@@ -52,7 +52,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").should("exist");
@@ -78,7 +78,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").type("Hi");

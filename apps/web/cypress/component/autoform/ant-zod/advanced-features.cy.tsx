@@ -15,7 +15,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
           inputProps: {
             placeholder: "Enter username",
           },
-        })
+        }),
       ),
     password: z
       .string()
@@ -28,7 +28,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
           inputProps: {
             type: "password",
           },
-        })
+        }),
       ),
     favoriteColor: z.enum(["red", "green", "blue"]).superRefine(
       fieldConfig({
@@ -38,7 +38,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         inputProps: {
           placeholder: "select one color",
         },
-      })
+      }),
     ),
     bio: z
       .string()
@@ -46,7 +46,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
       .superRefine(
         fieldConfig({
           order: 4,
-        })
+        }),
       ),
   });
 
@@ -58,7 +58,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".ant-form-item")
@@ -85,7 +85,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.contains("Choose a unique username").should("be.visible");
@@ -98,7 +98,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.contains("Create a password").should("be.visible");
@@ -111,13 +111,13 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').should(
       "have.attr",
       "placeholder",
-      "Enter username"
+      "Enter username",
     );
     cy.contains("select one color").should("be.visible");
     cy.get('input[name="password"]').should("have.attr", "type", "password");
@@ -129,7 +129,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('.ant-select[name*="favoriteColor"]')
@@ -148,7 +148,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="bio"]').should("exist");
@@ -161,35 +161,35 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       age: z.coerce.number().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       color: z.enum(["red", "green", "blue"]).superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       birthdate: z.coerce.date().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       isStudent: z.boolean().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
     });
     const newSchemaProvider = new ZodProvider(disableSchema);
@@ -199,7 +199,7 @@ describe("AutoForm Advanced Features Tests (ANT-ZOD)", () => {
         schema={newSchemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("be.disabled");

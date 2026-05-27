@@ -10,7 +10,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-  const formField = useField();
+  const { ref, ...formField } = useField();
 
   return (
     <NumberInputRoot
@@ -21,12 +21,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
       value={formField.value ?? ""}
       w={"full"}
     >
-      <NumberInputField
-        id={id}
-        {...inputProps}
-        onBlur={formField.onBlur}
-        ref={formField.ref}
-      />
+      <NumberInputField id={id} {...inputProps} {...formField} ref={ref} />
     </NumberInputRoot>
   );
 };

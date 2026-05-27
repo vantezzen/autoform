@@ -18,7 +18,7 @@ describe("AutoForm Validation Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("ab");
@@ -40,7 +40,7 @@ describe("AutoForm Validation Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("johndoe");
@@ -74,7 +74,7 @@ describe("AutoForm Validation Tests (CHAKRA-ZOD)", () => {
     const newSchemaProvider = new ZodProvider(basicSchema);
 
     cy.mount(
-      <AutoForm schema={newSchemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={newSchemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("J");

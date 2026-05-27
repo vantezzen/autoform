@@ -16,7 +16,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             {children}
           </div>
         ),
-      })
+      }),
     ),
     email: z.string().email(),
   });
@@ -31,7 +31,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -54,7 +54,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -78,7 +78,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-text-field").should("exist");

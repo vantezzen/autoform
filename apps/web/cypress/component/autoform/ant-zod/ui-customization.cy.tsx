@@ -15,7 +15,7 @@ describe("AutoForm UI Customization Tests (ANT-ZOD)", () => {
             {children}
           </div>
         ),
-      })
+      }),
     ),
     email: z.string().email(),
   });
@@ -28,7 +28,7 @@ describe("AutoForm UI Customization Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -49,7 +49,7 @@ describe("AutoForm UI Customization Tests (ANT-ZOD)", () => {
             </div>
           ),
         }}
-      />
+      />,
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -71,7 +71,7 @@ describe("AutoForm UI Customization Tests (ANT-ZOD)", () => {
             />
           ),
         }}
-      />
+      />,
     );
 
     cy.get(".custom-text-field").should("exist");

@@ -30,7 +30,7 @@ describe("AutoForm Basic Tests (MUI-YUP)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -45,7 +45,7 @@ describe("AutoForm Basic Tests (MUI-YUP)", () => {
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");

@@ -33,7 +33,7 @@ describe("AutoForm Basic Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -50,7 +50,7 @@ describe("AutoForm Basic Tests (MANTINE-ZOD)", () => {
     cy.mount(
       <TestWrapper>
         <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').type("John Doe");

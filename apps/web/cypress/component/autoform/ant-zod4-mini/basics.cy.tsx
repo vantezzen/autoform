@@ -14,11 +14,11 @@ enum Sports {
 describe("AutoForm Basic Tests (ANT-ZOD-V4-MINI)", () => {
   const basicSchema = z.object({
     name: z.string().check(
-      z.minLength(2)
+      z.minLength(2),
       // Zod Mini does not support custom error messages in .check() refinements
     ),
     age: z.coerce.number().check(
-      z.gte(18)
+      z.gte(18),
       // Custom error messages are not supported in .check()
     ),
     sports: z.enum(Sports),
@@ -36,7 +36,7 @@ describe("AutoForm Basic Tests (ANT-ZOD-V4-MINI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -47,14 +47,14 @@ describe("AutoForm Basic Tests (ANT-ZOD-V4-MINI)", () => {
     cy.get('input[name="birthdate"]').should("exist");
     cy.get('input[name="isStudent"]').should(
       "have.class",
-      "ant-checkbox-input"
+      "ant-checkbox-input",
     );
   });
 
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");

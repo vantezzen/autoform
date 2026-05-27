@@ -11,7 +11,7 @@ describe("AutoForm Arrays Tests (MANTINE-ZOD)", () => {
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -25,7 +25,7 @@ describe("AutoForm Arrays Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('button[aria-label="add Tags"]').should("exist");
@@ -40,7 +40,7 @@ describe("AutoForm Arrays Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Add tags

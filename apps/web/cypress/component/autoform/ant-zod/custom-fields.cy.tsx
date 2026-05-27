@@ -6,16 +6,25 @@ import { AutoFormFieldProps } from "@autoform/react";
 
 describe("AutoForm Custom Fields Tests (ANT-ZOD)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
-    field,
     inputProps,
     error,
     id,
-  }) => (
-    <div>
-      <input id={id} type="text" className="custom-input" {...inputProps} />
-      {error && <span className="error">{error}</span>}
-    </div>
-  );
+    useField,
+  }) => {
+    const formField = useField();
+    return (
+      <div>
+        <input
+          id={id}
+          type="text"
+          className="custom-input"
+          {...inputProps}
+          {...formField}
+        />
+        {error && <span className="error">{error}</span>}
+      </div>
+    );
+  };
 
   const customSchema = z.object({
     customField: z
@@ -24,7 +33,7 @@ describe("AutoForm Custom Fields Tests (ANT-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
 
@@ -39,7 +48,7 @@ describe("AutoForm Custom Fields Tests (ANT-ZOD)", () => {
         formComponents={{
           custom: CustomField,
         }}
-      />
+      />,
     );
 
     cy.get(".custom-input").should("exist");
@@ -63,7 +72,7 @@ describe("AutoForm Custom Fields Tests (ANT-ZOD)", () => {
         formComponents={{
           custom: CustomField,
         }}
-      />
+      />,
     );
 
     cy.get(".custom-input").type("Hi");

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { AutoFormFieldProps } from "@autoform/react";
 
 // initialise test state
 const tests = {
@@ -18,7 +19,7 @@ const tests = {
 
 const formFields = ["name", "age", "color", "birthdate", "isStudent"] as const;
 
-const HookTest = () => {
+const HookTest = (_props: AutoFormFieldProps) => {
   const {
     formState: {
       dirtyFields,
@@ -60,7 +61,7 @@ const HookTest = () => {
     setTest((prev) => ({
       ...prev,
       touchedFields: String(
-        formFields.every((key) => touchedFields[key] === true)
+        formFields.every((key) => touchedFields[key] === true),
       ),
     }));
   }
@@ -101,7 +102,7 @@ const HookTest = () => {
             return String(watchValues[key]) === String(result[key]); // watch can return number or string
           }
           return watchValues[key] === result[key];
-        })
+        }),
       ),
     }));
   }
@@ -122,7 +123,7 @@ const HookTest = () => {
     setTest((prev) => ({
       ...prev,
       clear: String(
-        formFields.every((key) => watchValues[key] === result[key])
+        formFields.every((key) => watchValues[key] === result[key]),
       ),
     }));
   }
@@ -156,7 +157,7 @@ const HookTest = () => {
     setTest((prev) => ({
       ...prev,
       setValue: String(
-        formFields.every((key) => watchValues[key] === result[key])
+        formFields.every((key) => watchValues[key] === result[key]),
       ),
     }));
   }

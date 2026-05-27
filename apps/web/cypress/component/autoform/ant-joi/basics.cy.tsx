@@ -41,7 +41,7 @@ describe("AutoForm Basic Tests (ANT-JOI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -50,7 +50,7 @@ describe("AutoForm Basic Tests (ANT-JOI)", () => {
     cy.get('input[name="website"]').should("exist");
     cy.get('input[name="isStudent"]').should(
       "have.class",
-      "ant-checkbox-input"
+      "ant-checkbox-input",
     );
     cy.get('input[id="sports"]').should("exist");
     cy.get('input[name="birthdate"]');
@@ -59,7 +59,7 @@ describe("AutoForm Basic Tests (ANT-JOI)", () => {
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");

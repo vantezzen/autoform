@@ -16,10 +16,10 @@ const fieldSchema = z.object({
   test: z
     .string()
     .optional()
-    .superRefine(
+    .check(
       fieldConfig({
         fieldType: "custom",
-      })
+      }),
     ),
 });
 const schemaProvider = new ZodProvider(fieldSchema);

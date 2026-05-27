@@ -22,7 +22,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').should("exist");
@@ -36,7 +36,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -78,7 +78,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={subSubSchemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");

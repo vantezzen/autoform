@@ -7,16 +7,25 @@ import { TestWrapper } from "./utils";
 
 describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
-    field,
     inputProps,
     error,
     id,
-  }) => (
-    <div>
-      <input id={id} type="text" className="custom-input" {...inputProps} />
-      {error && <span className="error">{error}</span>}
-    </div>
-  );
+    useField,
+  }) => {
+    const formField = useField();
+    return (
+      <div>
+        <input
+          id={id}
+          type="text"
+          className="custom-input"
+          {...inputProps}
+          {...formField}
+        />
+        {error && <span className="error">{error}</span>}
+      </div>
+    );
+  };
 
   const customSchema = z.object({
     customField: z
@@ -25,7 +34,7 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {
       .check(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
 
@@ -42,7 +51,7 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").should("exist");
@@ -68,7 +77,7 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").type("Hi");

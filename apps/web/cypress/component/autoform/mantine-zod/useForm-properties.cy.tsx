@@ -3,7 +3,7 @@ import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { AutoForm } from "@autoform/mantine";
 import HookTest from "components/Hook-test";
 import { TestWrapper } from "./utils";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("React-Hook-Form useForm properties Tests (MANTINE-ZOD)", () => {
   const fieldSchema = z.object({
@@ -20,7 +20,7 @@ describe("React-Hook-Form useForm properties Tests (MANTINE-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
   const schemaProvider = new ZodProvider(fieldSchema);
@@ -49,8 +49,11 @@ describe("React-Hook-Form useForm properties Tests (MANTINE-ZOD)", () => {
     cy.mount(
       <TestWrapper>
         <TestForm />
-      </TestWrapper>
+      </TestWrapper>,
     );
+
+    // Wait for form to render
+    cy.get('button[name="dirtyFields"]').should("exist");
 
     // FORMSTATE BEFORE CHANGES.
     cy.get('button[name="dirtyFields"]')

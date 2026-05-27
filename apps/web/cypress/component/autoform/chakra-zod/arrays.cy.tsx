@@ -10,7 +10,7 @@ describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -22,7 +22,7 @@ describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('button[aria-label="add Tags"]').should("exist");
@@ -35,7 +35,7 @@ describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     // Add tags

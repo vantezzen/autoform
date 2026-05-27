@@ -16,7 +16,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           inputProps: {
             placeholder: "Enter username",
           },
-        })
+        }),
       ),
     password: z
       .string()
@@ -29,7 +29,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           inputProps: {
             type: "password",
           },
-        })
+        }),
       ),
     favoriteColor: z.enum(["red", "green", "blue"]).superRefine(
       fieldConfig({
@@ -39,7 +39,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
         inputProps: {
           placeholder: "select one color",
         },
-      })
+      }),
     ),
     bio: z
       .string()
@@ -47,7 +47,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
       .superRefine(
         fieldConfig({
           order: 4,
-        })
+        }),
       ),
   });
 
@@ -61,7 +61,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".mantine-InputWrapper-root")
@@ -90,7 +90,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.contains("Choose a unique username").should("be.visible");
@@ -105,7 +105,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.contains("Create a password").should("be.visible");
@@ -120,13 +120,13 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="username"]').should(
       "have.attr",
       "placeholder",
-      "Enter username"
+      "Enter username",
     );
     cy.get('input[placeholder="select one color"]').should("exist");
     cy.get('input[name="password"]').should("have.attr", "type", "password");
@@ -140,7 +140,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".mantine-Select-input").eq(0).click();
@@ -161,7 +161,7 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="bio"]').should("exist");
@@ -174,35 +174,35 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       age: z.coerce.number().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       color: z.enum(["red", "green", "blue"]).superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       birthdate: z.coerce.date().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
       isStudent: z.boolean().superRefine(
         fieldConfig({
           inputProps: {
             disabled: true,
           },
-        })
+        }),
       ),
     });
     const newSchemaProvider = new ZodProvider(newSchema);
@@ -214,14 +214,14 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').should("be.disabled");
     cy.get('input[name="age"]').should("be.disabled");
     cy.get(".mantine-Select-input").eq(0).should("be.disabled");
     cy.get('input.mantine-DateInput-input[data-disabled="true"]').should(
-      "be.disabled"
+      "be.disabled",
     );
     cy.get('input[name="isStudent"]').should("be.disabled");
   });

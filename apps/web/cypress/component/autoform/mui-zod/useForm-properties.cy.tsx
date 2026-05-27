@@ -2,7 +2,7 @@ import React from "react";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { AutoForm } from "@autoform/mui";
 import HookTest from "components/Hook-test";
-import { z } from "zod";
+import { z } from "zod/v3";
 
 describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
   const fieldSchema = z.object({
@@ -19,7 +19,7 @@ describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
   const schemaProvider = new ZodProvider(fieldSchema);
@@ -47,6 +47,9 @@ describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
   it("checks useForm properties", () => {
     cy.mount(<TestForm />);
 
+    // Wait for form to render
+    cy.get('button[name="dirtyFields"]').should("exist");
+
     // formState before changes.
     cy.get('button[name="dirtyFields"]')
       .click()
@@ -66,9 +69,7 @@ describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
     cy.get('input[name="age"]').type("25");
     cy.get('input[name="isStudent"]').check();
     cy.get('input[name="birthdate"]').type("1990-01-01").click();
-    cy.get(
-      '.MuiSelect-select[aria-labelledby="mui-component-select-color"]'
-    ).click();
+    cy.get("#mui-component-select-color").click();
     cy.get('.MuiMenuItem-root[data-value="green"]').click();
 
     // check formState
@@ -104,7 +105,7 @@ describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
     // check trigger - empty fields
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "true");
+      .should("have.attr", "data-item", "false");
 
     // check setValue
     cy.get('button[name="setValue"]')
@@ -114,6 +115,6 @@ describe("React-Hook-Form useForm properties Tests (MUI-ZOD)", () => {
     // check trigger - filled values
     cy.get('button[name="trigger"]')
       .click()
-      .should("have.attr", "data-item", "false");
+      .should("have.attr", "data-item", "true");
   });
 });

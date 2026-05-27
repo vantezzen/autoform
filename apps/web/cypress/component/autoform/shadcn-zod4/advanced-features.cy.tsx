@@ -16,7 +16,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           inputProps: {
             placeholder: "Enter username",
           },
-        })
+        }),
       ),
     password: z
       .string()
@@ -28,13 +28,13 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           inputProps: {
             type: "password",
           },
-        })
+        }),
       ),
     favoriteColor: z.enum(["red", "green", "blue"]).check(
       fieldConfig({
         fieldType: "select",
         order: 3,
-      })
+      }),
     ),
     bio: z
       .string()
@@ -42,7 +42,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
       .check(
         fieldConfig({
           order: 4,
-        })
+        }),
       ),
   });
 
@@ -56,7 +56,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get("input").eq(0).should("have.attr", "name", "username");
@@ -73,7 +73,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.contains("Choose a unique username").should("be.visible");
@@ -88,13 +88,13 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="username"]').should(
       "have.attr",
       "placeholder",
-      "Enter username"
+      "Enter username",
     );
     cy.get('input[name="password"]').should("have.attr", "type", "password");
   });
@@ -107,7 +107,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('[role="combobox"]').should("exist");
@@ -123,7 +123,7 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="bio"]').should("exist");

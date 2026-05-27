@@ -23,7 +23,7 @@ describe("AutoForm Enums Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Check if select trigger exists
@@ -53,7 +53,7 @@ describe("AutoForm Enums Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Verify default value is selected

@@ -25,7 +25,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').should("exist");
@@ -41,7 +41,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -85,7 +85,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");

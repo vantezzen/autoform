@@ -30,7 +30,7 @@ describe("AutoForm Basic Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
@@ -41,14 +41,14 @@ describe("AutoForm Basic Tests (ANT-ZOD)", () => {
     cy.get('input[name="birthdate"]').should("exist");
     cy.get('input[name="isStudent"]').should(
       "have.class",
-      "ant-checkbox-input"
+      "ant-checkbox-input",
     );
   });
 
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");
