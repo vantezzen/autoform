@@ -12,6 +12,15 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
 }) => {
   const formField = useField();
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      (
+        document.querySelector('button[type="submit"]') as HTMLButtonElement
+      )?.click();
+    }
+  };
+
   return (
     <div className="flex items-center space-x-2">
       <Checkbox
@@ -20,6 +29,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         {...formField}
         checked={formField.value}
         onCheckedChange={formField.onChange}
+        onKeyDown={handleKeyDown}
       />
       <Label htmlFor={id}>
         {label}

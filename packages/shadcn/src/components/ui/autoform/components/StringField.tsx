@@ -9,12 +9,15 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   id,
 }) => {
   const formField = useField();
+  const { value, ...rest } = formField;
+
   return (
     <Input
       id={id}
       className={error ? "border-destructive" : ""}
+      value={value ?? ""}
       {...inputProps}
-      {...formField}
+      {...rest}
     />
   );
 };

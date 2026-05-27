@@ -31,12 +31,12 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
         className={error ? "border-destructive" : ""}
       >
         <SelectValue
-          placeholder={inputProps.placeholder ?? "Select an option"}
+          placeholder={inputProps?.placeholder ?? "Select an option"}
         />
       </SelectTrigger>
       <SelectContent>
-        {(field.options || []).map(([key, label]) => (
-          <SelectItem key={id} value={label}>
+        {(field.options || []).map(([key, label], index) => (
+          <SelectItem key={`${key}-${index}`} value={label}>
             {label}
           </SelectItem>
         ))}

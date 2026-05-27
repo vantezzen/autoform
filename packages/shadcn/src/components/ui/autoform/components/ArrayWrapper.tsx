@@ -6,6 +6,7 @@ import { ArrayWrapperProps } from "@autoform/react";
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   field,
+  error,
   children,
   onAddItem,
   inputProps,
@@ -16,7 +17,11 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
     <div className="space-y-2">
       <div className="space-y-1">
         <h3
-          className="text-md font-medium"
+          className={`text-md font-medium focus:outline-none rounded-md px-2 py-1 transition-colors ${
+            error
+              ? "focus:border focus:border-destructive focus:ring-1 focus:ring-destructive/50"
+              : ""
+          }`}
           ref={ref}
           tabIndex={-1}
           aria-describedby={`${key}-error ${key}-description`}
@@ -32,9 +37,9 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
             {field.fieldConfig.description}
           </p>
         )}
-        {props.error && (
+        {error && (
           <p className="text-sm text-destructive" id={key + "-error"}>
-            {props.error}
+            {error}
           </p>
         )}
       </div>
