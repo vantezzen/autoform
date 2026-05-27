@@ -8,5 +8,14 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   inputProps,
 }) => {
   const formField = useField();
-  return <Input id={id} type="date" {...inputProps} {...formField} />;
+
+  return (
+    <Input
+      id={id}
+      type="date"
+      {...inputProps}
+      {...formField}
+      value={formField.value ?? ""}
+    />
+  );
 };

@@ -15,7 +15,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   useField,
   inputProps,
 }) => {
-    const formField = useField();
+  const formField = useField();
 
   const options = createListCollection({
     items:
@@ -38,7 +38,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
     >
       <SelectTrigger ref={formField.ref}>
         <SelectValueText
-          placeholder={inputProps.placeholder ?? "Select an option"}
+          placeholder={inputProps?.placeholder ?? "Select an option"}
         />
       </SelectTrigger>
       <SelectContent>

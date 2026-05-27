@@ -6,6 +6,7 @@ import { Button, Heading, Stack, FieldHelperText } from "@chakra-ui/react";
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   field,
+  error,
   children,
   onAddItem,
   inputProps,
@@ -20,6 +21,11 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         ref={ref}
         tabIndex={-1}
         aria-describedby={`${key}-error ${key}-description `}
+        _focusVisible={{
+          outline: "2px solid color-mix(in srgb, Highlight 50%, transparent)",
+          outlineOffset: "5px",
+          borderRadius: "5px",
+        }}
       >
         {label}
         {field.required && (
@@ -31,12 +37,12 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           {field.fieldConfig.description}
         </FieldHelperText>
       )}
-      {props.error && (
+      {error && (
         <span
           id={key + "-error"}
           style={{ color: "#ef4444", fontSize: "12px" }}
         >
-          {props.error}
+          {error}
         </span>
       )}
       <div>
@@ -44,6 +50,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         <Button
           px={10}
           rounded="md"
+          mt="1"
           variant={"surface"}
           {...props}
           type="button"

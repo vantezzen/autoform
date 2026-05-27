@@ -18,9 +18,15 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
       onValueChange={({ value }) => {
         formField.onChange(value);
       }}
+      value={formField.value ?? ""}
       w={"full"}
     >
-      <NumberInputField id={id} {...inputProps} {...formField} />
+      <NumberInputField
+        id={id}
+        {...inputProps}
+        onBlur={formField.onBlur}
+        ref={formField.ref}
+      />
     </NumberInputRoot>
   );
 };
