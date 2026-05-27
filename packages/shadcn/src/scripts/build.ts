@@ -34,10 +34,15 @@ const registry: z.infer<typeof registryEntrySchema> = {
 
 const files = await glob(`./src/components/ui/autoform/**/*`, { nodir: true });
 for (const file of files) {
-  const content = await readFile(file, "utf-8");
+  let content = await readFile(file, "utf-8");
+  // Normalize line endings to LF only (remove carriage returns)
+  content = content.replace(/\r\n/g, "\n");
+  // Normalize paths to use forward slashes for cross-platform compatibility
+  const normalizedPath = file.replace(/\\/g, "/").replace("src/components/ui/", "");
+  const normalizedTarget = file.replace(/\\/g, "/").replace("src/", "");
   registry.files!.push({
-    path: file.replace("src/components/ui/", ""),
-    target: file.replace("src/", ""),
+    path: normalizedPath,
+    target: normalizedTarget,
     content,
     type: "registry:ui",
   });
