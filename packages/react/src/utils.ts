@@ -71,6 +71,9 @@ export function getPathInObject(obj: any, path: string[]): any {
 
 /**
  * Recursively focuses the first and deepest input element with an error, if found.
+ * React Hook Form only focuses parent-level errors, so we drill down to the deepest
+ * field. (eg. to focus inner array items instead of the array field itself.)
+ * Ref: https://react-hook-form.com/docs/useform#resolver:~:text=Schema%20validation%20focuses%20on%20field%2Dlevel%20error%20reporting.%20Parent%2Dlevel%20error%20checking%20is%20limited%20to%20the%20direct%20parent%20level%2C%20which%20is%20applicable%20for%20components%20such%20as%20group%20checkboxes.
  */
 export function focusError(errors: Record<string, any>): boolean {
   if (!errors || typeof errors !== "object") return false;
