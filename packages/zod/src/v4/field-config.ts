@@ -29,7 +29,7 @@ export function getFieldConfigInZodStack(
   if (checks) {
     for (const check of checks) {
       const checkFn = check._zod.check;
-      if (ZOD_FIELD_CONFIG_SYMBOL in checkFn) {
+      if (checkFn && ZOD_FIELD_CONFIG_SYMBOL in checkFn) {
         return checkFn[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
       }
     }

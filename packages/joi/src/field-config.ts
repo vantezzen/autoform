@@ -26,7 +26,7 @@ export function fieldConfig<
 
 export function getJoiFieldConfig(schema: JoiField): FieldConfig | undefined {
   for (const meta of schema.$_terms.metas) {
-    if (JOI_FIELD_CONFIG_SYMBOL in meta) {
+    if (meta && JOI_FIELD_CONFIG_SYMBOL in meta) {
       return (meta as any)[JOI_FIELD_CONFIG_SYMBOL];
     }
   }

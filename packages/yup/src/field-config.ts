@@ -26,7 +26,7 @@ export function fieldConfig<
 
 export function getYupFieldConfig(schema: YupField): FieldConfig | undefined {
   for (const transform of schema.transforms) {
-    if (YUP_FIELD_CONFIG_SYMBOL in transform) {
+    if (transform && YUP_FIELD_CONFIG_SYMBOL in transform) {
       return (transform as any)[YUP_FIELD_CONFIG_SYMBOL];
     }
   }

@@ -14,7 +14,7 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >
+  >,
 ): SuperRefineFunction {
   const refinementFunction: SuperRefineFunction = () => {
     // Do nothing.
@@ -27,7 +27,7 @@ export function fieldConfig<
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.ZodTypeAny
+  schema: z.ZodTypeAny,
 ): FieldConfig | undefined {
   const typedSchema = schema as unknown as z.ZodEffects<
     z.ZodNumber | z.ZodString
@@ -37,19 +37,19 @@ export function getFieldConfigInZodStack(
     const effect = typedSchema._def.effect as RefinementEffect<any>;
     const refinementFunction = effect.refinement;
 
-    if (ZOD_FIELD_CONFIG_SYMBOL in refinementFunction) {
+    if (refinementFunction && ZOD_FIELD_CONFIG_SYMBOL in refinementFunction) {
       return refinementFunction[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
     }
   }
 
   if ("innerType" in typedSchema._def) {
     return getFieldConfigInZodStack(
-      typedSchema._def.innerType as unknown as z.ZodAny
+      typedSchema._def.innerType as unknown as z.ZodAny,
     );
   }
   if ("schema" in typedSchema._def) {
     return getFieldConfigInZodStack(
-      (typedSchema._def as any).schema as z.ZodAny
+      (typedSchema._def as any).schema as z.ZodAny,
     );
   }
 
