@@ -9,12 +9,17 @@ import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
 import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
 
 enum Sports {
-  Football = "Football/Soccer",
-  Basketball = "Basketball",
-  Baseball = "Baseball",
-  Hockey = "Hockey (Ice)",
-  None = "I don't like sports",
+  f = "Football/Soccer",
+  b = "Basketball",
+  ba = "Baseball",
+  h = "Hockey (Ice)",
+  n = "I don't like sports",
 }
+
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
 
 const zodFormSchema = z.object({
   // hobbies: z
@@ -31,6 +36,7 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
+
   username: z
     .string({
       required_error: "Username is required.",
@@ -99,6 +105,12 @@ const zodFormSchema = z.object({
       }),
     ),
   birthday: z.coerce.date({ message: "aaa" }).optional(),
+  nameId: z
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId])
+    .optional(),
   color: z.enum(["red", "green", "blue"]).optional(),
   // Another enum example
   marshmallows: z
@@ -230,6 +242,12 @@ const zodFormSchema4 = z4.object({
       }),
     ),
   birthday: z4.coerce.date({ message: "aaa" }).optional(),
+  nameId: z4
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId])
+    .optional(),
   color: z4.enum(["red", "green", "blue"]).default("red").optional(),
   // Another enum example
   marshmallows: z4
@@ -332,6 +350,13 @@ const zodFormSchema4mini = zm.object({
     }),
   ),
 
+  nameId: zm.optional(
+    zm.pipe(
+      zm.enum(Object.keys(nameId) as [string, ...string[]]),
+      zm.transform((name: keyof typeof nameId) => nameId[name]),
+    ),
+  ),
+
   Birthdate: zm.optional(zm.date()),
   array: zm.array(
     zm.object({
@@ -376,6 +401,9 @@ const yupFormSchema = object({
     .min(1, "At least one guest is required"),
   abc: date().optional(),
   sport: mixed().oneOf(Object.values(Sports)),
+  nameId: mixed()
+    .oneOf(Object.keys(nameId))
+    .transform((value) => nameId[value as keyof typeof nameId]),
   hobbies: array().of(string()),
 });
 
@@ -464,6 +492,10 @@ const joiFormSchema = Joi.object({
     .valid(...Object.values(Sports))
     .required()
     .label("What is your favourite sport?"),
+
+  nameId: Joi.any()
+    .valid(...Object.keys(nameId))
+    .custom((value) => nameId[value as keyof typeof nameId]),
 
   guests: Joi.array().items(
     Joi.object({

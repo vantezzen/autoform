@@ -3,10 +3,12 @@ title: Migration from V1
 description: This guide will help you migrate from the old, pure shadcn/ui component to the new AutoForm library.
 ---
 
-Please note that the new library does not have full feature-partity with the old one - specifically, it does not support the following features (yet):
+V1 refers to the original `shadcn/ui` auto-form component. V2 is the current `@autoform/*` package ecosystem.
+
+Please note that the new library does not have full feature partity with the old one - specifically, it does not support the following features (yet):
 
 - Dependencies between fields
-- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component.
+- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component and using it with `fieldConfig` in schema.
 
 But the new AutoForm library has a lot of new features, such as:
 
@@ -28,7 +30,7 @@ To install AutoForm, run the following command:
 
 ```bash
 npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
-npm install @autoform/zod
+npm install @autoform/zod react-hook-form @hookform/resolvers
 ```
 
 ## Update form components
@@ -71,10 +73,8 @@ Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can n
 
 ```diff
 import * as z from "zod";
-+ import { buildZodFieldConfig } from "@autoform/react";
++ import { fieldConfig } from "@autoform/zod";
 + import { FieldTypes } from "@/components/ui/autoform";
-
-+ const fieldConfig = buildZodFieldConfig();
 
 const formSchema = z.object({
   password: z
@@ -82,7 +82,7 @@ const formSchema = z.object({
     .min(8, {
       message: "Please use a secure password.",
     })
-+   .superRefine(
++   .check(
 +     fieldConfig<React.ReactNode, FieldTypes>({
 +       description: "We recommend to use a strong password.",
 +       inputProps: {
@@ -95,7 +95,21 @@ const formSchema = z.object({
 
 ## Update callbacks
 
-If you are only using `onSubmit`, your code should be able to work without any changes. If you are using controlled input instead, you need to update your code to use the new `onFormInit` prop to get manual access to the form instance.
+If you are only using `onSubmit`, existing two-argument handlers still work. `onSubmit` can now also receive the submit event as a third argument: `(data, form, event)`.
+
+If you need to access form methods outside `onSubmit`, prefer creating an external form control with `createFormControl` and passing it to `formControl`.
+
+```tsx
+import { createFormControl } from "react-hook-form";
+
+const { formControl, reset } = createFormControl();
+
+<AutoForm formControl={formControl} schema={schemaProvider} />;
+
+<button onClick={() => reset()}>Reset</button>;
+```
+
+`onFormInit` is still supported for backwards compatibility, but it is deprecated for new code.
 
 ```tsx
 const [values, setValues] = useState({});
@@ -121,7 +135,7 @@ If you are using custom parent components or custom field components, you need t
 
 ```tsx
 const schema = z.object({
-  username: z.string().superRefine(
+  username: z.string().check(
     fieldConfig({
       fieldWrapper: (props) => (
         <div>
@@ -129,26 +143,45 @@ const schema = z.object({
           {props.children}
         </div>
       ),
-    })
+    }),
   ),
 });
 
 <AutoForm
   schema={schema}
   formComponents={{
-    custom: ({ field, label, inputProps }) => {
+    custom: ({ id, inputProps, useField }) => {
+      const formField = useField();
+
       return (
         <div>
           <input
+            id={id}
             type="text"
             className="bg-red-400 rounded-lg p-4"
             {...inputProps}
+            {...formField}
+            value={formField.value ?? ""}
           />
         </div>
       );
     },
   }}
 />;
+```
+
+Custom field components no longer receive `value` or `onChange` directly. Use `useField()` to get the react-hook-form field props, and treat `inputProps` as the props configured with `fieldConfig.inputProps`.
+
+`useField()` returns the same object as `useController(...).field`. If you need the full `useController` return value, import `useController` from `react-hook-form` and pass the `id` from `AutoFormFieldProps` as the field name:
+
+```tsx
+const { field, fieldState } = useController({ name: id });
+```
+
+If you previously imported `buildZodFieldConfig`, `buildYupFieldConfig`, or `buildJoiFieldConfig` from `@autoform/react`, replace those helpers with `fieldConfig` from the matching schema package:
+
+```tsx
+import { fieldConfig } from "@autoform/zod";
 ```
 
 </div>

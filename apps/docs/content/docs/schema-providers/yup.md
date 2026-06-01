@@ -6,18 +6,9 @@ Basic usage:
 
 ```tsx
 "use client";
-import { YupProvider } from "@autoform/yup";
+import { YupProvider, fieldConfig } from "@autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
-import { buildYupFieldConfig } from "@autoform/react";
 import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
-
-const fieldConfig = buildYupFieldConfig<
-  FieldTypes,
-  {
-    // You can define custom props here
-    isImportant?: boolean;
-  }
->();
 
 // Define your form schema using yup
 const yupFormSchema = object({
@@ -26,7 +17,7 @@ const yupFormSchema = object({
   age: number()
     .required(
       // You can use custom error messages
-      "We need your age to verify you're old enough to use this form"
+      "We need your age to verify you're old enough to use this form",
     )
     .positive()
     .integer(),
@@ -35,7 +26,7 @@ const yupFormSchema = object({
     .email()
     // You can use fieldConfig to set additional configuration for a field
     .transform(
-      fieldConfig<React.ReactNode, FieldTypes>({
+      fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
         inputProps: {
           type: "email",
         },
@@ -43,7 +34,7 @@ const yupFormSchema = object({
           // You can add custom data here
           isImportant: true,
         },
-      })
+      }),
     ),
   website: string().url().nullable(),
 
@@ -51,7 +42,7 @@ const yupFormSchema = object({
   guests: array().of(
     object({
       name: string().required(),
-    })
+    }),
   ),
   hobbies: array().of(string()),
 
@@ -74,11 +65,9 @@ function App() {
 }
 ```
 
+`YupProvider` exposes the original schema and schema type to `@autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Yup resolver manually when using the official provider.
+
 ### Yup configuration
-
-#### Validations
-
-Your form schema can use any of yup's validation methods.
 
 #### Label
 
@@ -88,6 +77,19 @@ You can use the `label` method to set a label and description for each field. If
 const formSchema = object({
   username: string().label("Your username"),
   someValue: string(), // Will be "Some Value"
+});
+```
+
+To add a description below the field see [`fieldConfig`](/docs/react/customization#description).
+
+#### Optional fields
+
+Yup fields are optional by default. Use `required()` to make a field required.
+
+```tsx
+const formSchema = object({
+  username: string().required(),
+  nickname: string(), // Optional by default
 });
 ```
 
@@ -108,15 +110,35 @@ If you want to set default value of date, convert it to Date first using `new Da
 You can use `mixed().oneOf` to create a select field.
 
 ```tsx
+const formSchema = object({
+  color: mixed().oneOf(["red", "green", "blue"]),
+});
+
 enum BreadTypes {
-  // For native enums, you can alternatively define a backed enum to set a custom label
+  // For TypeScript enums, the enum values (e.g. "White bread")
+  // are displayed, validated and returned in output.
   White = "White bread",
   Brown = "Brown bread",
   Wholegrain = "Wholegrain bread",
-  Other,
 }
+
 const formSchema = object({
   breadType: mixed().oneOf(Object.values(BreadTypes)),
+});
+```
+
+If you want a select label to submit a different value, map the labels to values in a transform.:
+
+```tsx
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
+
+const formSchema = object({
+  nameId: mixed()
+    .oneOf(Object.keys(nameId))
+    .transform((value) => nameId[value as keyof typeof nameId]),
 });
 ```
 
@@ -131,7 +153,7 @@ const formSchema = object({
     object({
       name: string(),
       age: number(),
-    })
+    }),
   )
     // Optionally set a custom label - otherwise this will be inferred from the field name
     .label("Guests invited to the party"),
@@ -142,6 +164,22 @@ const formSchema = object({
 Arrays are not supported as the root element of the form schema.
 
 You also can set default value of an array using .default(), but please make sure the array element has same structure with the schema.
+
+```tsx
+const formSchema = object({
+  invitedGuests: array(
+    object({
+      name: string().required(),
+      age: number(),
+    }),
+  )
+    .default([
+      { name: "John", age: 24 },
+      { name: "Jane", age: 20 },
+    ])
+    .label("Guests invited to the party"),
+});
+```
 
 #### Sub-objects
 
@@ -158,18 +196,61 @@ const formSchema = object({
 
 #### Field configuration
 
-You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/yup`.
 
-It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/react` and adds your own customizations:
+With Yup, attach it to a field using `.transform(fieldConfig(...))`:
 
 ```tsx
-import { buildYupFieldConfig } from "@autoform/react";
+import { fieldConfig } from "@autoform/yup";
+import { object, string } from "yup";
+
+const formSchema = object({
+  username: string()
+    .required()
+    .transform(
+      fieldConfig({
+        label: "Username",
+        description: "Choose a unique username.",
+        inputProps: {
+          placeholder: "Enter your username",
+        },
+      }),
+    ),
+
+  password: string()
+    .required()
+    .transform(
+      fieldConfig({
+        inputProps: {
+          type: "password",
+          placeholder: "Enter your password",
+        },
+      }),
+    ),
+
+  bio: string().transform(
+    fieldConfig({
+      fieldType: "textarea",
+    }),
+  ),
+});
+```
+
+Provide external types for full TypeScript support.
+
+```tsx
 import { FieldTypes } from "@autoform/mui";
 
-export const fieldConfig = buildYupFieldConfig<
-  FieldTypes, // You should provide the "FieldTypes" type from the UI library you use
-  {
-    isImportant?: boolean; // You can add custom props here
-  }
->();
+string().transform(
+  fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+    inputProps: {
+      placeholder: "Your name",
+    },
+    customData: {
+      isImportant: true,
+    },
+  }),
+);
 ```
+
+See the [Customization](/docs/react/customization) page for all available `fieldConfig` options.

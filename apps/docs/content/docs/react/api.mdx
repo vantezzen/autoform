@@ -1,43 +1,112 @@
 ---
 title: API
+description: API reference for the AutoForm component and customization contracts.
 ---
 
-## schema: SchemaProvider
+For complete source definitions, see [`packages/react/src/types.ts`](https://github.com/vantezzen/autoform/blob/main/packages/react/src/types.ts).
 
-The `schema` prop is used to pass the schema to the form. It can be a `ZodProvider`, `YupProvider` or `JoiProvider`.
+## AutoFormProps
 
-## onSubmit?: (values: T, form: FormInstance) => void
+<AutoFormPropsTable />
 
-The `onSubmit` prop is called when the form is submitted and the data is valid. It receives the form data and the form instance from react-hook-form.
+UI integrations such as `@autoform/mui`, `@autoform/ant`, etc. provide default uiComponents and formComponents, while still allowing you to override them. They provide AutoForm with `ExtendableAutoFormProps` type, which is the same as `AutoFormProps`, except uiComponents and formComponents props are optional.
 
-## onFormInit?: (form: FormInstance) => void
+### `schema`
 
-The `onFormInit` prop is called when the form is initialized. It receives the form instance from react-hook-form.
+`schema` must be a schema provider instance from one of the schema packages.
 
-## withSubmit?: boolean
+```tsx
+import { ZodProvider } from "@autoform/zod";
+import * as z from "zod";
 
-The `withSubmit` prop is used to automatically add a submit button to the form. It defaults to `false`.
+const schema = z.object({
+  username: z.string(),
+});
 
-## defaultValues?: Partial\<T>
+<AutoForm schema={new ZodProvider(schema)} withSubmit />;
+```
 
-The `defaultValues` prop is used to set the initial values of the form.
+### `defaultValues` vs `values`
 
-## values: Partial\<T>
+Use `defaultValues` for initial form state. Use `values` only when the form should react to external state changes.
 
-The `values` prop is used to set the values of the form. It is a controlled input.
+```tsx
+<AutoForm schema={schemaProvider} defaultValues={{ username: "johndoe" }} />
+```
 
-## children: React.ReactNode
+```tsx
+const [user, setUser] = useState({ username: "johndoe" });
 
-All children passed to the `AutoForm` component will be rendered below the form.
+<AutoForm schema={schemaProvider} values={user} />;
+```
 
-## formComponents: Partial\<AutoFormFieldComponents>
+### `formControl`
 
-Additional, custom form components can be passed to the `formComponents` prop. This allows you to add custom field types to the form.
+Use `formControl` when a parent component needs direct access to react-hook-form methods.
 
-## uiComponents: Partial\<AutoFormUIComponents>
+```tsx
+import { createFormControl } from "react-hook-form";
 
-Override the default UI components with custom components. This allows you to customize the look and feel of the form.
+const { formControl, reset } = createFormControl();
 
-## formProps?: React.ComponentProps\<'form'>
+<AutoForm schema={schemaProvider} formControl={formControl} />;
+<button onClick={() => reset()}>Reset</button>;
+```
 
-The `formProps` prop allows you to pass additional props directly to the underlying form element. This can be useful for adding custom attributes, event handlers, or other properties to the form.
+### `formComponents`
+
+`formComponents` maps AutoForm field types to React components. It is the right extension point for custom inputs.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  formComponents={{
+    markdown: MarkdownEditor,
+    colorPicker: ColorPickerInput,
+  }}
+/>
+```
+
+### `uiComponents`
+
+`uiComponents` replaces structural pieces such as wrappers, error messages, and the submit button. It is the right extension point for layout and design-system integration.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  uiComponents={{
+    FieldWrapper: CustomFieldWrapper,
+    ErrorMessage: ({ error }) => <span className="text-red-500">{error}</span>,
+  }}
+/>
+```
+
+## Custom fields
+
+Custom field components receive `AutoFormFieldProps`. In most cases, call `useField()` and spread the returned field props into your input.
+
+```tsx
+import { AutoFormFieldProps } from "@autoform/react";
+
+export function StringField({ id, inputProps, useField }: AutoFormFieldProps) {
+  const field = useField();
+
+  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+}
+```
+
+<AutoFormFieldPropsTable />
+
+## UI components
+
+These components are used by the base renderer to assemble the form. Override them when you want to change layout, labels, error placement, object sections, array controls, or submit behavior.
+
+| Component             | Purpose                                      | Example implementation                                                                                                         |
+| --------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `Form`                | Root form element.                           | [MUI Form](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/Form.tsx)                               |
+| `FieldWrapper`        | Label, error, description, and field layout. | [MUI FieldWrapper](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/FieldWrapper.tsx)               |
+| `ErrorMessage`        | Configuration error display.                 | [MUI ErrorMessage](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/ErrorMessage.tsx)               |
+| `SubmitButton`        | Default submit button for `withSubmit`.      | [MUI SubmitButton](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/SubmitButton.tsx)               |
+| `ObjectWrapper`       | Nested object field layout.                  | [MUI ObjectWrapper](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/ObjectWrapper.tsx)             |
+| `ArrayWrapper`        | Array field layout and add-item control.     | [MUI ArrayWrapper](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/ArrayWrapper.tsx)               |
+| `ArrayElementWrapper` | One array item and remove-item control.      | [MUI ArrayElementWrapper](https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components/ArrayElementWrapper.tsx) |

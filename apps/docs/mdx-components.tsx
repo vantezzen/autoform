@@ -1,12 +1,21 @@
 import type { MDXComponents } from "mdx/types";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import ModeTab from "@/components/landing/tabs/mode-tabs";
-import * as TabsComponents from "fumadocs-ui/components/tabs";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import {
+  AutoFormFieldPropsTable,
+  AutoFormPropsTable,
+  AutoTypeTableWithGenerator,
+} from "@/components/auto-type-tables";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
-    ...TabsComponents,
+    Tab,
+    Tabs,
+    AutoTypeTable: AutoTypeTableWithGenerator,
+    AutoFormFieldPropsTable,
+    AutoFormPropsTable,
     ...components,
     ModeTab,
   };

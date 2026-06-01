@@ -12,10 +12,25 @@ title: Getting Started
 
 AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
 
-Before installing an @autoform UI package
+Before installing an @autoform UI package make sure you have installed:
 
-    - Install `react-hook-form@^7`
-    - Install required peer dependencies.
+```json
+react-hook-form@^7
+
+@hookform/resolvers
+
+```
+
+---
+
+#### Shadcn/ui
+
+<ModeTab
+  mode="cli"
+  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+/>
+
+Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
 
 ---
 
@@ -29,6 +44,7 @@ Before installing an @autoform UI package
   "@emotion/styled": "^11"
 }
 ```
+
 <Tab value="cli" className="p-0">
   <ModeTab
     className=" border-0"
@@ -97,19 +113,6 @@ Before installing an @autoform UI package
 </Tabs>
 <ModeTab command="@autoform/chakra" />
 
----
-
-#### Shadcn/ui
-
-<ModeTab
-  mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
-/>
-
-Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
-
-- more to come...
-
 If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/react/custom-integration).
 
 In the docs, we will use Material UI as an example but simply replace the imports with the ones from your UI library.
@@ -120,29 +123,32 @@ In the docs, we will use Material UI as an example but simply replace the import
 
 <ModeTab command="@autoform/zod" />
 
-> If you are using Zod < 3.25.0 (i.e. the one before the split into `/v3` and `/v4`), please install `@autoform/zod@^4.0.0` instead:
->
-> <ModeTab command="@autoform/zod@^4.0.0" />
+<Callout> requires zod version greater than 3.25.0 to be installed</Callout>
+
+---
 
 #### Yup
 
 <ModeTab command="@autoform/yup" />
 
+---
+
 #### Joi
 
 <ModeTab command="@autoform/joi" />
-more to come...
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
 ## Create a form
 
 ```tsx
+import * as z from "zod";
 import { AutoForm } from "@autoform/mui";
 import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
-  // ...
+  name: z.string(),
+  age: z.coerce.number(),
 });
 const schemaProvider = new ZodProvider(mySchema);
 
@@ -157,13 +163,15 @@ function MyForm() {
     />
   );
 }
+
+export default MyForm;
 ```
 
 </div>
 
 ## Next.js and RSC
 
-AutoForm can only be used inside a client-side React component due to serialization of the schema and values to your event listeners. If you want to use it in a Next.js app, simply mark your component with "use client":
+AutoForm can only be used inside a `client-side` React component due to serialization of the schema. If you want to use it in a Next.js app, mark your component with "use client".
 
 ```tsx
 // MyPage.tsx
@@ -183,67 +191,125 @@ export default function MyForm() {
 }
 ```
 
-## Accessing the form data
+## Accessing the form data and methods
 
-The form data is managed by react-hook-form. There are two ways to access the form data:
+The form data and methods are managed by react-hook-form. There are a few ways to access them:
 
-### onSubmit
+### 1. onSubmit
 
-The preferred way is to use the `onSubmit` prop. This will be called when the form is submitted and the data is valid.
+The form data can be accessed with the `onSubmit` prop. This will be called when the form is submitted and the data is valid.
 
 ```tsx
 <AutoForm
-  onSubmit={(data, form) => {
+  onSubmit={(data, form, event) => {
     // Do something with the data
-    // Data is validated and coerced with zod automatically
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
+    // Data is validated and coerced automatically
+    // You can use the "form" argument to access the underlying react-hook-form instance
     // for further information and control over the form
   }}
 />
 ```
 
-### Using onFormInit and `values`
+### 2. Using useFormContext inside AutoForm
 
-If you need more control over the form, you can use the `onFormInit` and `values` props to get access to the react-hook-form instance and control data directly:
-
-```tsx
-const [values, setValues] = useState({});
-
-<AutoForm
-  onFormInit={(form) => {
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
-    // https://www.react-hook-form.com/api/useform/
-    form.watch((data) => {
-      setValues(data);
-    });
-
-    // You can freely save the form instance to a state or context and use it later to access the form state
-    form.formState.isDirty; // => true
-  }}
-  values={values}
-/>;
-```
-
-This allows you to access form methods and state from the parent component. You can use the `onFormInit` prop independent of controlled forms to access the form instance.
-
-## Passing props to the form element
-
-You can pass additional props to the underlying form element using the `formProps` prop:
+AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` can use `useFormContext` to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI live in the same JSX tree as `AutoForm`.
 
 ```tsx
-<AutoForm
-  schema={schemaProvider}
-  onSubmit={handleSubmit}
-  formProps={{
-    className: "my-custom-form-class",
-    onKeyDown: (e) => {
-      if (e.key === "Enter") e.preventDefault();
-    },
-  }}
-/>
+import { AutoForm } from "@autoform/mui";
+import { useFormContext } from "react-hook-form";
+
+function QuickActions() {
+  const {
+    watch,
+    setValue,
+    reset,
+    formState: { isValid },
+  } = useFormContext();
+  const email = watch("email");
+
+  return (
+    <div>
+      <button type="button" onClick={() => setValue("email", "dev@acme.com")}>
+        Use sample email
+      </button>
+      <button type="button" onClick={() => reset()}>
+        Reset
+      </button>
+      <span>Current email: {email ?? "-"}</span>
+      <button type="submit" disabled={!isValid}>
+        Submit
+      </button>
+    </div>
+  );
+}
+
+export default function MyForm() {
+  return (
+    <AutoForm schema={schema}>
+      <QuickActions />
+    </AutoForm>
+  );
+}
 ```
 
-This allows you to customize the form element's attributes and behavior as needed.
+### 3. Using an external form control
+
+You can use the [`createFormControl`](https://react-hook-form.com/docs/createFormControl) function from react-hook-form and pass the `formControl` prop. This lets you access and call form methods outside the form component:
+
+<Callout>
+  `createFormControl` requires react-hook-form version `7.55.0` or later.
+</Callout>
+
+```tsx
+import { createFormControl } from "react-hook-form";
+
+export default function MyForm() {
+  const schemaProvider = new ZodProvider(mySchema);
+
+  const { formControl, reset } = createFormControl();
+
+  return (
+    <div>
+      <AutoForm formControl={formControl} schema={schemaProvider} />
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+}
+```
+
+### 4. `Deprecated`: Using onFormInit
+
+`onFormInit` is deprecated and supported for backwards compatibility, the preferred way
+is to use `formControl` from `createFormControl` when available.
+
+import { Accordion, Accordions } from "@/components/accordion";
+
+<Accordions type="single">
+  <Accordion title="How to use onFormInit">
+    You can use `onFormInit` and `values` to access the form instance and
+    control data:
+
+    ```tsx
+    const [values, setValues] = useState({});
+
+    <AutoForm
+      onFormInit={(form) => {
+        form.watch((data) => {
+          setValues(data);
+        });
+        form.formState.isDirty; // => true
+      }}
+      values={values}
+    />;
+
+    ```
+
+  </Accordion>
+</Accordions>
+        
+## Custom field components
+
+When creating custom field components, you can use `useField()` (provided in the props) or `useController()` from react-hook-form to register the field and access the field level methods and state. To learn more about creating custom fields, see [Customization](/docs/react/customization#custom-fields).
 
 ## Submitting the form
 
@@ -278,4 +344,5 @@ All children passed to the `AutoForm` component will be rendered below the form.
 - [How to define your yup schema](/docs/schema-providers/yup)
 - [How to define your joi schema](/docs/schema-providers/joi)
 - [How to customize your form](/docs/react/customization)
+- [API Reference](/docs/react/api)
 - [How to use AutoForm with other UI libraries](/docs/react/custom-integration)

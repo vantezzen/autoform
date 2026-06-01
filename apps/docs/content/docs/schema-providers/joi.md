@@ -6,18 +6,9 @@ Basic usage:
 
 ```tsx
 "use client";
-import { JoiProvider } from "@autoform/joi";
+import { JoiProvider, fieldConfig } from "@autoform/joi";
 import Joi from "joi";
-import { buildJoiFieldConfig } from "@autoform/react";
 import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
-
-const fieldConfig = buildJoiFieldConfig<
-  FieldTypes,
-  {
-    // You can define custom props here
-    isImportant?: boolean;
-  }
->();
 
 // Define your form schema using Joi
 const joiFormSchema = Joi.object({
@@ -34,7 +25,7 @@ const joiFormSchema = Joi.object({
     .email({ tlds: { allow: false } })
     // You can add additional config for a field using fieldConfig
     .meta(
-      fieldConfig({
+      fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
         inputProps: {
           type: "email",
         },
@@ -42,7 +33,7 @@ const joiFormSchema = Joi.object({
           // You can add custom data here
           isImportant: true,
         },
-      })
+      }),
     ),
 
   website: Joi.string().uri().allow(null),
@@ -54,7 +45,7 @@ const joiFormSchema = Joi.object({
   guests: Joi.array().items(
     Joi.object({
       name: Joi.string().required(),
-    })
+    }),
   ),
   hobbies: Joi.array().items(Joi.string()),
 
@@ -77,11 +68,9 @@ function App() {
 }
 ```
 
+`JoiProvider` exposes the original schema and schema type to `@autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Joi resolver manually when using the official provider.
+
 ### Joi configuration
-
-#### Validations
-
-Your form schema can use any of Joi's validation methods.
 
 #### Label
 
@@ -91,6 +80,19 @@ You can use the `label` method to set a label for each field. If no label is set
 const formSchema = Joi.object({
   username: Joi.string().label("Your username"),
   someValue: Joi.string(), // Will be "Some Value"
+});
+```
+
+To add a description below the field see [`fieldConfig`](/docs/react/customization#description).
+
+#### Optional fields
+
+Joi fields are optional by default. Use `required()` to make a field required.
+
+```tsx
+const formSchema = Joi.object({
+  username: Joi.string().required(),
+  nickname: Joi.string(), // Optional by default
 });
 ```
 
@@ -111,7 +113,13 @@ If you want to set default value of date, convert it to Date first using `new Da
 You can use `any().valid` to create a select field.
 
 ```tsx
+const formSchema = Joi.object({
+  color: Joi.any().valid(["red", "green", "blue"]),
+});
+
 enum BreadTypes {
+  // For TypeScript enums, the enum values (e.g. "White bread")
+  // are displayed, validated and returned in output.
   White = "White bread",
   Brown = "Brown bread",
   Wholegrain = "Wholegrain bread",
@@ -120,6 +128,21 @@ enum BreadTypes {
 
 const formSchema = Joi.object({
   breadType: Joi.any().valid(...Object.values(BreadTypes)),
+});
+```
+
+If you want a select label to submit a different value, map the labels to values in a custom rule.
+
+```tsx
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
+
+const formSchema = Joi.object({
+  nameId: Joi.any()
+    .valid(...Object.keys(nameId))
+    .custom((value) => nameId[value as keyof typeof nameId]),
 });
 ```
 
@@ -135,7 +158,7 @@ const formSchema = Joi.object({
       Joi.object({
         name: Joi.string(),
         age: Joi.number(),
-      })
+      }),
     )
     // Optionally set a custom label - otherwise this will be inferred from the field name
     .label("Guests invited to the party"),
@@ -155,7 +178,7 @@ const formSchema = Joi.object({
       Joi.object({
         name: Joi.string().required(),
         age: Joi.number(),
-      })
+      }),
     )
     .default([
       { name: "John", age: 24 },
@@ -180,18 +203,61 @@ const formSchema = Joi.object({
 
 #### Field configuration
 
-You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/joi`.
 
-It's recommended that you create your own fieldConfig function that uses the base fieldConfig function from `@autoform/react` and adds your own customizations:
+With Joi, attach it to a field using `.meta(fieldConfig(...))`:
 
 ```tsx
-import { buildJoiFieldConfig } from "@autoform/react";
+import { fieldConfig } from "@autoform/joi";
+import Joi from "joi";
+
+const formSchema = Joi.object({
+  username: Joi.string()
+    .required()
+    .meta(
+      fieldConfig({
+        label: "Username",
+        description: "Choose a unique username.",
+        inputProps: {
+          placeholder: "Enter your username",
+        },
+      }),
+    ),
+
+  password: Joi.string()
+    .required()
+    .meta(
+      fieldConfig({
+        inputProps: {
+          type: "password",
+          placeholder: "Enter your password",
+        },
+      }),
+    ),
+
+  bio: Joi.string().meta(
+    fieldConfig({
+      fieldType: "textarea",
+    }),
+  ),
+});
+```
+
+Provide external types for full TypeScript support.
+
+```tsx
 import { FieldTypes } from "@autoform/mui";
 
-const fieldConfig = buildJoiFieldConfig<
-  FieldTypes, // You should provide the "FieldTypes" type from the UI library you use
-  {
-    isImportant?: boolean; // You can add custom props here
-  }
->();
+Joi.string().meta(
+  fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+    inputProps: {
+      placeholder: "Your name",
+    },
+    customData: {
+      isImportant: true,
+    },
+  }),
+);
 ```
+
+See the [Customization](/docs/react/customization) page for all available `fieldConfig` options.

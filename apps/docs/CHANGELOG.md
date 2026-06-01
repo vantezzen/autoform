@@ -1,5 +1,19 @@
 # docs
 
+## Unreleased
+
+### Major Changes
+
+- Document resolver-backed validation through `@hookform/resolvers`.
+- Document the new `formControl` prop for external react-hook-form controls.
+- Mark `onFormInit` as deprecated for new code.
+- Update custom field documentation to use `useField()`.
+
+### Patch Changes
+
+- Document `@hookform/resolvers` as a peer dependency of `@autoform/react`.
+- Document `schemaType` and `getSchema()` requirements for custom schema providers used with resolver validation.
+
 ## 3.0.0
 
 ### Major Changes

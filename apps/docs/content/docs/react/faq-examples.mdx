@@ -1,0 +1,90 @@
+---
+title: FAQ & Examples
+description: AutoForm demos, code.
+---
+
+import { ExternalDialogSubmitDemo } from "@/components/examples/faq/external-dialog-submit-demo";
+import { CodeFromFile } from "@/components/examples/faq/code-from-file";
+import { InstallInstructions } from "@/components/examples/faq/install-instructions";
+import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
+import { NestedAutoFormDemo } from "@/components/examples/faq/nested-autoform-demo";
+import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-validation-demo";
+
+## How do I submit, reset AutoForm from buttons in a Dialog?
+
+Use either approach:
+
+1.  Autoform wraps the form with [`FormProvider`](https://react-hook-form.com/docs/formprovider/). Render the dialog components as `AutoForm` children and use the [`useFormContext`](https://react-hook-form.com/docs/useformcontext/) hook to access form methods and states.
+
+2.  Access form methods and states externally with [`createFormControl`](https://react-hook-form.com/docs/createFormControl) and trigger actions like submission, reset etc.
+
+<Tabs persist items={["preview", "code"]} label="Dialog submit">
+  <Tab value="preview">
+    <ExternalDialogSubmitDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="use-form-context"
+      items={[
+        { value: "use-form-context", label: "useFormContext" },
+        { value: "create-form-control", label: "createFormControl" },
+      ]}
+    >
+      <MethodTab value="use-form-context">
+        <CodeFromFile
+          file="components/examples/faq/external-dialog-submit-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="create-form-control">
+        <CodeFromFile
+          file="components/examples/faq/external-dialog-form-control-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+<InstallInstructions
+  components="button dialog"
+  label="External Dialog install"
+/>
+
+## How do I show validation errors in real time and disable submit until valid?
+
+Create a formControl with `createFormControl` and set the validation mode to `onChange`. Subscribe to the form state to track validation status and disable the submit button accordingly.
+
+<Tabs persist items={["preview", "code"]} label="Real-time validation">
+  <Tab value="preview">
+    <RealtimeValidationDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/realtime-validation-demo.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<InstallInstructions components="button" label="Real-time validation install" />
+
+## How do I use another AutoForm inside an AutoForm field?
+
+Define a custom field component, register it in `formComponents`, then mark the schema field with `fieldConfig({ fieldType: "..." })`. When the nested AutoForm submits, pass its value back to the parent via `onChange`.
+
+<Tabs persist items={["preview", "code"]} label="Nested AutoForm">
+  <Tab value="preview">
+    <NestedAutoFormDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/nested-autoform-demo.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  components="button dialog"
+  label="Nested AutoForm install"
+/>

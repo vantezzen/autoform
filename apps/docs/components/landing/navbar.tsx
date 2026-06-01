@@ -1,5 +1,5 @@
 "use client";
-import { ChevronsDown, Github, Menu } from "lucide-react";
+import { ChevronsDown, Menu } from "lucide-react";
 import React from "react";
 import {
   NavigationMenu,

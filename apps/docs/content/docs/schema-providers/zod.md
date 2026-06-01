@@ -2,28 +2,21 @@
 title: Zod
 ---
 
+`@autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
+
 Basic usage:
 
 ```tsx
 "use client";
 import * as z from "zod";
-import { ZodProvider } from "@autoform/zod";
-import { buildZodFieldConfig } from "@autoform/react";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
-
-const fieldConfig = buildZodFieldConfig<
-  FieldTypes,
-  {
-    // You can define custom props here
-    isImportant?: boolean;
-  }
->();
 
 // Define your form schema using zod
 const formSchema = z.object({
   username: z
     .string({
-      required_error: "Username is required.",
+      error: "Username is required.",
     })
     // You can use zod's built-in validation as normal
     .min(2, {
@@ -32,7 +25,7 @@ const formSchema = z.object({
 
   password: z
     .string({
-      required_error: "Password is required.",
+      error: "Password is required.",
     })
     // Use the "describe" method to set the label
     // If no label is set, the field name will be used
@@ -43,8 +36,8 @@ const formSchema = z.object({
     })
     // You can add additional config for how to render this field
     // using fieldConfig
-    .superRefine(
-      fieldConfig<React.ReactNode, FieldTypes>({
+    .check(
+      fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
         description: "We recommend to use a strong password.",
         inputProps: {
           type: "password",
@@ -53,12 +46,12 @@ const formSchema = z.object({
           // You can add custom data here
           isImportant: true,
         },
-      })
+      }),
     ),
 
-  favouriteNumber: z.coerce // When using numbers and dates, you must use coerce
+  favouriteNumber: z.coerce // When using numbers, you must use coerce
     .number({
-      invalid_type_error: "Favourite number must be a number.",
+      error: "Favourite number must be a number.",
     })
     .min(1, {
       message: "Favourite number must be at least 1.",
@@ -72,10 +65,9 @@ const formSchema = z.object({
   acceptTerms: z
     .boolean()
     .describe("Accept terms and conditions.")
-    .refine((value) => value, {
-      message: "You must accept the terms and conditions.",
-      path: ["acceptTerms"],
-    }),
+    .check(
+      z.refine((value) => value, "You must accept the terms and conditions."),
+    ),
 
   // Date will show a date picker
   birthday: z.coerce.date().optional(),
@@ -105,17 +97,9 @@ function App() {
 }
 ```
 
-### Zod configuration
+## Zod configuration
 
-#### Validations
-
-Your form schema can use any of zod's validation methods including refine.
-
-Autoform is able to automatically transform some of zod's validation elements into HTML attributes. For example, if you use `zod.string().min(8)`, the input will automatically have a `minlength="8"` attribute.
-
-Validation methods that are not supported by HTML will automatically be checked when the form is submitted.
-
-#### Labels
+### Labels
 
 You can use the `describe` method to set a label for each field. If no label is set, the field name will be used and un-camel-cased.
 
@@ -126,7 +110,9 @@ const formSchema = z.object({
 });
 ```
 
-#### Coercion
+To add a description below the field see [`fieldConfig`](/docs/react/customization#description).
+
+### Coercion
 
 When using numbers and dates, you should use coerce. This is because input elements may return a string that should automatically be converted.
 
@@ -137,7 +123,7 @@ const formSchema = z.object({
 });
 ```
 
-#### Optional fields
+### Optional fields
 
 By default, all fields are required. You can make a field optional by using the `optional` method.
 
@@ -147,7 +133,7 @@ const formSchema = z.object({
 });
 ```
 
-#### Default values
+### Default values
 
 You can set a default value for a field using the `default` method.
 
@@ -159,7 +145,7 @@ const formSchema = z.object({
 
 If you want to set default value of date, convert it to Date first using `new Date(val)`.
 
-#### Select/Enums
+### Select/Enums
 
 AutoForm supports `enum` and `nativeEnum` to create select fields.
 
@@ -169,19 +155,36 @@ const formSchema = z.object({
 });
 
 enum BreadTypes {
-  // For native enums, you can alternatively define a backed enum to set a custom label
+  // For TypeScript enums, the enum values (e.g. "White bread")
+  // are displayed, validated and returned in output.
   White = "White bread",
   Brown = "Brown bread",
   Wholegrain = "Wholegrain bread",
-  Other,
 }
-// Keep in mind that zod will validate and return the enum labels, not the enum values!
+
 const formSchema = z.object({
   bread: z.nativeEnum(BreadTypes),
 });
 ```
 
-#### Arrays
+If you want a select label to submit a different value, map the labels to values in a transform.
+
+```tsx
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
+
+const formSchema = z.object({
+  nameId: z
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId]),
+});
+```
+
+### Arrays
 
 AutoForm supports arrays:
 
@@ -193,7 +196,7 @@ const formSchema = z.object({
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     )
     // Optionally set a custom label - otherwise this will be inferred from the field name
     .describe("Guests invited to the party"),
@@ -214,7 +217,7 @@ const formSchema = z.object({
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     )
     .describe("Guests invited to the party")
     .default([
@@ -230,7 +233,7 @@ const formSchema = z.object({
 });
 ```
 
-#### Sub-objects
+### Sub-objects
 
 You may use sub-objects to group fields together. These will be rendered with their own title.
 
@@ -243,151 +246,100 @@ const formSchema = z.object({
 });
 ```
 
-#### Field configuration
+### Field configuration
 
-You can use the `fieldConfig` function to set additional configuration for how a field should be rendered. This function is independent of the UI library you use so you can provide the FieldTypes that are supported by your UI library.
-It's recommended to create your own `fieldConfig` function. Use the base `buildZodFieldConfig` from `@autoform/react` and extend it with your customizations to ensure full TypeScript support.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/zod`.
 
-> `ZodProvider` and `fieldConfig` from `@autoform/zod` are fully compatible with all Zod versions including v3, v4, and Zod Mini, allowing you to use them across any Zod version.
+Depending on the Zod version:
 
-#### Zod v3
+- Use `.check(fieldConfig(...))` for **Zod v4 and Zod Mini**
+- Use `.superRefine(fieldConfig(...))` for **Zod v3**
 
-With Zod v3, you apply this configuration using the `.superRefine()` method.
+**Zod v4**
 
 ```tsx
-import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { buildZodFieldConfig } from "@autoform/react";
-import { FieldTypes } from "@autoform/mui"; // or your UI library's FieldTypes
+import { fieldConfig } from "@autoform/zod";
 import * as z from "zod";
 
-const fieldConfig = buildZodFieldConfig<
-  FieldTypes,
-  {
-    isImportant?: boolean;
-  }
->();
-
-// Example usage with Zod v3
-const formSchemaV3 = z.object({
+const formSchema = z.object({
   username: z
     .string({
-      required_error: "Username is required.",
+      error: "Username is required.",
     })
-    .superRefine(
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .default("Default username")
+    .check(
       fieldConfig({
         description: "You cannot change this later.",
-      })
+      }),
     ),
-  password: z.string().superRefine(
-    fieldConfig<React.ReactNode, FieldTypes>({
-      description: "We recommend to use a strong password.",
-      inputProps: {
-        type: "password",
-      },
-      customData: {
-        isImportant: true,
-      },
-    })
-  ),
 });
 ```
 
-#### Zod v4
-
-With Zod v4, you apply this configuration using the `.check()` method.
-Here's an example demonstrating the new usage:
+**Zod Mini**
 
 ```tsx
-import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { AutoForm, FieldTypes } from "@autoform/mui";
-import * as z from "zod/v4";
+import { fieldConfig } from "@autoform/zod/mini";
+import { z } from "zod/mini";
 
-// Define your form schema using zod v4
-const formSchemaV4 = z.object({
-  // ... other fields
-
-  password: z
-    .string({
-      required_error: "Password is required.",
-    })
-    .describe("Your secure password")
-    .min(8, {
-      message: "Password must be at least 8 characters.",
-    })
-    // Use .register() with the spread operator (...)
-    .check(
-      fieldConfig<React.ReactNode, FieldTypes>({
-        description: "We recommend to use a strong password.",
-        inputProps: {
-          type: "password",
-        },
-        customData: {
-          // You can add custom data here
-          isImportant: true,
-        },
+const formSchema = z.object({
+  username: z._default(
+    z
+      .string({
+        error: "Username is required.",
       })
-    ),
-
-  // ... other fields
-});
-
-const schemaProvider = new ZodProvider(formSchemaV4);
-
-function AppV4() {
-  return (
-    <AutoForm
-      schema={schemaProvider}
-      onSubmit={(data) => {
-        console.log(data);
-      }}
-      withSubmit
-    />
-  );
-}
-```
-
-#### Zod Mini
-
-With Zod mini, you apply this configuration using the `.check()` method.
-
-```tsx
-import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { AutoForm, FieldTypes } from "@autoform/mui";
-import * as z from "zod/mini";
-
-// Define your form schema using zod mini
-const formSchemaMini = z.object({
-  password: zm
-    .string({
-      error: "Password is required.",
-    })
-    .check(
-      zm.minLength(8, {
-        message: "Password must be at least 8 characters.",
-      })
-    )
-    .check(
-      fieldConfig({
-        // Changed from superRefine to register
-        description: "Always use a secure password!",
-        inputProps: {
-          type: "password",
-        },
-      })
-    ),
-
-  sendMeMails: zm.optional(zm.boolean()).check(
-    fieldConfig({
-      // Changed from superRefine to register
-      fieldWrapper: (props: FieldWrapperProps) => (
-        <>
-          {props.children}
-          <p className="text-muted-foreground text-xs">
-            Don't worry, we only send important emails!
-          </p>
-        </>
+      .check(
+        z.minLength(2, {
+          message: "Username must be at least 2 characters.",
+        }),
+        fieldConfig({
+          description: "You cannot change this later.",
+        }),
       ),
-    })
+    "Default username",
   ),
 });
 ```
+
+**Zod v3**
+
+```tsx
+import { fieldConfig } from "@autoform/zod/v3";
+import * as z from "zod";
+
+const formSchema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      label: "Username",
+      description: "Choose a unique username.",
+      inputProps: {
+        placeholder: "Enter your username",
+      },
+    }),
+  ),
+});
+```
+
+**TypeScript Support**
+
+Provide external types for full TypeScript support.
+
+```tsx
+import { FieldTypes } from "@autoform/mui";
+import { fieldConfig } from "@autoform/zod";
+
+z.string().check(
+  fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+    inputProps: {
+      type: "password",
+    },
+    customData: {
+      isImportant: true,
+    },
+  }),
+);
+```
+
+See the [Customization](/docs/react/customization) page for all available `fieldConfig` options.

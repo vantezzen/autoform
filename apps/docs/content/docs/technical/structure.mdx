@@ -22,6 +22,7 @@ Key features:
 - Parse schema definitions into a format AutoForm can understand
 - Provide validation logic specific to the schema library
 - Handle default values and field configurations
+- Expose the original schema and schema type so `@autoform/react` can create React Hook Form resolvers
 
 Example with @autoform/zod:
 
@@ -35,6 +36,8 @@ import { parseSchema } from "./schema-parser";
 export class ZodProvider<T extends z.ZodObject<any, any>>
   implements SchemaProvider<z.infer<T>>
 {
+  schemaType = "zod" as const;
+
   constructor(private schema: T) {}
 
   parseSchema(): ParsedSchema {
@@ -56,6 +59,21 @@ export class ZodProvider<T extends z.ZodObject<any, any>>
   getDefaultValues(): Record<string, any> {
     return getDefaultValues(this.schema);
   }
+
+  getSchema(): T {
+    return this.schema;
+  }
+}
+```
+
+If you build a custom schema provider for use with `@autoform/react`, implement `schemaType` and `getSchema()` when you want AutoForm to create resolver-backed validation automatically:
+
+```tsx
+type SchemaType = "zod" | "yup" | "joi";
+
+interface SchemaProvider {
+  schemaType?: SchemaType;
+  getSchema?(): unknown;
 }
 ```
 
@@ -95,18 +113,23 @@ import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { SubmitButton } from "./components/SubmitButton";
+import { ObjectWrapper } from "./components/ObjectWrapper";
+import { ArrayWrapper } from "./components/ArrayWrapper";
+import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
 import { StringField } from "./components/StringField";
 import { NumberField } from "./components/NumberField";
 import { BooleanField } from "./components/BooleanField";
 import { DateField } from "./components/DateField";
 import { SelectField } from "./components/SelectField";
-import { ArrayField } from "./components/ArrayField";
 
 const MuiUIComponents: AutoFormUIComponents = {
   Form,
   FieldWrapper,
   ErrorMessage,
   SubmitButton,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper,
 };
 
 export const MuiAutoFormFieldComponents: AutoFormFieldComponents = {
@@ -115,7 +138,6 @@ export const MuiAutoFormFieldComponents: AutoFormFieldComponents = {
   boolean: BooleanField,
   date: DateField,
   select: SelectField,
-  array: ArrayField,
 };
 
 export function AutoForm<T extends Record<string, any>>({
@@ -146,8 +168,8 @@ export function AutoForm<T extends Record<string, any>>({
 2. The schema is passed to the appropriate schema provider (e.g., @autoform/zod).
 3. The `AutoForm` component from a UI-specific library (e.g., @autoform/mui) is used in the React application.
 4. This `AutoForm` component wraps the core `AutoForm` from @autoform/react, providing UI-specific components.
-5. The core `AutoForm` uses the schema provider to parse the schema, generate form fields, and handle validation.
+5. The core `AutoForm` uses the schema provider to parse the schema, generate form fields, and create resolver-backed validation.
 6. UI-specific components render the form fields and handle user input.
-7. On form submission, the schema provider validates the data, and the result is passed to the onSubmit handler.
+7. On form submission, resolver-validated data is passed to the `onSubmit` handler.
 
 This modular structure allows AutoForm to be flexible and extensible. Users can choose their preferred schema library and UI framework, or even create custom implementations for unsupported libraries.
