@@ -3,7 +3,7 @@ title: Customization
 description: The customization of the components is done by providing a `fieldConfig` to your schema fields. This allows you to customize the rendering of the field, add additional props, and more.
 ---
 
-Import fieldConfig from your schema package [@autoform/zod](/docs/schema-providers/zod#field-configuration), [@autoform/yup](/docs/schema-providers/yup#field-configuration), [@autoform/joi](/docs/schema-providers/joi#field-configuration)
+Import `fieldConfig` from your schema package [@autoform/zod](/docs/schema-providers/zod#field-configuration), [@autoform/yup](/docs/schema-providers/yup#field-configuration), [@autoform/joi](/docs/schema-providers/joi#field-configuration)
 
 In the examples below, we use Zod.
 
@@ -36,7 +36,7 @@ const schema = z.object({
 
 ## Input props
 
-You can use the `inputProps` property to pass props to the input component. These are schema-configured props that AutoForm passes to the rendered field component.
+You can use the `inputProps` property to pass props to the input component.
 
 ```tsx
 const schema = z.object({
@@ -55,7 +55,7 @@ const schema = z.object({
 
 ## Description
 
-You can use the `description` property to add a description below the field.
+You can use the `description` property to add a description below the field. You can use JSX in the description.
 
 ```tsx
 const schema = z.object({
@@ -67,8 +67,6 @@ const schema = z.object({
   ),
 });
 ```
-
-You can use JSX in the description.
 
 ## Order
 
@@ -98,7 +96,9 @@ const schema = z.object({
 
 ## Custom fields
 
-You can customize fields in two ways: overriding existing UI components or adding entirely new form components.
+You can customize fields in two ways: overriding existing UI components or adding new form components.
+
+AutoForm renders every generated field inside the `FieldWrapper` `UI component`. The wrapper renders the resolved `label`, validation `error` and the field component as `children`. Because of this, normal `form components` should render only the actual input control.
 
 ### Overriding default UI components
 
@@ -151,6 +151,8 @@ const schema = z.object({
 
 You can also add your own custom field types. To do this, you need to extend the `formComponents` prop of your AutoForm component and add your custom field type.
 
+Keep form components focused on wiring the input. Most form components should not render the `label` or `error` directly because `FieldWrapper` already handles that. Still [`AutoFormFieldProps`](/docs/react/api#custom-fields) includes them for advanced UI integrations.
+
 ```tsx
 // CustomInput.tsx
 export function CustomInput({ id, inputProps, useField }: AutoFormFieldProps) {
@@ -162,7 +164,7 @@ export function CustomInput({ id, inputProps, useField }: AutoFormFieldProps) {
         id={id}
         type="text"
         className="bg-red-400 rounded-lg p-4"
-        {...inputProps}
+        {...inputProps} // inputProps is configured in fieldConfig.
         {...formField}
         value={formField.value ?? ""}
       />
@@ -190,8 +192,6 @@ const schema = z.object({
 });
 ```
 
-`inputProps` contains the props you configured with `fieldConfig`.
-
 For more examples on creating custom form components see [examples.](/docs/react/faq-examples)
 
 ### useField()
@@ -206,11 +206,45 @@ import { useController } from "react-hook-form";
 custom: ({ id, inputProps }: AutoFormFieldProps) => {
   const { field, fieldState, formState } = useController({ name: id });
 
-  return <input id={id} {...inputProps} {...field} />;
+  return (
+    <input
+      id={id}
+      aria-invalid={fieldState.invalid}
+      {...inputProps}
+      {...field}
+      value={field.value ?? ""}
+    />
+  );
 };
 // No need to pass control to useController
 // because AutoForm wraps fields with FormProvider.
 ```
+
+For non-standard inputs, adapt the value and change handler to the component API:
+
+```tsx
+customCheckbox: ({ id, useField }: AutoFormFieldProps) => {
+  const field = useField();
+
+  return (
+    <input
+      id={id}
+      name={field.name}
+      ref={field.ref}
+      type="checkbox"
+      checked={!!field.value}
+      onBlur={field.onBlur}
+      onChange={(event) => field.onChange(event.target.checked)}
+    />
+  );
+};
+```
+
+For UI-library implementations, see the official field components:
+[Shadcn fields](https://github.com/vantezzen/autoform/tree/main/packages/shadcn/src/components/ui/autoform/components),
+[MUI fields](https://github.com/vantezzen/autoform/tree/main/packages/mui/src/components),
+[Mantine fields](https://github.com/vantezzen/autoform/tree/main/packages/mantine/src/components) and
+[Ant fields](https://github.com/vantezzen/autoform/tree/main/packages/ant/src/components),
 
 ## Form element customization
 
@@ -255,15 +289,21 @@ For more control, pass a custom submit button as a child of `AutoForm`. Children
 
 **2. Submit and reset buttons outside AutoForm**
 
-Use [`createFormControl`](https://react-hook-form.com/docs/createFormControl) from react-hook-form to control the form externally. This lets you place submit, reset, or any other controls anywhere in your UI:
+Use [`createFormControl`](https://react-hook-form.com/docs/createFormControl) from react-hook-form to control the form externally. This lets you place submit, reset, or any other controls anywhere in your UI.
+
+Create the form control once per form instance. In React components, use `useMemo` so it is not recreated on every render:
 
 ```tsx
+import * as React from "react";
 import { createFormControl } from "react-hook-form";
 
 export default function MyForm() {
   const schemaProvider = new ZodProvider(mySchema);
 
-  const { formControl, handleSubmit, reset } = createFormControl();
+  const { formControl, handleSubmit, reset } = React.useMemo(
+    () => createFormControl(),
+    [],
+  );
 
   return (
     <div>
@@ -297,12 +337,20 @@ AutoForm automatically cleans empty values such as `""`, `null`, `[]`, `{}` befo
 // example using zod resolver from @hookform/resolvers
 // this overrides the default resolver and its automatic empty-value cleanup
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
 import { createFormControl } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { mySchema } from "@/lib/schema";
 
-const { formControl } = createFormControl({
-  resolver: zodResolver(mySchema),
-});
+export default function MyForm() {
+  const { formControl } = React.useMemo(
+    () =>
+      createFormControl({
+        resolver: zodResolver(mySchema),
+      }),
+    [],
+  );
 
-<AutoForm formControl={formControl} schema={schemaProvider} />;
+  return <AutoForm formControl={formControl} schema={schemaProvider} />;
+}
 ```

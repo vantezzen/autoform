@@ -6,6 +6,7 @@ description: Common questions and examples.
 import { ExternalDialogSubmitDemo } from "@/components/examples/faq/external-dialog-submit-demo";
 import { CodeFromFile } from "@/components/examples/faq/code-from-file";
 import { InstallInstructions } from "@/components/examples/faq/install-instructions";
+import { InteractiveSchemaDemo } from "@/components/examples/faq/interactive-schema-demo";
 import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
 import { MultistepFormDemo } from "@/components/examples/faq/multistep-form-usage-demo";
 import { NestedAutoFormDemo } from "@/components/examples/faq/nested-autoform-demo";
@@ -123,3 +124,19 @@ Define a custom field component, register it in `formComponents`, then mark the 
   components="button dialog"
   label="Nested AutoForm install"
 />
+
+## How do I create a live interactive form builder?
+
+Combine a Monaco editor with AutoForm: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`. AutoForm re-renders the form instantly whenever the schema updates.
+
+<Tabs persist items={["preview", "code"]} label="Interactive form builder">
+  <Tab value="preview">
+    <InteractiveSchemaDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/interactive-schema-demo-content.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>

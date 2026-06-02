@@ -1,10 +1,11 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { z } from "zod";
-// import { AutoForm } from "@autoform/mui";
-import { SchemaProvider } from "@autoform/core";
 import { ZodProvider } from "@autoform/zod";
+import { SchemaProvider } from "@autoform/core";
+
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
 
 const defaultCode = `z.object({
@@ -12,6 +13,7 @@ const defaultCode = `z.object({
   age: z.coerce.number(),
   isHuman: z.boolean(),
 })`;
+
 const globalZod = z;
 
 const editorOptions = {
@@ -28,17 +30,17 @@ const editorOptions = {
   },
 };
 
-function InteractiveDemoContent() {
+export function InteractiveSchemaDemoContent() {
   const [code, setCode] = React.useState(defaultCode);
-  const [schema, setSchema] = React.useState<z.ZodObject<any, any>>(
-    z.object({
-      name: z.string(),
-      age: z.coerce.number(),
-      isHuman: z.boolean(),
-    }),
-  );
   const [schemaProvider, setSchemaProvider] = React.useState<SchemaProvider>(
-    () => new ZodProvider(schema),
+    () =>
+      new ZodProvider(
+        z.object({
+          name: z.string(),
+          age: z.coerce.number(),
+          isHuman: z.boolean(),
+        }),
+      ),
   );
   const [data, setData] = useState("");
 
@@ -48,7 +50,6 @@ function InteractiveDemoContent() {
       const parsedSchema = eval(code);
       const provider = new ZodProvider(parsedSchema);
       provider.parseSchema();
-      setSchema(parsedSchema);
       setSchemaProvider(provider);
     } catch (error) {
       console.error(error);
@@ -56,10 +57,10 @@ function InteractiveDemoContent() {
   }, [code]);
 
   return (
-    <div className="grid md:grid-cols-2 gap-1 w-full">
-      <div className="bg-white rounded-lg p-1 md:py-6 md:px-1">
+    <div className="grid md:grid-cols-2 gap-1 w-full rounded-lg border bg-background overflow-hidden">
+      <div className="bg-muted/40 p-1 md:py-4 md:px-1 border-b md:border-b-0 md:border-r">
         <Editor
-          className="md:h-[500px] md:border-0 h-[310px] border"
+          className="md:h-[380px] md:border-0 h-[260px] border"
           options={editorOptions}
           defaultLanguage="javascript"
           defaultValue={defaultCode}
@@ -67,7 +68,7 @@ function InteractiveDemoContent() {
         />
       </div>
 
-      <div className="bg-white rounded-lg p-6 pb-20 md:pb-24">
+      <div className="p-6 pb-8">
         <PreviewAutoForm
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
@@ -75,7 +76,7 @@ function InteractiveDemoContent() {
         />
 
         {data && (
-          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4 text-gray-800">
+          <pre className="bg-muted rounded-md p-4 text-sm mt-4 overflow-auto">
             {data}
           </pre>
         )}
@@ -83,5 +84,3 @@ function InteractiveDemoContent() {
     </div>
   );
 }
-
-export default InteractiveDemoContent;

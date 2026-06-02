@@ -16,7 +16,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   const hideHelperText = DISABLE_HELPER_TEXT.includes(field.type);
 
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-2">
       {!isDisabled && (
         <Label htmlFor={id}>
           {label}
