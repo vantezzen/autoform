@@ -7,6 +7,7 @@ import { ExternalDialogSubmitDemo } from "@/components/examples/faq/external-dia
 import { CodeFromFile } from "@/components/examples/faq/code-from-file";
 import { InstallInstructions } from "@/components/examples/faq/install-instructions";
 import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
+import { MultistepFormDemo } from "@/components/examples/faq/multistep-form-usage-demo";
 import { NestedAutoFormDemo } from "@/components/examples/faq/nested-autoform-demo";
 import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-validation-demo";
 
@@ -67,6 +68,40 @@ Create a formControl with `createFormControl` and set the validation mode to `on
 </Tabs>
 
 <InstallInstructions components="button" label="Real-time validation install" />
+
+## How do I create a simple multistep form?
+
+Use one small schema for each step. Render the current step, save its values in state, and move forward from `onSubmit`. Since the Next button submits the current step, AutoForm validates that step before moving ahead.
+
+<Tabs persist items={["preview", "code"]} label="Multistep form">
+  <Tab value="preview">
+    <MultistepFormDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="usage"
+      items={[
+        { value: "usage", label: "Usage" },
+        { value: "multistep-form", label: "MultistepForm" },
+      ]}
+    >
+      <MethodTab value="usage">
+        <CodeFromFile
+          file="components/examples/faq/multistep-form-usage-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="multistep-form">
+        <CodeFromFile
+          file="components/examples/faq/multistep-form.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions components="button" label="Multistep form install" />
 
 ## How do I use another AutoForm inside an AutoForm field?
 
