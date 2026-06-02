@@ -29,14 +29,14 @@ export interface MultistepFormProps {
 // ---------------------------------------------------------------------------
 
 function StepActions<T extends FieldValues>({
-  backTo,
-  nextLabel = "Next",
+  isBack,
+  isNext,
   onBack,
   onNext,
 }: {
-  backTo?: number;
-  nextLabel?: string;
-  onBack?: (step: number) => void;
+  isBack: boolean;
+  isNext: boolean;
+  onBack: () => void;
   onNext: (values: T) => void;
 }) {
   const { trigger, getValues } = useFormContext<T>();
@@ -51,20 +51,20 @@ function StepActions<T extends FieldValues>({
 
   return (
     <div className="flex gap-2">
-      {backTo !== undefined && (
+      {isBack && (
         <Button
           type="button"
           variant="outline"
           className="gap-2"
-          onClick={() => onBack?.(backTo)}
+          onClick={() => onBack()}
         >
           <ArrowLeft className="h-4 w-4" />
           Back
         </Button>
       )}
-      <Button type="button" className="gap-2" onClick={handleNext}>
-        {nextLabel}
-        {nextLabel === "Next" && <ArrowRight className="h-4 w-4" />}
+      <Button type="submit" className="gap-2" onClick={handleNext}>
+        {isNext ? "Next" : "Submit"}
+        {isNext && <ArrowRight className="h-4 w-4" />}
       </Button>
     </div>
   );
@@ -86,13 +86,14 @@ export function MultistepForm({ steps, onSubmit }: MultistepFormProps) {
   );
 
   const isLastStep = step === steps.length - 1;
+  const currentStep = steps[step];
 
   const saveAndAdvance = (stepIndex: number, stepValues: FieldValues) => {
     const next = { ...values, [stepIndex]: stepValues };
     setValues(next);
 
     if (isLastStep) {
-      onSubmit(Object.values(next).reduce((acc, v) => ({ ...acc, ...v }), {}));
+      onSubmit(next);
     } else {
       setStep(stepIndex + 1);
     }
@@ -113,21 +114,19 @@ export function MultistepForm({ steps, onSubmit }: MultistepFormProps) {
       </div>
 
       {/* Active step form */}
-      {steps.map((s, i) =>
-        step === i ? (
-          <PreviewAutoForm
-            key={s.label}
-            schema={providers[i]}
-            defaultValues={values[i]}
-          >
-            <StepActions
-              backTo={i > 0 ? i - 1 : undefined}
-              nextLabel={isLastStep ? "Submit" : "Next"}
-              onBack={setStep}
-              onNext={(v: FieldValues) => saveAndAdvance(i, v)}
-            />
-          </PreviewAutoForm>
-        ) : null,
+      {currentStep && (
+        <PreviewAutoForm
+          key={currentStep.label}
+          schema={providers[step]}
+          defaultValues={values[step]}
+        >
+          <StepActions
+            isBack={step > 0}
+            isNext={!isLastStep}
+            onBack={() => step > 0 && setStep(step - 1)}
+            onNext={(v: FieldValues) => saveAndAdvance(step, v)}
+          />
+        </PreviewAutoForm>
       )}
     </div>
   );

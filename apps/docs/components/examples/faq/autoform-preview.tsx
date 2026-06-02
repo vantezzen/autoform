@@ -185,7 +185,7 @@ const PreviewFieldComponents = {
     const formField = useField();
 
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 mt-4">
         <Checkbox
           id={id}
           {...inputProps}
