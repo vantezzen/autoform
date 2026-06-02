@@ -52,7 +52,11 @@ function withNestedDescriptionTable(
     description: (
       <>
         {node.description}
-        <div>
+        <div className="grid grid-cols-[1fr_3fr] gap-y-2 mt-2 not-prose text-sm">
+          <p className="text-fd-muted-foreground">Type</p>
+          <div>{node.typeDescription ?? node.type}</div>
+        </div>
+        <div className="mt-3">
           <p className="mb-2 text-sm text-fd-muted-foreground">
             {description}
           </p>
@@ -60,6 +64,7 @@ function withNestedDescriptionTable(
         </div>
       </>
     ),
+    typeDescription: undefined,
   } satisfies TypeNode;
 }
 
@@ -138,24 +143,29 @@ export async function AutoFormUIComponentsTable() {
     createTypeTableData("../../packages/core/src/types.ts", "FieldConfig"),
   ]);
 
-  // Build nested ParsedField table with FieldConfig nested inside
-  const nestedParsedField = { ...parsedField };
-  if (nestedParsedField.fieldConfig) {
-    nestedParsedField.fieldConfig = withNestedDescriptionTable(
-      nestedParsedField.fieldConfig,
-      "AutoForm-specific configuration available at field.fieldConfig.",
-      "type-table-ui-field-config",
-      fieldConfig,
-    );
-  }
+  // For FieldWrapper, ArrayWrapper, ObjectWrapper — nest ParsedField > FieldConfig
+  // under their `field` prop, each with unique table IDs to avoid duplicate keys.
+  const componentIds = ["field-wrapper", "array-wrapper", "object-wrapper"];
+  const propsWithField = [fieldWrapperProps, arrayWrapperProps, objectWrapperProps];
 
-  // For FieldWrapper, ArrayWrapper, ObjectWrapper — nest ParsedField under their `field` prop
-  for (const props of [fieldWrapperProps, arrayWrapperProps, objectWrapperProps]) {
+  for (let i = 0; i < propsWithField.length; i++) {
+    const props = propsWithField[i];
+    const prefix = componentIds[i];
+
     if (props.field) {
+      const nestedParsedField = { ...parsedField };
+      if (nestedParsedField.fieldConfig) {
+        nestedParsedField.fieldConfig = withNestedDescriptionTable(
+          nestedParsedField.fieldConfig,
+          "AutoForm-specific configuration available at field.fieldConfig.",
+          `type-table-ui-${prefix}-field-config`,
+          fieldConfig,
+        );
+      }
       props.field = withNestedDescriptionTable(
         props.field,
         "Parsed schema metadata available on the current field.",
-        "type-table-ui-parsed-field",
+        `type-table-ui-${prefix}-parsed-field`,
         nestedParsedField,
       );
     }
@@ -165,7 +175,7 @@ export async function AutoFormUIComponentsTable() {
     tableId: string,
     data: Record<string, TypeNode>,
   ) {
-    return <TypeTable id={tableId} type={data} />;
+    return <TypeTable key={tableId} id={tableId} type={data} />;
   }
 
   const entries: UIComponentEntry[] = [

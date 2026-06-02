@@ -125,9 +125,9 @@ Define a custom field component, register it in `formComponents`, then mark the 
   label="Nested AutoForm install"
 />
 
-## How do I create a live interactive form builder?
+## How do I create a interactive, dynamic form builder?
 
-Combine a Monaco editor with AutoForm: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`. AutoForm re-renders the form instantly whenever the schema updates.
+Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`. AutoForm re-renders the form instantly whenever the schema updates.
 
 <Tabs persist items={["preview", "code"]} label="Interactive form builder">
   <Tab value="preview">

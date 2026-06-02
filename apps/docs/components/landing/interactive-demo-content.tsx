@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-import { z } from "zod";
 // import { AutoForm } from "@autoform/mui";
+import { z } from "zod";
 import { SchemaProvider } from "@autoform/core";
 import { ZodProvider } from "@autoform/zod";
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
@@ -28,6 +28,22 @@ const editorOptions = {
   },
 };
 
+const getEditorTheme = () =>
+  document.documentElement.classList.contains("dark") ? "vs-dark" : "light";
+
+function useEditorTheme() {
+  const [theme, setTheme] = useState(getEditorTheme);
+  useEffect(() => {
+    const observer = new MutationObserver(() => setTheme(getEditorTheme()));
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+  return theme;
+}
+
 function InteractiveDemoContent() {
   const [code, setCode] = React.useState(defaultCode);
   const [schema, setSchema] = React.useState<z.ZodObject<any, any>>(
@@ -41,6 +57,7 @@ function InteractiveDemoContent() {
     () => new ZodProvider(schema),
   );
   const [data, setData] = useState("");
+  const editorTheme = useEditorTheme();
 
   useEffect(() => {
     try {
@@ -56,18 +73,19 @@ function InteractiveDemoContent() {
   }, [code]);
 
   return (
-    <div className="grid md:grid-cols-2 gap-1 w-full">
-      <div className="bg-white rounded-lg p-1 md:py-6 md:px-1">
+    <div className="grid md:grid-cols-2 gap-1 w-full rounded-lg border bg-background overflow-hidden">
+      <div className="bg-muted/40 p-1 md:py-6 md:px-1 border-b md:border-b-0 md:border-r">
         <Editor
           className="md:h-[500px] md:border-0 h-[310px] border"
           options={editorOptions}
           defaultLanguage="javascript"
           defaultValue={defaultCode}
+          theme={editorTheme}
           onChange={(value) => setCode(value || "")}
         />
       </div>
 
-      <div className="bg-white rounded-lg p-6 pb-20 md:pb-24">
+      <div className="p-6 pb-20 md:pb-24">
         <PreviewAutoForm
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
@@ -75,7 +93,7 @@ function InteractiveDemoContent() {
         />
 
         {data && (
-          <pre className="bg-gray-100 p-4 rounded-lg text-sm mt-4 text-gray-800">
+          <pre className="bg-muted rounded-md p-4 text-sm mt-4 overflow-auto">
             {data}
           </pre>
         )}
