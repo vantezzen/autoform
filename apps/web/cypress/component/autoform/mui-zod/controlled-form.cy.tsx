@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AutoForm } from "@autoform/mui";
-import { ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
+import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
 const ControlledForm = () => {

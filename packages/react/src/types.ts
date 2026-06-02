@@ -5,7 +5,7 @@ import {
   Renderable,
   FieldConfig as BaseFieldConfig,
   SchemaProvider,
-} from "@autoform/core";
+} from "@acp-autoform/core";
 import {
   FieldPath,
   FieldValues,

@@ -1,4 +1,3 @@
-import type { ExtendableAutoFormProps, FieldValues } from "@autoform/react";
+import type { ExtendableAutoFormProps, FieldValues } from "@acp-autoform/react";
 
-export interface AutoFormProps<T extends FieldValues>
-  extends ExtendableAutoFormProps<T> {}
+export type AutoFormProps<T extends FieldValues> = ExtendableAutoFormProps<T>;

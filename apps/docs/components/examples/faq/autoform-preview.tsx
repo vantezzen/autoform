@@ -11,7 +11,7 @@ import {
   FieldWrapperProps,
   FieldValues,
   ObjectWrapperProps,
-} from "@autoform/react";
+} from "@acp-autoform/react";
 import { AlertCircle, PlusIcon, TrashIcon } from "lucide-react";
 
 import { Alert, AlertTitle } from "@/components/ui/alert";

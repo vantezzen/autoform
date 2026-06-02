@@ -7,7 +7,7 @@ import {
   SubmitErrorHandler,
   DefaultValues,
 } from "react-hook-form";
-import { getDefaultValues, parseSchema } from "@autoform/core";
+import { getDefaultValues, parseSchema } from "@acp-autoform/core";
 import { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";

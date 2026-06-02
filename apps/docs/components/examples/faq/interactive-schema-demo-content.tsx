@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { z } from "zod";
-import { ZodProvider } from "@autoform/zod";
-import { SchemaProvider } from "@autoform/core";
+import { ZodProvider } from "@acp-autoform/zod";
+import { SchemaProvider } from "@acp-autoform/core";
 
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
 

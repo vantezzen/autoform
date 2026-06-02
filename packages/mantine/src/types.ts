@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps, FieldValues } from "@autoform/react";
+import type { ExtendableAutoFormProps, FieldValues } from "@acp-autoform/react";
 import { MantineProvider } from "@mantine/core";
 
 export interface AutoFormProps<T extends FieldValues>

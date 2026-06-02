@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FieldValues, useFormContext } from "react-hook-form";
-import { ZodProvider } from "@autoform/zod";
+import { ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";

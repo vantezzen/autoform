@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps, FieldValues } from "@autoform/react";
+import type { ExtendableAutoFormProps, FieldValues } from "@acp-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 
 export interface AutoFormProps<T extends FieldValues>

@@ -1,4 +1,4 @@
-import { FieldConfig } from "@autoform/core";
+import { FieldConfig } from "@acp-autoform/core";
 import { JoiField } from "./types";
 
 export const JOI_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");

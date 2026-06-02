@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ParsedSchema, SchemaProvider, SchemaValidation } from "@autoform/core";
+import { ParsedSchema, SchemaProvider, SchemaValidation } from "@acp-autoform/core";
 import { parseSchema } from "./schema-parser";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";

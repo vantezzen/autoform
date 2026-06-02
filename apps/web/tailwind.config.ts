@@ -1,1 +1,1 @@
-export * from "@autoform/shadcn/tailwind.config";
+export * from "@acp-autoform/shadcn/tailwind.config";

@@ -4,7 +4,7 @@ import * as React from "react";
 import { CheckCircle, Circle } from "lucide-react";
 import { createFormControl } from "react-hook-form";
 import * as z from "zod";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
 import { Button } from "@/components/ui/button";

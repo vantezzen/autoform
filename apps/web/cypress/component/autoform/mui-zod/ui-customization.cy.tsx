@@ -1,9 +1,9 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
-import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
+import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
-import { FieldWrapperProps } from "@autoform/react";
+import { FieldWrapperProps } from "@acp-autoform/react";
 
 describe("AutoForm UI Customization Tests (MUI-ZOD)", () => {
   const customSchema = z.object({

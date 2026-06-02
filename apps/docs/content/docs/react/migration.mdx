@@ -3,7 +3,7 @@ title: Migration from V1
 description: This guide will help you migrate from the old, pure shadcn/ui component to the new AutoForm library.
 ---
 
-V1 refers to the original `shadcn/ui` auto-form component. V2 is the current `@autoform/*` package ecosystem.
+V1 refers to the original `shadcn/ui` auto-form component. V2 is the current `@acp-autoform/*` package ecosystem.
 
 Please note that the new library does not have full feature partity with the old one - specifically, it does not support the following features (yet):
 
@@ -29,8 +29,8 @@ First, remove the `components/ui/auto-form` folder from your project.
 To install AutoForm, run the following command:
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
-npm install @autoform/zod react-hook-form @hookform/resolvers
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
+npm install @acp-autoform/zod react-hook-form @hookform/resolvers
 ```
 
 ## Update form components
@@ -42,7 +42,7 @@ You also need to wrap your schema in a `ZodProvider` and pass it to the `AutoFor
 ```diff
 - import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
 + import { AutoForm } from "@/components/ui/autoform";
-+ import { ZodProvider } from "@autoform/zod";
++ import { ZodProvider } from "@acp-autoform/zod";
 
 const mySchema = z.object({
   // ...
@@ -73,7 +73,7 @@ Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can n
 
 ```diff
 import * as z from "zod";
-+ import { fieldConfig } from "@autoform/zod";
++ import { fieldConfig } from "@acp-autoform/zod";
 + import { FieldTypes } from "@/components/ui/autoform";
 
 const formSchema = z.object({
@@ -185,10 +185,10 @@ Custom field components no longer receive `value` or `onChange` directly. Use `u
 const { field, fieldState } = useController({ name: id });
 ```
 
-If you previously imported `buildZodFieldConfig`, `buildYupFieldConfig`, or `buildJoiFieldConfig` from `@autoform/react`, replace those helpers with `fieldConfig` from the matching schema package:
+If you previously imported `buildZodFieldConfig`, `buildYupFieldConfig`, or `buildJoiFieldConfig` from `@acp-autoform/react`, replace those helpers with `fieldConfig` from the matching schema package:
 
 ```tsx
-import { fieldConfig } from "@autoform/zod";
+import { fieldConfig } from "@acp-autoform/zod";
 ```
 
 </div>

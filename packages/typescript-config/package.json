@@ -1,9 +1,12 @@
 {
-  "name": "@autoform/typescript-config",
+  "name": "@acp-autoform/typescript-config",
   "version": "2.0.0",
   "private": true,
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   }
 }

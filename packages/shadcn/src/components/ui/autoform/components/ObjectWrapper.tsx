@@ -1,5 +1,5 @@
 import React from "react";
-import { ObjectWrapperProps } from "@autoform/react";
+import { ObjectWrapperProps } from "@acp-autoform/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,

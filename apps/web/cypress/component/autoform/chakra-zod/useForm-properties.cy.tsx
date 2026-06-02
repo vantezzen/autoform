@@ -1,6 +1,6 @@
 import React from "react";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
-import { AutoForm } from "@autoform/chakra";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@acp-autoform/chakra";
 import HookTest from "components/Hook-test";
 import { z } from "zod/v3";
 

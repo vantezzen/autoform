@@ -1,4 +1,4 @@
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
+import { SchemaProvider, ParsedSchema, SchemaValidation } from "@acp-autoform/core";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";

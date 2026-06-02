@@ -3,14 +3,14 @@ title: Customization
 description: The customization of the components is done by providing a `fieldConfig` to your schema fields. This allows you to customize the rendering of the field, add additional props, and more.
 ---
 
-Import `fieldConfig` from your schema package [@autoform/zod](/docs/schema-providers/zod#field-configuration), [@autoform/yup](/docs/schema-providers/yup#field-configuration), [@autoform/joi](/docs/schema-providers/joi#field-configuration)
+Import `fieldConfig` from your schema package [@acp-autoform/zod](/docs/schema-providers/zod#field-configuration), [@acp-autoform/yup](/docs/schema-providers/yup#field-configuration), [@acp-autoform/joi](/docs/schema-providers/joi#field-configuration)
 
 In the examples below, we use Zod.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@autoform/zod";
-import { FieldTypes } from "@autoform/mui"; // use your UI library
+import { fieldConfig } from "@acp-autoform/zod";
+import { FieldTypes } from "@acp-autoform/mui"; // use your UI library
 
 const schema = z.object({
   username: z.string().check(
@@ -110,7 +110,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@autoform/react"; // adjust import based on your library
+import { FieldWrapperProps } from "@acp-autoform/react"; // adjust import based on your library
 
 export function CustomFieldWrapper({
   children,
@@ -254,10 +254,10 @@ customCheckbox: ({ id, useField }: AutoFormFieldProps) => {
 ```
 
 For UI-library implementations, see the official field components:
-[Shadcn fields](https://github.com/vantezzen/autoform/tree/main/packages/shadcn/src/components/ui/autoform/components),
-[MUI fields](https://github.com/vantezzen/autoform/tree/main/packages/mui/src/components),
-[Mantine fields](https://github.com/vantezzen/autoform/tree/main/packages/mantine/src/components) and
-[Ant fields](https://github.com/vantezzen/autoform/tree/main/packages/ant/src/components).
+[Shadcn fields](https://github.com/adityacodepublic/autoform/tree/main/packages/shadcn/src/components/ui/autoform/components),
+[MUI fields](https://github.com/adityacodepublic/autoform/tree/main/packages/mui/src/components),
+[Mantine fields](https://github.com/adityacodepublic/autoform/tree/main/packages/mantine/src/components) and
+[Ant fields](https://github.com/adityacodepublic/autoform/tree/main/packages/ant/src/components).
 
 ## Form element customization
 

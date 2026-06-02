@@ -7,7 +7,7 @@ What is AutoForm? Let's say you have a zod or yup schema that you already use fo
 
 ```ts
 import { z } from "zod";
-import { ZodProvider } from "@autoform/zod";
+import { ZodProvider } from "@acp-autoform/zod";
 
 const userSchema = z.object({
   name: z.string(),
@@ -21,7 +21,7 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@acp-autoform/mui";
 import { schemaProvider } from "./schema";
 
 function MyForm() {

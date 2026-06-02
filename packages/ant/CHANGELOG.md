@@ -1,4 +1,4 @@
-# @autoform/ant
+# @acp-autoform/ant
 
 ## 2.0.0
 
@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/react@4.0.0
+  - @acp-autoform/react@4.0.0
 
 ## 1.3.0
 
@@ -20,9 +20,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/core@2.2.0
-  - @autoform/react@3.1.0
-  - @autoform/zod@2.2.0
+  - @acp-autoform/core@2.2.0
+  - @acp-autoform/react@3.1.0
+  - @acp-autoform/zod@2.2.0
 
 ## 1.2.0
 
@@ -51,4 +51,4 @@
 ### Patch Changes
 
 - Updated dependencies [b10ea83]
-  - @autoform/react@3.0.0
+  - @acp-autoform/react@3.0.0

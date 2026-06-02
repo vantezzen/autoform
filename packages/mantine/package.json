@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/mantine",
+  "name": "@acp-autoform/mantine",
   "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@autoform/core": "*",
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/core": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@mantine/core": "^7.16.0",
     "@mantine/dates": "^7.16.0",
     "@types/eslint": "^8.56.5",
@@ -29,12 +29,18 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@autoform/react": "*",
+    "@acp-autoform/react": "*",
     "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
     "@mantine/core": "^7",
     "@mantine/dates": "^7",
     "react": "^16.8.0 || ^17 || ^18 || ^19"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@autoform/shadcn", "@autoform/chakra"],
+  transpilePackages: ["@acp-autoform/shadcn", "@acp-autoform/chakra"],
 };
 
 export default nextConfig;

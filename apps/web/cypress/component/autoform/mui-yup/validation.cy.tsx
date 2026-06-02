@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
-import { YupProvider } from "@autoform/yup";
+import { AutoForm } from "@acp-autoform/mui";
+import { YupProvider } from "@acp-autoform/yup";
 import * as Yup from "yup";
 
 describe("AutoForm Validation Tests (MUI-YUP)", () => {

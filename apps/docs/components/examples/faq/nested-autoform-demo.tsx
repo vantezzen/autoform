@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import type { AutoFormFieldProps } from "@autoform/react";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 
 import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";

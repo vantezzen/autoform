@@ -2,15 +2,15 @@
 title: Zod
 ---
 
-`@autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
+`@acp-autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
 
 Basic usage:
 
 ```tsx
 "use client";
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@autoform/zod";
-import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
+import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
+import { AutoForm, FieldTypes } from "@acp-autoform/mui"; // use any UI library
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -248,7 +248,7 @@ const formSchema = z.object({
 
 ### Field configuration
 
-Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/zod`.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@acp-autoform/zod`.
 
 Depending on the Zod version:
 
@@ -258,7 +258,7 @@ Depending on the Zod version:
 **Zod v4**
 
 ```tsx
-import { fieldConfig } from "@autoform/zod";
+import { fieldConfig } from "@acp-autoform/zod";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -281,7 +281,7 @@ const formSchema = z.object({
 **Zod Mini**
 
 ```tsx
-import { fieldConfig } from "@autoform/zod/mini";
+import { fieldConfig } from "@acp-autoform/zod/mini";
 import { z } from "zod/mini";
 
 const formSchema = z.object({
@@ -306,7 +306,7 @@ const formSchema = z.object({
 **Zod v3**
 
 ```tsx
-import { fieldConfig } from "@autoform/zod/v3";
+import { fieldConfig } from "@acp-autoform/zod/v3";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -327,8 +327,8 @@ const formSchema = z.object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import { FieldTypes } from "@autoform/mui";
-import { fieldConfig } from "@autoform/zod";
+import { FieldTypes } from "@acp-autoform/mui";
+import { fieldConfig } from "@acp-autoform/zod";
 
 z.string().check(
   fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({

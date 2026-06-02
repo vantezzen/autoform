@@ -1,5 +1,5 @@
 {
-  "name": "autoform",
+  "name": "acp-autoform",
   "private": true,
   "scripts": {
     "build": "turbo build",

@@ -2,7 +2,7 @@ import React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
-import { FieldWrapperProps } from "@autoform/react";
+import { FieldWrapperProps } from "@acp-autoform/react";
 
 const DISABLED_LABELS = ["boolean", "date", "object", "array"];
 const DISABLE_HELPER_TEXT = ["object", "array"];

@@ -1,7 +1,7 @@
 import React from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { Box, Text, Button } from "@mantine/core";
-import { ArrayWrapperProps } from "@autoform/react";
+import { ArrayWrapperProps } from "@acp-autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,

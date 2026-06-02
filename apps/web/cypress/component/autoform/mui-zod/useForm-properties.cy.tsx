@@ -1,6 +1,6 @@
 import React from "react";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
-import { AutoForm } from "@autoform/mui";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
 import HookTest from "components/Hook-test";
 import { z } from "zod/v3";
 

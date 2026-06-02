@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
@@ -22,7 +22,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       labelId={id}
       label={label}
     >
-      {(field.options || []).map(([key, optionLabel], index) => (
+      {(field.options || []).map(([_key, optionLabel], index) => (
         <MenuItem key={`${id}-${index}`} value={optionLabel}>
           {optionLabel}
         </MenuItem>

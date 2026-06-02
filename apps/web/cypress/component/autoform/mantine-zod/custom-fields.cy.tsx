@@ -1,8 +1,8 @@
 import React from "react";
-import { AutoForm } from "@autoform/mantine";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mantine";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 import { TestWrapper } from "./utils";
 import { use } from "chai";
 

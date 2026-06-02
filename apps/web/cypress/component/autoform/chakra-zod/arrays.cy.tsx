@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm } from "@autoform/chakra";
-import { ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/chakra";
+import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
 describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {

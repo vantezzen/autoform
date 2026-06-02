@@ -1,4 +1,4 @@
-import { ParsedSchema } from "@autoform/core";
+import { ParsedSchema } from "@acp-autoform/core";
 import { isZodV4Schema, AnyZodObject } from "../utils";
 import { parseSchema as v3ParseSchema } from "../v3/schema-parser";
 import { parseSchema as v4ParseSchema } from "../v4/schema-parser";

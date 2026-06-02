@@ -118,7 +118,7 @@ export async function AutoFormFieldPropsTable() {
 }
 
 const MUI_BASE =
-  "https://github.com/vantezzen/autoform/blob/main/packages/mui/src/components";
+  "https://github.com/adityacodepublic/autoform/blob/main/packages/mui/src/components";
 
 export async function AutoFormUIComponentsTable() {
   const [

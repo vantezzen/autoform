@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/mui",
+  "name": "@acp-autoform/mui",
   "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@autoform/core": "*",
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/core": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@mui/icons-material": "^6.1.3",
@@ -31,12 +31,18 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@autoform/react": "*"
+    "@acp-autoform/react": "*"
   },
   "peerDependencies": {
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^6.0.0",
     "react": "^16.8.0 || ^17 || ^18 || ^19"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

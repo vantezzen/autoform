@@ -1,4 +1,4 @@
-import { SchemaProvider, replaceEmptyValue } from "@autoform/core";
+import { SchemaProvider, replaceEmptyValue } from "@acp-autoform/core";
 import React from "react";
 import { FieldReturn } from "./types";
 import {

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { memo, useCallback, useRef, useState } from "react";
-import { AutoForm as BaseAutoForm } from "@autoform/react";
-import type { AutoFormUIComponents } from "@autoform/react";
-import { AutoForm as MuiAutoForm, MuiAutoFormFieldComponents } from "@autoform/mui";
-import { ZodProvider } from "@autoform/zod";
+import { AutoForm as BaseAutoForm } from "@acp-autoform/react";
+import type { AutoFormUIComponents } from "@acp-autoform/react";
+import { AutoForm as MuiAutoForm, MuiAutoFormFieldComponents } from "@acp-autoform/mui";
+import { ZodProvider } from "@acp-autoform/zod";
 import { ThemeProvider } from "@mui/material/styles";
 import { z } from "zod";
 import { ArrayElementWrapper } from "../../../../../packages/mui/src/components/ArrayElementWrapper";
@@ -236,7 +236,7 @@ export default function AutoFormRerenderReproPage() {
 
       <TestPanel
         mode="current"
-        title="Current @autoform/mui wrapper"
+        title="Current @acp-autoform/mui wrapper"
         description="Uses the published wrapper shape with an inner component declared during render."
       />
 

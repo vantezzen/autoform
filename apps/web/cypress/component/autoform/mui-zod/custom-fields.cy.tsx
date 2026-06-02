@@ -1,8 +1,8 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
-import { fieldConfig, ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
+import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 describe("AutoForm Custom Fields Tests (MUI-ZOD)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({

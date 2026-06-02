@@ -1,4 +1,4 @@
-# @autoform/eslint-config
+# @acp-autoform/eslint-config
 
 ## 2.0.0
 

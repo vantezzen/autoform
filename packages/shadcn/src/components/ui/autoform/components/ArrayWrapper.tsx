@@ -1,7 +1,7 @@
 import React from "react";
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrayWrapperProps } from "@autoform/react";
+import { ArrayWrapperProps } from "@acp-autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,

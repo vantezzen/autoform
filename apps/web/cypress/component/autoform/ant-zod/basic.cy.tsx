@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
-import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/ant";
+import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
 enum Sports {

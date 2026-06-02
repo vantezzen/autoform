@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Typography } from "antd";
-import { FieldWrapperProps } from "@autoform/react";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { FieldWrapperProps } from "@acp-autoform/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 

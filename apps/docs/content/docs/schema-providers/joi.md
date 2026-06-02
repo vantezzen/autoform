@@ -6,9 +6,9 @@ Basic usage:
 
 ```tsx
 "use client";
-import { JoiProvider, fieldConfig } from "@autoform/joi";
+import { JoiProvider, fieldConfig } from "@acp-autoform/joi";
 import Joi from "joi";
-import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
+import { AutoForm, FieldTypes } from "@acp-autoform/mui"; // use any UI library
 
 // Define your form schema using Joi
 const joiFormSchema = Joi.object({
@@ -68,7 +68,7 @@ function App() {
 }
 ```
 
-`JoiProvider` exposes the original schema and schema type to `@autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Joi resolver manually when using the official provider.
+`JoiProvider` exposes the original schema and schema type to `@acp-autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Joi resolver manually when using the official provider.
 
 ### Joi configuration
 
@@ -203,12 +203,12 @@ const formSchema = Joi.object({
 
 #### Field configuration
 
-Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/joi`.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@acp-autoform/joi`.
 
 With Joi, attach it to a field using `.meta(fieldConfig(...))`:
 
 ```tsx
-import { fieldConfig } from "@autoform/joi";
+import { fieldConfig } from "@acp-autoform/joi";
 import Joi from "joi";
 
 const formSchema = Joi.object({
@@ -246,7 +246,7 @@ const formSchema = Joi.object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import { FieldTypes } from "@autoform/mui";
+import { FieldTypes } from "@acp-autoform/mui";
 
 Joi.string().meta(
   fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({

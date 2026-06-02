@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Title, Text } from "@mantine/core";
-import { ObjectWrapperProps } from "@autoform/react";
+import { ObjectWrapperProps } from "@acp-autoform/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,

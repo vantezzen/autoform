@@ -5,7 +5,7 @@ This package provides a MUI integration for AutoForm.
 ## Installation
 
 ```bash
-npm install @autoform/mui
+npm install @acp-autoform/mui
 ```
 
 For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/react/getting-started).

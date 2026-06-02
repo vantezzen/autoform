@@ -23,7 +23,7 @@ const registry: z.infer<typeof registryEntrySchema> = {
     "textarea",
     "toggle",
   ],
-  dependencies: ["zod", "@autoform/react"],
+  dependencies: ["zod", "@acp-autoform/react"],
   devDependencies: [],
   tailwind: {
     config: {},

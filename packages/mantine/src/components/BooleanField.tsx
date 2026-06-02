@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox } from "@mantine/core";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   id,

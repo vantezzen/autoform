@@ -1,4 +1,4 @@
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 import { Input } from "antd";
 import React from "react";
 

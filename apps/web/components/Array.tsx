@@ -1,5 +1,5 @@
-import { AutoForm } from "@autoform/mui";
-import { ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
+import { ZodProvider } from "@acp-autoform/zod";
 import { useState } from "react";
 import * as z from "zod";
 import { zodSchemaProvider } from "./utils";

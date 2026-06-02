@@ -1,6 +1,6 @@
 import React from "react";
 import { DatePicker } from "antd";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 

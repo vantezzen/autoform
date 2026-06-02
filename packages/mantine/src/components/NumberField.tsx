@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,

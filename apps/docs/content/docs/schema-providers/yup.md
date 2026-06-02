@@ -6,9 +6,9 @@ Basic usage:
 
 ```tsx
 "use client";
-import { YupProvider, fieldConfig } from "@autoform/yup";
+import { YupProvider, fieldConfig } from "@acp-autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
-import { AutoForm, FieldTypes } from "@autoform/mui"; // use any UI library
+import { AutoForm, FieldTypes } from "@acp-autoform/mui"; // use any UI library
 
 // Define your form schema using yup
 const yupFormSchema = object({
@@ -65,7 +65,7 @@ function App() {
 }
 ```
 
-`YupProvider` exposes the original schema and schema type to `@autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Yup resolver manually when using the official provider.
+`YupProvider` exposes the original schema and schema type to `@acp-autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Yup resolver manually when using the official provider.
 
 ### Yup configuration
 
@@ -196,12 +196,12 @@ const formSchema = object({
 
 #### Field configuration
 
-Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/yup`.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@acp-autoform/yup`.
 
 With Yup, attach it to a field using `.transform(fieldConfig(...))`:
 
 ```tsx
-import { fieldConfig } from "@autoform/yup";
+import { fieldConfig } from "@acp-autoform/yup";
 import { object, string } from "yup";
 
 const formSchema = object({
@@ -239,7 +239,7 @@ const formSchema = object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import { FieldTypes } from "@autoform/mui";
+import { FieldTypes } from "@acp-autoform/mui";
 
 string().transform(
   fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({

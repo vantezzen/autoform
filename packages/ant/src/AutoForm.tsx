@@ -1,7 +1,7 @@
 import {
   AutoFormUIComponents,
   AutoForm as BaseAutoForm,
-} from "@autoform/react";
+} from "@acp-autoform/react";
 import { ConfigProvider } from "antd";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";

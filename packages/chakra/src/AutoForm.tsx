@@ -1,7 +1,7 @@
 import {
   AutoFormUIComponents,
   AutoForm as BaseAutoForm,
-} from "@autoform/react";
+} from "@acp-autoform/react";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/autoform/Form";
 import { FieldWrapper } from "./components/autoform/FieldWrapper";

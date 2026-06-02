@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/react",
+  "name": "@acp-autoform/react",
   "version": "4.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@hookform/resolvers": "^5.1.1",
     "@turbo/gen": "^1.12.4",
     "@types/eslint": "^8.56.5",
@@ -29,11 +29,17 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@autoform/core": "*"
+    "@acp-autoform/core": "*"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^3.9.0 || ^4 || ^5",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "react-hook-form": "^7"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -9,7 +9,7 @@ const packageDir = path.resolve(scriptDir, "../..");
 const repoRoot = path.resolve(packageDir, "../..");
 
 const AUTOFORM_REGISTRY_URL =
-  "https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json";
+  "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json";
 
 type RegistryFile = {
   source: string;
@@ -43,7 +43,7 @@ const examples: RegistryExample[] = [
       "Demonstrates submitting and resetting AutoForm from buttons inside a Dialog using useFormContext and createFormControl.",
     dependencies: [
       "zod",
-      "@autoform/zod",
+      "@acp-autoform/zod",
       "react-hook-form",
       "@hookform/resolvers",
       "lucide-react",
@@ -74,7 +74,7 @@ const examples: RegistryExample[] = [
       "Shows real-time form validation with a disabled submit button until all fields are valid.",
     dependencies: [
       "zod",
-      "@autoform/zod",
+      "@acp-autoform/zod",
       "react-hook-form",
       "@hookform/resolvers",
     ],
@@ -96,7 +96,7 @@ const examples: RegistryExample[] = [
       "A multi-step form with per-step validation, breadcrumb navigation, and collected submission.",
     dependencies: [
       "zod",
-      "@autoform/zod",
+      "@acp-autoform/zod",
       "react-hook-form",
       "@hookform/resolvers",
       "lucide-react",
@@ -130,8 +130,8 @@ const examples: RegistryExample[] = [
       "Shows how to use a nested AutoForm inside a Dialog as a custom field component.",
     dependencies: [
       "zod",
-      "@autoform/zod",
-      "@autoform/react",
+      "@acp-autoform/zod",
+      "@acp-autoform/react",
       "react-hook-form",
       "@hookform/resolvers",
     ],
@@ -152,9 +152,9 @@ const examples: RegistryExample[] = [
       "A dynamic form builder combining Monaco Editor with AutoForm for interactive, real-time form generation from a Zod schema string.",
     dependencies: [
       "zod",
-      "@autoform/zod",
-      "@autoform/core",
-      "@autoform/react",
+      "@acp-autoform/zod",
+      "@acp-autoform/core",
+      "@acp-autoform/react",
       "react-hook-form",
       "@hookform/resolvers",
       "@monaco-editor/react",

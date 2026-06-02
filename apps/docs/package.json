@@ -12,13 +12,13 @@
   "author": "vantezzen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vantezzen/autoform/issues"
+    "url": "https://github.com/adityacodepublic/autoform/issues"
   },
-  "homepage": "https://github.com/vantezzen/autoform#readme",
+  "homepage": "https://github.com/adityacodepublic/autoform#readme",
   "dependencies": {
-    "@autoform/core": "*",
-    "@autoform/mui": "*",
-    "@autoform/zod": "*",
+    "@acp-autoform/core": "*",
+    "@acp-autoform/mui": "*",
+    "@acp-autoform/zod": "*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@monaco-editor/react": "^4.7.0",

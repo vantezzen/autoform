@@ -10,14 +10,14 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "@autoform/ant": "*",
-    "@autoform/chakra": "*",
-    "@autoform/joi": "*",
-    "@autoform/mantine": "*",
-    "@autoform/mui": "*",
-    "@autoform/shadcn": "*",
-    "@autoform/yup": "*",
-    "@autoform/zod": "*",
+    "@acp-autoform/ant": "*",
+    "@acp-autoform/chakra": "*",
+    "@acp-autoform/joi": "*",
+    "@acp-autoform/mantine": "*",
+    "@acp-autoform/mui": "*",
+    "@acp-autoform/shadcn": "*",
+    "@acp-autoform/yup": "*",
+    "@acp-autoform/zod": "*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -35,8 +35,8 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/node": "^20",
     "@types/react": "^19.2.15",

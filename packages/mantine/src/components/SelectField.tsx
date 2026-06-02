@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "@mantine/core";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
@@ -21,7 +21,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       error={error}
       withAsterisk={field.required}
       description={field.fieldConfig?.description}
-      data={(field.options || []).map(([key, label]) => ({
+      data={(field.options || []).map(([_key, label]) => ({
         value: label,
         label,
       }))}

@@ -3,7 +3,7 @@ title: Library Structure
 description: AutoForm is a modular form generation library designed to be flexible and adaptable to different schema and UI libraries. The library is structured in layers, each providing specific functionality
 ---
 
-## 1. @autoform/core
+## 1. @acp-autoform/core
 
 This is the foundation of the AutoForm library. It's agnostic to both schema and UI libraries, providing core functionality and types used by other layers.
 
@@ -13,23 +13,23 @@ Key features:
 - Provides utility functions for parsing schemas and validating data
 - Implements a dependency manager for form fields
 
-## 2. Schema Providers (e.g., @autoform/zod)
+## 2. Schema Providers (e.g., @acp-autoform/zod)
 
-These packages adapt specific schema libraries to work with AutoForm. They implement the `SchemaProvider` interface defined in @autoform/core.
+These packages adapt specific schema libraries to work with AutoForm. They implement the `SchemaProvider` interface defined in @acp-autoform/core.
 
 Key features:
 
 - Parse schema definitions into a format AutoForm can understand
 - Provide validation logic specific to the schema library
 - Handle default values and field configurations
-- Expose the original schema and schema type so `@autoform/react` can create React Hook Form resolvers
+- Expose the original schema and schema type so `@acp-autoform/react` can create React Hook Form resolvers
 
-Example with @autoform/zod:
+Example with @acp-autoform/zod:
 
 ```tsx
 // packages/zod/src/v4/provider.ts
 import * as z from "zod/v4/core";
-import { ParsedSchema, SchemaProvider, SchemaValidation } from "@autoform/core";
+import { ParsedSchema, SchemaProvider, SchemaValidation } from "@acp-autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 
@@ -76,7 +76,7 @@ export class ZodProvider<T extends z.$ZodObject>
 }
 ```
 
-If you build a custom schema provider for use with `@autoform/react`, implement `schemaType` and `getSchema()` when you want AutoForm to create resolver-backed validation automatically:
+If you build a custom schema provider for use with `@acp-autoform/react`, implement `schemaType` and `getSchema()` when you want AutoForm to create resolver-backed validation automatically:
 
 ```tsx
 type SchemaType = "zod" | "yup" | "joi";
@@ -87,7 +87,7 @@ interface SchemaProvider {
 }
 ```
 
-## 3. @autoform/react
+## 3. @acp-autoform/react
 
 This package provides React-specific implementations and hooks for using AutoForm in React applications.
 
@@ -97,9 +97,9 @@ Key features:
 - Provides React context for form state management
 - Defines types for React-specific props and components
 
-## 4. UI-specific libraries (e.g., @autoform/mui)
+## 4. UI-specific libraries (e.g., @acp-autoform/mui)
 
-These packages implement UI components for specific design systems or component libraries. They use the core functionality from @autoform/react and provide styled form elements.
+These packages implement UI components for specific design systems or component libraries. They use the core functionality from @acp-autoform/react and provide styled form elements.
 
 Key features:
 
@@ -107,7 +107,7 @@ Key features:
 - Provide a themed `AutoForm` component
 - Define additional utility functions for the specific UI library
 
-Example with @autoform/mui:
+Example with @acp-autoform/mui:
 
 ```tsx
 // packages/mui/src/AutoForm.tsx
@@ -116,7 +116,7 @@ import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
   AutoFormFieldComponents,
-} from "@autoform/react";
+} from "@acp-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
@@ -175,9 +175,9 @@ export function AutoForm<T extends Record<string, any>>({
 ## How They Interact
 
 1. A user defines their form schema using a supported schema library (e.g., Zod).
-2. The schema is passed to the appropriate schema provider (e.g., @autoform/zod).
-3. The `AutoForm` component from a UI-specific library (e.g., @autoform/mui) is used in the React application.
-4. This `AutoForm` component wraps the core `AutoForm` from @autoform/react, providing UI-specific components.
+2. The schema is passed to the appropriate schema provider (e.g., @acp-autoform/zod).
+3. The `AutoForm` component from a UI-specific library (e.g., @acp-autoform/mui) is used in the React application.
+4. This `AutoForm` component wraps the core `AutoForm` from @acp-autoform/react, providing UI-specific components.
 5. The core `AutoForm` uses the schema provider to parse the schema, generate form fields, and create resolver-backed validation.
 6. UI-specific components render the form fields and handle user input.
 7. On form submission, resolver-validated data is passed to the `onSubmit` handler.

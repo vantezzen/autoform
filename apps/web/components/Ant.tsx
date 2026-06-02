@@ -1,5 +1,5 @@
 "use client";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@acp-autoform/ant";
 import { zodSchemaProvider } from "./utils";
 
 const Ant = () => {

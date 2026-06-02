@@ -56,7 +56,7 @@ export const HeroSection = () => {
               className="w-5/6 md:w-1/4 font-bold mt-4 md:mt-0"
             >
               <Link
-                href="https://github.com/vantezzen/autoform"
+                href="https://github.com/adityacodepublic/autoform"
                 target="_blank"
               >
                 Github

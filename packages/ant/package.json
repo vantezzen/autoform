@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/ant",
+  "name": "@acp-autoform/ant",
   "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@autoform/core": "*",
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/core": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
     "@types/react": "^19.1.8",
@@ -28,13 +28,19 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@acp-autoform/react": "*",
     "@ant-design/icons": "^5.6.1",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
-    "@autoform/react": "*",
     "dayjs": "^1.11.13"
   },
   "peerDependencies": {
     "antd": "^5",
     "react": "^16.8.0 || ^17 || ^18 || ^19"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

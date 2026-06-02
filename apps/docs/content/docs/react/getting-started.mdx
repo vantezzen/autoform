@@ -27,7 +27,7 @@ react-hook-form@^7
 
 <ModeTab
   mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
 />
 
 Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
@@ -52,7 +52,7 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
   />
 </Tab>
 </Tabs>
-<ModeTab command="@autoform/mui" />
+<ModeTab command="@acp-autoform/mui" />
 
 ---
 
@@ -72,7 +72,7 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
   />
 </Tab>
 </Tabs>
-<ModeTab command="@autoform/mantine" />
+<ModeTab command="@acp-autoform/mantine" />
 
 ---
 
@@ -91,7 +91,7 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
   />
 </Tab>
 </Tabs>
-<ModeTab command="@autoform/ant" />
+<ModeTab command="@acp-autoform/ant" />
 
 ---
 
@@ -111,7 +111,7 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
   />
 </Tab>
 </Tabs>
-<ModeTab command="@autoform/chakra" />
+<ModeTab command="@acp-autoform/chakra" />
 
 If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/react/custom-integration).
 
@@ -121,7 +121,7 @@ In the docs, we will use Shadcn UI as an example but simply replace the imports 
 
 #### Zod
 
-<ModeTab command="@autoform/zod" />
+<ModeTab command="@acp-autoform/zod" />
 
 <Callout> requires zod version greater than 3.25.0 to be installed</Callout>
 
@@ -129,13 +129,13 @@ In the docs, we will use Shadcn UI as an example but simply replace the imports 
 
 #### Yup
 
-<ModeTab command="@autoform/yup" />
+<ModeTab command="@acp-autoform/yup" />
 
 ---
 
 #### Joi
 
-<ModeTab command="@autoform/joi" />
+<ModeTab command="@acp-autoform/joi" />
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
@@ -143,8 +143,8 @@ In the docs, we will use Zod as an example but simply replace the imports with t
 
 ```tsx
 import * as z from "zod";
-import { AutoForm } from "@autoform/mui";
-import { ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@acp-autoform/mui";
+import { ZodProvider } from "@acp-autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -185,7 +185,7 @@ export default function MyPage() {
 
 // MyForm.tsx
 "use client";
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@acp-autoform/mui";
 export default function MyForm() {
   return <AutoForm ... />;
 }

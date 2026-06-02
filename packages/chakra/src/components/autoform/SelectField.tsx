@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 import { createListCollection } from "@chakra-ui/react";
 import {
   SelectContent,

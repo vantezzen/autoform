@@ -2,7 +2,7 @@ import React from "react";
 import {
   AutoForm as BaseAutoForm,
   AutoFormUIComponents,
-} from "@autoform/react";
+} from "@acp-autoform/react";
 import { MantineProvider } from "@mantine/core";
 import { AutoFormProps } from "./types";
 import { Form } from "./components/Form";

@@ -2,6 +2,10 @@
 
 > Automatically render forms for your existing data schema.
 
+## Maintained fork
+
+This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@acp-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
+
 AutoForm quickly grew from a small component into a codebase larger than any shadcn component should be. To let AutoForm grow without bloating your shadcn/ui components, AutoForm is now a full library!
 
 Don't worry, you can still use AutoForm with your shadcn components and expand it with your own components - but it now also supports integration into other UI libraries like MUI and Mantine and we plan on adding support for other schema libraries than zod too.
@@ -18,7 +22,7 @@ What is AutoForm? Let's say you have a zod schema that you already use for your 
 
 ```ts
 import { z } from "zod";
-import { ZodProvider } from "@autoform/zod";
+import { ZodProvider } from "@acp-autoform/zod";
 
 const userSchema = z.object({
   name: z.string(),
@@ -32,7 +36,7 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@acp-autoform/mui";
 import { schemaProvider } from "./schema";
 
 function MyForm() {
@@ -62,7 +66,7 @@ However, AutoForm does not aim to be a full-featured form builder. It does not a
 
 AutoForm started out as a [shadcn/ui component](https://github.com/vantezzen/auto-form) but grew so large I decided it's best to split it into a package instead.
 
-`@autoform/react` does currently not have full feature-parity with the shadcn/ui component, but it's getting there. If you want to use the shadcn/ui component, you can still use it as a standalone package.
+`@acp-autoform/react` does currently not have full feature-parity with the shadcn/ui component, but it's getting there. If you want to use the shadcn/ui component, you can still use it as a standalone package.
 
 ## Development
 

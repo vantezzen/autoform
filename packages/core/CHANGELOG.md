@@ -1,4 +1,4 @@
-# @autoform/core
+# @acp-autoform/core
 
 ## 3.0.0
 

@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/shadcn",
+  "name": "@acp-autoform/shadcn",
   "version": "4.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "exports": {
     "./globals.css": "./src/globals.css",
@@ -23,8 +23,8 @@
     "./components/*": "./src/components/*.tsx"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
@@ -46,7 +46,7 @@
     "zod": "^4.0.10"
   },
   "dependencies": {
-    "@autoform/react": "*",
+    "@acp-autoform/react": "*",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.2",

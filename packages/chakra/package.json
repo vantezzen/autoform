@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/chakra",
+  "name": "@acp-autoform/chakra",
   "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
+    "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@autoform/core": "*",
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@acp-autoform/core": "*",
+    "@acp-autoform/eslint-config": "*",
+    "@acp-autoform/typescript-config": "*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "@types/eslint": "^8.56.5",
@@ -30,12 +30,18 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "next-themes": "^0.4.4",
-    "@autoform/react": "*"
+    "@acp-autoform/react": "*",
+    "next-themes": "^0.4.4"
   },
   "peerDependencies": {
     "@chakra-ui/react": "^3.8",
     "@emotion/react": "^11.14",
     "react": "^16.8.0 || ^17 || ^18 || ^19"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
