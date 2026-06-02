@@ -100,13 +100,19 @@ If you are only using `onSubmit`, existing two-argument handlers still work. `on
 If you need to access form methods outside `onSubmit`, prefer creating an external form control with `createFormControl` and passing it to `formControl`.
 
 ```tsx
+import * as React from "react";
 import { createFormControl } from "react-hook-form";
 
-const { formControl, reset } = createFormControl();
+function MyForm() {
+  const { formControl, reset } = React.useMemo(() => createFormControl(), []);
 
-<AutoForm formControl={formControl} schema={schemaProvider} />;
-
-<button onClick={() => reset()}>Reset</button>;
+  return (
+    <>
+      <AutoForm formControl={formControl} schema={schemaProvider} />
+      <button onClick={() => reset()}>Reset</button>
+    </>
+  );
+}
 ```
 
 `onFormInit` is still supported for backwards compatibility, but it is deprecated for new code.
@@ -146,9 +152,10 @@ const schema = z.object({
     }),
   ),
 });
+const schemaProvider = new ZodProvider(schema);
 
 <AutoForm
-  schema={schema}
+  schema={schemaProvider}
   formComponents={{
     custom: ({ id, inputProps, useField }) => {
       const formField = useField();

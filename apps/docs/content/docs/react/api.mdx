@@ -42,15 +42,22 @@ const [user, setUser] = useState({ username: "johndoe" });
 
 ### `formControl`
 
-Use `formControl` when a parent component needs direct access to react-hook-form methods.
+Use `formControl` when a parent component needs direct access to react-hook-form methods. Create it once per form instance so the form state and subscriptions are stable across renders.
 
 ```tsx
+import * as React from "react";
 import { createFormControl } from "react-hook-form";
 
-const { formControl, reset } = createFormControl();
+function MyForm() {
+  const { formControl, reset } = React.useMemo(() => createFormControl(), []);
 
-<AutoForm schema={schemaProvider} formControl={formControl} />;
-<button onClick={() => reset()}>Reset</button>;
+  return (
+    <>
+      <AutoForm schema={schemaProvider} formControl={formControl} />
+      <button onClick={() => reset()}>Reset</button>
+    </>
+  );
+}
 ```
 
 ### `formComponents`
@@ -83,7 +90,7 @@ const { formControl, reset } = createFormControl();
 
 ## Custom fields
 
-Custom field components receive `AutoFormFieldProps`. In most cases, call `useField()` and spread the returned field props into your input.
+Custom field components receive `AutoFormFieldProps`. In most cases, call `useField()` and spread the returned field props into your input. `useField()` accepts the same options as react-hook-form's [`useController`](https://react-hook-form.com/docs/usecontroller), except `name`, which is prefilled from the current field path.
 
 ```tsx
 import { AutoFormFieldProps } from "@autoform/react";

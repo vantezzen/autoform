@@ -2,6 +2,8 @@
 title: Getting Started
 ---
 
+import { Accordion, Accordions } from "@/components/accordion";
+
 > New to AutoForm? Check out the [introduction](/docs) first.
 
 > Migrating from the old shadcn/ui component? Check out the [migration guide](/docs/react/migration).
@@ -245,7 +247,7 @@ function QuickActions() {
 
 export default function MyForm() {
   return (
-    <AutoForm schema={schema}>
+    <AutoForm schema={schemaProvider}>
       <QuickActions />
     </AutoForm>
   );
@@ -261,12 +263,25 @@ You can use the [`createFormControl`](https://react-hook-form.com/docs/createFor
 </Callout>
 
 ```tsx
+import * as React from "react";
+import * as z from "zod";
+import { AutoForm } from "@autoform/mui";
 import { createFormControl } from "react-hook-form";
+import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  name: z.string(),
+  age: z.coerce.number(),
+});
+type FormValues = z.infer<typeof mySchema>;
 
 export default function MyForm() {
   const schemaProvider = new ZodProvider(mySchema);
 
-  const { formControl, reset } = createFormControl();
+  const { formControl, reset } = React.useMemo(
+    () => createFormControl<FormValues>(),
+    [],
+  );
 
   return (
     <div>
@@ -281,8 +296,6 @@ export default function MyForm() {
 
 `onFormInit` is deprecated and supported for backwards compatibility, the preferred way
 is to use `formControl` from `createFormControl` when available.
-
-import { Accordion, Accordions } from "@/components/accordion";
 
 <Accordions type="single">
   <Accordion title="How to use onFormInit">

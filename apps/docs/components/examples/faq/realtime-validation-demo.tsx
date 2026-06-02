@@ -20,13 +20,18 @@ const schemaProvider = new ZodProvider(realtimeSchema);
 const SubmitButton = () => {
   const { subscribe } = useFormContext();
   const [isValid, setIsValid] = React.useState(false);
-  subscribe({
-    formState: { isValid: true },
-    callback: ({ isValid: isFormValid }) => {
-      if (isValid !== isFormValid && typeof isFormValid === "boolean")
-        setIsValid(isFormValid);
-    },
-  });
+
+  React.useEffect(
+    () =>
+      subscribe({
+        formState: { isValid: true },
+        callback: ({ isValid: isFormValid }) => {
+          if (typeof isFormValid === "boolean") setIsValid(isFormValid);
+        },
+      }),
+    [subscribe],
+  );
+
   return (
     <Button type="submit" className="mt-4" disabled={!isValid}>
       Create Account
@@ -37,12 +42,17 @@ const SubmitButton = () => {
 const Values = () => {
   const { subscribe } = useFormContext<RealtimeValues>();
   const [values, setValues] = React.useState<RealtimeValues | null>(null);
-  subscribe({
-    formState: { values: true },
-    callback: ({ values: data }) => {
-      setValues(data);
-    },
-  });
+
+  React.useEffect(
+    () =>
+      subscribe({
+        formState: { values: true },
+        callback: ({ values: data }) => {
+          setValues(data as RealtimeValues);
+        },
+      }),
+    [subscribe],
+  );
 
   return (
     <div className="rounded-md border bg-muted p-4">
@@ -55,9 +65,13 @@ const Values = () => {
   );
 };
 export function RealtimeValidationDemo() {
-  const { formControl, trigger } = createFormControl<RealtimeValues>({
-    mode: "all",
-  });
+  const { formControl, trigger } = React.useMemo(
+    () =>
+      createFormControl<RealtimeValues>({
+        mode: "all",
+      }),
+    [],
+  );
 
   const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === "Enter" && !(e.target as HTMLElement).hasAttribute("type")) {
