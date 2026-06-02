@@ -196,7 +196,20 @@ For more examples on creating custom form components see [examples.](/docs/react
 
 ### useField()
 
-To connect the field to react-hook-form, call `useField()` and use the returned field props. useField() returns the same object as `useController(...).field` from rhf.
+To connect the field to react-hook-form, call `useField()` and use the returned field props. `useField()` returns the same object as `useController(...).field` from react-hook-form and comes prefilled with the field name. You can pass the same options as `useController`, excluding the `name`:
+
+Use `useField()` for most custom field components. Use `useController()` directly when you need the full controller result, such as `fieldState`, `formState`, or a field-level error object for component-specific state.
+
+```tsx
+custom: ({ id, inputProps, useField }: AutoFormFieldProps) => {
+  const field = useField({
+    disabled: inputProps?.disabled,
+    rules: { required: true },
+  });
+
+  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+};
+```
 
 If you need the full [`useController`](https://react-hook-form.com/docs/usecontroller) API, you can import it from react-hook-form instead and use the `id` from AutoFormFieldProps as the field name:
 
@@ -244,7 +257,7 @@ For UI-library implementations, see the official field components:
 [Shadcn fields](https://github.com/vantezzen/autoform/tree/main/packages/shadcn/src/components/ui/autoform/components),
 [MUI fields](https://github.com/vantezzen/autoform/tree/main/packages/mui/src/components),
 [Mantine fields](https://github.com/vantezzen/autoform/tree/main/packages/mantine/src/components) and
-[Ant fields](https://github.com/vantezzen/autoform/tree/main/packages/ant/src/components),
+[Ant fields](https://github.com/vantezzen/autoform/tree/main/packages/ant/src/components).
 
 ## Form element customization
 
