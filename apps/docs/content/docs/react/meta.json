@@ -4,6 +4,7 @@
   "pages": [
     "---Guide---",
     "getting-started",
+    "form-control",
     "customization",
     "api",
     "faq-examples",
