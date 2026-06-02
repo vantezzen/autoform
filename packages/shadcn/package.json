@@ -8,7 +8,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "npx -y tsx src/scripts/build.ts"
+    "build": "tsx src/scripts/build.ts && tsx src/scripts/new-build.ts"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "tailwindcss": "*",
     "tailwindcss-animate": "^1.0.7",
     "tsup": "^8.3.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.3.3",
     "zod": "^4.0.10"
   },

@@ -77,13 +77,13 @@
     {
       "path": "autoform/components/Form.tsx",
       "target": "components/ui/autoform/components/Form.tsx",
-      "content": "import React from \"react\";\n\nexport const Form = React.forwardRef<\n  HTMLFormElement,\n  React.ComponentProps<\"form\">\n>(({ children, ...props }, ref) => {\n  return (\n    <form ref={ref} className=\"space-y-4\" {...props}>\n      {children}\n    </form>\n  );\n});\n",
+      "content": "import React from \"react\";\n\nexport const Form = React.forwardRef<\n  HTMLFormElement,\n  React.ComponentProps<\"form\">\n>(({ children, ...props }, ref) => {\n  return (\n    <form ref={ref} className=\"flex flex-col gap-4\" {...props}>\n      {children}\n    </form>\n  );\n});\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/components/FieldWrapper.tsx",
       "target": "components/ui/autoform/components/FieldWrapper.tsx",
-      "content": "import React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapperProps } from \"@autoform/react\";\n\nconst DISABLED_LABELS = [\"boolean\", \"object\", \"array\"];\nconst DISABLE_HELPER_TEXT = [\"object\", \"array\"];\n\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\n  id,\n  label,\n  field,\n  error,\n  children,\n}) => {\n  const isDisabled = DISABLED_LABELS.includes(field.type);\n  const hideHelperText = DISABLE_HELPER_TEXT.includes(field.type);\n\n  return (\n    <div className=\"space-y-2\">\n      {!isDisabled && (\n        <Label htmlFor={id}>\n          {label}\n          {field.required && <span className=\"text-destructive\"> *</span>}\n        </Label>\n      )}\n      {children}\n      {!hideHelperText && field.fieldConfig?.description && (\n        <p className=\"text-sm text-muted-foreground\">\n          {field.fieldConfig.description}\n        </p>\n      )}\n      {!hideHelperText && error && (\n        <p className=\"text-sm text-destructive\">{error}</p>\n      )}\n    </div>\n  );\n};\n",
+      "content": "import React from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { FieldWrapperProps } from \"@autoform/react\";\n\nconst DISABLED_LABELS = [\"boolean\", \"object\", \"array\"];\nconst DISABLE_HELPER_TEXT = [\"object\", \"array\"];\n\nexport const FieldWrapper: React.FC<FieldWrapperProps> = ({\n  id,\n  label,\n  field,\n  error,\n  children,\n}) => {\n  const isDisabled = DISABLED_LABELS.includes(field.type);\n  const hideHelperText = DISABLE_HELPER_TEXT.includes(field.type);\n\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {!isDisabled && (\n        <Label htmlFor={id}>\n          {label}\n          {field.required && <span className=\"text-destructive\"> *</span>}\n        </Label>\n      )}\n      {children}\n      {!hideHelperText && field.fieldConfig?.description && (\n        <p className=\"text-sm text-muted-foreground\">\n          {field.fieldConfig.description}\n        </p>\n      )}\n      {!hideHelperText && error && (\n        <p className=\"text-sm text-destructive\">{error}</p>\n      )}\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
