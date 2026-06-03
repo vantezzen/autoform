@@ -42,7 +42,7 @@ const [user, setUser] = useState({ username: "johndoe" });
 
 ### `formControl`
 
-Use `formControl` when a parent component needs direct access to react-hook-form methods. Create it once per form instance so the form state and subscriptions are stable across renders.
+Use `formControl` when a parent component needs direct access to react-hook-form methods. Create it once per form instance so the form state and subscriptions are stable across renders. You can pass all props of `useForm` of react-hook-form, to `createFormControl`.
 
 ```tsx
 import * as React from "react";
