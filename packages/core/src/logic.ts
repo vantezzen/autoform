@@ -20,11 +20,11 @@ export function getDefaultValues(
 }
 
 /**
- * Recursively remove empty values from an object (null, undefined, '', [], {})
+ * Recursively remove empty values from an object (null, undefined, '')
  * Used in AutoForm before calling the resolver to prevent empty values from being validated.
  * This is necessary because zod's optional() allows undefined, but form fields default to
- * empty strings, arrays, or objects even when untouched. These defaults bypass the optional
- * check and cause validation issues in react-hook-form.
+ * empty strings even when untouched. These defaults makes the optional() unusable.
+ * and cause validation issues in react-hook-form.
  */
 
 export function removeEmptyValues<T extends Record<string, any>>(
@@ -33,6 +33,7 @@ export function removeEmptyValues<T extends Record<string, any>>(
   const result: Partial<T> = {};
   for (const key in values) {
     const value = values[key];
+    // includes method cannot check {}, []
     if ([null, undefined, "", [], {}].includes(value)) {
       continue;
     }
