@@ -11,6 +11,54 @@ import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
 import { MultistepFormDemo } from "@/components/examples/faq/multistep-form-usage-demo";
 import { NestedAutoFormDemo } from "@/components/examples/faq/nested-autoform-demo";
 import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-validation-demo";
+import { CustomFieldsDemo } from "@/components/examples/faq/custom-fields-demo";
+
+## How do I add a slider, color picker, and many different custom components to a form?
+
+Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each field to the right component.
+
+<Tabs persist items={["preview", "code"]} label="Custom fields form">
+  <Tab value="preview">
+    <CustomFieldsDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "custom-fields-demo.tsx" },
+        { value: "fields", label: "custom-field-components.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/custom-fields-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/custom-fields-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/custom-fields-demo.tsx",
+      label: "custom-fields-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/custom-field-components.tsx",
+      label: "custom-field-components.tsx",
+    },
+  ]}
+  label="Custom fields install"
+/>
 
 ## How do I submit, reset AutoForm from buttons in a Dialog?
 
@@ -50,8 +98,14 @@ Use either approach:
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/dialog-submit-demo.json"
   codeFiles={[
-    { path: "components/examples/faq/external-dialog-submit-demo.tsx", label: "dialog-submit-demo.tsx" },
-    { path: "components/examples/faq/external-dialog-form-control-demo.tsx", label: "dialog-form-control-demo.tsx" },
+    {
+      path: "components/examples/faq/external-dialog-submit-demo.tsx",
+      label: "dialog-submit-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/external-dialog-form-control-demo.tsx",
+      label: "dialog-form-control-demo.tsx",
+    },
   ]}
   label="External Dialog install"
 />
@@ -75,7 +129,10 @@ Create a formControl with `createFormControl` and set the validation mode to `on
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/realtime-validation-demo.json"
   codeFiles={[
-    { path: "components/examples/faq/realtime-validation-demo.tsx", label: "realtime-validation-demo.tsx" },
+    {
+      path: "components/examples/faq/realtime-validation-demo.tsx",
+      label: "realtime-validation-demo.tsx",
+    },
   ]}
   label="Real-time validation install"
 />
@@ -115,8 +172,14 @@ Use one small schema for each step. Render the current step, save its values in 
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/multistep-form-demo.json"
   codeFiles={[
-    { path: "components/examples/faq/multistep-form-usage-demo.tsx", label: "multistep-form-usage.tsx" },
-    { path: "components/examples/faq/multistep-form.tsx", label: "multistep-form.tsx" },
+    {
+      path: "components/examples/faq/multistep-form-usage-demo.tsx",
+      label: "multistep-form-usage.tsx",
+    },
+    {
+      path: "components/examples/faq/multistep-form.tsx",
+      label: "multistep-form.tsx",
+    },
   ]}
   label="Multistep form install"
 />
@@ -140,7 +203,10 @@ Define a custom field component, register it in `formComponents`, then mark the 
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/nested-autoform-demo.json"
   codeFiles={[
-    { path: "components/examples/faq/nested-autoform-demo.tsx", label: "nested-autoform-demo.tsx" },
+    {
+      path: "components/examples/faq/nested-autoform-demo.tsx",
+      label: "nested-autoform-demo.tsx",
+    },
   ]}
   label="Nested AutoForm install"
 />
@@ -164,7 +230,10 @@ Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod sc
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/interactive-schema-demo.json"
   codeFiles={[
-    { path: "components/examples/faq/interactive-schema-demo-content.tsx", label: "interactive-schema-demo.tsx" },
+    {
+      path: "components/examples/faq/interactive-schema-demo-content.tsx",
+      label: "interactive-schema-demo.tsx",
+    },
   ]}
   label="Interactive schema install"
 />

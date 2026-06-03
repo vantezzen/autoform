@@ -35,7 +35,52 @@ const previewAutoFormReplacements: RegistryFile["replacements"] = [
   [/\bPreviewAutoForm\b/g, "AutoForm"],
 ];
 
+const customFieldsReplacements: RegistryFile["replacements"] = [
+  ...previewAutoFormReplacements,
+  [
+    /@\/components\/examples\/faq\/custom-field-components/g,
+    "@/components/custom-field-components",
+  ],
+];
+
 const examples: RegistryExample[] = [
+  {
+    name: "custom-fields-demo",
+    title: "Custom Fields Demo",
+    description:
+      "Uses custom field components for sliders, color pickers, radios, dates, and file uploads.",
+    dependencies: [
+      "zod",
+      "@acp-autoform/zod",
+      "@acp-autoform/react",
+      "react-hook-form",
+      "@hookform/resolvers",
+      "@radix-ui/react-radio-group",
+      "date-fns",
+      "lucide-react",
+    ],
+    registryDependencies: [
+      "button",
+      "calendar",
+      "input",
+      "label",
+      "popover",
+      AUTOFORM_REGISTRY_URL,
+    ],
+    files: [
+      {
+        source: "apps/docs/components/examples/faq/custom-fields-demo.tsx",
+        path: "custom-fields-demo.tsx",
+        target: "components/custom-fields-demo.tsx",
+        replacements: customFieldsReplacements,
+      },
+      {
+        source: "apps/docs/components/examples/faq/custom-field-components.tsx",
+        path: "custom-field-components.tsx",
+        target: "components/custom-field-components.tsx",
+      },
+    ],
+  },
   {
     name: "dialog-submit-demo",
     title: "Dialog Submit Demo",
