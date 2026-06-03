@@ -18,7 +18,7 @@ function CalendarDropdown({
   options,
   "aria-label": ariaLabel,
 }: {
-  value?: string | number;
+  value?: string | number | readonly string[];
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
   options?: { value: string | number; label: string; disabled?: boolean }[];
   "aria-label"?: string;
@@ -63,8 +63,8 @@ export function Calendar({
 
         // Caption row — nav sits absolutely on the edges, content is centered
         month_caption: "relative flex h-9 items-center justify-center",
-        caption_label:  "text-sm font-medium",
-        dropdowns:      "flex items-center gap-2",
+        caption_label: "text-sm font-medium",
+        dropdowns: "flex items-center gap-2",
 
         // Nav spans full height/width of caption_row so buttons sit on the edges
         nav: "absolute inset-0 flex items-center justify-between",
@@ -81,9 +81,10 @@ export function Calendar({
 
         // Grid
         month_grid: "w-full border-collapse",
-        weekdays:   "flex",
-        weekday:    "flex h-9 w-9 items-center justify-center text-[0.8rem] font-normal text-muted-foreground",
-        week:       "mt-2 flex w-full",
+        weekdays: "flex",
+        weekday:
+          "flex h-9 w-9 items-center justify-center text-[0.8rem] font-normal text-muted-foreground",
+        week: "mt-2 flex w-full",
 
         // Day cells
         day: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20",
@@ -95,11 +96,12 @@ export function Calendar({
         ),
 
         // States
-        selected: "[&>button]:bg-primary [&>button]:text-primary-foreground [&>button]:hover:bg-primary [&>button]:hover:text-primary-foreground",
-        today:    "[&>button]:bg-accent [&>button]:text-accent-foreground",
-        outside:  "opacity-50",
+        selected:
+          "[&>button]:bg-primary [&>button]:text-primary-foreground [&>button]:hover:bg-primary [&>button]:hover:text-primary-foreground",
+        today: "[&>button]:bg-accent [&>button]:text-accent-foreground",
+        outside: "opacity-50",
         disabled: "[&>button]:opacity-50",
-        hidden:   "invisible",
+        hidden: "invisible",
 
         ...classNames,
       }}
