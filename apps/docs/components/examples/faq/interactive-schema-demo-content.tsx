@@ -58,6 +58,7 @@ export function InteractiveSchemaDemoContent() {
         }),
       ),
   );
+  const [formKey, setFormKey] = React.useState(0);
   const [data, setData] = useState("");
   const editorTheme = useEditorTheme();
 
@@ -68,6 +69,7 @@ export function InteractiveSchemaDemoContent() {
       const provider = new ZodProvider(parsedSchema);
       provider.parseSchema();
       setSchemaProvider(provider);
+      setFormKey((k) => k + 1);
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +90,7 @@ export function InteractiveSchemaDemoContent() {
 
       <div className="p-6 pb-8">
         <PreviewAutoForm
+          key={formKey}
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
           withSubmit
