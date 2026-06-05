@@ -57,12 +57,12 @@ const PreviewUIComponents: AutoFormUIComponents = {
         )}
         {children}
         {!hideHelperText && field.fieldConfig?.description && (
-          <p className="text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             {field.fieldConfig.description}
-          </p>
+          </div>
         )}
         {!hideHelperText && error && (
-          <p className="text-sm text-destructive">{error}</p>
+          <div className="text-sm text-destructive">{error}</div>
         )}
       </div>
     );
@@ -87,9 +87,9 @@ const PreviewUIComponents: AutoFormUIComponents = {
       <div>
         <h3 className="text-lg font-medium">{label}</h3>
         {field.fieldConfig?.description && (
-          <p className="text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             {field.fieldConfig.description}
-          </p>
+          </div>
         )}
       </div>
       {children}
@@ -124,17 +124,17 @@ const PreviewUIComponents: AutoFormUIComponents = {
             {field.required && <span className="text-destructive"> *</span>}
           </h3>
           {field.fieldConfig?.description && (
-            <p
+            <div
               className="text-sm text-muted-foreground"
               id={key + "-description"}
             >
               {field.fieldConfig.description}
-            </p>
+            </div>
           )}
           {error && (
-            <p className="text-sm text-destructive" id={key + "-error"}>
+            <div className="text-sm text-destructive" id={key + "-error"}>
               {error}
-            </p>
+            </div>
           )}
         </div>
         {children}
