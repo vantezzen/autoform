@@ -103,6 +103,14 @@ const formSchema = object({
 });
 ```
 
+<Callout>
+  `.default()` acts as a fallback during validation: If a user clears the field,
+  the default value comes back in the output. If you want pre-filled initial
+  values that the user can freely clear, then use the
+  [`defaultValues`](/docs/react/api#defaultvalues-vs-values) prop instead. See
+  [`Yup .default()`](https://github.com/jquense/yup#schema-defaults).
+</Callout>
+
 If you want to set default value of date, convert it to Date first using `new Date(val)`.
 
 #### Select/Enums

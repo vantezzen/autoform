@@ -3,6 +3,8 @@ title: Customization
 description: The customization of the components is done by providing a `fieldConfig` to your schema fields. This allows you to customize the rendering of the field, add additional props, and more.
 ---
 
+import { Accordion, Accordions } from "@/components/accordion";
+
 Import `fieldConfig` from your schema package [@acp-autoform/zod](/docs/schema-providers/zod#field-configuration), [@acp-autoform/yup](/docs/schema-providers/yup#field-configuration), [@acp-autoform/joi](/docs/schema-providers/joi#field-configuration)
 
 In the examples below, we use Zod.
@@ -344,7 +346,54 @@ export default function MyForm() {
 
 ## Custom Resolver & Value Cleanup
 
-AutoForm automatically cleans empty values such as `""`, `null`, `[]`, `{}` before validation. This ensures optional schema fields behave exactly as expected without triggering validation errors for empty inputs. If you want to change this default validation and value cleanup, you can provide your own resolver to createFormControl:
+AutoForm automatically cleans empty values such as `""`, `null` before validation. This ensures optional schema fields behave exactly as expected without triggering validation errors for empty inputs. If you want to change this default validation and value cleanup, you can provide your own resolver to createFormControl.
+
+<Accordions type="single">
+  <Accordion title="Why does AutoForm clean empty values?">
+
+    HTML forms assign `""` (empty string) to every text input by default. When a user leaves a field blank, the form submits `""` — not `undefined`. This creates a mismatch with schema validation libraries like Zod, where `.optional()` relies on the value being `undefined`.
+
+    **Required string fields**
+
+    ```ts
+    field: z.string()
+    ```
+
+    - A blank input submits `""`, which is a valid string — **no validation error is raised**.
+    - This can be useful because it pushes you toward stricter constraints like `z.string().min(2).max(20)`.
+
+    **Optional string fields — the real problem**
+
+    ```ts
+    field: z.string().min(2).optional()
+    ```
+
+    - The user leaves the field empty, intending to skip it.
+    - The form submits `""` instead of `undefined`.
+    - `.optional()` only skips validation for `undefined`, not `""`.
+    - Zod sees `""` as a present-but-invalid string → **validation error**, even though the field is optional.
+
+    A common workaround is to allow empty strings in the schema:
+
+    ```ts
+    field: z.string().min(2).optional().or(z.literal(""))
+    ```
+
+    But this **weakens your schema** — it now accepts `""` as a valid value in every context (API calls, database writes, etc.), which is rarely the intended behavior.
+
+    **The goal of any form is to produce clean, strongly-validated output.**
+
+    Two common approaches to deal with this:
+
+    | | Approach | How it works | What you maintain |
+    |---|---|---|---|
+    | **1** | **Clean after submit** | Accept `""` in a loose schema, strip empty values from the output yourself, then re-validate with a strict schema server-side. | Two schemas (loose + strict) and a cleanup step. |
+    | **2** | **Clean before validation** | Remove `""`, `null` values *before* they reach the resolver, so your schema never sees them. `AutoForm does this internally by default.` | One strict schema, used everywhere. |
+
+    If you prefer to handle cleanup yourself, you can override this behavior by providing your own resolver via `createFormControl`:
+
+  </Accordion>
+</Accordions>
 
 ```tsx
 // example using zod resolver from @hookform/resolvers
