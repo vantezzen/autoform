@@ -16,16 +16,16 @@ import { EcommerceCheckoutDemo } from "@/components/examples/faq/ecommerce-check
 
 ## How do I create fields with dependencies between them?
 
-**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submit and wire directly into AutoForm's resolver, so error messages appear in the right places automatically.
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate directly with AutoForm's resolver, so error messages are placed on the correct fields automatically.
 
-**2. UI behaviour** — use React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper` to read sibling values and drive rendering. Because AutoForm wraps every form in a `FormProvider`, these hooks work anywhere inside the tree.
+**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper`. AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree.
 
-| Pattern                    | Example in the demo below                                                        |
-| -------------------------- | -------------------------------------------------------------------------------- |
-| **Disable** a field        | Gift message — stays visible but is disabled until _"This is a gift"_ is checked |
-| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                      |
-| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied     |
-| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                    |
+| Pattern                    | Example in the demo below                                                    |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checke         |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
+| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
 
 <Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
   <Tab value="preview">
