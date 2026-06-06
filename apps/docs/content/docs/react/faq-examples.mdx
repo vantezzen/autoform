@@ -14,107 +14,31 @@ import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-valid
 import { CustomFieldsDemo } from "@/components/examples/faq/custom-fields-demo";
 import { EcommerceCheckoutDemo } from "@/components/examples/faq/ecommerce-checkout-demo";
 
-## How do I create fields with dependencies between them?
+## How do I show validation errors in real time and disable submit until valid?
 
-**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate directly with AutoForm's resolver, so error messages are placed on the correct fields automatically.
+Create a formControl with `createFormControl` and set the validation mode to `onChange`. Subscribe to the form state to track validation status and disable the submit button accordingly.
 
-**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper`. AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree.
-
-| Pattern                    | Example in the demo below                                                    |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checke         |
-| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
-| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
-| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
-
-<Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
+<Tabs persist items={["preview", "code"]} label="Real-time validation">
   <Tab value="preview">
-    <EcommerceCheckoutDemo />
+    <RealtimeValidationDemo />
   </Tab>
   <Tab value="code">
-    <MethodTabs
-      defaultValue="demo"
-      items={[
-        { value: "demo", label: "ecommerce-checkout-demo.tsx" },
-        { value: "fields", label: "ecommerce-checkout-fields.tsx" },
-      ]}
-    >
-      <MethodTab value="demo">
-        <CodeFromFile
-          file="components/examples/faq/ecommerce-checkout-demo.tsx"
-          lang="tsx"
-        />
-      </MethodTab>
-      <MethodTab value="fields">
-        <CodeFromFile
-          file="components/examples/faq/ecommerce-checkout-fields.tsx"
-          lang="tsx"
-        />
-      </MethodTab>
-    </MethodTabs>
+    <CodeFromFile
+      file="components/examples/faq/realtime-validation-demo.tsx"
+      lang="tsx"
+    />
   </Tab>
 </Tabs>
 
 <InstallInstructions
-  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/ecommerce-checkout-demo.json"
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/realtime-validation-demo.json"
   codeFiles={[
     {
-      path: "components/examples/faq/ecommerce-checkout-demo.tsx",
-      label: "ecommerce-checkout-demo.tsx",
-    },
-    {
-      path: "components/examples/faq/ecommerce-checkout-fields.tsx",
-      label: "ecommerce-checkout-fields.tsx",
+      path: "components/examples/faq/realtime-validation-demo.tsx",
+      label: "realtime-validation-demo.tsx",
     },
   ]}
-  label="Ecommerce checkout install"
-/>
-
-## How do I add a slider, color picker, and many different custom components to a form?
-
-Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each field to the right component.
-
-<Tabs persist items={["preview", "code"]} label="Custom fields form">
-  <Tab value="preview">
-    <CustomFieldsDemo />
-  </Tab>
-  <Tab value="code">
-    <MethodTabs
-      defaultValue="demo"
-      items={[
-        { value: "demo", label: "custom-fields-demo.tsx" },
-        { value: "fields", label: "custom-field-components.tsx" },
-      ]}
-    >
-      <MethodTab value="demo">
-        <CodeFromFile
-          file="components/examples/faq/custom-fields-demo.tsx"
-          lang="tsx"
-        />
-      </MethodTab>
-      <MethodTab value="fields">
-        <CodeFromFile
-          file="components/examples/faq/custom-field-components.tsx"
-          lang="tsx"
-        />
-      </MethodTab>
-    </MethodTabs>
-  </Tab>
-</Tabs>
-
-<InstallInstructions
-  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/custom-fields-demo.json"
-  codeFiles={[
-    {
-      path: "components/examples/faq/custom-fields-demo.tsx",
-      label: "custom-fields-demo.tsx",
-    },
-    {
-      path: "components/examples/faq/custom-field-components.tsx",
-      label: "custom-field-components.tsx",
-    },
-  ]}
-  label="Custom fields install"
+  label="Real-time validation install"
 />
 
 ## How do I submit, reset AutoForm from buttons in a Dialog?
@@ -167,31 +91,108 @@ Use either approach:
   label="External Dialog install"
 />
 
-## How do I show validation errors in real time and disable submit until valid?
+## How do I add a slider, color picker, and many different custom components to a form?
 
-Create a formControl with `createFormControl` and set the validation mode to `onChange`. Subscribe to the form state to track validation status and disable the submit button accordingly.
+Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each field to the right component.
 
-<Tabs persist items={["preview", "code"]} label="Real-time validation">
+<Tabs persist items={["preview", "code"]} label="Custom fields form">
   <Tab value="preview">
-    <RealtimeValidationDemo />
+    <CustomFieldsDemo />
   </Tab>
   <Tab value="code">
-    <CodeFromFile
-      file="components/examples/faq/realtime-validation-demo.tsx"
-      lang="tsx"
-    />
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "custom-fields-demo.tsx" },
+        { value: "fields", label: "custom-field-components.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/custom-fields-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
   </Tab>
 </Tabs>
 
 <InstallInstructions
-  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/realtime-validation-demo.json"
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/custom-fields-demo.json"
   codeFiles={[
     {
-      path: "components/examples/faq/realtime-validation-demo.tsx",
-      label: "realtime-validation-demo.tsx",
+      path: "components/examples/faq/custom-fields-demo.tsx",
+      label: "custom-fields-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/custom-field-components.tsx",
+      label: "custom-field-components.tsx",
     },
   ]}
-  label="Real-time validation install"
+  label="Custom fields install"
+/>
+
+## How do I create fields with dependencies between them?
+
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate directly with AutoForm's resolver, so error messages are placed on the correct fields automatically.
+
+**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper`. AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree.
+
+| Pattern                    | Example in the demo below                                                    |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checke         |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
+| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
+
+
+<Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
+  <Tab value="preview">
+    <EcommerceCheckoutDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "ecommerce-checkout-demo.tsx" },
+        { value: "fields", label: "ecommerce-checkout-fields.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-fields.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/ecommerce-checkout-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/ecommerce-checkout-demo.tsx",
+      label: "ecommerce-checkout-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/ecommerce-checkout-fields.tsx",
+      label: "ecommerce-checkout-fields.tsx",
+    },
+  ]}
+  label="Ecommerce checkout install"
 />
 
 ## How do I create a simple multistep form?
