@@ -12,6 +12,63 @@ import { MultistepFormDemo } from "@/components/examples/faq/multistep-form-usag
 import { NestedAutoFormDemo } from "@/components/examples/faq/nested-autoform-demo";
 import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-validation-demo";
 import { CustomFieldsDemo } from "@/components/examples/faq/custom-fields-demo";
+import { EcommerceCheckoutDemo } from "@/components/examples/faq/ecommerce-checkout-demo";
+
+## How do I create fields with dependencies between them?
+
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submit and wire directly into AutoForm's resolver, so error messages appear in the right places automatically.
+
+**2. UI behaviour** — use React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper` to read sibling values and drive rendering. Because AutoForm wraps every form in a `FormProvider`, these hooks work anywhere inside the tree.
+
+| Pattern                    | Example in the demo below                                                        |
+| -------------------------- | -------------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — stays visible but is disabled until _"This is a gift"_ is checked |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                      |
+| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied     |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                    |
+
+<Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
+  <Tab value="preview">
+    <EcommerceCheckoutDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "ecommerce-checkout-demo.tsx" },
+        { value: "fields", label: "ecommerce-checkout-fields.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-fields.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/ecommerce-checkout-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/ecommerce-checkout-demo.tsx",
+      label: "ecommerce-checkout-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/ecommerce-checkout-fields.tsx",
+      label: "ecommerce-checkout-fields.tsx",
+    },
+  ]}
+  label="Ecommerce checkout install"
+/>
 
 ## How do I add a slider, color picker, and many different custom components to a form?
 

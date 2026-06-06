@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 import {
   ColorPickerField,
   DatePickerField,
@@ -12,9 +12,9 @@ import {
   NumberStepperField,
   RadioCardField,
   SliderField,
-} from "@/components/examples/faq/custom-field-components";
+} from "@/components/custom-field-components";
 
-// ── Schema ────────────────────────────────────────────────────────────────────
+// â”€â”€ Schema â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const schema = z.object({
   quantity: z
@@ -49,7 +49,7 @@ const schema = z.object({
     .min(0)
     .max(100)
     .default(50)
-    .describe("Volume (0 – 100)")
+    .describe("Volume (0 â€“ 100)")
     .check(fieldConfig({ fieldType: "slider" })),
 
   plan: z
@@ -72,7 +72,7 @@ const schema = z.object({
 
 const schemaProvider = new ZodProvider(schema);
 
-// ── Demo ──────────────────────────────────────────────────────────────────────
+// â”€â”€ Demo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 type FormValues = z.infer<typeof schema>;
 
@@ -92,7 +92,7 @@ export function CustomFieldsDemo() {
 
   return (
     <div className="rounded-lg border bg-background p-6 space-y-6">
-      <PreviewAutoForm
+      <AutoForm
         schema={schemaProvider}
         formComponents={{
           numberStepper: NumberStepperField,

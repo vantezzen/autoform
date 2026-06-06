@@ -8,7 +8,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsx src/scripts/build.ts && tsx src/scripts/new-build.ts"
+    "build": "tsx src/scripts/build.ts && cd ../.. && npx shadcn@latest build registry.json --output packages/shadcn/registry && cd packages/shadcn"
   },
   "repository": {
     "type": "git",

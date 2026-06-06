@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
@@ -6,7 +6,7 @@ import { z } from "zod";
 import { ZodProvider } from "@acp-autoform/zod";
 import { SchemaProvider } from "@acp-autoform/core";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 
 const editorOptions = {
   minimap: { enabled: false },
@@ -89,7 +89,7 @@ export function InteractiveSchemaDemoContent() {
       </div>
 
       <div className="p-6 pb-8">
-        <PreviewAutoForm
+        <AutoForm
           key={formKey}
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}

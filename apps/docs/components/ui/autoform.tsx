@@ -1,0 +1,7 @@
+// Docs-only shim.
+// Demo source files import AutoForm from here so they compile unchanged
+// in the docs app. In a user's installed project this path resolves to
+// the real @acp-autoform/shadcn AutoForm component — no difference to the
+// installed code.
+export { PreviewAutoForm as AutoForm } from "@/components/examples/faq/autoform-preview";
+export type { ExtendableAutoFormProps } from "@acp-autoform/react";

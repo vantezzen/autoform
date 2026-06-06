@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import type { AutoFormFieldProps } from "@acp-autoform/react";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -65,7 +65,7 @@ function ColorDialogField({ useField }: AutoFormFieldProps) {
               This nested AutoForm writes its value back to the parent field.
             </DialogDescription>
           </DialogHeader>
-          <PreviewAutoForm
+          <AutoForm
             schema={colorsProvider}
             values={{ colors }}
             onSubmit={(data) => {
@@ -74,7 +74,7 @@ function ColorDialogField({ useField }: AutoFormFieldProps) {
             }}
           >
             <Button type="submit">Save Colors</Button>
-          </PreviewAutoForm>
+          </AutoForm>
         </DialogContent>
       </Dialog>
     </div>
@@ -88,7 +88,7 @@ export function NestedAutoFormDemo() {
 
   return (
     <div className="grid gap-4 rounded-lg border bg-background p-6 md:grid-cols-[1fr_220px]">
-      <PreviewAutoForm
+      <AutoForm
         schema={profileProvider}
         formComponents={{ colorDialog: ColorDialogField }}
         onSubmit={(data) => setResult(data)}

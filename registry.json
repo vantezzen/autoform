@@ -1,0 +1,208 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "autoform",
+  "homepage": "https://autoform.acp.dev",
+  "items": [
+    {
+      "name": "custom-fields-demo",
+      "type": "registry:block",
+      "title": "Custom Fields Demo",
+      "description": "Uses custom field components for sliders, color pickers, radios, dates, and file uploads.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "react-hook-form",
+        "@hookform/resolvers",
+        "@radix-ui/react-radio-group",
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "input",
+        "label",
+        "popover",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/custom-fields-demo.tsx",
+          "target": "components/custom-fields-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/custom-field-components.tsx",
+          "target": "components/custom-field-components.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ecommerce-checkout-demo",
+      "type": "registry:block",
+      "title": "Ecommerce Checkout Demo",
+      "description": "Checkout form demonstrating field dependencies: cascading country/state selects, conditional coupon and payment fields, and cross-field superRefine validation.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "react-hook-form",
+        "@hookform/resolvers"
+      ],
+      "registryDependencies": [
+        "input",
+        "label",
+        "select",
+        "textarea",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/ecommerce-checkout-demo.tsx",
+          "target": "components/ecommerce-checkout-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/ecommerce-checkout-fields.tsx",
+          "target": "components/ecommerce-checkout-fields.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog-submit-demo",
+      "type": "registry:block",
+      "title": "Dialog Submit Demo",
+      "description": "Demonstrates submitting and resetting AutoForm from buttons inside a Dialog using useFormContext and createFormControl.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "react-hook-form",
+        "@hookform/resolvers",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/external-dialog-submit-demo.tsx",
+          "target": "components/dialog-submit-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/external-dialog-form-control-demo.tsx",
+          "target": "components/dialog-form-control-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "realtime-validation-demo",
+      "type": "registry:block",
+      "title": "Realtime Validation Demo",
+      "description": "Shows real-time form validation with a disabled submit button until all fields are valid.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "react-hook-form",
+        "@hookform/resolvers"
+      ],
+      "registryDependencies": [
+        "button",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/realtime-validation-demo.tsx",
+          "target": "components/realtime-validation-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "multistep-form-demo",
+      "type": "registry:block",
+      "title": "Multistep Form Demo",
+      "description": "A multi-step form with per-step validation, breadcrumb navigation, and collected submission.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "react-hook-form",
+        "@hookform/resolvers",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/multistep-form.tsx",
+          "target": "components/multistep-form.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/multistep-form-usage-demo.tsx",
+          "target": "components/multistep-form-usage.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "nested-autoform-demo",
+      "type": "registry:block",
+      "title": "Nested AutoForm Demo",
+      "description": "Shows how to use a nested AutoForm inside a Dialog as a custom field component.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "react-hook-form",
+        "@hookform/resolvers"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/nested-autoform-demo.tsx",
+          "target": "components/nested-autoform-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "interactive-schema-demo",
+      "type": "registry:block",
+      "title": "Interactive Schema Demo",
+      "description": "A dynamic form builder combining Monaco Editor with AutoForm for interactive, real-time form generation from a Zod schema string.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/core",
+        "@acp-autoform/react",
+        "react-hook-form",
+        "@hookform/resolvers",
+        "@monaco-editor/react"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/interactive-schema-demo-content.tsx",
+          "target": "components/interactive-schema-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

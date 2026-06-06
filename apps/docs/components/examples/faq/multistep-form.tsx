@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -6,7 +6,7 @@ import { FieldValues, useFormContext } from "react-hook-form";
 import { ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 import { Button } from "@/components/ui/button";
 
 // ---------------------------------------------------------------------------
@@ -25,7 +25,7 @@ export interface MultistepFormProps {
 }
 
 // ---------------------------------------------------------------------------
-// StepActions — validates the current form then fires onNext / onBack
+// StepActions â€” validates the current form then fires onNext / onBack
 // ---------------------------------------------------------------------------
 
 function StepActions<T extends FieldValues>({
@@ -115,7 +115,7 @@ export function MultistepForm({ steps, onSubmit }: MultistepFormProps) {
 
       {/* Active step form */}
       {currentStep && (
-        <PreviewAutoForm
+        <AutoForm
           key={currentStep.label}
           schema={providers[step]}
           defaultValues={values[step]}
@@ -126,7 +126,7 @@ export function MultistepForm({ steps, onSubmit }: MultistepFormProps) {
             onBack={() => step > 0 && setStep(step - 1)}
             onNext={(v: FieldValues) => saveAndAdvance(step, v)}
           />
-        </PreviewAutoForm>
+        </AutoForm>
       )}
     </div>
   );

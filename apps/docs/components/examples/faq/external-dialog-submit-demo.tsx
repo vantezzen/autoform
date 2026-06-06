@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { CheckCircle, Circle } from "lucide-react";
@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import * as z from "zod";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -76,7 +76,7 @@ export function ExternalDialogSubmitDemo() {
               The submit and reset buttons are rendered as AutoForm children.
             </DialogDescription>
           </DialogHeader>
-          <PreviewAutoForm
+          <AutoForm
             schema={schemaProvider}
             onSubmit={(data, form) => {
               setSubmitted(data);
@@ -97,7 +97,7 @@ export function ExternalDialogSubmitDemo() {
               <Circle className="h-4 w-4" />
               Reset
             </ResetButton>
-          </PreviewAutoForm>
+          </AutoForm>
           {submitted && (
             <pre className="overflow-auto rounded-md bg-secondary p-3 text-xs">
               {JSON.stringify(submitted, null, 2)}

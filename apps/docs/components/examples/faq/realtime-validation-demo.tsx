@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { createFormControl, useFormContext } from "react-hook-form";
 import * as z from "zod";
 import { ZodProvider } from "@acp-autoform/zod";
 
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 import { Button } from "@/components/ui/button";
 
 const realtimeSchema = z.object({
@@ -81,7 +81,7 @@ export function RealtimeValidationDemo() {
 
   return (
     <div className="grid gap-4 rounded-lg border bg-background p-6 ">
-      <PreviewAutoForm
+      <AutoForm
         schema={schemaProvider}
         formControl={formControl}
         onSubmit={(values) => console.log(values)}
@@ -91,7 +91,7 @@ export function RealtimeValidationDemo() {
       >
         <SubmitButton />
         <Values />
-      </PreviewAutoForm>
+      </AutoForm>
     </div>
   );
 }

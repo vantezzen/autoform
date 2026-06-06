@@ -23,6 +23,15 @@
       "@/.source": [
         "./.source/index.ts"
       ],
+      "@/components/custom-field-components": [
+        "./components/examples/faq/custom-field-components.tsx"
+      ],
+      "@/components/ecommerce-checkout-fields": [
+        "./components/examples/faq/ecommerce-checkout-fields.tsx"
+      ],
+      "@/components/multistep-form": [
+        "./components/examples/faq/multistep-form.tsx"
+      ],
       "@/*": [
         "./*"
       ]

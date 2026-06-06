@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "realtime-validation-demo",
-  "type": "registry:block",
   "title": "Realtime Validation Demo",
   "description": "Shows real-time form validation with a disabled submit button until all fields are valid.",
   "dependencies": [
@@ -10,22 +9,17 @@
     "react-hook-form",
     "@hookform/resolvers"
   ],
-  "devDependencies": [],
   "registryDependencies": [
     "button",
     "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
   ],
   "files": [
     {
-      "path": "realtime-validation-demo.tsx",
-      "target": "components/realtime-validation-demo.tsx",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { createFormControl, useFormContext } from \"react-hook-form\";\nimport * as z from \"zod\";\nimport { ZodProvider } from \"@acp-autoform/zod\";\n\nimport { AutoForm } from \"@/components/ui/autoform\";\nimport { Button } from \"@/components/ui/button\";\n\nconst realtimeSchema = z.object({\n  email: z.email(\"Enter a valid email\"),\n  password: z.string().min(8, \"Use at least 8 characters\"),\n});\n\ntype RealtimeValues = z.infer<typeof realtimeSchema>;\n\nconst schemaProvider = new ZodProvider(realtimeSchema);\n\nconst SubmitButton = () => {\n  const { subscribe } = useFormContext();\n  const [isValid, setIsValid] = React.useState(false);\n\n  React.useEffect(\n    () =>\n      subscribe({\n        formState: { isValid: true },\n        callback: ({ isValid: isFormValid }) => {\n          if (typeof isFormValid === \"boolean\") setIsValid(isFormValid);\n        },\n      }),\n    [subscribe],\n  );\n\n  return (\n    <Button type=\"submit\" className=\"mt-4\" disabled={!isValid}>\n      Create Account\n    </Button>\n  );\n};\n\nconst Values = () => {\n  const { subscribe } = useFormContext<RealtimeValues>();\n  const [values, setValues] = React.useState<RealtimeValues | null>(null);\n\n  React.useEffect(\n    () =>\n      subscribe({\n        formState: { values: true },\n        callback: ({ values: data }) => {\n          setValues(data as RealtimeValues);\n        },\n      }),\n    [subscribe],\n  );\n\n  return (\n    <div className=\"rounded-md border bg-muted p-4\">\n      <pre className=\"text-sm\">\n        <code className=\"bg-transparent border-none\">\n          {JSON.stringify(values, null, 2)}\n        </code>\n      </pre>\n    </div>\n  );\n};\nexport function RealtimeValidationDemo() {\n  const { formControl, trigger } = React.useMemo(\n    () =>\n      createFormControl<RealtimeValues>({\n        mode: \"all\",\n      }),\n    [],\n  );\n\n  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {\n    if (e.key === \"Enter\" && !(e.target as HTMLElement).hasAttribute(\"type\")) {\n      trigger(undefined, { shouldFocus: true });\n    }\n  };\n\n  return (\n    <div className=\"grid gap-4 rounded-lg border bg-background p-6 \">\n      <AutoForm\n        schema={schemaProvider}\n        formControl={formControl}\n        onSubmit={(values) => console.log(values)}\n        formProps={{\n          onKeyDown: handleFormKeyDown,\n        }}\n      >\n        <SubmitButton />\n        <Values />\n      </AutoForm>\n    </div>\n  );\n}\n",
-      "type": "registry:component"
+      "path": "apps/docs/components/examples/faq/realtime-validation-demo.tsx",
+      "content": "﻿\"use client\";\n\nimport * as React from \"react\";\nimport { createFormControl, useFormContext } from \"react-hook-form\";\nimport * as z from \"zod\";\nimport { ZodProvider } from \"@acp-autoform/zod\";\n\nimport { AutoForm } from \"@/components/ui/autoform\";\nimport { Button } from \"@/components/ui/button\";\n\nconst realtimeSchema = z.object({\n  email: z.email(\"Enter a valid email\"),\n  password: z.string().min(8, \"Use at least 8 characters\"),\n});\n\ntype RealtimeValues = z.infer<typeof realtimeSchema>;\n\nconst schemaProvider = new ZodProvider(realtimeSchema);\n\nconst SubmitButton = () => {\n  const { subscribe } = useFormContext();\n  const [isValid, setIsValid] = React.useState(false);\n\n  React.useEffect(\n    () =>\n      subscribe({\n        formState: { isValid: true },\n        callback: ({ isValid: isFormValid }) => {\n          if (typeof isFormValid === \"boolean\") setIsValid(isFormValid);\n        },\n      }),\n    [subscribe],\n  );\n\n  return (\n    <Button type=\"submit\" className=\"mt-4\" disabled={!isValid}>\n      Create Account\n    </Button>\n  );\n};\n\nconst Values = () => {\n  const { subscribe } = useFormContext<RealtimeValues>();\n  const [values, setValues] = React.useState<RealtimeValues | null>(null);\n\n  React.useEffect(\n    () =>\n      subscribe({\n        formState: { values: true },\n        callback: ({ values: data }) => {\n          setValues(data as RealtimeValues);\n        },\n      }),\n    [subscribe],\n  );\n\n  return (\n    <div className=\"rounded-md border bg-muted p-4\">\n      <pre className=\"text-sm\">\n        <code className=\"bg-transparent border-none\">\n          {JSON.stringify(values, null, 2)}\n        </code>\n      </pre>\n    </div>\n  );\n};\nexport function RealtimeValidationDemo() {\n  const { formControl, trigger } = React.useMemo(\n    () =>\n      createFormControl<RealtimeValues>({\n        mode: \"all\",\n      }),\n    [],\n  );\n\n  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {\n    if (e.key === \"Enter\" && !(e.target as HTMLElement).hasAttribute(\"type\")) {\n      trigger(undefined, { shouldFocus: true });\n    }\n  };\n\n  return (\n    <div className=\"grid gap-4 rounded-lg border bg-background p-6 \">\n      <AutoForm\n        schema={schemaProvider}\n        formControl={formControl}\n        onSubmit={(values) => console.log(values)}\n        formProps={{\n          onKeyDown: handleFormKeyDown,\n        }}\n      >\n        <SubmitButton />\n        <Values />\n      </AutoForm>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/realtime-validation-demo.tsx"
     }
   ],
-  "cssVars": {},
-  "css": "",
-  "docs": "",
-  "categories": [],
-  "meta": {}
+  "type": "registry:block"
 }
