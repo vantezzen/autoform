@@ -55,7 +55,7 @@ export function AutoForm<T extends Record<string, any>>({
     return null;
   }
 
-  const AntBaseForm = () => (
+  const form = (
     <BaseAutoForm
       {...props}
       formProps={{ ...antFormProps, ...props.formProps }}
@@ -66,9 +66,9 @@ export function AutoForm<T extends Record<string, any>>({
 
   return antProviderProps ? (
     <ConfigProvider {...antProviderProps}>
-      <AntBaseForm />
+      {form}
     </ConfigProvider>
   ) : (
-    <AntBaseForm />
+    form
   );
 }

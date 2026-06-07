@@ -43,7 +43,7 @@ export function AutoForm<T extends Record<string, any>>({
   formComponents,
   ...props
 }: AutoFormProps<T>) {
-  const ThemedForm = () => (
+  const form = (
     <BaseAutoForm
       {...props}
       uiComponents={{ ...MuiUIComponents, ...uiComponents }}
@@ -53,9 +53,9 @@ export function AutoForm<T extends Record<string, any>>({
 
   return theme ? (
     <ThemeProvider theme={theme}>
-      <ThemedForm />
+      {form}
     </ThemeProvider>
   ) : (
-    <ThemedForm />
+    form
   );
 }

@@ -43,7 +43,7 @@ export function AutoForm<T extends Record<string, any>>({
   formComponents,
   ...props
 }: AutoFormProps<T>) {
-  const ThemedForm = () => (
+  const form = (
     <BaseAutoForm
       {...props}
       uiComponents={{ ...MantineUIComponents, ...uiComponents }}
@@ -53,9 +53,9 @@ export function AutoForm<T extends Record<string, any>>({
 
   return theme ? (
     <MantineProvider theme={theme}>
-      <ThemedForm />
+      {form}
     </MantineProvider>
   ) : (
-    <ThemedForm />
+    form
   );
 }
