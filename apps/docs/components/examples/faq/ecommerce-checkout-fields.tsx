@@ -6,7 +6,6 @@ import type {
   AutoFormFieldProps,
   FieldWrapperProps,
 } from "@acp-autoform/react";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -204,10 +203,7 @@ export function PaymentFieldWrapper({ children }: FieldWrapperProps) {
       callback: ({ values }) => {
         const isFreeNow =
           values.haveCoupon && values.couponCode?.toUpperCase() === "FREE100";
-        console.log("isFreeNow", values);
-        if (isFree !== isFreeNow) {
-          setIsFree(isFreeNow);
-        }
+        setIsFree(isFreeNow);
       },
     });
     return () => callback();

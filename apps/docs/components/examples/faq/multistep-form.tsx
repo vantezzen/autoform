@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -25,7 +25,7 @@ export interface MultistepFormProps {
 }
 
 // ---------------------------------------------------------------------------
-// StepActions â€” validates the current form then fires onNext / onBack
+// StepActions validates the current form then fires onNext / onBack
 // ---------------------------------------------------------------------------
 
 function StepActions<T extends FieldValues>({

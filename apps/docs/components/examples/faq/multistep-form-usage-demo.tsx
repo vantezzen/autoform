@@ -1,13 +1,10 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 
-import {
-  MultistepForm,
-  MultistepFormStep,
-} from "@/components/multistep-form";
+import { MultistepForm, MultistepFormStep } from "@/components/multistep-form";
 
 // ---------------------------------------------------------------------------
 // Step definitions
@@ -49,7 +46,7 @@ const STEPS: MultistepFormStep[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Demo â€” uses MultistepForm
+// Demo uses MultistepForm
 // ---------------------------------------------------------------------------
 
 export function MultistepFormDemo() {

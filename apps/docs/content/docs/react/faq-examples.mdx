@@ -16,7 +16,7 @@ import { EcommerceCheckoutDemo } from "@/components/examples/faq/ecommerce-check
 
 ## How do I show validation errors in real time and disable submit until valid?
 
-Create a formControl with `createFormControl` and set the validation mode to `onChange`. Subscribe to the form state to track validation status and disable the submit button accordingly.
+Create a formControl with `createFormControl` and set the validation mode to `all`. Access the `isValid` formState via `useFormContext` to track validation status and disable the submit button accordingly.
 
 <Tabs persist items={["preview", "code"]} label="Real-time validation">
   <Tab value="preview">
@@ -93,7 +93,7 @@ Use either approach:
 
 ## How do I add a slider, color picker, and many different custom components to a form?
 
-Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each field to the right component.
+Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field.
 
 <Tabs persist items={["preview", "code"]} label="Custom fields form">
   <Tab value="preview">
@@ -140,17 +140,16 @@ Register the custom input using [`useField()`](/docs/react/customization#usefiel
 
 ## How do I create fields with dependencies between them?
 
-**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate directly with AutoForm's resolver, so error messages are placed on the correct fields automatically.
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate with AutoForm's resolver, so error messages are placed on the correct fields automatically.
 
 **2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper`. AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree.
 
 | Pattern                    | Example in the demo below                                                    |
 | -------------------------- | ---------------------------------------------------------------------------- |
-| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checke         |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked        |
 | **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
 | **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
 | **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
-
 
 <Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
   <Tab value="preview">
@@ -284,6 +283,11 @@ Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod sc
     />
   </Tab>
 </Tabs>
+
+<Callout title="Caution" type="warn">
+  This demo uses `eval()` to parse the editor input. Avoid using `eval()` with
+  untrusted input or in production server-side code.
+</Callout>
 
 <InstallInstructions
   registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/interactive-schema-demo.json"

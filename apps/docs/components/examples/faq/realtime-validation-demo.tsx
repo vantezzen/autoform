@@ -18,19 +18,9 @@ type RealtimeValues = z.infer<typeof realtimeSchema>;
 const schemaProvider = new ZodProvider(realtimeSchema);
 
 const SubmitButton = () => {
-  const { subscribe } = useFormContext();
-  const [isValid, setIsValid] = React.useState(false);
-
-  React.useEffect(
-    () =>
-      subscribe({
-        formState: { isValid: true },
-        callback: ({ isValid: isFormValid }) => {
-          if (typeof isFormValid === "boolean") setIsValid(isFormValid);
-        },
-      }),
-    [subscribe],
-  );
+  const {
+    formState: { isValid },
+  } = useFormContext();
 
   return (
     <Button type="submit" className="mt-4" disabled={!isValid}>
@@ -39,58 +29,33 @@ const SubmitButton = () => {
   );
 };
 
-const Values = () => {
-  const { subscribe } = useFormContext<RealtimeValues>();
-  const [values, setValues] = React.useState<RealtimeValues | null>(null);
-
-  React.useEffect(
-    () =>
-      subscribe({
-        formState: { values: true },
-        callback: ({ values: data }) => {
-          setValues(data as RealtimeValues);
-        },
-      }),
-    [subscribe],
-  );
-
-  return (
-    <div className="rounded-md border bg-muted p-4">
-      <pre className="text-sm">
-        <code className="bg-transparent border-none">
-          {JSON.stringify(values, null, 2)}
-        </code>
-      </pre>
-    </div>
-  );
-};
 export function RealtimeValidationDemo() {
-  const { formControl, trigger } = React.useMemo(
+  const { formControl } = React.useMemo(
     () =>
       createFormControl<RealtimeValues>({
         mode: "all",
       }),
     [],
   );
-
-  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    if (e.key === "Enter" && !(e.target as HTMLElement).hasAttribute("type")) {
-      trigger(undefined, { shouldFocus: true });
-    }
-  };
+  const [values, setValues] = React.useState<RealtimeValues | null>(null);
 
   return (
     <div className="grid gap-4 rounded-lg border bg-background p-6 ">
       <AutoForm
         schema={schemaProvider}
         formControl={formControl}
-        onSubmit={(values) => console.log(values)}
-        formProps={{
-          onKeyDown: handleFormKeyDown,
-        }}
+        onSubmit={(values) => setValues(values)}
       >
         <SubmitButton />
-        <Values />
+        {values && (
+          <div className="rounded-md border bg-muted p-4">
+            <pre className="text-sm">
+              <code className="bg-transparent border-none">
+                {JSON.stringify(values, null, 2)}
+              </code>
+            </pre>
+          </div>
+        )}
       </AutoForm>
     </div>
   );

@@ -13,9 +13,6 @@ import {
   PaymentFieldWrapper,
 } from "@/components/ecommerce-checkout-fields";
 
-// â”€â”€ Schema â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Try coupon code "FREE100" to hide the payment block entirely.
-
 const schema = z
   .object({
     country: z
@@ -55,7 +52,6 @@ const schema = z
       .describe("Gift message")
       .check(fieldConfig({ fieldType: "giftMessage" })),
 
-    // for a discount banner when FREE100 is active.
     payment: z
       .object({
         cardNumber: z
@@ -74,16 +70,18 @@ const schema = z
 
         cvv: z
           .string()
+          .min(3)
+          .max(4)
           .optional()
           .describe("CVV")
           .check(fieldConfig({ inputProps: { placeholder: "123" } })),
       })
-      .check(fieldConfig({ fieldWrapper: PaymentFieldWrapper })),
+      .check(fieldConfig({ fieldWrapper: PaymentFieldWrapper })), // for a discount banner when FREE100 is active.
   })
   .superRefine((data, ctx) => {
     if (data.haveCoupon && !data.couponCode?.trim()) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: "Coupon code is required",
         path: ["couponCode"],
       });
@@ -95,19 +93,19 @@ const schema = z
     if (!isFree) {
       if (!data.payment?.cardNumber?.trim())
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+          code: "custom",
           message: "Card number is required",
           path: ["payment", "cardNumber"],
         });
       if (!data.payment?.expiryDate?.trim())
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+          code: "custom",
           message: "Expiry date is required",
           path: ["payment", "expiryDate"],
         });
       if (!data.payment?.cvv?.trim())
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+          code: "custom",
           message: "CVV is required",
           path: ["payment", "cvv"],
         });
@@ -117,8 +115,6 @@ const schema = z
 type CheckoutValues = z.infer<typeof schema>;
 
 const schemaProvider = new ZodProvider(schema);
-
-// â”€â”€ Demo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function EcommerceCheckoutDemo() {
   const [result, setResult] = React.useState<CheckoutValues | null>(null);

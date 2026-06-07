@@ -14,8 +14,6 @@ import {
   SliderField,
 } from "@/components/custom-field-components";
 
-// â”€â”€ Schema â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
 const schema = z.object({
   quantity: z
     .number()
@@ -29,13 +27,13 @@ const schema = z.object({
     .string()
     .regex(/^#[0-9a-fA-F]{6}$/, "Pick a valid color")
     .default("#6366f1")
-    .describe("Theme color")
+    .describe("Find the color")
     .check(fieldConfig({ fieldType: "colorPicker" })),
 
-  scheduledDate: z
+  birthdate: z
     .string()
     .min(1, "Pick a date")
-    .describe("Scheduled date")
+    .describe("Birthdate")
     .check(fieldConfig({ fieldType: "dateTime" })),
 
   avatar: z
@@ -49,7 +47,6 @@ const schema = z.object({
     .min(0)
     .max(100)
     .default(50)
-    .describe("Volume (0 â€“ 100)")
     .check(fieldConfig({ fieldType: "slider" })),
 
   plan: z
@@ -72,20 +69,7 @@ const schema = z.object({
 
 const schemaProvider = new ZodProvider(schema);
 
-// â”€â”€ Demo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
 type FormValues = z.infer<typeof schema>;
-
-// Wider gap between fields than the default gap-4
-const FormWithSpacing = React.forwardRef<
-  HTMLFormElement,
-  React.ComponentProps<"form">
->(({ children, ...props }, ref) => (
-  <form ref={ref} className="flex flex-col gap-6" {...props}>
-    {children}
-  </form>
-));
-FormWithSpacing.displayName = "FormWithSpacing";
 
 export function CustomFieldsDemo() {
   const [result, setResult] = React.useState<FormValues | null>(null);
@@ -102,7 +86,7 @@ export function CustomFieldsDemo() {
           colorPicker: ColorPickerField,
           fileUpload: FileUploadField,
         }}
-        uiComponents={{ Form: FormWithSpacing }}
+        formProps={{ className: "flex flex-col gap-6" }}
         onSubmit={(data) => setResult(data)}
         withSubmit
       />
@@ -115,7 +99,7 @@ export function CustomFieldsDemo() {
                 {
                   quantity: result.quantity,
                   plan: result.plan,
-                  scheduledDate: result.scheduledDate,
+                  birthdate: result.birthdate,
                   volume: result.volume,
                   themeColor: result.themeColor,
                   avatar: result.avatar?.name ?? null,

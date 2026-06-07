@@ -18,7 +18,6 @@ import {
 import { cn } from "@/lib/cn";
 
 // ── Number Stepper ────────────────────────────────────────────────────────────
-// +/- buttons with hidden native spinner arrows (ported from order project)
 
 export function NumberStepperField({
   id,
@@ -79,10 +78,6 @@ export function NumberStepperField({
 }
 
 // ── Radio Cards ───────────────────────────────────────────────────────────────
-// Card-style single-select tiles (ported from order project RadioSelectField).
-// Options priority:
-//   1. field.fieldConfig.customData.options — rich { id, label, desc }[] set in the schema
-//   2. field.options — [value, label][] auto-extracted from z.enum(), mapped to { id, label }
 
 type RadioOption = { id: string; label: string; desc?: string };
 
@@ -103,7 +98,7 @@ export function RadioCardField({
     <RadioGroupPrimitive.Root
       value={value}
       onValueChange={formField.onChange}
-      className="grid gap-1.5"
+      className="flex flex-col gap-1.5"
     >
       {options.map((opt, i) => (
         <Label
@@ -123,10 +118,14 @@ export function RadioCardField({
               <CircleIcon className="fill-primary absolute top-1/2 left-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2" />
             </RadioGroupPrimitive.Indicator>
           </RadioGroupPrimitive.Item>
-          <div>
-            <p className="font-medium leading-none">{opt.label}</p>
+          <div className="flex flex-col gap-1 p-1">
+            <span className="font-medium text-sm leading-none">
+              {opt.label}
+            </span>
             {opt.desc && (
-              <p className="mt-0.5 text-xs text-muted-foreground">{opt.desc}</p>
+              <span className="mt-0.5 text-xs text-muted-foreground">
+                {opt.desc}
+              </span>
             )}
           </div>
         </Label>
@@ -135,12 +134,10 @@ export function RadioCardField({
   );
 }
 
-// ── Date Picker ───────────────────────────────────────────────────────────────
-// shadcn Calendar with month/year dropdowns (like the shadcn date-of-birth example)
-// Stores value as "YYYY-MM-dd" string
+// ── Date Picker ──────────────────────────────────────────────────────────────
 
 export function DatePickerField({ id, useField, error }: AutoFormFieldProps) {
-  const formField = useField();
+  const { ref, ...formField } = useField();
   const [open, setOpen] = React.useState(false);
 
   const dateValue: Date | undefined = formField.value
@@ -152,6 +149,7 @@ export function DatePickerField({ id, useField, error }: AutoFormFieldProps) {
       <PopoverTrigger asChild>
         <Button
           id={id}
+          ref={ref}
           type="button"
           variant="outline"
           className={cn(
@@ -218,7 +216,12 @@ export function ColorPickerField({
     typeof formField.value === "string" ? formField.value : "#6366f1";
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center -my-5 gap-3">
+      <img
+        src="/banana.png"
+        alt="Banana"
+        className="h-24 w-24 rounded-md border border-input object-cover"
+      />
       <input
         id={id}
         type="color"
