@@ -1,5 +1,16 @@
 # @acp-autoform/shadcn
 
+## 4.1.0
+
+### Minor Changes
+
+- Apply recent updates and registry migrations since namespace transition.
+
+### Patch Changes
+
+- Updated dependencies
+  - @acp-autoform/react@4.1.0
+
 ## 4.0.0
 
 ### Major Changes

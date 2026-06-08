@@ -23,7 +23,7 @@ export interface AutoFormProps<T extends FieldValues = FieldValues> {
    * External formControl returned by react-hook-form`s  createFormControl.
    * Use it when a parent needs to call form methods.
    */
-  formControl?: ReturnType<typeof createFormControl>["formControl"];
+  formControl?: ReturnType<typeof createFormControl<T>>["formControl"];
   /**
    * Runs after successful validation. Receives the values, form instance, and submit event.
    * @default () => {}

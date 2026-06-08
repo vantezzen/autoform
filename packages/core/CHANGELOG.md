@@ -1,5 +1,11 @@
 # @acp-autoform/core
 
+## 3.1.0
+
+### Minor Changes
+
+- Apply recent updates and registry migrations since namespace transition.
+
 ## 3.0.0
 
 ### Major Changes
