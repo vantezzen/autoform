@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
 import React from "react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({

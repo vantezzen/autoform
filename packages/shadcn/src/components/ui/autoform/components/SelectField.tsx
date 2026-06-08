@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
 import React from "react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
