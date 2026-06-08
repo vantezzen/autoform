@@ -1,5 +1,13 @@
 # @acp-autoform/ant
 
+## 2.1.1
+
+### Patch Changes
+
+- docs: updated documentation links and cleaned up README files
+- Updated dependencies
+  - @acp-autoform/react@4.1.1
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @acp-autoform/chakra
 
+## 2.0.1
+
+### Patch Changes
+
+- docs: updated documentation links and cleaned up README files
+- Updated dependencies
+  - @acp-autoform/react@4.1.1
+
 ## 2.0.0
 
 ### Major Changes

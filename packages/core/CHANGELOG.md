@@ -1,5 +1,11 @@
 # @acp-autoform/core
 
+## 3.1.1
+
+### Patch Changes
+
+- docs: updated documentation links and cleaned up README files
+
 ## 3.1.0
 
 ### Minor Changes

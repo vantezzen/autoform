@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/zod",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

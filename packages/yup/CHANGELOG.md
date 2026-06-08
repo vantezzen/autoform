@@ -1,5 +1,11 @@
 # @acp-autoform/zod
 
+## 3.0.1
+
+### Patch Changes
+
+- docs: updated documentation links and cleaned up README files
+
 ## 3.0.0
 
 ### Major Changes
