@@ -66,7 +66,7 @@ export function CountrySelectField({
 
   return (
     <Select
-      onValueChange={(iso2) => {
+      onValueChange={(iso2: string) => {
         formField.onChange(iso2);
         setValue("state", "");
       }}

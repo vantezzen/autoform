@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
 
 // ── Number Stepper ────────────────────────────────────────────────────────────
 
@@ -216,7 +216,7 @@ export function ColorPickerField({
     typeof formField.value === "string" ? formField.value : "#6366f1";
 
   return (
-    <div className="flex items-center -my-5 gap-3">
+    <div className="flex items-center gap-3">
       <img
         src="https://autoform-acp-docs.vercel.app/banana.png"
         alt="Banana"

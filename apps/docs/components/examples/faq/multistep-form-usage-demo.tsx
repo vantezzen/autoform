@@ -49,7 +49,7 @@ const STEPS: MultistepFormStep[] = [
 // Demo uses MultistepForm
 // ---------------------------------------------------------------------------
 
-export function MultistepFormDemo() {
+export default function MultistepFormDemo() {
   const [submitted, setSubmitted] = React.useState<FieldValues | null>(null);
 
   return (

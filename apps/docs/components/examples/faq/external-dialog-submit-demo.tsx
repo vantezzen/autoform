@@ -46,7 +46,7 @@ const ResetButton = React.forwardRef<HTMLButtonElement, ResetButtonProps>(
 
     return (
       <Button
-        onClick={(event) => {
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           reset(resetVal);
           onClick?.(event);
         }}
@@ -58,7 +58,7 @@ const ResetButton = React.forwardRef<HTMLButtonElement, ResetButtonProps>(
 );
 ResetButton.displayName = "ResetButton";
 
-export function ExternalDialogSubmitDemo() {
+export default function ExternalDialogSubmitDemo() {
   const [submitted, setSubmitted] = React.useState<z.infer<
     typeof dialogSchema
   > | null>(null);

@@ -81,7 +81,7 @@ function ColorDialogField({ useField }: AutoFormFieldProps) {
   );
 }
 
-export function NestedAutoFormDemo() {
+export default function NestedAutoFormDemo() {
   const [result, setResult] = React.useState<z.infer<
     typeof profileSchema
   > | null>(null);

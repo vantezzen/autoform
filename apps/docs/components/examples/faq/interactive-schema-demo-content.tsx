@@ -46,7 +46,7 @@ const defaultCode = `z.object({
 
 const globalZod = z;
 
-export function InteractiveSchemaDemoContent() {
+export default function InteractiveSchemaDemoContent() {
   const [code, setCode] = React.useState(defaultCode);
   const [schemaProvider, setSchemaProvider] = React.useState<SchemaProvider>(
     () =>
@@ -64,6 +64,7 @@ export function InteractiveSchemaDemoContent() {
 
   useEffect(() => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const z = globalZod;
       const parsedSchema = eval(code); // Warning: eval is unsafe. Do not use with untrusted input.
       const provider = new ZodProvider(parsedSchema);
