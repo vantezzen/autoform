@@ -3,10 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const InteractiveSchemaDemo = dynamic(
-  () =>
-    import("./interactive-schema-demo-content").then(
-      (m) => m.InteractiveSchemaDemoContent,
-    ),
+  () => import("./interactive-schema-demo-content"),
   {
     ssr: false,
     loading: () => (
