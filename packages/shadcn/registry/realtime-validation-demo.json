@@ -11,7 +11,7 @@
   ],
   "registryDependencies": [
     "button",
-    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
+    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
   ],
   "files": [
     {
