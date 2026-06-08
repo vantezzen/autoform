@@ -218,7 +218,7 @@ export function ColorPickerField({
   return (
     <div className="flex items-center -my-5 gap-3">
       <img
-        src="/banana.png"
+        src="https://autoform-acp-docs.vercel.app/banana.png"
         alt="Banana"
         className="h-24 w-24 rounded-md border border-input object-cover"
       />
