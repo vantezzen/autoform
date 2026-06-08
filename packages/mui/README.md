@@ -8,4 +8,4 @@ This package provides a MUI integration for AutoForm.
 npm install @acp-autoform/mui
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/react/getting-started).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform-acp-docs.vercel.app/docs/react/getting-started).

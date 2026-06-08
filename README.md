@@ -6,15 +6,7 @@
 
 This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@acp-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
 
-AutoForm quickly grew from a small component into a codebase larger than any shadcn component should be. To let AutoForm grow without bloating your shadcn/ui components, AutoForm is now a full library!
-
-Don't worry, you can still use AutoForm with your shadcn components and expand it with your own components - but it now also supports integration into other UI libraries like MUI and Mantine and we plan on adding support for other schema libraries than zod too.
-
-Check out the new [AutoForm documentation](https://autoform.vantezzen.io) for more information.
-
-The new AutoForm does not have full feature-parity with the old AutoForm as we look into what features actually make sense and which once just bloat the experience. If you're missing a feature or have problems with the new library, feel free to write your feedback in the welcome post!
-
-If you want to continue using the pure shadcn/ui component, you can find the old codebase at <https://github.com/vantezzen/auto-form/tree/pure-shadcn> - but write us what keeps you from migrating to the new library!
+Check out the [AutoForm documentation](https://autoform-acp-docs.vercel.app) for more information, examples, and API references.
 
 ---
 
@@ -36,7 +28,7 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mui";
+import { AutoForm } from "@acp-autoform/shadcn";
 import { schemaProvider } from "./schema";
 
 function MyForm() {
@@ -52,21 +44,25 @@ function MyForm() {
 }
 ```
 
-AutoForm itself is agnostic to the schema library, rendering library and UI library you use, but it comes with a set of official packages that make it easy to use with popular libraries like Zod, React, Material UI, etc.
+AutoForm itself is agnostic to the schema library, rendering library and UI library you use, but it comes with a set of official packages that make it easy to use with popular libraries like Zod, React, shadcn, Material UI etc.
 
 ## When to use AutoForm?
 
 AutoForm is mostly meant as a drop-in form builder for your internal and low-priority forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
 
-As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the `fieldConfig` options) and gives you escape hatches to customize the form even further.
+Instead of manually binding each component to the form, handling field registration, and verifying every connection is set up correctly, AutoForm handles that mapping for you. It looks at your schema and automatically stitches each pre-built component into the right place, so you're not writing the binding boilerplate and setup for every field.
 
-However, AutoForm does not aim to be a full-featured form builder. It does not aim to support every edge case in your schema or allow building complex, multi-page forms. If you need more customization, feel free to customize AutoForm's renderer in your project or use more powerful form builders like [Formik](https://formik.org/) - though those require more specialized configuration instead of simple drop-in support for your zod schema. For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+**AutoForm works best when:**
 
-## shadcn/ui component
+- Your input components are already created
+- Your validation schema is ready
+- You want to skip the repetitive work of connecting each component to the form correctly
 
-AutoForm started out as a [shadcn/ui component](https://github.com/vantezzen/auto-form) but grew so large I decided it's best to split it into a package instead.
+Build your components and schema, AutoForm brings them together.
 
-`@acp-autoform/react` does currently not have full feature-parity with the shadcn/ui component, but it's getting there. If you want to use the shadcn/ui component, you can still use it as a standalone package.
+As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](/docs/react/customization) option) and gives you escape hatches to customize the form even further.
+
+However, AutoForm does not aim to be a full-featured form builder and support every edge case in your schema. If you need more customization, feel free to customize AutoForm's renderer in your project. For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
 
 ## Development
 
