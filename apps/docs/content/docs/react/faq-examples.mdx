@@ -196,7 +196,9 @@ Register the custom input using [`useField()`](/docs/react/customization#usefiel
 
 ## How do I create a simple multistep form?
 
-Use one small schema for each step. Render the current step, save its values in state, and move forward from `onSubmit`. Since the Next button submits the current step, AutoForm validates that step before moving ahead.
+Use a separate schema for each step. Render the current step, call `trigger()` to validate
+it, then use `getValues()` to read and save its values in state before moving forward.
+Since each step is its own AutoForm instance, validation is isolated to the current step.
 
 <Tabs persist items={["preview", "code"]} label="Multistep form">
   <Tab value="preview">

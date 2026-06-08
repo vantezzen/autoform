@@ -7,6 +7,7 @@ import {
   SchemaProvider,
 } from "@acp-autoform/core";
 import {
+  createFormControl,
   FieldPath,
   FieldValues,
   UseControllerProps,
@@ -22,7 +23,7 @@ export interface AutoFormProps<T extends FieldValues = FieldValues> {
    * External formControl returned by react-hook-form`s  createFormControl.
    * Use it when a parent needs to call form methods.
    */
-  formControl?: Omit<UseFormReturn<T, any, T>, "formState">;
+  formControl?: ReturnType<typeof createFormControl>["formControl"];
   /**
    * Runs after successful validation. Receives the values, form instance, and submit event.
    * @default () => {}

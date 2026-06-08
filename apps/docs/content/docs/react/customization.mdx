@@ -198,9 +198,11 @@ For more examples on creating custom form components see [examples.](/docs/react
 
 ### useField()
 
-To connect the field to react-hook-form, call `useField()` and use the returned field props. `useField()` returns the same object as `useController(...).field` from react-hook-form and comes prefilled with the field name. You can pass the same options as `useController`, excluding the `name`:
+`useField` is a prop received by custom field component via `AutoFormFieldProps`. Call it inside your custom component to get the field bindings (it is not imported from the package).
 
-Use `useField()` for most custom field components. Use `useController()` directly when you need the full controller result, such as `fieldState`, `formState`, or a field-level error object for component-specific state.
+It returns the same field object as [`useController(...).field`](https://react-hook-form.com/docs/usecontroller#return) and takes same input props (like `rules`, `disabled` etc). See the full input and output shape in the RHF docs. It is a factory function with the name prop prefilled, it only invokes useController when called, preventing unnecessary re-renders from value changes when the field doesn’t need them.
+
+Use `useField()` for most custom field components. Use `useController()` directly when you need `fieldState` (e.g. `fieldState.invalid`, `fieldState.error`) for component-specific styling or accessibility attributes.
 
 ```tsx
 custom: ({ id, inputProps, useField }: AutoFormFieldProps) => {
@@ -213,13 +215,19 @@ custom: ({ id, inputProps, useField }: AutoFormFieldProps) => {
 };
 ```
 
-If you need the full [`useController`](https://react-hook-form.com/docs/usecontroller) API, you can import it from react-hook-form instead and use the `id` from AutoFormFieldProps as the field name:
+If you need the full [`useController`](https://react-hook-form.com/docs/usecontroller) API, you can import it from react-hook-form instead and use the `id` from `AutoFormFieldProps` as the field name. Use either useField or this one.
 
 ```tsx
 import { useController } from "react-hook-form";
 
 custom: ({ id, inputProps }: AutoFormFieldProps) => {
-  const { field, fieldState, formState } = useController({ name: id });
+  // Use useController when you need fieldState (e.g. invalid, error) for
+  // component-specific styling or aria attributes.
+  // AutoForm already renders field errors via FieldWrapper — reach for
+  // fieldState only when the component itself needs to react to error state.
+  // For form-level state (isValid, isSubmitting), use useFormContext instead.
+  // No need to pass `control` — AutoForm wraps fields with FormProvider.
+  const { field, fieldState } = useController({ name: id });
 
   return (
     <input
@@ -231,8 +239,6 @@ custom: ({ id, inputProps }: AutoFormFieldProps) => {
     />
   );
 };
-// No need to pass control to useController
-// because AutoForm wraps fields with FormProvider.
 ```
 
 For non-standard inputs, adapt the value and change handler to the component API:
@@ -300,6 +306,19 @@ For more control, pass a custom submit button as a child of `AutoForm`. Children
     Create Account
   </button>
 </AutoForm>
+```
+
+External submit button, using HTML `form` attribute
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{ id: "my-form" }}
+/>
+<button type="submit" form="my-form">
+  Submit
+</button>;
 ```
 
 **2. Submit and reset buttons outside AutoForm**

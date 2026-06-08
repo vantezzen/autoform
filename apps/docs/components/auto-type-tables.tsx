@@ -23,7 +23,9 @@ async function createTypeTableData(
   return Object.fromEntries(
     doc.entries.map((entry) => {
       const defaultTag = entry.tags.find((tag) => tag.name === "default");
-      const defaultValue = defaultTag ? <code>{defaultTag.text}</code> : undefined;
+      const defaultValue = defaultTag ? (
+        <code>{defaultTag.text}</code>
+      ) : undefined;
 
       return [
         entry.name,
@@ -57,9 +59,7 @@ function withNestedDescriptionTable(
           <div>{node.typeDescription ?? node.type}</div>
         </div>
         <div className="mt-3">
-          <p className="mb-2 text-sm text-fd-muted-foreground">
-            {description}
-          </p>
+          <p className="mb-2 text-sm text-fd-muted-foreground">{description}</p>
           <TypeTable id={tableId} type={type} />
         </div>
       </>
@@ -79,10 +79,7 @@ export async function AutoFormPropsTable() {
   );
 
   return (
-    <ExtendedTypeTable
-      id="type-table-auto-form-props"
-      type={autoFormProps}
-    />
+    <ExtendedTypeTable id="type-table-auto-form-props" type={autoFormProps} />
   );
 }
 
@@ -129,8 +126,14 @@ export async function AutoFormUIComponentsTable() {
     parsedField,
     fieldConfig,
   ] = await Promise.all([
-    createTypeTableData("../../packages/react/src/types.ts", "FieldWrapperProps"),
-    createTypeTableData("../../packages/react/src/types.ts", "ArrayWrapperProps"),
+    createTypeTableData(
+      "../../packages/react/src/types.ts",
+      "FieldWrapperProps",
+    ),
+    createTypeTableData(
+      "../../packages/react/src/types.ts",
+      "ArrayWrapperProps",
+    ),
     createTypeTableData(
       "../../packages/react/src/types.ts",
       "ArrayElementWrapperProps",
@@ -143,10 +146,14 @@ export async function AutoFormUIComponentsTable() {
     createTypeTableData("../../packages/core/src/types.ts", "FieldConfig"),
   ]);
 
-  // For FieldWrapper, ArrayWrapper, ObjectWrapper — nest ParsedField > FieldConfig
+  // For FieldWrapper, ArrayWrapper, ObjectWrapper. Nest ParsedField > FieldConfig
   // under their `field` prop, each with unique table IDs to avoid duplicate keys.
   const componentIds = ["field-wrapper", "array-wrapper", "object-wrapper"];
-  const propsWithField = [fieldWrapperProps, arrayWrapperProps, objectWrapperProps];
+  const propsWithField = [
+    fieldWrapperProps,
+    arrayWrapperProps,
+    objectWrapperProps,
+  ];
 
   for (let i = 0; i < propsWithField.length; i++) {
     const props = propsWithField[i];
@@ -171,10 +178,7 @@ export async function AutoFormUIComponentsTable() {
     }
   }
 
-  function propsTable(
-    tableId: string,
-    data: Record<string, TypeNode>,
-  ) {
+  function propsTable(tableId: string, data: Record<string, TypeNode>) {
     return <TypeTable key={tableId} id={tableId} type={data} />;
   }
 
@@ -184,7 +188,7 @@ export async function AutoFormUIComponentsTable() {
       purpose: "Root form element.",
       exampleLabel: "MUI Form",
       exampleHref: `${MUI_BASE}/Form.tsx`,
-      type: <code>{"React.ComponentType<React.ComponentProps<\"form\">>"}</code>,
+      type: <code>{'React.ComponentType<React.ComponentProps<"form">>'}</code>,
     },
     {
       name: "FieldWrapper",
@@ -202,18 +206,14 @@ export async function AutoFormUIComponentsTable() {
       purpose: "Configuration error display.",
       exampleLabel: "MUI ErrorMessage",
       exampleHref: `${MUI_BASE}/ErrorMessage.tsx`,
-      type: (
-        <code>{"React.ComponentType<{ error: string }>"}</code>
-      ),
+      type: <code>{"React.ComponentType<{ error: string }>"}</code>,
     },
     {
       name: "SubmitButton",
       purpose: "Default submit button for withSubmit.",
       exampleLabel: "MUI SubmitButton",
       exampleHref: `${MUI_BASE}/SubmitButton.tsx`,
-      type: (
-        <code>{"React.ComponentType<{ children: ReactNode }>"}</code>
-      ),
+      type: <code>{"React.ComponentType<{ children: ReactNode }>"}</code>,
     },
     {
       name: "ObjectWrapper",
@@ -251,9 +251,6 @@ export async function AutoFormUIComponentsTable() {
   ];
 
   return (
-    <UIComponentsTypeTable
-      id="type-table-ui-components"
-      entries={entries}
-    />
+    <UIComponentsTypeTable id="type-table-ui-components" entries={entries} />
   );
 }

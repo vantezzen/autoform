@@ -1,11 +1,20 @@
 ---
 title: Form control
-description: Learn how to access form data, states and methods.
+description: Accessing form data, states and methods.
 ---
 
 import { Accordion, Accordions } from "@/components/accordion";
+import { FormControlReferenceTable } from "@/components/form-control-reference-table";
 
-The form data and methods are managed by react-hook-form. There are a few ways to access them:
+The form data, states and methods are managed by react-hook-form. There are a few ways to access them:
+
+## Quick Reference
+
+<FormControlReferenceTable />
+
+If you need form states and methods **inside** `<AutoForm>`, use `useFormContext`. If **outside**, use `createFormControl`. For custom field components, use the `useField()` prop, fall back to `useController` only when you need `fieldState`.
+
+---
 
 ## 1. onSubmit
 
@@ -24,7 +33,7 @@ The form data can be accessed with the `onSubmit` prop. This will be called when
 
 ## 2. Using useFormContext inside AutoForm
 
-AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` can use `useFormContext` to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI are rendered as children inside `AutoForm`.
+AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` as children can use [`useFormContext`](https://react-hook-form.com/docs/useformcontext) to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI are rendered as children inside `AutoForm`. See [`examples`](/docs/react/faq-and-examples) for more information.
 
 ```tsx
 import { AutoForm } from "@acp-autoform/mui";
@@ -66,7 +75,7 @@ export default function MyForm() {
 
 ## 3. Using an external form control
 
-You can use the [`createFormControl`](https://react-hook-form.com/docs/createFormControl) function from react-hook-form and pass the `formControl` prop. This lets you access and call form methods outside the form component. You can pass all props of `useForm` to it:
+You can use the [`createFormControl`](https://react-hook-form.com/docs/createFormControl) function from react-hook-form and pass the `formControl` prop. This lets you access and call form methods outside the form. It accepts all `useForm` props and returns `formControl`, `subscribe`, along with `useForm` methods like `reset`, `trigger` and more.
 
 <Callout>
   `createFormControl` requires react-hook-form version `7.55.0` or later.
@@ -95,7 +104,12 @@ export default function MyForm() {
 
   return (
     <div>
-      <AutoForm formControl={formControl} schema={schemaProvider} />
+      <AutoForm
+        formControl={formControl}
+        schema={schemaProvider}
+        onSubmit={(data) => console.log(data)}
+        {/* onSubmit works when formControl is provided */}
+      />
       <button onClick={() => reset()}>Reset</button>
     </div>
   );
