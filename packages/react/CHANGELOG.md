@@ -1,5 +1,11 @@
 # @acp-autoform/react
 
+## 4.1.2
+
+### Patch Changes
+
+- refactor: patch refactor
+
 ## 4.1.1
 
 ### Patch Changes

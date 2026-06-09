@@ -1,5 +1,11 @@
 # @acp-autoform/chakra
 
+## 2.0.2
+
+### Patch Changes
+
+- refactor: bump UI packages following react package patch update
+
 ## 2.0.1
 
 ### Patch Changes

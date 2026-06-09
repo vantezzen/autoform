@@ -1,5 +1,11 @@
 # @acp-autoform/shadcn
 
+## 4.1.1
+
+### Patch Changes
+
+- refactor: bump UI packages following react package patch update
+
 ## 4.1.0
 
 ### Minor Changes

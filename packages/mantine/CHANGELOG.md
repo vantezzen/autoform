@@ -1,5 +1,11 @@
 # @acp-autoform/mantine
 
+## 3.1.2
+
+### Patch Changes
+
+- refactor: bump UI packages following react package patch update
+
 ## 3.1.1
 
 ### Patch Changes

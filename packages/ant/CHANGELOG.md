@@ -1,5 +1,11 @@
 # @acp-autoform/ant
 
+## 2.1.2
+
+### Patch Changes
+
+- refactor: bump UI packages following react package patch update
+
 ## 2.1.1
 
 ### Patch Changes
