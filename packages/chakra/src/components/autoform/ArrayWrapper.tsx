@@ -5,11 +5,11 @@ import { Button, Heading, Stack, FieldHelperText } from "@chakra-ui/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
-  field,
   error,
   children,
   onAddItem,
   inputProps,
+  parsedField,
 }) => {
   const { key, ref, ...props } = inputProps;
 
@@ -28,13 +28,13 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         }}
       >
         {label}
-        {field.required && (
+        {parsedField.required && (
           <span style={{ color: "#ef4444", opacity: 0.8 }}> * </span>
         )}
       </Heading>
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <FieldHelperText id={key + "-description"}>
-          {field.fieldConfig.description}
+          {parsedField.fieldConfig.description}
         </FieldHelperText>
       )}
       {error && (

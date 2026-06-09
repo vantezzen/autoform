@@ -1,16 +1,15 @@
 import React from "react";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   id,
-  field,
   label,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const formField = useField();
+  const { field } = useField({ name: id });
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -26,14 +25,14 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       <Checkbox
         id={id}
         {...inputProps}
-        {...formField}
-        checked={formField.value}
-        onCheckedChange={formField.onChange}
+        {...field}
+        checked={field.value}
+        onCheckedChange={field.onChange}
         onKeyDown={handleKeyDown}
       />
       <Label htmlFor={id}>
         {label}
-        {field.required && <span className="text-destructive"> *</span>}
+        {parsedField.required && <span className="text-destructive"> *</span>}
       </Label>
     </div>
   );

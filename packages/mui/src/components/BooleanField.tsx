@@ -1,16 +1,15 @@
 import React from "react";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   id,
   label,
-  field,
   error,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const { ref, ...formFieldProps } = useField();
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <FormControlLabel
@@ -18,14 +17,14 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       {...inputProps}
       label={
         <span style={{ color: error && "#d32f2f", opacity: 0.8 }}>
-          {label} {field.required && " *"}
+          {label} {parsedField.required && " *"}
         </span>
       }
       control={
         <Checkbox
           slotProps={{ input: { ref } }}
-          {...formFieldProps}
-          checked={formFieldProps.value || false}
+          {...field}
+          checked={field.value || false}
         />
       }
     />

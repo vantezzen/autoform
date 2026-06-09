@@ -75,7 +75,11 @@ export function AutoForm<T extends FieldValues = FieldValues>({
           {...restFormProps}
         >
           {parsedSchema.fields.map((field) => (
-            <AutoFormField key={field.key} field={field} path={[field.key]} />
+            <AutoFormField
+              key={field.key}
+              parsedField={field}
+              path={[field.key]}
+            />
           ))}
           {withSubmit && (
             <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>

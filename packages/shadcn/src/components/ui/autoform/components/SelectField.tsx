@@ -5,18 +5,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import React from "react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
-  field,
-  useField,
   inputProps,
   error,
   id,
+  parsedField,
 }) => {
-  const formField = useField();
-  const { value, onChange, ...formFieldRest } = formField;
+  const { field } = useField({ name: id });
+  const { value, onChange, ...formFieldRest } = field;
 
   return (
     <Select
@@ -27,7 +26,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
     >
       <SelectTrigger
         id={id}
-        {...formField}
+        {...field}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue
@@ -35,7 +34,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
         />
       </SelectTrigger>
       <SelectContent>
-        {(field.options || []).map(([key, label], index) => (
+        {(parsedField.options || []).map(([key, label], index) => (
           <SelectItem key={`${key}-${index}`} value={label}>
             {label}
           </SelectItem>

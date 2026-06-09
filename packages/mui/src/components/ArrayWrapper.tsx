@@ -5,11 +5,11 @@ import { ArrayWrapperProps } from "@acp-autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
-  field,
   error,
   children,
   onAddItem,
   inputProps,
+  parsedField,
 }) => {
   const { key, ref, ...props } = inputProps;
 
@@ -29,11 +29,11 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         }}
       >
         {label}
-        {field.required && <span style={{ opacity: 0.8 }}> * </span>}
+        {parsedField.required && <span style={{ opacity: 0.8 }}> * </span>}
       </Typography>
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <FormHelperText variant="standard" id={key + "-description"}>
-          {field.fieldConfig.description}
+          {parsedField.fieldConfig.description}
         </FormHelperText>
       )}
       {error && (

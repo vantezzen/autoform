@@ -9,16 +9,16 @@ export const ArrayField: React.FC<{
   id: string;
   path: string[];
   inputProps: any;
-  field: ParsedField;
+  parsedField: ParsedField;
   error?: string | undefined;
-}> = ({ id, path, inputProps, field, error }) => {
+}> = ({ id, path, inputProps, error, parsedField }) => {
   const { uiComponents } = useAutoForm();
   const { fields, append, remove } = useFieldArray({
     name: path.join("."),
   });
   const ref = useRegister(path.join(".")).ref;
 
-  const subFieldType = field.schema?.[0]?.type;
+  const subFieldType = parsedField.schema?.[0]?.type;
   let defaultValue: any;
   if (subFieldType === "object") {
     defaultValue = {};
@@ -31,13 +31,13 @@ export const ArrayField: React.FC<{
   return (
     <uiComponents.ArrayWrapper
       error={error}
-      field={field}
+      parsedField={parsedField}
       inputProps={{
         key: `${id}-input`,
         ...inputProps,
         ref: ref,
       }}
-      label={getLabel(field)}
+      label={getLabel(parsedField)}
       onAddItem={() => append(defaultValue)}
     >
       {fields.map((item, index) => (
@@ -47,7 +47,7 @@ export const ArrayField: React.FC<{
           index={index}
         >
           <AutoFormField
-            field={field.schema![0]!}
+            parsedField={parsedField.schema![0]!}
             path={[...path, index.toString()]}
           />
         </uiComponents.ArrayElementWrapper>

@@ -1,4 +1,5 @@
 "use client";
+import { useController } from "react-hook-form";
 
 import * as React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
@@ -55,27 +56,23 @@ function useCountries() {
 }
 
 // ── CountrySelectField ────────────────────────────────────────────────────────
-export function CountrySelectField({
-  id,
-  error,
-  useField,
-}: AutoFormFieldProps) {
-  const formField = useField();
+export function CountrySelectField({ id, error }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
   const { setValue } = useFormContext();
   const { countries, labels } = useCountries();
 
   return (
     <Select
       onValueChange={(iso2: string) => {
-        formField.onChange(iso2);
+        field.onChange(iso2);
         setValue("state", "");
       }}
-      value={formField.value ?? ""}
+      value={field.value ?? ""}
       disabled={countries.length === 0}
     >
       <SelectTrigger
         id={id}
-        ref={formField.ref}
+        ref={field.ref}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue
@@ -96,8 +93,8 @@ export function CountrySelectField({
 }
 
 // ── StateSelectField ──────────────────────────────────────────────────────────
-export function StateSelectField({ id, error, useField }: AutoFormFieldProps) {
-  const formField = useField();
+export function StateSelectField({ id, error }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
   const { countries } = useCountries();
   const selectedIso2: string = useWatch({ name: "country" });
 
@@ -114,13 +111,13 @@ export function StateSelectField({ id, error, useField }: AutoFormFieldProps) {
 
   return (
     <Select
-      onValueChange={formField.onChange}
-      value={formField.value ?? ""}
+      onValueChange={field.onChange}
+      value={field.value ?? ""}
       disabled={!selectedIso2 || states.length === 0}
     >
       <SelectTrigger
         id={id}
-        ref={formField.ref}
+        ref={field.ref}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue placeholder={placeholder} />
@@ -142,8 +139,8 @@ export function CouponCodeFieldWrapper({
   children,
   label,
   id,
-  field,
   error,
+  parsedField,
 }: FieldWrapperProps) {
   const haveCoupon = useWatch({ name: "haveCoupon" });
 
@@ -153,7 +150,7 @@ export function CouponCodeFieldWrapper({
     <div className="flex flex-col gap-2">
       <Label htmlFor={id}>
         {label}
-        {field.required && <span className="text-destructive"> *</span>}
+        {parsedField.required && <span className="text-destructive"> *</span>}
       </Label>
       {children}
       {error && <div className="text-sm text-destructive">{error}</div>}
@@ -166,10 +163,10 @@ export function CouponCodeFieldWrapper({
 export function GiftMessageField({
   id,
   error,
-  useField,
   inputProps,
+  parsedField,
 }: AutoFormFieldProps) {
-  const formField = useField();
+  const { field } = useController({ name: id });
   const isGift = useWatch({ name: "isGift" });
 
   return (
@@ -180,8 +177,8 @@ export function GiftMessageField({
       disabled={!isGift}
       className={error ? "border-destructive" : ""}
       {...inputProps}
-      {...formField}
-      value={formField.value ?? ""}
+      {...field}
+      value={field.value ?? ""}
     />
   );
 }

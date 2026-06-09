@@ -1,16 +1,15 @@
 import React from "react";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { Checkbox, Typography } from "antd";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   id,
   label,
-  field,
   error,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const { ref, ...formField } = useField();
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <>
@@ -19,10 +18,10 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         id={id}
         key={id}
         {...inputProps}
-        {...formField}
-        checked={formField.value}
+        {...field}
+        checked={field.value}
         onChange={(e) => {
-          formField.onChange(e.target.checked);
+          field.onChange(e.target.checked);
         }}
         style={{
           display: "flex",
@@ -38,7 +37,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
             fontWeight: "500",
           }}
         >
-          {field.required && (
+          {parsedField.required && (
             <span style={{ color: "red", fontSize: "19px", opacity: "0.75" }}>
               {" "}
               *{" "}
@@ -58,12 +57,12 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
           <br />
         </>
       )}
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <Typography.Text
           type="secondary"
           style={{ marginTop: "10px", fontWeight: "normal" }}
         >
-          {field.fieldConfig?.description}
+          {parsedField.fieldConfig?.description}
         </Typography.Text>
       )}
     </>

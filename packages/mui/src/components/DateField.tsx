@@ -1,15 +1,14 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   id,
-  useField,
   inputProps,
   error,
   label,
 }) => {
-  const { ref, ...formFieldProps } = useField();
+  const { ref, ...formFieldProps } = useField({ name: id }).field;
   return (
     <TextField
       key={id}

@@ -93,7 +93,7 @@ Use either approach:
 
 ## How do I add a slider, color picker, and many different custom components to a form?
 
-Register the custom input using [`useField()`](/docs/react/customization#usefield), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field.
+Register the custom input using [`useController`](https://react-hook-form.com/docs/usecontroller), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field.
 
 <Tabs persist items={["preview", "code"]} label="Custom fields form">
   <Tab value="preview">

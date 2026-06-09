@@ -69,7 +69,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
           formComponents={{
-            string: ({ field, inputProps }) => (
+            string: ({ inputProps }) => (
               <TextField
                 {...inputProps}
                 variant="outlined"

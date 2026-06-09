@@ -63,7 +63,7 @@ describe("AutoForm UI Customization Tests (ANT-ZOD)", () => {
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
         formComponents={{
-          string: ({ field, inputProps }) => (
+          string: ({ inputProps }) => (
             <TextField
               {...inputProps}
               variant="outlined"

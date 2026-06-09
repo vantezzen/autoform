@@ -51,11 +51,5 @@ export function AutoForm<T extends Record<string, any>>({
     />
   );
 
-  return theme ? (
-    <ThemeProvider theme={theme}>
-      {form}
-    </ThemeProvider>
-  ) : (
-    form
-  );
+  return theme ? <ThemeProvider theme={theme}>{form}</ThemeProvider> : form;
 }

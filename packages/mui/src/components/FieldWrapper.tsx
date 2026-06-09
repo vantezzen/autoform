@@ -12,22 +12,22 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   error,
   children,
   id,
-  field,
+  parsedField,
 }) => {
-  const isDisabled = DISABLED_LABELS.includes(field.type);
-  const hideHelperText = DISABLE_HELPER_TEXT.includes(field.type);
+  const isDisabled = DISABLED_LABELS.includes(parsedField.type);
+  const hideHelperText = DISABLE_HELPER_TEXT.includes(parsedField.type);
 
   return (
     <FormControl
       fullWidth
       margin="normal"
       error={!!error}
-      required={field.required}
+      required={parsedField.required}
     >
       {!isDisabled && <InputLabel htmlFor={id}>{label}</InputLabel>}
       {children}
-      {!hideHelperText && field.fieldConfig?.description && (
-        <FormHelperText>{field.fieldConfig.description}</FormHelperText>
+      {!hideHelperText && parsedField.fieldConfig?.description && (
+        <FormHelperText>{parsedField.fieldConfig.description}</FormHelperText>
       )}
       {!hideHelperText && error && <FormHelperText>{error}</FormHelperText>}
     </FormControl>

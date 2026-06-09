@@ -3,9 +3,8 @@ import * as z from "zod/v4/core";
 export function getDefaultValueInZodStack(schema: z.$ZodType): any {
   if (schema instanceof z.$ZodDefault) {
     return schema._zod.def.defaultValue;
-  }
-  else if('innerType' in schema._zod.def) {
-    return getDefaultValueInZodStack(schema._zod.def.innerType as z.$ZodType)
+  } else if ("innerType" in schema._zod.def) {
+    return getDefaultValueInZodStack(schema._zod.def.innerType as z.$ZodType);
   }
   return undefined;
 }

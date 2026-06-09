@@ -1,17 +1,16 @@
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { Select } from "antd";
 import React from "react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
-  field,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const { ref, ...formField } = useField();
+  const { ref, ...field } = useField({ name: id }).field;
 
   const options =
-    field.options?.map((option) => ({
+    parsedField.options?.map((option) => ({
       label: option[1],
       value: option[1],
     })) || [];
@@ -21,7 +20,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       id={id}
       key={id}
       {...inputProps}
-      {...formField}
+      {...field}
       options={options}
       style={{ width: "100%" }}
     />

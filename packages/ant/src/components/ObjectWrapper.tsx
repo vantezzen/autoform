@@ -4,8 +4,8 @@ import React from "react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
-  field,
   children,
+  parsedField,
 }) => {
   return (
     <div>
@@ -16,7 +16,7 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
         >
           {label}
         </Typography.Title>
-        {field.fieldConfig?.description && (
+        {parsedField.fieldConfig?.description && (
           <Typography.Text
             type="secondary"
             style={{
@@ -24,7 +24,7 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
               marginTop: "-10px",
             }}
           >
-            {field.fieldConfig?.description}
+            {parsedField.fieldConfig?.description}
           </Typography.Text>
         )}
       </div>

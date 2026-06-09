@@ -65,9 +65,7 @@ export function AutoForm<T extends Record<string, any>>({
   );
 
   return antProviderProps ? (
-    <ConfigProvider {...antProviderProps}>
-      {form}
-    </ConfigProvider>
+    <ConfigProvider {...antProviderProps}>{form}</ConfigProvider>
   ) : (
     form
   );

@@ -3,7 +3,7 @@ import { JoiField } from "./types";
 
 export function inferFieldType(
   schema: JoiField,
-  fieldConfig?: FieldConfig
+  fieldConfig?: FieldConfig,
 ): string {
   if (fieldConfig?.fieldType) {
     return fieldConfig.fieldType;
@@ -18,7 +18,7 @@ export function inferFieldType(
   if (
     schema.type &&
     ["string", "number", "boolean", "date", "array", "object"].includes(
-      schema.type
+      schema.type,
     )
   ) {
     return schema.type;

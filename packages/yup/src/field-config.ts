@@ -14,7 +14,7 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >
+  >,
 ) {
   const transformFunction = function (value: any) {
     return value; // Always pass, we're just using this for metadata

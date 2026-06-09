@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { createListCollection } from "@chakra-ui/react";
 import {
   SelectContent,
@@ -11,15 +11,14 @@ import {
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
-  field,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const formField = useField();
+  const { field } = useField({ name: id });
 
   const options = createListCollection({
     items:
-      field.options?.map((option) => ({
+      parsedField.options?.map((option) => ({
         label: option[1],
         value: option[1],
       })) || [],
@@ -29,14 +28,14 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
     <SelectRoot
       key={id}
       {...inputProps}
-      name={formField.name}
-      value={[formField.value]}
-      onValueChange={({ value }) => formField.onChange(value[0])}
-      onInteractOutside={() => formField.onBlur()}
-      onBlur={formField.onBlur}
+      name={field.name}
+      value={[field.value]}
+      onValueChange={({ value }) => field.onChange(value[0])}
+      onInteractOutside={() => field.onBlur()}
+      onBlur={field.onBlur}
       collection={options}
     >
-      <SelectTrigger ref={formField.ref}>
+      <SelectTrigger ref={field.ref}>
         <SelectValueText
           placeholder={inputProps?.placeholder ?? "Select an option"}
         />

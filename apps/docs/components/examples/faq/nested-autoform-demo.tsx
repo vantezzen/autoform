@@ -1,4 +1,5 @@
 "use client";
+import { useController } from "react-hook-form";
 
 import * as React from "react";
 import type { AutoFormFieldProps } from "@acp-autoform/react";
@@ -33,10 +34,10 @@ const profileSchema = z.object({
 const colorsProvider = new ZodProvider(colorsSchema);
 const profileProvider = new ZodProvider(profileSchema);
 
-function ColorDialogField({ useField }: AutoFormFieldProps) {
+function ColorDialogField({ id }: AutoFormFieldProps) {
   const [open, setOpen] = React.useState(false);
-  const formField = useField();
-  const colors = Array.isArray(formField.value) ? formField.value : [];
+  const { field } = useController({ name: id });
+  const colors = Array.isArray(field.value) ? field.value : [];
 
   return (
     <div className="space-y-3">
@@ -69,7 +70,7 @@ function ColorDialogField({ useField }: AutoFormFieldProps) {
             schema={colorsProvider}
             values={{ colors }}
             onSubmit={(data) => {
-              formField.onChange(data.colors);
+              field.onChange(data.colors);
               setOpen(false);
             }}
           >

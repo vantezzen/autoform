@@ -1,3 +1,4 @@
+import { useController } from "react-hook-form";
 import React from "react";
 import { AutoForm } from "@acp-autoform/mantine";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
@@ -9,11 +10,10 @@ import { use } from "chai";
 describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     inputProps,
-    useField,
     error,
     id,
   }) => {
-    const field = useField();
+    const field = useController({ name: id }).field;
     return (
       <div>
         <input

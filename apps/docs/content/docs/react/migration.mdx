@@ -157,8 +157,8 @@ const schemaProvider = new ZodProvider(schema);
 <AutoForm
   schema={schemaProvider}
   formComponents={{
-    custom: ({ id, inputProps, useField }) => {
-      const formField = useField();
+    custom: ({ id, inputProps }) => {
+      const { field } = useController({ name: id });
 
       return (
         <div>
@@ -167,8 +167,8 @@ const schemaProvider = new ZodProvider(schema);
             type="text"
             className="bg-red-400 rounded-lg p-4"
             {...inputProps}
-            {...formField}
-            value={formField.value ?? ""}
+            {...field}
+            value={field.value ?? ""}
           />
         </div>
       );
@@ -177,9 +177,7 @@ const schemaProvider = new ZodProvider(schema);
 />;
 ```
 
-Custom field components no longer receive `value` or `onChange` directly. Use `useField()` to get the react-hook-form field props, and treat `inputProps` as the props configured with `fieldConfig.inputProps`.
-
-`useField()` returns the same object as `useController(...).field`. If you need the full `useController` return value, import `useController` from `react-hook-form` and pass the `id` from `AutoFormFieldProps` as the field name:
+Custom field components no longer receive `value` or `onChange` directly. Use `useController` from `react-hook-form` to get the field bindings, and treat `inputProps` as the props configured with `fieldConfig.inputProps`.
 
 ```tsx
 const { field, fieldState } = useController({ name: id });

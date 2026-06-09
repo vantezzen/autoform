@@ -27,7 +27,7 @@ function parseField(key: string, schema: JoiField): ParsedField {
   const objectFields: undefined | TObjectFields = schema?.$_terms?.keys;
   if (schema.type === "object" && objectFields) {
     subSchema = Object.values(objectFields).map((field) =>
-      parseField(field.key, field.schema)
+      parseField(field.key, field.schema),
     );
   }
   const arrayFields: undefined | JoiField[] = schema?.$_terms?.items;
@@ -51,7 +51,7 @@ export function parseSchema(schema: JoiObjectOrWrapped): ParsedSchema {
   const objectFields = schema.$_terms.keys as TObjectFields;
 
   const fields: ParsedField[] = Object.values(objectFields).map((field) =>
-    parseField(field.key, field.schema as JoiField)
+    parseField(field.key, field.schema as JoiField),
   );
 
   return { fields };

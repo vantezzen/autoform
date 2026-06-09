@@ -2,7 +2,11 @@
 
 import Link from "fumadocs-core/link";
 import { useTranslations } from "fumadocs-ui/contexts/i18n";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "fumadocs-ui/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "fumadocs-ui/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import type { TypeNode } from "fumadocs-ui/components/type-table";
 import { ChevronDown } from "lucide-react";
@@ -92,7 +96,9 @@ function Item({
       }}
       className={cn(
         "rounded-xl border overflow-hidden scroll-m-20 transition-all",
-        open ? "shadow-sm bg-fd-background not-last:mb-2" : "border-transparent",
+        open
+          ? "shadow-sm bg-fd-background not-last:mb-2"
+          : "border-transparent",
       )}
     >
       <CollapsibleTrigger
@@ -111,7 +117,9 @@ function Item({
           {name}
           {!required && "?"}
         </code>
-        <span className="text-fd-muted-foreground">{required ? "Yes" : "No"}</span>
+        <span className="text-fd-muted-foreground">
+          {required ? "Yes" : "No"}
+        </span>
         <div className="text-sm prose prose-no-margin">
           {description || "-"}
         </div>
@@ -144,7 +152,10 @@ function Item({
               <p className={cn(fieldVariants())}>{t.typeTableParameters}</p>
               <div className="flex flex-col gap-2">
                 {parameters.map((param) => (
-                  <div key={param.name} className="inline-flex items-center flex-wrap gap-1">
+                  <div
+                    key={param.name}
+                    className="inline-flex items-center flex-wrap gap-1"
+                  >
                     <p className="font-medium not-prose text-nowrap">
                       {param.name} -
                     </p>
@@ -159,7 +170,9 @@ function Item({
           {returns && (
             <Fragment>
               <p className={cn(fieldVariants())}>{t.typeTableReturns}</p>
-              <div className="my-auto text-sm prose prose-no-margin">{returns}</div>
+              <div className="my-auto text-sm prose prose-no-margin">
+                {returns}
+              </div>
             </Fragment>
           )}
         </div>

@@ -5,7 +5,7 @@ export function getYupFieldDefaultValue(schema: YupField): any {
 }
 
 export function getDefaultValues(
-  schema: YupObjectOrWrapped
+  schema: YupObjectOrWrapped,
 ): Record<string, any> {
   const defaultValues: Record<string, any> = {};
 

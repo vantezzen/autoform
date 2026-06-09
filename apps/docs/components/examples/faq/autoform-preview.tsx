@@ -1,4 +1,5 @@
 "use client";
+import { useController } from "react-hook-form";
 
 import React from "react";
 import {
@@ -41,24 +42,31 @@ const PreviewUIComponents: AutoFormUIComponents = {
       </form>
     ),
   ),
-
   // Matches shadcn FieldWrapper.tsx exactly
-  FieldWrapper: ({ id, label, field, error, children }: FieldWrapperProps) => {
-    const isDisabled = DISABLED_LABELS.includes(field.type);
-    const hideHelperText = DISABLE_HELPER_TEXT.includes(field.type);
+  FieldWrapper: ({
+    id,
+    label,
+    error,
+    children,
+    parsedField,
+  }: FieldWrapperProps) => {
+    const isDisabled = DISABLED_LABELS.includes(parsedField.type);
+    const hideHelperText = DISABLE_HELPER_TEXT.includes(parsedField.type);
 
     return (
       <div className="flex flex-col gap-2">
         {!isDisabled && (
           <Label htmlFor={id}>
             {label}
-            {field.required && <span className="text-destructive"> *</span>}
+            {parsedField.required && (
+              <span className="text-destructive"> *</span>
+            )}
           </Label>
         )}
         {children}
-        {!hideHelperText && field.fieldConfig?.description && (
+        {!hideHelperText && parsedField.fieldConfig?.description && (
           <div className="text-sm text-muted-foreground">
-            {field.fieldConfig.description}
+            {parsedField.fieldConfig.description}
           </div>
         )}
         {!hideHelperText && error && (
@@ -67,8 +75,6 @@ const PreviewUIComponents: AutoFormUIComponents = {
       </div>
     );
   },
-
-  // Matches shadcn ErrorMessage.tsx exactly
   ErrorMessage: ({ error }: { error: string }) => (
     <Alert variant="destructive">
       <AlertCircle className="h-5 w-5 mt-2" />
@@ -82,13 +88,13 @@ const PreviewUIComponents: AutoFormUIComponents = {
   ),
 
   // Matches shadcn ObjectWrapper.tsx exactly – text-lg (not text-base)
-  ObjectWrapper: ({ label, field, children }: ObjectWrapperProps) => (
+  ObjectWrapper: ({ label, parsedField, children }: ObjectWrapperProps) => (
     <div className="space-y-4">
       <div>
         <h3 className="text-lg font-medium">{label}</h3>
-        {field.fieldConfig?.description && (
+        {parsedField.fieldConfig?.description && (
           <div className="text-sm text-muted-foreground">
-            {field.fieldConfig.description}
+            {parsedField.fieldConfig.description}
           </div>
         )}
       </div>
@@ -99,11 +105,11 @@ const PreviewUIComponents: AutoFormUIComponents = {
   // Matches shadcn ArrayWrapper.tsx exactly – template-literal className, no "Add" text
   ArrayWrapper: ({
     label,
-    field,
     error,
     children,
     onAddItem,
     inputProps,
+    parsedField,
   }: ArrayWrapperProps) => {
     const { key, ref, ...props } = inputProps;
 
@@ -121,14 +127,16 @@ const PreviewUIComponents: AutoFormUIComponents = {
             aria-describedby={`${key}-error ${key}-description`}
           >
             {label}
-            {field.required && <span className="text-destructive"> *</span>}
+            {parsedField.required && (
+              <span className="text-destructive"> *</span>
+            )}
           </h3>
-          {field.fieldConfig?.description && (
+          {parsedField.fieldConfig?.description && (
             <div
               className="text-sm text-muted-foreground"
               id={key + "-description"}
             >
-              {field.fieldConfig.description}
+              {parsedField.fieldConfig.description}
             </div>
           )}
           {error && (
@@ -173,9 +181,9 @@ const PreviewUIComponents: AutoFormUIComponents = {
 
 const PreviewFieldComponents = {
   // Matches shadcn StringField.tsx exactly
-  string: ({ useField, inputProps, error, id }: AutoFormFieldProps) => {
-    const formField = useField();
-    const { value, ...rest } = formField;
+  string: ({ inputProps, error, id }: AutoFormFieldProps) => {
+    const { field } = useController({ name: id });
+    const { value, ...rest } = field;
 
     return (
       <Input
@@ -189,8 +197,8 @@ const PreviewFieldComponents = {
   },
 
   // Matches shadcn NumberField.tsx exactly
-  number: ({ useField, inputProps, error, id }: AutoFormFieldProps) => {
-    const formField = useField();
+  number: ({ inputProps, error, id }: AutoFormFieldProps) => {
+    const { field } = useController({ name: id });
 
     return (
       <Input
@@ -198,14 +206,14 @@ const PreviewFieldComponents = {
         type="number"
         className={error ? "border-destructive" : ""}
         {...inputProps}
-        {...formField}
+        {...field}
       />
     );
   },
 
   // Matches shadcn BooleanField.tsx exactly – no mt-4, has Enter key handler
-  boolean: ({ id, field, label, useField, inputProps }: AutoFormFieldProps) => {
-    const formField = useField();
+  boolean: ({ id, parsedField, label, inputProps }: AutoFormFieldProps) => {
+    const { field } = useController({ name: id });
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       if (e.key === "Enter") {
@@ -221,22 +229,22 @@ const PreviewFieldComponents = {
         <Checkbox
           id={id}
           {...inputProps}
-          {...formField}
-          checked={formField.value}
-          onCheckedChange={formField.onChange}
+          {...field}
+          checked={field.value}
+          onCheckedChange={field.onChange}
           onKeyDown={handleKeyDown}
         />
         <Label htmlFor={id}>
           {label}
-          {field.required && <span className="text-destructive"> *</span>}
+          {parsedField.required && <span className="text-destructive"> *</span>}
         </Label>
       </div>
     );
   },
 
   // Matches shadcn DateField.tsx exactly – was missing before
-  date: ({ useField, inputProps, error, id }: AutoFormFieldProps) => {
-    const formField = useField();
+  date: ({ inputProps, error, id }: AutoFormFieldProps) => {
+    const { field } = useController({ name: id });
 
     return (
       <Input
@@ -244,15 +252,15 @@ const PreviewFieldComponents = {
         type="date"
         className={error ? "border-destructive" : ""}
         {...inputProps}
-        {...formField}
+        {...field}
       />
     );
   },
 
   // Matches shadcn SelectField.tsx exactly – inputProps before formFieldRest
-  select: ({ field, useField, inputProps, error, id }: AutoFormFieldProps) => {
-    const formField = useField();
-    const { value, onChange, ...formFieldRest } = formField;
+  select: ({ parsedField, inputProps, error, id }: AutoFormFieldProps) => {
+    const { field } = useController({ name: id });
+    const { value, onChange, ...formFieldRest } = field;
 
     return (
       <Select
@@ -263,7 +271,7 @@ const PreviewFieldComponents = {
       >
         <SelectTrigger
           id={id}
-          {...formField}
+          {...field}
           className={error ? "border-destructive" : ""}
         >
           <SelectValue
@@ -271,7 +279,7 @@ const PreviewFieldComponents = {
           />
         </SelectTrigger>
         <SelectContent>
-          {(field.options || []).map(([key, label], index) => (
+          {(parsedField.options || []).map(([key, label], index) => (
             <SelectItem key={`${key}-${index}`} value={label}>
               {label}
             </SelectItem>

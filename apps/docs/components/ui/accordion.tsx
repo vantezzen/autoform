@@ -1,15 +1,18 @@
-'use client';
+"use client";
 
-import * as Primitive from '@radix-ui/react-accordion';
-import { ChevronRight } from 'lucide-react';
-import { type ComponentProps } from 'react';
-import { cn } from '../../lib/cn';
+import * as Primitive from "@radix-ui/react-accordion";
+import { ChevronRight } from "lucide-react";
+import { type ComponentProps } from "react";
+import { cn } from "../../lib/cn";
 
-export function Accordion({ className, ...props }: ComponentProps<typeof Primitive.Root>) {
+export function Accordion({
+  className,
+  ...props
+}: ComponentProps<typeof Primitive.Root>) {
   return (
     <Primitive.Root
       className={cn(
-        'divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card',
+        "divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card",
         className,
       )}
       {...props}
@@ -23,7 +26,7 @@ export function AccordionItem({
   ...props
 }: ComponentProps<typeof Primitive.Item>) {
   return (
-    <Primitive.Item className={cn('scroll-m-24', className)} {...props}>
+    <Primitive.Item className={cn("scroll-m-24", className)} {...props}>
       {children}
     </Primitive.Item>
   );
@@ -37,7 +40,7 @@ export function AccordionHeader({
   return (
     <Primitive.Header
       className={cn(
-        'not-prose flex flex-row items-center text-fd-card-foreground font-medium has-focus-visible:bg-fd-accent',
+        "not-prose flex flex-row items-center text-fd-card-foreground font-medium has-focus-visible:bg-fd-accent",
         className,
       )}
       {...props}
@@ -55,7 +58,7 @@ export function AccordionTrigger({
   return (
     <Primitive.Trigger
       className={cn(
-        'group flex flex-1 items-center gap-2 px-2 py-1.5 text-start focus-visible:outline-none',
+        "group flex flex-1 items-center gap-2 px-2 py-1.5 text-start focus-visible:outline-none",
         className,
       )}
       {...props}
@@ -74,7 +77,7 @@ export function AccordionContent({
   return (
     <Primitive.Content
       className={cn(
-        'overflow-hidden data-[state=closed]:animate-fd-accordion-up data-[state=open]:animate-fd-accordion-down',
+        "overflow-hidden data-[state=closed]:animate-fd-accordion-up data-[state=open]:animate-fd-accordion-down",
         className,
       )}
       {...props}

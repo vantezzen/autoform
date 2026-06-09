@@ -4,17 +4,17 @@ import { ObjectWrapperProps } from "@acp-autoform/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
-  field,
   children,
+  parsedField,
 }) => {
   return (
     <Box mt="md">
       <Title order={5} style={{ marginTop: "25px" }}>
         {label}
       </Title>
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <Text size="xs" c="dimmed" mb={3}>
-          {field.fieldConfig?.description}
+          {parsedField.fieldConfig?.description}
         </Text>
       )}
       {children}

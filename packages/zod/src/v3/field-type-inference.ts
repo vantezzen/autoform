@@ -3,7 +3,7 @@ import { z } from "zod/v3";
 
 export function inferFieldType(
   schema: z.ZodTypeAny,
-  fieldConfig?: FieldConfig
+  fieldConfig?: FieldConfig,
 ): string {
   if (fieldConfig?.fieldType) {
     return fieldConfig.fieldType;

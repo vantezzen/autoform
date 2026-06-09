@@ -5,11 +5,11 @@ import { PlusOutlined } from "@ant-design/icons";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
-  field,
   error,
   children,
   onAddItem,
   inputProps,
+  parsedField,
 }) => {
   const { key, ref, ...props } = inputProps;
 
@@ -21,7 +21,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         tabIndex={-1}
         aria-describedby={`${key}-error ${key}-description `}
       >
-        {field.required && (
+        {parsedField.required && (
           <Typography.Text
             type="danger"
             style={{
@@ -42,13 +42,13 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           <Typography.Text type="danger">{error}</Typography.Text>
         </div>
       )}
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <div
           style={{ marginTop: "-10px", marginBottom: "5px" }}
           id={key + "-description"}
         >
           <Typography.Text type="secondary" style={{ fontWeight: "normal" }}>
-            {field.fieldConfig?.description}
+            {parsedField.fieldConfig?.description}
           </Typography.Text>
         </div>
       )}

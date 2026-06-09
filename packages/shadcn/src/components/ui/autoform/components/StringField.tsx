@@ -1,15 +1,14 @@
 import { Input } from "@/components/ui/input";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
-  useField,
   inputProps,
   error,
   id,
 }) => {
-  const formField = useField();
-  const { value, ...rest } = formField;
+  const { field } = useField({ name: id });
+  const { value, ...rest } = field;
 
   return (
     <Input

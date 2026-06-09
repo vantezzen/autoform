@@ -8,31 +8,30 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
   children,
-  field,
   id,
+  parsedField,
 }) => {
-  const isDisabled = DISABLED_LABELS.includes(field.type);
+  const isDisabled = DISABLED_LABELS.includes(parsedField.type);
 
   if (isDisabled) {
     return <>{children}</>;
-  }
-
-  else return (
+  } else
+    return (
       <Form.Item
         htmlFor={id}
         colon={false}
         label={label}
-        key={field.key}
+        key={parsedField.key}
         hasFeedback
-        required={field.required}
-        extra={field.fieldConfig?.description}
+        required={parsedField.required}
+        extra={parsedField.fieldConfig?.description}
         validateStatus={error ? "error" : undefined}
         labelCol={{
           style: { fontWeight: "600" },
         }}
         style={{
-          paddingBottom: field.fieldConfig?.description ? "50px" : "30px",
-          marginBottom: field.type === "select" ? "30px" : "25px",
+          paddingBottom: parsedField.fieldConfig?.description ? "50px" : "30px",
+          marginBottom: parsedField.type === "select" ? "30px" : "25px",
         }}
         layout="vertical"
       >

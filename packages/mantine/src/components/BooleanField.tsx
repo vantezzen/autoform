@@ -1,28 +1,27 @@
 import React from "react";
 import { Checkbox } from "@mantine/core";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   id,
   label,
-  field,
   error,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const formField = useField();
+  const { field } = useField({ name: id });
   return (
     <Checkbox
       key={id}
-      {...formField}
+      {...field}
       {...inputProps}
       error={error}
-      checked={formField.value ?? false}
-      description={field.fieldConfig?.description}
+      checked={field.value ?? false}
+      description={parsedField.fieldConfig?.description}
       label={
         <span style={{ lineHeight: "16px", cursor: "pointer" }}>
           {label}
-          {field.required && (
+          {parsedField.required && (
             <span style={{ color: "red", opacity: 0.8 }}> * </span>
           )}
         </span>

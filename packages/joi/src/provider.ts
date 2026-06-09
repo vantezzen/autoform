@@ -1,12 +1,16 @@
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@acp-autoform/core";
+import {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@acp-autoform/core";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 import { JoiObjectOrWrapped } from "./types";
 
-export class JoiProvider<T extends JoiObjectOrWrapped>
-  implements SchemaProvider
-{
+export class JoiProvider<
+  T extends JoiObjectOrWrapped,
+> implements SchemaProvider {
   schemaType = "joi" as const;
 
   /**

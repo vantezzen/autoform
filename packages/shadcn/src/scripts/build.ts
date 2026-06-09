@@ -38,7 +38,9 @@ for (const file of files) {
   // Normalize line endings to LF only (remove carriage returns)
   content = content.replace(/\r\n/g, "\n");
   // Normalize paths to use forward slashes for cross-platform compatibility
-  const normalizedPath = file.replace(/\\/g, "/").replace("src/components/ui/", "");
+  const normalizedPath = file
+    .replace(/\\/g, "/")
+    .replace("src/components/ui/", "");
   const normalizedTarget = file.replace(/\\/g, "/").replace("src/", "");
   registry.files!.push({
     path: normalizedPath,

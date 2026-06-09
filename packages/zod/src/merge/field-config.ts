@@ -14,7 +14,7 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >
+  >,
 ) {
   const refinementFunction = () => {};
 
@@ -24,7 +24,7 @@ export function fieldConfig<
 }
 
 export function getFieldConfigInZodStack(
-  schema: AnyZodSchema
+  schema: AnyZodSchema,
 ): FieldConfig | undefined {
   if (isZodV4Schema(schema)) {
     return v4GetFieldConfig(schema);

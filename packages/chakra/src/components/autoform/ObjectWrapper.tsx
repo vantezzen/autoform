@@ -4,16 +4,16 @@ import React from "react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
-  field,
   children,
+  parsedField,
 }) => {
   return (
     <Box w={"full"} marginTop={"1"}>
       <Heading size={"lg"} fontWeight={"semibold"} marginBottom={"-1"}>
         {label}
       </Heading>
-      {field.fieldConfig?.description && (
-        <FieldHelperText>{field.fieldConfig.description}</FieldHelperText>
+      {parsedField.fieldConfig?.description && (
+        <FieldHelperText>{parsedField.fieldConfig.description}</FieldHelperText>
       )}
       {children}
     </Box>

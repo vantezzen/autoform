@@ -90,13 +90,14 @@ function MyForm() {
 
 ## Custom fields
 
-Custom field components receive `AutoFormFieldProps`. In most cases, call `useField()` and spread the returned field props into your input. `useField()` accepts the same options as react-hook-form's [`useController`](https://react-hook-form.com/docs/usecontroller), except `name`, which is prefilled from the current field path.
+Custom field components receive `AutoFormFieldProps` which contain useful data about that field. import `useController` from `react-hook-form` and spread the returned field props into your input. Pass the `id` from the props as the `name` option.
 
 ```tsx
+import { useController } from "react-hook-form";
 import { AutoFormFieldProps } from "@acp-autoform/react";
 
-export function StringField({ id, inputProps, useField }: AutoFormFieldProps) {
-  const field = useField();
+export function StringField({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
 
   return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
 }

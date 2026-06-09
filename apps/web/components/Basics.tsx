@@ -12,7 +12,7 @@ function Basics() {
       }}
       withSubmit
       formComponents={{
-        custom: ({ field, label, inputProps }: AutoFormFieldProps) => {
+        custom: ({ label, inputProps }: AutoFormFieldProps) => {
           return (
             <div>
               <input

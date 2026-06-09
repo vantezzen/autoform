@@ -42,7 +42,7 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10",
-    "cypress": "^14.5.0",
+    "cypress": "^15.16.0",
     "eslint": "^8",
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.4.47",

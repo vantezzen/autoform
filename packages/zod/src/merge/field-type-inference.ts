@@ -5,7 +5,7 @@ import { inferFieldType as v4InferFieldType } from "../v4/field-type-inference";
 
 export function inferFieldType(
   schema: AnyZodSchema,
-  fieldConfig?: FieldConfig
+  fieldConfig?: FieldConfig,
 ): string {
   if (isZodV4Schema(schema)) {
     return v4InferFieldType(schema, fieldConfig);

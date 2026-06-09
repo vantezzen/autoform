@@ -1,12 +1,16 @@
 import { z } from "zod/v3";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@acp-autoform/core";
+import {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@acp-autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 import { ZodObjectOrWrapped } from "./types";
 
-export class ZodProvider<T extends ZodObjectOrWrapped>
-  implements SchemaProvider<z.infer<T>>
-{
+export class ZodProvider<
+  T extends ZodObjectOrWrapped,
+> implements SchemaProvider<z.infer<T>> {
   schemaType = "zod" as const;
 
   /**

@@ -102,7 +102,7 @@ export interface FieldWrapperProps {
   /** Dot-separated field path, suitable for htmlFor/id wiring. */
   id: string;
   /** Parsed field metadata from the schema provider. */
-  field: ParsedField;
+  parsedField: ParsedField;
 }
 
 export interface ArrayWrapperProps {
@@ -115,7 +115,7 @@ export interface ArrayWrapperProps {
   /** Props from fieldConfig.inputProps, including focus refs used for errors. */
   inputProps: any;
   /** Parsed array field metadata. */
-  field: ParsedField;
+  parsedField: ParsedField;
   /** Adds a new array item. */
   onAddItem: () => void;
 }
@@ -135,7 +135,7 @@ export interface ObjectWrapperProps {
   /** Rendered child fields for the object. */
   children: ReactNode;
   /** Parsed object field metadata. */
-  field: ParsedField;
+  parsedField: ParsedField;
 }
 
 export interface AutoFormFieldProps {
@@ -146,11 +146,9 @@ export interface AutoFormFieldProps {
   /** Current validation error for this field, when present. */
   error?: string;
   /** Parsed field metadata from the schema provider. */
-  field: ParsedField;
+  parsedField: ParsedField;
   /** Resolved field label from field config or schema metadata. */
   label: Renderable<ReactNode>;
-  /** Hook factory that connects the component to react-hook-form. */
-  useField: FieldReturn;
   /** Props passed through from fieldConfig.inputProps. */
   inputProps: any;
 }
@@ -170,22 +168,3 @@ export type FieldConfig<
   React.ComponentType<FieldWrapperProps>,
   CustomData
 >;
-
-export type FieldReturn<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TTransformedValues = TFieldValues,
-> = (
-  props?: Omit<
-    UseControllerProps<TFieldValues, TName, TTransformedValues>,
-    "name"
-  >,
-) => {
-  [key: string]: any;
-  onChange: (...event: any[]) => void;
-  onBlur: () => void;
-  value: any;
-  disabled?: boolean;
-  name: TName;
-  ref: (instance: any) => void;
-};

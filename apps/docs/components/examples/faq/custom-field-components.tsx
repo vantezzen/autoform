@@ -1,4 +1,5 @@
 "use client";
+import { useController } from "react-hook-form";
 
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
@@ -21,19 +22,17 @@ import { cn } from "@/lib/utils";
 
 export function NumberStepperField({
   id,
-  field,
-  useField,
   inputProps,
   error,
 }: AutoFormFieldProps) {
-  const formField = useField();
-  const value = typeof formField.value === "number" ? formField.value : 1;
+  const { field } = useController({ name: id });
+  const value = typeof field.value === "number" ? field.value : 1;
   const limits = field as { min?: number; max?: number } | undefined;
 
   const step = (delta: number) => {
     const min = limits?.min ?? 1;
     const max = limits?.max ?? 99;
-    formField.onChange(Math.min(max, Math.max(min, value + delta)));
+    field.onChange(Math.min(max, Math.max(min, value + delta)));
   };
 
   return (
@@ -57,9 +56,9 @@ export function NumberStepperField({
         id={id}
         type="number"
         {...inputProps}
-        {...formField}
+        {...field}
         value={value}
-        onChange={(e) => formField.onChange(Number(e.target.value))}
+        onChange={(e) => field.onChange(Number(e.target.value))}
         // Hide native browser spinner arrows
         className="h-full w-full rounded-none border-0 text-center shadow-none focus-visible:ring-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
@@ -81,23 +80,20 @@ export function NumberStepperField({
 
 type RadioOption = { id: string; label: string; desc?: string };
 
-export function RadioCardField({
-  id,
-  field,
-  useField,
-  error,
-}: AutoFormFieldProps) {
-  const formField = useField();
-  const value = typeof formField.value === "string" ? formField.value : "";
+export function RadioCardField({ id, error, parsedField }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
+  const value = typeof field.value === "string" ? field.value : "";
 
   const options: RadioOption[] =
-    (field.fieldConfig?.customData?.options as RadioOption[] | undefined) ??
-    (field.options ?? []).map(([id, label]) => ({ id, label }));
+    (parsedField.fieldConfig?.customData?.options as
+      | RadioOption[]
+      | undefined) ??
+    (parsedField.options ?? []).map(([id, label]) => ({ id, label }));
 
   return (
     <RadioGroupPrimitive.Root
       value={value}
-      onValueChange={formField.onChange}
+      onValueChange={field.onChange}
       className="flex flex-col gap-1.5"
     >
       {options.map((opt, i) => (
@@ -136,12 +132,12 @@ export function RadioCardField({
 
 // ── Date Picker ──────────────────────────────────────────────────────────────
 
-export function DatePickerField({ id, useField, error }: AutoFormFieldProps) {
-  const { ref, ...formField } = useField();
+export function DatePickerField({ id, error }: AutoFormFieldProps) {
+  const { ref, ...field } = useController({ name: id }).field;
   const [open, setOpen] = React.useState(false);
 
-  const dateValue: Date | undefined = formField.value
-    ? new Date(formField.value + "T00:00:00")
+  const dateValue: Date | undefined = field.value
+    ? new Date(field.value + "T00:00:00")
     : undefined;
 
   return (
@@ -167,7 +163,7 @@ export function DatePickerField({ id, useField, error }: AutoFormFieldProps) {
           mode="single"
           selected={dateValue}
           onSelect={(day) => {
-            formField.onChange(day ? format(day, "yyyy-MM-dd") : "");
+            field.onChange(day ? format(day, "yyyy-MM-dd") : "");
             setOpen(false);
           }}
           captionLayout="dropdown"
@@ -182,9 +178,9 @@ export function DatePickerField({ id, useField, error }: AutoFormFieldProps) {
 
 // ── Slider ────────────────────────────────────────────────────────────────────
 
-export function SliderField({ id, useField, inputProps }: AutoFormFieldProps) {
-  const formField = useField();
-  const value = typeof formField.value === "number" ? formField.value : 50;
+export function SliderField({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
+  const value = typeof field.value === "number" ? field.value : 50;
 
   return (
     <div className="flex items-center gap-3">
@@ -195,7 +191,7 @@ export function SliderField({ id, useField, inputProps }: AutoFormFieldProps) {
         max={100}
         step={1}
         value={value}
-        onChange={(e) => formField.onChange(Number(e.target.value))}
+        onChange={(e) => field.onChange(Number(e.target.value))}
         className="w-full accent-primary"
         {...inputProps}
       />
@@ -206,14 +202,9 @@ export function SliderField({ id, useField, inputProps }: AutoFormFieldProps) {
 
 // ── Color Picker ──────────────────────────────────────────────────────────────
 
-export function ColorPickerField({
-  id,
-  useField,
-  inputProps,
-}: AutoFormFieldProps) {
-  const formField = useField();
-  const color =
-    typeof formField.value === "string" ? formField.value : "#6366f1";
+export function ColorPickerField({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
+  const color = typeof field.value === "string" ? field.value : "#6366f1";
 
   return (
     <div className="flex items-center gap-3">
@@ -226,7 +217,7 @@ export function ColorPickerField({
         id={id}
         type="color"
         value={color}
-        onChange={(e) => formField.onChange(e.target.value)}
+        onChange={(e) => field.onChange(e.target.value)}
         className="h-9 w-14 cursor-pointer rounded border p-0.5"
         {...inputProps}
       />
@@ -237,9 +228,9 @@ export function ColorPickerField({
 
 // ── File Upload ───────────────────────────────────────────────────────────────
 
-export function FileUploadField({ id, useField }: AutoFormFieldProps) {
-  const formField = useField();
-  const file: File | undefined = formField.value;
+export function FileUploadField({ id }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
+  const file: File | undefined = field.value;
 
   return (
     <div className="flex flex-col gap-1">
@@ -248,7 +239,7 @@ export function FileUploadField({ id, useField }: AutoFormFieldProps) {
         type="file"
         accept="image/*"
         className="block w-full cursor-pointer rounded border border-input bg-background text-sm file:mr-3 file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm"
-        onChange={(e) => formField.onChange(e.target.files?.[0])}
+        onChange={(e) => field.onChange(e.target.files?.[0])}
       />
       {file && (
         <p className="text-xs text-muted-foreground">

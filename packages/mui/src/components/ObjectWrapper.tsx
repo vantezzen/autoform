@@ -4,15 +4,15 @@ import { FormHelperText, Box, Typography } from "@mui/material";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
-  field,
   children,
+  parsedField,
 }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="h6">{label}</Typography>
-      {field.fieldConfig?.description && (
+      {parsedField.fieldConfig?.description && (
         <FormHelperText variant="standard">
-          {field.fieldConfig.description}
+          {parsedField.fieldConfig.description}
         </FormHelperText>
       )}
       {children}

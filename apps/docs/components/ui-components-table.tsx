@@ -104,9 +104,7 @@ function UIComponentItem({
         )}
         style={{ gridTemplateColumns: tableGridTemplate }}
       >
-        <code
-          className="text-fd-primary min-w-fit font-mono font-medium"
-        >
+        <code className="text-fd-primary min-w-fit font-mono font-medium">
           {entry.name}
         </code>
         <span className="text-sm text-fd-muted-foreground">

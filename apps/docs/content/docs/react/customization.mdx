@@ -157,8 +157,11 @@ Keep form components focused on wiring the input. Most form components should no
 
 ```tsx
 // CustomInput.tsx
-export function CustomInput({ id, inputProps, useField }: AutoFormFieldProps) {
-  const formField = useField();
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react"; // or your UI package
+
+export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useController({ name: id });
 
   return (
     <div>
@@ -167,8 +170,8 @@ export function CustomInput({ id, inputProps, useField }: AutoFormFieldProps) {
         type="text"
         className="bg-red-400 rounded-lg p-4"
         {...inputProps} // inputProps is configured in fieldConfig.
-        {...formField}
-        value={formField.value ?? ""}
+        {...field}
+        value={field.value ?? ""}
       />
     </div>
   );
@@ -196,17 +199,17 @@ const schema = z.object({
 
 For more examples on creating custom form components see [examples.](/docs/react/faq-examples)
 
-### useField()
+### Connecting custom fields to react-hook-form
 
-`useField` is a prop received by custom field component via `AutoFormFieldProps`. Call it inside your custom component to get the field bindings (it is not imported from the package).
-
-It returns the same field object as [`useController(...).field`](https://react-hook-form.com/docs/usecontroller#return) and takes same input props (like `rules`, `disabled` etc). See the full input and output shape in the RHF docs. It is a factory function with the name prop prefilled, it only invokes useController when called, preventing unnecessary re-renders from value changes when the field doesn’t need them.
-
-Use `useField()` for most custom field components. Use `useController()` directly when you need `fieldState` (e.g. `fieldState.invalid`, `fieldState.error`) for component-specific styling or accessibility attributes.
+AutoForm uses `react-hook-form` under the hood. To connect your custom fields, import `useController` hook from `react-hook-form` and use the `id` prop from `AutoFormFieldProps` as the `name` argument of useController.
 
 ```tsx
-custom: ({ id, inputProps, useField }: AutoFormFieldProps) => {
-  const field = useField({
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+
+custom: ({ id, inputProps }: AutoFormFieldProps) => {
+  const { field } = useController({
+    name: id,
     disabled: inputProps?.disabled,
     rules: { required: true },
   });
@@ -215,18 +218,15 @@ custom: ({ id, inputProps, useField }: AutoFormFieldProps) => {
 };
 ```
 
-If you need the full [`useController`](https://react-hook-form.com/docs/usecontroller) API, you can import it from react-hook-form instead and use the `id` from `AutoFormFieldProps` as the field name. Use either useField or this one.
+If you need `fieldState` (e.g. `fieldState.invalid`, `fieldState.error`) for component-specific styling or aria attributes, you can destructure it from `useController`:
 
 ```tsx
 import { useController } from "react-hook-form";
 
 custom: ({ id, inputProps }: AutoFormFieldProps) => {
-  // Use useController when you need fieldState (e.g. invalid, error) for
-  // component-specific styling or aria attributes.
-  // AutoForm already renders field errors via FieldWrapper — reach for
+  // Use fieldState when you need component-specific styling or aria attributes.
+  // Note: AutoForm already renders field errors via FieldWrapper — reach for
   // fieldState only when the component itself needs to react to error state.
-  // For form-level state (isValid, isSubmitting), use useFormContext instead.
-  // No need to pass `control` — AutoForm wraps fields with FormProvider.
   const { field, fieldState } = useController({ name: id });
 
   return (
@@ -244,8 +244,8 @@ custom: ({ id, inputProps }: AutoFormFieldProps) => {
 For non-standard inputs, adapt the value and change handler to the component API:
 
 ```tsx
-customCheckbox: ({ id, useField }: AutoFormFieldProps) => {
-  const field = useField();
+customCheckbox: ({ id }: AutoFormFieldProps) => {
+  const { field } = useController({ name: id });
 
   return (
     <input

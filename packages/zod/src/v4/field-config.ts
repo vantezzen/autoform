@@ -13,7 +13,7 @@ export function fieldConfig<
     FieldTypes,
     FieldWrapper,
     CustomData
-  >
+  >,
 ): z.CheckFn<any> {
   const refinementFunction = () => {};
 
@@ -23,7 +23,7 @@ export function fieldConfig<
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.$ZodType
+  schema: z.$ZodType,
 ): FieldConfig | undefined {
   const checks = schema._zod.def.checks;
   if (checks) {

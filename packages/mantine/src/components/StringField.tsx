@@ -1,16 +1,15 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   id,
   label,
-  field,
   error,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const formField = useField();
+  const { field } = useField({ name: id });
 
   return (
     <TextInput
@@ -18,11 +17,11 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
       key={id}
       label={label}
       error={error}
-      {...formField}
+      {...field}
       {...inputProps}
-      value={formField.value ?? ""}
-      withAsterisk={field.required}
-      description={field.fieldConfig?.description}
+      value={field.value ?? ""}
+      withAsterisk={parsedField.required}
+      description={parsedField.fieldConfig?.description}
     />
   );
 };

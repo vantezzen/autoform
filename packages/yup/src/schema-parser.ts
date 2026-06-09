@@ -27,7 +27,7 @@ function parseField(key: string, schema: YupField): ParsedField {
   const objectSchema = schema as yup.ObjectSchema<any>;
   if (schema.type === "object" && objectSchema.fields) {
     subSchema = Object.entries(objectSchema.fields).map(([key, field]) =>
-      parseField(key, field as YupField)
+      parseField(key, field as YupField),
     );
   }
   const arraySchema = schema as yup.ArraySchema<any, any>;
@@ -49,7 +49,7 @@ function parseField(key: string, schema: YupField): ParsedField {
 
 export function parseSchema(schema: YupObjectOrWrapped): ParsedSchema {
   const fields: ParsedField[] = Object.entries(schema.fields).map(
-    ([key, field]) => parseField(key, field as YupField)
+    ([key, field]) => parseField(key, field as YupField),
   );
 
   return { fields };

@@ -1,29 +1,26 @@
 import React from "react";
 import { DateInput } from "@mantine/dates";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   id,
   label,
-  field,
   error,
-  useField,
   inputProps,
+  parsedField,
 }) => {
-  const formField = useField();
+  const { field } = useField({ name: id });
   return (
     <DateInput
       key={id}
       {...inputProps}
-      {...formField}
+      {...field}
       label={label}
       error={error}
-      withAsterisk={field.required}
-      description={field.fieldConfig?.description}
-      value={formField.value ? new Date(formField.value) : undefined}
-      onChange={(value) =>
-        formField.onChange(value?.toLocaleDateString("en-CA"))
-      }
+      withAsterisk={parsedField.required}
+      description={parsedField.fieldConfig?.description}
+      value={field.value ? new Date(field.value) : undefined}
+      onChange={(value) => field.onChange(value?.toLocaleDateString("en-CA"))}
     />
   );
 };

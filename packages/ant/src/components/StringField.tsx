@@ -1,13 +1,12 @@
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import { Input } from "antd";
 import React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   id,
-  useField,
   inputProps,
 }) => {
-  const { ref, ...formField } = useField();
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <Input
@@ -15,8 +14,8 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
       id={id}
       key={id}
       {...inputProps}
-      {...formField}
-      value={formField.value ?? ""}
+      {...field}
+      value={field.value ?? ""}
       style={{ width: "100%" }}
     />
   );

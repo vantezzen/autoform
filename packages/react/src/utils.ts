@@ -1,6 +1,6 @@
 import { SchemaProvider, replaceEmptyValue } from "@acp-autoform/core";
 import React from "react";
-import { FieldReturn } from "./types";
+
 import {
   FieldPath,
   FieldValues,
@@ -13,32 +13,10 @@ import {
 } from "react-hook-form";
 
 /**
- * Factory function that creates a hook for accessing form methods of a specific field.
- *
- * This enables deferred hook execution,
- * The returned hook will use `useController` (controlled input)
- *
- * @param name - The name of the form field.
- *
- * @returns A hook function that takes same props as `useController`:
- *
- * @example
- * ```ts
- * const useField = createField('username');
- * const method = useField({ ...props });
- * ```
+ * Alias for react-hook-form's useController to be used internally by UI packages
+ * to avoid adding react-hook-form as a direct dependency.
  */
-export function createField<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TTransformedValues = TFieldValues,
->(name: TName): FieldReturn<TFieldValues, TName, TTransformedValues> {
-  return (props) => {
-    const mergedProps = { ...props, name };
-    return useController<TFieldValues, TName, TTransformedValues>(mergedProps)
-      .field;
-  };
-}
+export { useController as useField } from "react-hook-form";
 
 /**
  * This custom hook shares the same props and methods as register

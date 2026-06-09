@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 import {
   NumberInputField,
   NumberInputRoot,
@@ -7,21 +7,20 @@ import {
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,
-  useField,
   inputProps,
 }) => {
-  const { ref, ...formField } = useField();
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <NumberInputRoot
       key={id}
       onValueChange={({ value }) => {
-        formField.onChange(value);
+        field.onChange(value);
       }}
-      value={formField.value ?? ""}
+      value={field.value ?? ""}
       w={"full"}
     >
-      <NumberInputField id={id} {...inputProps} {...formField} ref={ref} />
+      <NumberInputField id={id} {...inputProps} {...field} ref={ref} />
     </NumberInputRoot>
   );
 };

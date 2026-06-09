@@ -20,7 +20,7 @@ export const Form = React.forwardRef<
         // Create a synthetic event for preventPropagation wrapper
         const syntheticEvent = {
           stopPropagation: () => {},
-        } as React.FormEvent<HTMLFormElement>;
+        } as any;
         await props.onSubmit?.(syntheticEvent);
       }}
       {...props}

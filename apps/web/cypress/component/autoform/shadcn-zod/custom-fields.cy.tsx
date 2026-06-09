@@ -1,3 +1,4 @@
+import { useController } from "react-hook-form";
 import React from "react";
 import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
@@ -10,9 +11,8 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD)", () => {
     inputProps,
     error,
     id,
-    useField,
   }) => {
-    const formField = useField();
+    const formField = useController({ name: id }).field;
     return (
       <div>
         <input

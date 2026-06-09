@@ -5,7 +5,7 @@ export function getJoiDefaultValue(schema: JoiField): any {
 }
 
 export function getDefaultValues(
-  schema: JoiObjectOrWrapped
+  schema: JoiObjectOrWrapped,
 ): Record<string, any> {
   const fields = schema.$_terms.keys as TObjectFields;
 

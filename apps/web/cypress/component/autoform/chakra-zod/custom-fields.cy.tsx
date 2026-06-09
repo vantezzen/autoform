@@ -1,3 +1,4 @@
+import { useController } from "react-hook-form";
 import React from "react";
 import { AutoForm } from "@acp-autoform/chakra";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
@@ -9,9 +10,8 @@ describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
     inputProps,
     error,
     id,
-    useField,
   }) => {
-    const formField = useField();
+    const formField = useController({ name: id }).field;
     return (
       <div>
         <input

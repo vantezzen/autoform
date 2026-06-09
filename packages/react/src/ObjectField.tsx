@@ -4,20 +4,20 @@ import { useAutoForm } from "./context";
 import { getLabel, ParsedField } from "@acp-autoform/core";
 
 export const ObjectField: React.FC<{
-  field: ParsedField;
+  parsedField: ParsedField;
   path: string[];
-}> = ({ field, path }) => {
+}> = ({ path, parsedField }) => {
   const { uiComponents } = useAutoForm();
 
   return (
     <uiComponents.ObjectWrapper
-      label={getLabel(field)}
-      field={field}
+      label={getLabel(parsedField)}
+      parsedField={parsedField}
     >
-      {Object.entries(field.schema!).map(([_key, subField]) => (
+      {Object.entries(parsedField.schema!).map(([_key, subField]) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
-          field={subField}
+          parsedField={subField}
           path={[...path, subField.key]}
         />
       ))}
