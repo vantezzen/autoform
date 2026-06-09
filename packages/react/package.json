@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/react",
-  "version": "4.1.2",
+  "version": "5.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

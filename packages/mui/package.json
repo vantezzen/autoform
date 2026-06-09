@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/mui",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

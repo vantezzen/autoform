@@ -1,5 +1,16 @@
 # @acp-autoform/chakra
 
+## 3.0.0
+
+### Major Changes
+
+- refactor(breaking): rename `field` prop to `parsedField` in all wrapper components (`AutoFormFieldProps`, `FieldWrapperProps`, etc.) to prevent variable shadowing with `react-hook-form` controllers.
+
+### Patch Changes
+
+- Updated dependencies
+  - @acp-autoform/react@5.0.0
+
 ## 2.0.2
 
 ### Patch Changes

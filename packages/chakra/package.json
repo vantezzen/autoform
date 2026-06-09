@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/chakra",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

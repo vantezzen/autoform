@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/shadcn",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
