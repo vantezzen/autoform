@@ -19,12 +19,7 @@ export const AutoFormField: React.FC<{
   const fieldConfig = field.fieldConfig;
   const FieldWrapper = fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
 
-  let FieldComponent: React.ComponentType<AutoFormFieldProps> = () => (
-    <uiComponents.ErrorMessage
-      error={`[AutoForm Configuration Error] No component found for type "${field.type}" nor a fallback`}
-    />
-  );
-
+  let FieldComponent: React.ComponentType<AutoFormFieldProps>;
   if (field.type === "array") {
     FieldComponent = ArrayField;
   } else if (field.type === "object") {
@@ -33,6 +28,12 @@ export const AutoFormField: React.FC<{
     FieldComponent = formComponents[field.type as keyof typeof formComponents]!;
   } else if ("fallback" in formComponents) {
     FieldComponent = formComponents.fallback;
+  } else {
+    FieldComponent = () => (
+      <uiComponents.ErrorMessage
+        error={`[AutoForm Configuration Error] No component found for type "${field.type}" nor a fallback`}
+      />
+    );
   }
 
   return (
