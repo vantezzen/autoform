@@ -1,6 +1,8 @@
 import { useController } from "react-hook-form";
 import React from "react";
-import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v4";
 import { AutoFormFieldProps } from "@acp-autoform/react";

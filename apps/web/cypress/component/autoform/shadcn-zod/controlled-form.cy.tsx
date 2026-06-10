@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 import { TestWrapper } from "./utils";
@@ -25,7 +27,7 @@ const ControlledForm = () => {
         withSubmit
         values={formValues}
         onFormInit={(form) => {
-          form.watch((data) => {
+          form.watch((data: any) => {
             setFormValues(data as typeof formValues);
           });
         }}

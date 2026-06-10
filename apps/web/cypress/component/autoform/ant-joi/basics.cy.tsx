@@ -1,6 +1,8 @@
 import React from "react";
 import Joi from "joi";
-import { AutoForm } from "@acp-autoform/ant";
+import { createAutoForm } from "@acp-autoform/ant";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import { JoiProvider } from "@acp-autoform/joi";
 
 enum Sports {

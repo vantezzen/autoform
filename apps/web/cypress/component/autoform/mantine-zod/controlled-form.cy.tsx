@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { AutoForm } from "@acp-autoform/mantine";
+import { createAutoForm } from "@acp-autoform/mantine";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 import { TestWrapper } from "./utils";

@@ -1,5 +1,7 @@
 import React from "react";
-import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import HookTest from "components/Hook-test";
 import { TestWrapper } from "./utils";
