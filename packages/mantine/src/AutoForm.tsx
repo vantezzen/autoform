@@ -1,10 +1,11 @@
 import React from "react";
 import {
-  AutoForm as BaseAutoForm,
   AutoFormUIComponents,
+  AutoFormProps,
+  ExtendableAutoFormProps,
 } from "@acp-autoform/react";
 import { MantineProvider } from "@mantine/core";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as MantineAutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -37,19 +38,27 @@ export const MantineAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof MantineAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  theme,
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  const form = (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...MantineUIComponents, ...uiComponents }}
-      formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
-    />
-  );
-
-  return theme ? <MantineProvider theme={theme}>{form}</MantineProvider> : form;
+/**
+ * Factory that binds the Mantine component registry to any BaseAutoForm.
+ */
+export function createAutoForm<T extends Record<string, any>>(
+  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
+) {
+  return function MantineAutoForm({
+    theme,
+    uiComponents,
+    formComponents,
+    ...props
+  }: ExtendableAutoFormProps<T> & MantineAutoFormProps<T>) {
+    const form = (
+      <BaseAutoForm
+        {...(props as AutoFormProps<T>)}
+        uiComponents={{ ...MantineUIComponents, ...uiComponents }}
+        formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
+      />
+    );
+    return theme ? <MantineProvider theme={theme}>{form}</MantineProvider> : form;
+  };
 }
+
+export { MantineUIComponents };

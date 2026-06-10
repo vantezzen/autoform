@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { AutoFormContextType } from "./types";
+import { AutoFormContextType, UseFieldReturn } from "./types";
 
 const AutoFormContext = createContext<AutoFormContextType | null>(null);
 
@@ -11,4 +11,14 @@ export function useAutoForm() {
     throw new Error("useAutoForm must be used within an AutoFormProvider");
   }
   return context;
+}
+
+/**
+ * Context-delegating useField hook.
+ * UI components call this — the actual implementation is injected by whichever
+ * form library adapter (./react-hook-form or ./tanstack-form) wraps the tree.
+ */
+export function useField(opts: { name: string }): UseFieldReturn {
+  const { useField: impl } = useAutoForm();
+  return impl(opts);
 }

@@ -3,16 +3,15 @@ import { useController } from "react-hook-form";
 
 import React from "react";
 import {
-  AutoForm as BaseAutoForm,
   AutoFormFieldProps,
   AutoFormUIComponents,
   ArrayElementWrapperProps,
   ArrayWrapperProps,
   ExtendableAutoFormProps,
   FieldWrapperProps,
-  FieldValues,
   ObjectWrapperProps,
 } from "@acp-autoform/react";
+import { AutoForm as BaseAutoForm } from "@acp-autoform/react/react-hook-form";
 import { AlertCircle, PlusIcon, TrashIcon } from "lucide-react";
 
 import { Alert, AlertTitle } from "@/components/ui/alert";
@@ -292,7 +291,7 @@ const PreviewFieldComponents = {
 
 // ── Export ───────────────────────────────────────────────────────────────────
 
-export function PreviewAutoForm<T extends FieldValues>({
+export function PreviewAutoForm<T extends Record<string, any>>({
   uiComponents,
   formComponents,
   ...props

@@ -11,7 +11,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { key, ref, ...props } = inputProps;
+  const { key, ref, "aria-invalid": ariaInvalid, ...props } = inputProps;
 
   return (
     <div className="space-y-2">
@@ -24,6 +24,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           }`}
           ref={ref}
           tabIndex={-1}
+          aria-invalid={ariaInvalid}
           aria-describedby={`${key}-error ${key}-description`}
         >
           {label}

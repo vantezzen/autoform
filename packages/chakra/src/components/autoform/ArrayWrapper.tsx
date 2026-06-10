@@ -11,7 +11,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { key, ref, ...props } = inputProps;
+  const { key, ref, "aria-invalid": ariaInvalid, ...props } = inputProps;
 
   return (
     <Stack w={"full"} marginBottom={1} gapY={1}>
@@ -20,6 +20,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         fontWeight={"medium"}
         ref={ref}
         tabIndex={-1}
+        aria-invalid={ariaInvalid}
         aria-describedby={`${key}-error ${key}-description `}
         _focusVisible={{
           outline: "2px solid color-mix(in srgb, Highlight 50%, transparent)",

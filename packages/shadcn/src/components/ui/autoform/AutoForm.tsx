@@ -1,8 +1,8 @@
-import {
-  AutoForm as BaseAutoForm,
-  type AutoFormUIComponents,
+import type {
+  AutoFormUIComponents,
+  AutoFormProps,
+  ExtendableAutoFormProps,
 } from "@acp-autoform/react";
-import type { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -15,6 +15,7 @@ import { SelectField } from "./components/SelectField";
 import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
+import React from "react";
 
 const ShadcnUIComponents: AutoFormUIComponents = {
   Form,
@@ -35,16 +36,28 @@ export const ShadcnAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  return (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
-      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
-    />
-  );
+/**
+ * Factory that binds the Shadcn component registry to any BaseAutoForm.
+ * Usage: const ShadcnAutoForm = createAutoForm(AutoForm) where AutoForm
+ * is imported from "@acp-autoform/react/react-hook-form" or "@acp-autoform/react/tanstack-form".
+ */
+export function createAutoForm<T extends Record<string, any>>(
+  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
+) {
+  return function ShadcnAutoForm({
+    uiComponents,
+    formComponents,
+    ...props
+  }: ExtendableAutoFormProps<T>) {
+    return (
+      <BaseAutoForm
+        {...(props as AutoFormProps<T>)}
+        uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
+        formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
+      />
+    );
+  };
 }
+
+// Convenience default export with empty base (for backward compat discovery)
+export { ShadcnUIComponents };

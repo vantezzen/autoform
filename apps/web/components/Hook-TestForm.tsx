@@ -2,7 +2,9 @@ import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import z from "zod";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
-import { AutoForm } from "@acp-autoform/mantine";
+import { createAutoForm } from "@acp-autoform/mantine";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+const AutoForm = createAutoForm(AutoFormRHF);
 import HookTest from "./Hook-test";
 
 const fieldSchema = z.object({

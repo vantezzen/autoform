@@ -6,55 +6,67 @@ import {
   FieldConfig as BaseFieldConfig,
   SchemaProvider,
 } from "@acp-autoform/core";
-import {
-  createFormControl,
-  FieldPath,
-  FieldValues,
-  UseControllerProps,
-  UseFormReturn,
-} from "react-hook-form";
 
-export type { FieldValues } from "react-hook-form";
+// ─── Field binding contract ────────────────────────────────────────────────────
+// Normalized shape every form-library adapter must return from useField().
 
-export interface AutoFormProps<T extends FieldValues = FieldValues> {
-  /** Schema adapter that manaages fields, default values, and schema validation. */
+export interface FieldBinding {
+  value: any;
+  onChange: (...event: any[]) => void;
+  onBlur: () => void;
+  name: string;
+  /** ref is optional — not all adapters provide one */
+  ref?: React.Ref<any>;
+}
+
+export interface UseFieldReturn {
+  field: FieldBinding;
+}
+
+export type UseFieldFn = (opts: { name: string }) => UseFieldReturn;
+
+// ─── AutoForm props ────────────────────────────────────────────────────────────
+
+export interface AutoFormProps<T extends Record<string, any> = Record<string, any>> {
+  /** Schema adapter that manages fields, default values, and validation. */
   schema: SchemaProvider<T>;
   /**
-   * External formControl returned by react-hook-form`s  createFormControl.
-   * Use it when a parent needs to call form methods.
+   * External form control handle. For react-hook-form: the return of createFormControl().
+   * For TanStack: the form instance returned by useForm() in a parent.
    */
-  formControl?: ReturnType<typeof createFormControl<T>>["formControl"];
+  formControl?: any;
   /**
-   * Runs after successful validation. Receives the values, form instance, and submit event.
+   * Runs after successful validation. Receives the values and submit event.
    * @default () => {}
    */
   onSubmit?: (
     values: T,
-    form: UseFormReturn<T, any, T>,
+    form: any,
     e?: React.BaseSyntheticEvent,
   ) => void | Promise<void>;
   /**
-   * Initial values. It merges over the default values inferred from the schema.
+   * Initial values merged over schema defaults.
    * @default inferred from schema
    */
   defaultValues?: Partial<T>;
-  /** Controlled values that update the form values. */
+  /** Controlled values that keep the form in sync with external state. */
   values?: Partial<T>;
-  /** Extra UI rendered after the generated fields */
+  /** Extra UI rendered after the generated fields. */
   children?: ReactNode;
-  /** Layout/wrapper components used to render fields, errors, and structure. */
+  /** Layout/wrapper components for fields, errors, and structure. */
   uiComponents: AutoFormUIComponents;
-  /** Form components mapped as field type, such as `string`, `number`, or `select`. */
+  /** Form components mapped to field types (string, number, select, …). */
   formComponents: AutoFormFieldComponents;
   /**
-   * Show the default submit button after all the fields.
+   * Show a default submit button after all fields.
    * @default false
    */
   withSubmit?: boolean;
   /**
-   * Legacy hook to access the react‑hook‑form instance
-   * @deprecated Prefer passing an external form control through the `formControl` prop. */
-  onFormInit?: (form: UseFormReturn<T, any, T>) => void;
+   * Legacy hook to access the form instance after init.
+   * @deprecated Prefer passing an external form control via `formControl`.
+   */
+  onFormInit?: (form: any) => void;
   /**
    * Props forwarded to the underlying <form> element.
    * @default {}
@@ -62,7 +74,7 @@ export interface AutoFormProps<T extends FieldValues = FieldValues> {
   formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
 
-export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
+export type ExtendableAutoFormProps<T extends Record<string, any>> = Omit<
   AutoFormProps<T>,
   "uiComponents" | "formComponents"
 > & {
@@ -70,10 +82,12 @@ export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
   formComponents?: Partial<AutoFormFieldComponents>;
 };
 
+// ─── UI component contracts ────────────────────────────────────────────────────
+
 export interface AutoFormUIComponents {
-  /** Root form element. Receives the generated submit handler and form props. */
+  /** Root form element. */
   Form: React.ComponentType<React.ComponentProps<"form">>;
-  /** Wraps each generated field with label, error, and layout UI. */
+  /** Wraps each field with label, error, and layout UI. */
   FieldWrapper: React.ComponentType<FieldWrapperProps>;
   /** Renders AutoForm configuration errors. */
   ErrorMessage: React.ComponentType<{ error: string }>;
@@ -88,76 +102,62 @@ export interface AutoFormUIComponents {
 }
 
 export interface AutoFormFieldComponents {
-  /** Component used for a field type, for example string, number, select, or fallback. */
   [key: string]: React.ComponentType<AutoFormFieldProps>;
 }
 
+// ─── Wrapper prop types ────────────────────────────────────────────────────────
+
 export interface FieldWrapperProps {
-  /** Resolved field label from field config or schema metadata. */
   label: Renderable<ReactNode>;
-  /** Current validation error for this field, when present. */
   error?: Renderable<ReactNode>;
-  /** The concrete field component to render inside the wrapper. */
   children: ReactNode;
-  /** Dot-separated field path, suitable for htmlFor/id wiring. */
   id: string;
-  /** Parsed field metadata from the schema provider. */
   parsedField: ParsedField;
 }
 
 export interface ArrayWrapperProps {
-  /** Resolved array field label. */
   label: Renderable<ReactNode>;
-  /** Current validation error for the array field, when present. */
   error?: Renderable<ReactNode>;
-  /** Rendered array item fields. */
   children: ReactNode;
-  /** Props from fieldConfig.inputProps, including focus refs used for errors. */
   inputProps: any;
-  /** Parsed array field metadata. */
   parsedField: ParsedField;
-  /** Adds a new array item. */
   onAddItem: () => void;
 }
 
 export interface ArrayElementWrapperProps {
-  /** Rendered fields for this array item. */
   children: ReactNode;
-  /** Removes this array item. */
   onRemove: () => void;
-  /** Zero-based item index. */
   index: number;
 }
 
 export interface ObjectWrapperProps {
-  /** Resolved object field label. */
   label: Renderable<ReactNode>;
-  /** Rendered child fields for the object. */
   children: ReactNode;
-  /** Parsed object field metadata. */
   parsedField: ParsedField;
 }
 
+// ─── Field component props ─────────────────────────────────────────────────────
+
 export interface AutoFormFieldProps {
-  /** Field path split into segments. */
   path: string[];
-  /** Dot-separated field path, used as the field name and element id. */
   id: string;
-  /** Current validation error for this field, when present. */
   error?: string;
-  /** Parsed field metadata from the schema provider. */
   parsedField: ParsedField;
-  /** Resolved field label from field config or schema metadata. */
   label: Renderable<ReactNode>;
-  /** Props passed through from fieldConfig.inputProps. */
   inputProps: any;
 }
+
+// ─── Context type ──────────────────────────────────────────────────────────────
 
 export interface AutoFormContextType {
   schema: ParsedSchema;
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
+  /** The useField implementation injected by the active form library adapter. */
+  useField: UseFieldFn;
 }
+
+// ─── FieldConfig ───────────────────────────────────────────────────────────────
 
 export type FieldConfig<
   FieldTypes = string,
@@ -168,3 +168,7 @@ export type FieldConfig<
   React.ComponentType<FieldWrapperProps>,
   CustomData
 >;
+
+// ─── Re-exports ────────────────────────────────────────────────────────────────
+
+export type { SchemaProvider, ParsedField, ParsedSchema } from "@acp-autoform/core";

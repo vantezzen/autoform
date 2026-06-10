@@ -1,8 +1,10 @@
+import React, { useState, useEffect } from "react";
 import {
   AutoFormUIComponents,
-  AutoForm as BaseAutoForm,
+  AutoFormProps,
+  ExtendableAutoFormProps,
 } from "@acp-autoform/react";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as ChakraAutoFormProps } from "./types";
 import { Form } from "./components/autoform/Form";
 import { FieldWrapper } from "./components/autoform/FieldWrapper";
 import { ErrorMessage } from "./components/autoform/ErrorMessage";
@@ -16,7 +18,6 @@ import { ObjectWrapper } from "./components/autoform/ObjectWrapper";
 import { ArrayWrapper } from "./components/autoform/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/autoform/ArrayElementWrapper";
 import { Provider } from "./components/ui/provider";
-import { useState, useEffect } from "react";
 
 const ChakraUIComponents: AutoFormUIComponents = {
   Form,
@@ -37,29 +38,36 @@ const ChakraAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof ChakraAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  uiComponents,
-  formComponents,
-  colorModeProps,
-  ...props
-}: AutoFormProps<T>) {
-  const [isMounted, setIsMounted] = useState(false);
+/**
+ * Factory that binds the Chakra UI component registry to any BaseAutoForm.
+ */
+export function createAutoForm<T extends Record<string, any>>(
+  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
+) {
+  return function ChakraAutoForm({
+    uiComponents,
+    formComponents,
+    colorModeProps,
+    ...props
+  }: ExtendableAutoFormProps<T> & ChakraAutoFormProps<T>) {
+    const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+    if (!isMounted) return null;
 
-  return (
-    <Provider {...colorModeProps}>
-      <BaseAutoForm
-        {...props}
-        uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
-        formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
-      />
-    </Provider>
-  );
+    return (
+      <Provider {...(colorModeProps as any)}>
+        <BaseAutoForm
+          {...(props as AutoFormProps<T>)}
+          uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
+          formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
+        />
+      </Provider>
+    );
+  };
 }
+
+export { ChakraUIComponents, ChakraAutoFormFieldComponents };

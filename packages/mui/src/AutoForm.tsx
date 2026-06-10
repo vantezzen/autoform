@@ -1,10 +1,11 @@
 import React from "react";
 import {
-  AutoForm as BaseAutoForm,
   AutoFormUIComponents,
+  AutoFormProps,
+  ExtendableAutoFormProps,
 } from "@acp-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as MuiAutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -37,19 +38,29 @@ export const MuiAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof MuiAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  theme,
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  const form = (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...MuiUIComponents, ...uiComponents }}
-      formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
-    />
-  );
-
-  return theme ? <ThemeProvider theme={theme}>{form}</ThemeProvider> : form;
+/**
+ * Factory that binds the MUI component registry to any BaseAutoForm.
+ * Usage: const MuiAutoForm = createAutoForm(AutoForm) where AutoForm is
+ * imported from "@acp-autoform/react/react-hook-form" or "@acp-autoform/react/tanstack-form".
+ */
+export function createAutoForm<T extends Record<string, any>>(
+  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
+) {
+  return function MuiAutoForm({
+    theme,
+    uiComponents,
+    formComponents,
+    ...props
+  }: ExtendableAutoFormProps<T> & MuiAutoFormProps<T>) {
+    const form = (
+      <BaseAutoForm
+        {...(props as AutoFormProps<T>)}
+        uiComponents={{ ...MuiUIComponents, ...uiComponents }}
+        formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
+      />
+    );
+    return theme ? <ThemeProvider theme={theme}>{form}</ThemeProvider> : form;
+  };
 }
+
+export { MuiUIComponents };

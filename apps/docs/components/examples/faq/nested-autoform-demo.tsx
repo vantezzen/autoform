@@ -2,7 +2,14 @@
 import { useController } from "react-hook-form";
 
 import * as React from "react";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import {
+  AutoFormFieldProps,
+  AutoFormUIComponents,
+  ArrayElementWrapperProps,
+  ArrayWrapperProps,
+  ExtendableAutoFormProps,
+  FieldWrapperProps,
+} from "@acp-autoform/react";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import * as z from "zod";
 

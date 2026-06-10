@@ -1,9 +1,10 @@
 import {
   AutoFormUIComponents,
-  AutoForm as BaseAutoForm,
+  AutoFormProps,
+  ExtendableAutoFormProps,
 } from "@acp-autoform/react";
 import { ConfigProvider } from "antd";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as AntAutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -17,6 +18,7 @@ import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
 import { useEffect, useState } from "react";
+import React from "react";
 import "@ant-design/v5-patch-for-react-19";
 
 const AntUIComponents: AutoFormUIComponents = {
@@ -38,35 +40,42 @@ const AntAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof AntAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  antFormProps,
-  antProviderProps,
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  const [isMounted, setIsMounted] = useState(false);
+/**
+ * Factory that binds the Ant Design component registry to any BaseAutoForm.
+ */
+export function createAutoForm<T extends Record<string, any>>(
+  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
+) {
+  return function AntAutoForm({
+    antFormProps,
+    antProviderProps,
+    uiComponents,
+    formComponents,
+    ...props
+  }: ExtendableAutoFormProps<T> & AntAutoFormProps<T>) {
+    const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+    if (!isMounted) return null;
 
-  const form = (
-    <BaseAutoForm
-      {...props}
-      formProps={{ ...antFormProps, ...props.formProps }}
-      uiComponents={{ ...AntUIComponents, ...uiComponents }}
-      formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
-    />
-  );
+    const form = (
+      <BaseAutoForm
+        {...(props as AutoFormProps<T>)}
+        formProps={{ ...antFormProps, ...(props as any).formProps }}
+        uiComponents={{ ...AntUIComponents, ...uiComponents }}
+        formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
+      />
+    );
 
-  return antProviderProps ? (
-    <ConfigProvider {...antProviderProps}>{form}</ConfigProvider>
-  ) : (
-    form
-  );
+    return antProviderProps ? (
+      <ConfigProvider {...antProviderProps}>{form}</ConfigProvider>
+    ) : (
+      form
+    );
+  };
 }
+
+export { AntUIComponents, AntAutoFormFieldComponents };

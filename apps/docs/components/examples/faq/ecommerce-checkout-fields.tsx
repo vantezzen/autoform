@@ -191,7 +191,7 @@ export function PaymentFieldWrapper({ children }: FieldWrapperProps) {
   const [isFree, setIsFree] = React.useState(false);
 
   React.useEffect(() => {
-    // see RHF docs for subscribe: https://react-hook-form.com/docs/useform/subscribe
+    // see react-hook-form docs for subscribe: https://react-hook-form.com/docs/useform/subscribe
     const callback = subscribe({
       name: ["couponCode", "haveCoupon"],
       formState: {

@@ -11,7 +11,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { key, ref, ...props } = inputProps;
+  const { key, ref, "aria-invalid": ariaInvalid, ...props } = inputProps;
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -19,6 +19,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         variant="h6"
         ref={ref}
         tabIndex={-1}
+        aria-invalid={ariaInvalid}
         aria-describedby={`${key}-error ${key}-description`}
         sx={{
           "&:focus-visible": {

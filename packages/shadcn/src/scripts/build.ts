@@ -1,9 +1,19 @@
 import { readFile, writeFile } from "fs/promises";
 import { z } from "zod/v3";
 import { registryEntrySchema } from "./schema";
-import { glob } from "glob";
+import { readdir } from "fs/promises";
+import { join } from "path";
 
 console.log("Building registry...");
+
+async function getFiles(dir: string): Promise<string[]> {
+  const dirents = await readdir(dir, { withFileTypes: true });
+  const files = await Promise.all(dirents.map((dirent) => {
+    const res = join(dir, dirent.name);
+    return dirent.isDirectory() ? getFiles(res) : res;
+  }));
+  return files.flat() as string[];
+}
 
 const registry: z.infer<typeof registryEntrySchema> = {
   name: "AutoForm",
@@ -32,7 +42,7 @@ const registry: z.infer<typeof registryEntrySchema> = {
   files: [],
 };
 
-const files = await glob(`./src/components/ui/autoform/**/*`, { nodir: true });
+const files = await getFiles(`./src/components/ui/autoform`);
 for (const file of files) {
   let content = await readFile(file, "utf-8");
   // Normalize line endings to LF only (remove carriage returns)

@@ -1,9 +1,15 @@
-import { AutoForm } from "@acp-autoform/chakra";
+"use client";
+import { createAutoForm } from "@acp-autoform/chakra";
+import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
+import { AutoForm as AutoFormTanstack } from "@acp-autoform/react/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 
-function Chakra() {
+const ChakraRHFAutoForm = createAutoForm(AutoFormRHF);
+const ChakraTanstackAutoForm = createAutoForm(AutoFormTanstack);
+
+export function ChakraRHF() {
   return (
-    <AutoForm
+    <ChakraRHFAutoForm
       schema={zodSchemaProvider}
       onSubmit={(data) => {
         console.log(JSON.stringify(data, null, 2));
@@ -16,4 +22,17 @@ function Chakra() {
   );
 }
 
-export default Chakra;
+export function ChakraTanstack() {
+  return (
+    <ChakraTanstackAutoForm
+      schema={zodSchemaProvider}
+      onSubmit={(data) => {
+        console.log(JSON.stringify(data, null, 2));
+      }}
+      colorModeProps={{
+        enableSystem: false,
+      }}
+      withSubmit
+    />
+  );
+}

@@ -11,7 +11,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { key, ref, ...props } = inputProps;
+  const { key, ref, "aria-invalid": ariaInvalid, ...props } = inputProps;
 
   return (
     <section style={{ marginBottom: "20px" }}>
@@ -19,6 +19,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         level={5}
         ref={ref}
         tabIndex={-1}
+        aria-invalid={ariaInvalid}
         aria-describedby={`${key}-error ${key}-description `}
       >
         {parsedField.required && (
