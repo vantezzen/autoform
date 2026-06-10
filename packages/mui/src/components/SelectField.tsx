@@ -9,12 +9,13 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { ref, ...field } = useField({ name: id }).field;
+  const { field } = useField({ name: id });
+  const { ref, ...restInputProps } = inputProps as any;
   return (
     <Select
       key={id}
       fullWidth
-      {...inputProps}
+      {...restInputProps}
       {...field}
       value={field.value ?? ""}
       inputRef={ref}

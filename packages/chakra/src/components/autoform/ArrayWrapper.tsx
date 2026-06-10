@@ -55,7 +55,10 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           variant={"surface"}
           {...props}
           type="button"
-          onClick={onAddItem}
+          onClick={(e) => {
+            e.currentTarget.blur();
+            onAddItem();
+          }}
           aria-label={`add ${label}`}
         >
           <FiPlus />

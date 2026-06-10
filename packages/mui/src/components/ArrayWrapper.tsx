@@ -47,7 +47,10 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         {...props}
         sx={{ my: 1 }}
         variant="outlined"
-        onClick={onAddItem}
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onAddItem();
+        }}
         aria-label={`add ${label}`}
       >
         <AddIcon />

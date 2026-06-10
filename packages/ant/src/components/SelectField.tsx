@@ -7,7 +7,8 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { ref, ...field } = useField({ name: id }).field;
+  const { field } = useField({ name: id });
+  const { ref, ...restInputProps } = inputProps as any;
 
   const options =
     parsedField.options?.map((option) => ({
@@ -19,7 +20,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       ref={ref}
       id={id}
       key={id}
-      {...inputProps}
+      {...restInputProps}
       {...field}
       options={options}
       style={{ width: "100%" }}

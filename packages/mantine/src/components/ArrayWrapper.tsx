@@ -42,7 +42,10 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
       <Button
         {...props}
         mt="5px"
-        onClick={onAddItem}
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onAddItem();
+        }}
         aria-label={`add ${label}`}
       >
         <IconPlus size={19} />

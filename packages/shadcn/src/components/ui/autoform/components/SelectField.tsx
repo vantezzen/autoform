@@ -15,18 +15,21 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   parsedField,
 }) => {
   const { field } = useField({ name: id });
-  const { value, onChange, ...formFieldRest } = field;
+  const { value, onChange, onBlur, name } = field;
+  const { ref, "aria-invalid": ariaInvalid, ...restInputProps } = inputProps as any;
 
   return (
     <Select
       onValueChange={onChange}
       value={value}
-      {...inputProps}
-      {...formFieldRest}
+      name={name}
+      {...restInputProps}
     >
       <SelectTrigger
         id={id}
-        {...field}
+        ref={ref}
+        aria-invalid={ariaInvalid}
+        onBlur={onBlur}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue

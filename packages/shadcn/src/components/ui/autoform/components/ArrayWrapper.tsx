@@ -50,7 +50,10 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         size="sm"
         type="button"
         variant="outline"
-        onClick={onAddItem}
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onAddItem();
+        }}
         aria-label={`add ${label}`}
       >
         <PlusIcon className="h-4 w-4" />

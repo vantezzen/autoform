@@ -58,7 +58,10 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
         aria-label={`add ${label}`}
         {...props}
         type="primary"
-        onClick={onAddItem}
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onAddItem();
+        }}
       >
         <PlusOutlined />
       </Button>
