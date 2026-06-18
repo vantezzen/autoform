@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Advanced Features Tests (MANTINE-ZOD), ${name}`, () => {
   const advancedSchema = z.object({
     username: z
       .string()
@@ -227,4 +225,5 @@ describe("AutoForm Advanced Features Tests (MANTINE-ZOD)", () => {
     );
     cy.get('input[name="isStudent"]').should("be.disabled");
   });
+});
 });

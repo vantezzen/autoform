@@ -1,19 +1,17 @@
-import { useController } from "react-hook-form";
+import { autoFormAdapters } from "./utils";
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mui";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
 
-describe("AutoForm Custom Fields Tests (MUI-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Custom Fields Tests (MUI-ZOD), ${name}`, () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     inputProps,
     error,
     id,
   }) => {
-    const formField = useController({ name: id }).field;
+    const { field } = useField({ name: id });
     return (
       <div>
         <input
@@ -21,7 +19,7 @@ describe("AutoForm Custom Fields Tests (MUI-ZOD)", () => {
           type="text"
           className="custom-input"
           {...inputProps}
-          {...formField}
+          {...field}
         />
         {error && <span className="error">{error}</span>}
       </div>
@@ -83,4 +81,5 @@ describe("AutoForm Custom Fields Tests (MUI-ZOD)", () => {
     cy.get(".error").should("contain", "Must be at least 5 characters");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

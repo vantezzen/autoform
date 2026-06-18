@@ -1,7 +1,5 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/chakra";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
@@ -13,7 +11,8 @@ enum Sports {
   None = "I don't like sports",
 }
 
-describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Basic Tests (CHAKRA-ZOD), ${name}`, () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
@@ -83,4 +82,5 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
       isStudent: true,
     });
   });
+});
 });

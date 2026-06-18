@@ -36,7 +36,7 @@ export function focusFirstInvalidInput(): void {
     } else {
       firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, 0);
+  }, 50);
 }
 
 /**
@@ -50,6 +50,14 @@ export function formatTanStackPath(path: string[]): string {
     }
     return acc ? `${acc}.${part}` : part;
   }, "");
+}
+
+/**
+ * Formats a path for DOM names/ids so shared UI tests and form components see
+ * the same public field names regardless of the underlying form adapter.
+ */
+export function formatDomPath(path: string[]): string {
+  return path.join(".");
 }
 
 /**

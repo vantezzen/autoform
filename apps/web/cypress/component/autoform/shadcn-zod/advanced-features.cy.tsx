@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Advanced Features Tests (SHADCN-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Advanced Features Tests (SHADCN-ZOD, ${name})`, () => {
   const advancedSchema = z.object({
     username: z
       .string()
@@ -204,4 +202,5 @@ describe("AutoForm Advanced Features Tests (SHADCN-ZOD)", () => {
     cy.get('input[name="birthdate"]').should("be.disabled");
     cy.get('button[id="isStudent"]').should("be.disabled");
   });
+});
 });

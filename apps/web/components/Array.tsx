@@ -1,6 +1,4 @@
-import { createAutoForm } from "@acp-autoform/mui";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { AutoForm } from "@acp-autoform/mui/react-hook-form";
 import { ZodProvider } from "@acp-autoform/zod";
 import { useState } from "react";
 import * as z from "zod";

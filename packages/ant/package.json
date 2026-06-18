@@ -4,10 +4,27 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./react-hook-form": {
+      "types": "./dist/react-hook-form.d.ts",
+      "import": "./dist/react-hook-form.mjs",
+      "require": "./dist/react-hook-form.js"
+    },
+    "./tanstack-form": {
+      "types": "./dist/tanstack-form.d.ts",
+      "import": "./dist/tanstack-form.mjs",
+      "require": "./dist/tanstack-form.js"
+    }
+  },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.tsx --format cjs,esm --dts",
-    "dev": "tsup src/index.tsx --format cjs,esm --dts --watch"
+    "build": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts",
+    "dev": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --watch"
   },
   "repository": {
     "type": "git",

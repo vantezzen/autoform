@@ -1,11 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/ant";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Form Props Tests (ANT-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Form Props Tests (ANT-ZOD), ${name}`, () => {
   const schema = z.object({
     name: z.string(),
   });
@@ -51,4 +50,5 @@ describe("AutoForm Form Props Tests (ANT-ZOD)", () => {
     cy.get('input[name="name"]').type("John Doe{enter}");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

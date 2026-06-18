@@ -61,7 +61,6 @@
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-hook-form": "^7",
     "zod": "^3"
   }
 }

@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Validation Tests (SHADCN-ZOD, ${name})`, () => {
   const validationSchema = z.object({
     username: z.string().min(3, "Username must be at least 3 characters"),
     password: z.string().min(8, "Password must be at least 8 characters"),
@@ -116,8 +114,8 @@ describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
     // select field
     cy.get('button[type="submit"]').click();
     cy.contains("Color is required").should("be.visible");
-    cy.get('button[name="color"]').should("be.focused");
-    cy.get('button[name="color"]').should("exist").click();
+    cy.get('[role="combobox"]').should("be.focused");
+    cy.get('[role="combobox"]').should("exist").click();
     cy.get('div[data-radix-collection-item][role="option"]')
       .should("be.visible")
       .contains("green")
@@ -132,4 +130,5 @@ describe("AutoForm Validation Tests (SHADCN-ZOD)", () => {
     cy.get('button[type="submit"]').click();
     cy.get("@onSubmit").should("have.been.called");
   });
+});
 });

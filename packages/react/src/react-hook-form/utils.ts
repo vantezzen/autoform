@@ -46,7 +46,7 @@ export function focusFirstInvalidInput(): void {
     } else {
       firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, 0);
+  }, 50);
 }
 
 /**

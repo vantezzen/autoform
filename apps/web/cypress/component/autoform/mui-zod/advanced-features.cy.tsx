@@ -1,11 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mui";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Advanced Features Tests (MUI-ZOD), ${name}`, () => {
   const advancedSchema = z.object({
     username: z
       .string()
@@ -210,4 +209,5 @@ describe("AutoForm Advanced Features Tests (MUI-ZOD)", () => {
     cy.get('input[name="birthdate"]').should("be.disabled");
     cy.get('input[name="isStudent"]').should("be.disabled");
   });
+});
 });

@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Validation Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Validation Tests (MANTINE-ZOD), ${name}`, () => {
   const validationSchema = z.object({
     username: z.string().min(3, "Username must be at least 3 characters"),
     password: z.string().min(8, "Password must be at least 8 characters"),
@@ -133,4 +131,5 @@ describe("AutoForm Validation Tests (MANTINE-ZOD)", () => {
     cy.get('button[type="submit"]').click();
     cy.get("@onSubmit").should("have.been.called");
   });
+});
 });

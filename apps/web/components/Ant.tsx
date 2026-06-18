@@ -1,11 +1,7 @@
 "use client";
-import { createAutoForm } from "@acp-autoform/ant";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-import { AutoForm as AutoFormTanstack } from "@acp-autoform/react/tanstack-form";
+import { AutoForm as AntRHFAutoForm } from "@acp-autoform/ant/react-hook-form";
+import { AutoForm as AntTanstackAutoForm } from "@acp-autoform/ant/tanstack-form";
 import { zodSchemaProvider } from "./utils";
-
-const AntRHFAutoForm = createAutoForm(AutoFormRHF);
-const AntTanstackAutoForm = createAutoForm(AutoFormTanstack);
 
 export function AntRHF() {
   return (
@@ -17,7 +13,7 @@ export function AntRHF() {
       antFormProps={{
         layout: "horizontal",
         className: "no-margin-form",
-        onValuesChange: (e) => {
+        onValuesChange: (e: any) => {
           console.log("inputChange", e);
         },
       }}
@@ -36,7 +32,7 @@ export function AntTanstack() {
       antFormProps={{
         layout: "horizontal",
         className: "no-margin-form",
-        onValuesChange: (e) => {
+        onValuesChange: (e: any) => {
           console.log("inputChange", e);
         },
       }}

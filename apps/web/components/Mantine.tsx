@@ -1,13 +1,9 @@
 "use client";
 import { createTheme, MantineProvider } from "@mantine/core";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-import { AutoForm as AutoFormTanstack } from "@acp-autoform/react/tanstack-form";
+import { AutoForm as MantineRHFAutoForm } from "@acp-autoform/mantine/react-hook-form";
+import { AutoForm as MantineTanstackAutoForm } from "@acp-autoform/mantine/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 import "@mantine/core/styles.css";
-
-const MantineRHFAutoForm = createAutoForm(AutoFormRHF);
-const MantineTanstackAutoForm = createAutoForm(AutoFormTanstack);
 
 export function MantineRHF() {
   const theme = createTheme({});

@@ -1,7 +1,5 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/ant";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { AutoForm } from "@acp-autoform/ant/react-hook-form";
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/mini";
 

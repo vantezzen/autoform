@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm, createFormHookContexts, useStore, type ReactFormExtendedApi } from "@tanstack/react-form";
-import { getDefaultValues, parseSchema } from "@acp-autoform/core";
+import { getDefaultValues, parseSchema, replaceEmptyValue } from "@acp-autoform/core";
 import type { ParsedSchema } from "@acp-autoform/core";
 import type { AutoFormProps, UseFieldFn } from "../types";
 import { AutoFormProvider } from "../context";
@@ -34,10 +34,16 @@ const useFieldTanStack: UseFieldFn = (_opts) => {
         fieldApi.handleChange(value);
       },
       onBlur: () => fieldApi.handleBlur(),
-      name: fieldApi.name,
+      name: String(fieldApi.name).replace(/\[(\d+)\]/g, ".$1"),
     },
   };
 };
+
+function syncValues(form: FormApi, values: Record<string, any>) {
+  for (const [key, value] of Object.entries(values)) {
+    form.setFieldValue(key, value, { touch: false } as any);
+  }
+}
 
 export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   formControl,
@@ -55,27 +61,39 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   const { ref: _ref, ...restFormProps } = formProps as React.ComponentProps<"form">;
   const parsedSchema: ParsedSchema = parseSchema(schema);
   const validator = createSchemaValidator(schema);
+  const formRef = useRef<FormApi | null>(null);
 
-  const form = useForm({
-    // If an external form instance is passed, use it directly
-    ...(formControl ? { form: formControl as FormApi } : {}),
+  const formOptions = {
     defaultValues: {
       ...(getDefaultValues(schema) as Partial<T>),
       ...defaultValues,
     } as T,
     ...(validator ? { validators: { onChange: validator as any } } : {}),
     onSubmit: async ({ value }: { value: T }) => {
-      await onSubmit(value, form);
+      const validation = schema.validateSchema(replaceEmptyValue(value));
+      if (validation.success) {
+        await onSubmit(validation.data, formRef.current);
+      }
     },
     onSubmitInvalid: () => {
       focusFirstInvalidInput();
     },
-  });
+  };
+
+  const internalForm = useForm(formOptions);
+  const form = (formControl as FormApi | undefined) ?? internalForm;
+  formRef.current = form as FormApi;
+
+  useEffect(() => {
+    if (formControl) {
+      (formControl as FormApi).update(formOptions as any);
+    }
+  }, [formControl, schema, onSubmit]);
 
   // Sync controlled external values
   useEffect(() => {
     if (values) {
-      (form as any).setValues(values as T, { touch: false });
+      syncValues(form as FormApi, values as Record<string, any>);
     }
   }, [values]);
 

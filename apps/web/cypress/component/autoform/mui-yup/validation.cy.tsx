@@ -1,7 +1,5 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mui";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { AutoForm } from "@acp-autoform/mui/react-hook-form";
 import { YupProvider } from "@acp-autoform/yup";
 import * as Yup from "yup";
 

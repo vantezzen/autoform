@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Arrays Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Arrays Tests (MANTINE-ZOD), ${name}`, () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
@@ -71,4 +69,5 @@ describe("AutoForm Arrays Tests (MANTINE-ZOD)", () => {
       friends: [{ name: "Bob", age: 30 }],
     });
   });
+});
 });

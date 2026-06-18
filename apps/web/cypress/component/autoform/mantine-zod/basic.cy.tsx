@@ -1,10 +1,7 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
 enum Sports {
   Football = "Football/Soccer",
@@ -14,7 +11,8 @@ enum Sports {
   None = "I don't like sports",
 }
 
-describe("AutoForm Basic Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Basic Tests (MANTINE-ZOD), ${name}`, () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
@@ -79,4 +77,5 @@ describe("AutoForm Basic Tests (MANTINE-ZOD)", () => {
       isStudent: true,
     });
   });
+});
 });

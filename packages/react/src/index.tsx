@@ -1,8 +1,6 @@
 "use client";
 
-// ─── Shared agnostic root ─────────────────────────────────────────────────────
-// Types, context, and the context-delegating useField hook.
-// Both ./react-hook-form and ./tanstack-form implement this contract.
-
+// Shared adapter-agnostic root. Runtime form implementations live only in
+// ./react-hook-form and ./tanstack-form so consumers can bundle one adapter.
 export * from "./types";
 export * from "./context";

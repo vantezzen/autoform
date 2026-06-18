@@ -1,9 +1,7 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import HookTest from "components/Hook-test";
+import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/react-hook-form";
 import { TestWrapper } from "./utils";
 import { z } from "zod/v3";
 
@@ -74,7 +72,7 @@ describe("React-Hook-Form useForm properties Tests (SHADCN-ZOD)", () => {
     cy.get('input[name="age"]').type("25");
     cy.get("button#isStudent").click();
     cy.get('input[name="birthdate"]').clear().type("1990-01-01"); // or click
-    cy.get('button[name="color"]').should("exist").click();
+    cy.get('[role="combobox"]').should("exist").click();
     cy.get('div[data-radix-collection-item][role="option"]')
       .should("be.visible")
       .contains("green")

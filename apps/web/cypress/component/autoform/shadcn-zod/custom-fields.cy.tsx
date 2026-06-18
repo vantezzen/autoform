@@ -1,20 +1,17 @@
-import { useController } from "react-hook-form";
 import React from "react";
-import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@acp-autoform/react";
-import { TestWrapper } from "./utils";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Custom Fields Tests (SHADCN-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Custom Fields Tests (SHADCN-ZOD, ${name})`, () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
     inputProps,
     error,
     id,
   }) => {
-    const formField = useController({ name: id }).field;
+    const { field } = useField({ name: id });
     return (
       <div>
         <input
@@ -22,7 +19,7 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD)", () => {
           type="text"
           className="custom-input"
           {...inputProps}
-          {...formField}
+          {...field}
         />
         {error && <span className="error">{error}</span>}
       </div>
@@ -88,4 +85,5 @@ describe("AutoForm Custom Fields Tests (SHADCN-ZOD)", () => {
     cy.get(".error").should("contain", "Must be at least 5 characters");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

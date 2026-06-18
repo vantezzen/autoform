@@ -1,11 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/chakra";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Arrays Tests (CHAKRA-ZOD), ${name}`, () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
@@ -66,4 +65,5 @@ describe("AutoForm Arrays Tests (CHAKRA-ZOD)", () => {
       friends: [{ name: "Bob", age: 30 }],
     });
   });
+});
 });

@@ -1,13 +1,12 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mui";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
 import { FieldWrapperProps } from "@acp-autoform/react";
 
-describe("AutoForm UI Customization Tests (MUI-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm UI Customization Tests (MUI-ZOD), ${name}`, () => {
   const customSchema = z.object({
     name: z.string().superRefine(
       fieldConfig({
@@ -78,4 +77,5 @@ describe("AutoForm UI Customization Tests (MUI-ZOD)", () => {
 
     cy.get(".custom-text-field").should("exist");
   });
+});
 });

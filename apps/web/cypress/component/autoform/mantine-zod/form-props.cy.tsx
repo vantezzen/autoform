@@ -1,12 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/mantine";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Form Props Tests (MANTINE-ZOD), ${name}`, () => {
   const schema = z.object({
     name: z.string(),
   });
@@ -56,4 +54,5 @@ describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
     cy.get('input[name="name"]').type("John Doe{enter}");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

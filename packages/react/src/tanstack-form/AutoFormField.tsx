@@ -7,7 +7,7 @@ import { useAutoForm } from "../context";
 import { getFieldError } from "./getFieldError";
 import { ArrayField } from "./ArrayField";
 import { ObjectField } from "./ObjectField";
-import { formatTanStackPath } from "./utils";
+import { formatDomPath, formatTanStackPath } from "./utils";
 import type { AutoFormFieldProps } from "../types";
 import { fieldContext } from "./AutoForm";
 export const AutoFormField: React.FC<{
@@ -17,6 +17,7 @@ export const AutoFormField: React.FC<{
 }> = ({ path, parsedField, form }) => {
   const { formComponents, uiComponents } = useAutoForm();
   const fullPath = formatTanStackPath(path);
+  const domPath = formatDomPath(path);
   const fieldConfig = parsedField.fieldConfig;
   const FieldWrapper = fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
 
@@ -47,13 +48,13 @@ export const AutoFormField: React.FC<{
       <FieldWrapper
         label={getLabel(parsedField)}
         error={error}
-        id={fullPath}
+        id={domPath}
         parsedField={parsedField}
       >
         <FieldComponent
-          key={`${fullPath}-input`}
+          key={`${domPath}-input`}
           path={path}
-          id={fullPath}
+          id={domPath}
           error={error}
           parsedField={parsedField}
           label={getLabel(parsedField)}

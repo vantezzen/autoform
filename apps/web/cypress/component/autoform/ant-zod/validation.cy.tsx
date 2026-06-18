@@ -1,11 +1,10 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/ant";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Validation Tests (ANT-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Validation Tests (ANT-ZOD), ${name}`, () => {
   const validationSchema = z.object({
     username: z.string().min(3, "Username must be at least 3 characters"),
     password: z.string().min(8, "Password must be at least 8 characters"),
@@ -123,4 +122,5 @@ describe("AutoForm Validation Tests (ANT-ZOD)", () => {
     cy.get('button[type="submit"]').click();
     cy.get("@onSubmit").should("have.been.called");
   });
+});
 });

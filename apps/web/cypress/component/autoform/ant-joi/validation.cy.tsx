@@ -1,8 +1,6 @@
 import React from "react";
 import Joi from "joi";
-import { createAutoForm } from "@acp-autoform/ant";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { AutoForm } from "@acp-autoform/ant/react-hook-form";
 import { JoiProvider } from "@acp-autoform/joi";
 
 describe("AutoForm Validation Tests (ANT-JOI)", () => {

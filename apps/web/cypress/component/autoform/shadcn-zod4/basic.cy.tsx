@@ -1,7 +1,5 @@
 import React from "react";
-import { createAutoForm } from "@acp-autoform/shadcn/components/ui/autoform/AutoForm";
-import { AutoForm as AutoFormRHF } from "@acp-autoform/react/react-hook-form";
-const AutoForm = createAutoForm(AutoFormRHF);
+import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/react-hook-form";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
@@ -42,7 +40,7 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
     cy.get('input[name="age"]').should("have.attr", "type", "number");
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
-    cy.get('button[name="sports"]').should("exist");
+    cy.get('[role="combobox"]').should("exist");
     cy.get('input[name="birthdate"]').should("exist");
     cy.get("button#isStudent").should("exist");
   });
@@ -59,7 +57,7 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
     cy.get('input[name="age"]').type("25");
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
-    cy.get('button[name="sports"]').should("exist").click();
+    cy.get('[role="combobox"]').should("exist").click();
     cy.get('div[data-radix-collection-item][role="option"]')
       .should("be.visible")
       .contains("Hockey (Ice)")
