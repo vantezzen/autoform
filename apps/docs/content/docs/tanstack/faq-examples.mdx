@@ -3,155 +3,296 @@ title: FAQ & Examples
 description: Common TanStack Form usage patterns.
 ---
 
+import { CodeFromFile } from "@/components/examples/faq/code-from-file";
+import { InstallInstructions } from "@/components/examples/faq/install-instructions";
+import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
+import TanStackDialogSubmitDemo from "@/components/examples/faq/tanstack-dialog-submit-demo";
+import { TanStackDialogFormControlDemo } from "@/components/examples/faq/tanstack-dialog-form-control-demo";
+import { TanStackRealtimeValidationDemo } from "@/components/examples/faq/tanstack-realtime-validation-demo";
+import { TanStackCustomFieldsDemo } from "@/components/examples/faq/tanstack-custom-fields-demo";
+import { TanStackEcommerceCheckoutDemo } from "@/components/examples/faq/tanstack-ecommerce-checkout-demo";
+import TanStackMultistepFormDemo from "@/components/examples/faq/tanstack-multistep-form-usage-demo";
+import TanStackNestedAutoFormDemo from "@/components/examples/faq/tanstack-nested-autoform-demo";
+import TanStackInteractiveSchemaDemoContent from "@/components/examples/faq/tanstack-interactive-schema-demo-content";
+
 ## How do I show validation state in real time and disable submit until valid?
 
-Use TanStack Form's subscription APIs. Inside AutoForm children, get the form with `useFormContext`, then subscribe to the state slice you need.
+Use TanStack Form's subscription APIs. Inside AutoForm children, get the form with `useFormContext`, then subscribe to `state.canSubmit`.
 
-```tsx
-import { useFormContext } from "@acp-autoform/react/tanstack-form";
+<Tabs persist items={["preview", "code"]} label="TanStack real-time validation">
+  <Tab value="preview">
+    <TanStackRealtimeValidationDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/tanstack-realtime-validation-demo.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
 
-function SubmitButton() {
-  const form = useFormContext();
-
-  return (
-    <form.Subscribe selector={(state) => state.canSubmit}>
-      {(canSubmit) => (
-        <button type="submit" disabled={!canSubmit}>
-          Submit
-        </button>
-      )}
-    </form.Subscribe>
-  );
-}
-
-<AutoForm schema={schemaProvider}>
-  <SubmitButton />
-</AutoForm>;
-```
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-realtime-validation-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-realtime-validation-demo.tsx",
+      label: "tanstack-realtime-validation-demo.tsx",
+    },
+  ]}
+  label="TanStack real-time validation install"
+/>
 
 ## How do I submit or reset AutoForm from buttons in a dialog?
 
 Use one of these approaches:
 
-1. Render the dialog actions inside AutoForm and call `useFormContext`.
-2. Create a form with `useAppForm`, pass it as `formControl`, and call methods on it from outside AutoForm.
+1.  Render the dialog actions inside AutoForm and call `useFormContext`.
 
-```tsx
-import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@acp-autoform/react/tanstack-form";
+2.  Create a form with `useAppForm`, pass it as `formControl`, and call methods on it from outside AutoForm.
 
-function DialogForm() {
-  const form = useAppForm(formOptions({ defaultValues: {} }));
+<Tabs persist items={["preview", "code"]} label="TanStack dialog submit">
+  <Tab value="preview">
+    <TanStackDialogSubmitDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="use-form-context"
+      items={[
+        { value: "use-form-context", label: "useFormContext" },
+        { value: "form-control", label: "formControl" },
+      ]}
+    >
+      <MethodTab value="use-form-context">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-dialog-submit-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="form-control">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-dialog-form-control-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
 
-  return (
-    <Dialog>
-      <AutoForm formControl={form} schema={schemaProvider} />
-      <DialogFooter>
-        <button type="button" onClick={() => form.reset()}>
-          Reset
-        </button>
-        <button type="button" onClick={() => form.handleSubmit()}>
-          Submit
-        </button>
-      </DialogFooter>
-    </Dialog>
-  );
-}
-```
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-dialog-submit-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-dialog-submit-demo.tsx",
+      label: "tanstack-dialog-submit-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/tanstack-dialog-form-control-demo.tsx",
+      label: "tanstack-dialog-form-control-demo.tsx",
+    },
+  ]}
+  label="TanStack dialog install"
+/>
 
 ## How do I add custom fields?
 
-Register the custom input in `formComponents` and mark the matching schema field with `fieldConfig({ fieldType: "..." })`.
+Register the custom input in `formComponents`, read the current field with `useFieldContext`, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`.
 
-```tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
-import { fieldConfig } from "@acp-autoform/zod";
+<Tabs persist items={["preview", "code"]} label="TanStack custom fields form">
+  <Tab value="preview">
+    <TanStackCustomFieldsDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "tanstack-custom-fields-demo.tsx" },
+        { value: "fields", label: "tanstack-custom-field-components.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-custom-fields-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
 
-function SliderField({ id, inputProps }: AutoFormFieldProps) {
-  const field = useFieldContext<number>();
-
-  return (
-    <input
-      id={id}
-      type="range"
-      min={0}
-      max={100}
-      {...inputProps}
-      value={field.state.value ?? 0}
-      onBlur={field.handleBlur}
-      onChange={(event) => field.handleChange(Number(event.target.value))}
-    />
-  );
-}
-
-const schema = z.object({
-  volume: z.number().check(fieldConfig({ fieldType: "slider" })),
-});
-
-<AutoForm
-  schema={new ZodProvider(schema)}
-  formComponents={{
-    slider: SliderField,
-  }}
-/>;
-```
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-custom-fields-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-custom-fields-demo.tsx",
+      label: "tanstack-custom-fields-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/tanstack-custom-field-components.tsx",
+      label: "tanstack-custom-field-components.tsx",
+    },
+  ]}
+  label="TanStack custom fields install"
+/>
 
 ## How do I create fields with dependencies between them?
 
-Use schema validation for data rules, and TanStack subscriptions for UI behavior.
+Use schema validation for data rules, and TanStack Form subscriptions for UI behavior. Custom fields and wrappers can subscribe to related values with `form.Subscribe`.
 
-```tsx
-import { useFormContext } from "@acp-autoform/react/tanstack-form";
+<Tabs persist items={["preview", "code"]} label="TanStack ecommerce checkout">
+  <Tab value="preview">
+    <TanStackEcommerceCheckoutDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "tanstack-ecommerce-checkout-demo.tsx" },
+        { value: "fields", label: "tanstack-ecommerce-checkout-fields.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-ecommerce-checkout-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-ecommerce-checkout-fields.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
 
-function GiftMessageHint() {
-  const form = useFormContext();
-
-  return (
-    <form.Subscribe selector={(state) => state.values.isGift}>
-      {(isGift) => (isGift ? <span>Gift message enabled</span> : null)}
-    </form.Subscribe>
-  );
-}
-```
-
-For input-level dependencies, custom field components can read the form context and update their rendered options from `form.state.values` or `form.Subscribe`.
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-ecommerce-checkout-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-ecommerce-checkout-demo.tsx",
+      label: "tanstack-ecommerce-checkout-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/tanstack-ecommerce-checkout-fields.tsx",
+      label: "tanstack-ecommerce-checkout-fields.tsx",
+    },
+  ]}
+  label="TanStack ecommerce checkout install"
+/>
 
 ## How do I create a simple multistep form?
 
-Use a separate schema per step. Render one AutoForm per step, validate with `form.handleSubmit()`, and store each step's submitted values in parent state before moving forward.
+Use a separate schema for each step. Render the current step, save each submitted step value in parent state, then move to the next step.
 
-```tsx
-const form = useAppForm(formOptions({ defaultValues: currentValues }));
+<Tabs persist items={["preview", "code"]} label="TanStack multistep form">
+  <Tab value="preview">
+    <TanStackMultistepFormDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="usage"
+      items={[
+        { value: "usage", label: "Usage" },
+        { value: "multistep-form", label: "TanStackMultistepForm" },
+      ]}
+    >
+      <MethodTab value="usage">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-multistep-form-usage-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="multistep-form">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-multistep-form.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
 
-<AutoForm
-  formControl={form}
-  schema={currentStep.schema}
-  onSubmit={(data) => {
-    setCurrentValues((values) => ({ ...values, ...data }));
-    setStep((step) => step + 1);
-  }}
-/>;
-```
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-multistep-form-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-multistep-form-usage-demo.tsx",
+      label: "tanstack-multistep-form-usage.tsx",
+    },
+    {
+      path: "components/examples/faq/tanstack-multistep-form.tsx",
+      label: "tanstack-multistep-form.tsx",
+    },
+  ]}
+  label="TanStack multistep form install"
+/>
 
 ## How do I use another AutoForm inside an AutoForm field?
 
 Create a custom field component, register it in `formComponents`, and pass the nested AutoForm submit value back with the current field's change handler.
 
-```tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
-
-function AddressField({ id }: AutoFormFieldProps) {
-  const field = useFieldContext();
-
-  return (
-    <AutoForm
-      schema={addressSchemaProvider}
-      defaultValues={field.state.value}
-      onSubmit={(address) => field.handleChange(address)}
-      withSubmit
+<Tabs persist items={["preview", "code"]} label="TanStack nested AutoForm">
+  <Tab value="preview">
+    <TanStackNestedAutoFormDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/tanstack-nested-autoform-demo.tsx"
+      lang="tsx"
     />
-  );
-}
-```
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-nested-autoform-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-nested-autoform-demo.tsx",
+      label: "tanstack-nested-autoform-demo.tsx",
+    },
+  ]}
+  label="TanStack nested AutoForm install"
+/>
+
+## How do I create an interactive, dynamic form builder?
+
+Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to AutoForm.
+
+<Tabs
+  persist
+  items={["preview", "code"]}
+  label="TanStack interactive form builder"
+>
+  <Tab value="preview">
+    <TanStackInteractiveSchemaDemoContent />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/tanstack-interactive-schema-demo-content.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<Callout title="Caution" type="warn">
+  This demo uses `eval()` to parse the editor input. Avoid using `eval()` with
+  untrusted input or in production server-side code.
+</Callout>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/tanstack-interactive-schema-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/tanstack-interactive-schema-demo-content.tsx",
+      label: "tanstack-interactive-schema-demo.tsx",
+    },
+  ]}
+  label="TanStack interactive schema install"
+/>

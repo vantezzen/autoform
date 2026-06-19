@@ -17,11 +17,13 @@ export const source = loader({
           className: "inline-flex size-4 shrink-0 items-center justify-center",
         },
         createElement("img", {
+          key: "light",
           alt: "",
           className: "size-4 object-contain dark:hidden",
           src: "https://tanstack.com/images/logos/logo-black.svg",
         }),
         createElement("img", {
+          key: "dark",
           alt: "",
           className: "hidden size-4 object-contain dark:block",
           src: "https://tanstack.com/images/logos/logo-white.svg",

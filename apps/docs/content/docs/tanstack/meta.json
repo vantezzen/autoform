@@ -1,7 +1,6 @@
 {
   "title": "TanStack Form",
   "icon": "TanStackLogo",
-  "defaultOpen": true,
   "pages": [
     "---Guide---",
     "getting-started",

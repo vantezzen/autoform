@@ -41,7 +41,7 @@
     {
       "path": "autoform/components/ArrayWrapper.tsx",
       "target": "components/ui/autoform/components/ArrayWrapper.tsx",
-      "content": "import React from \"react\";\nimport { PlusIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport type { ArrayWrapperProps } from \"@acp-autoform/react\";\n\nexport const ArrayWrapper: React.FC<ArrayWrapperProps> = ({\n  label,\n  error,\n  children,\n  onAddItem,\n  inputProps,\n  parsedField,\n}) => {\n  const { key, ref, \"aria-invalid\": ariaInvalid, ...props } = inputProps;\n\n  return (\n    <div className=\"space-y-2\">\n      <div className=\"space-y-1\">\n        <h3\n          className={`text-md font-medium focus:outline-none rounded-md px-2 py-1 transition-colors ${\n            error\n              ? \"focus:border focus:border-destructive focus:ring-1 focus:ring-destructive/50\"\n              : \"\"\n          }`}\n          ref={ref}\n          tabIndex={-1}\n          aria-invalid={ariaInvalid}\n          aria-describedby={`${key}-error ${key}-description`}\n        >\n          {label}\n          {parsedField.required && <span className=\"text-destructive\"> *</span>}\n        </h3>\n        {parsedField.fieldConfig?.description && (\n          <p\n            className=\"text-sm text-muted-foreground\"\n            id={key + \"-description\"}\n          >\n            {parsedField.fieldConfig.description}\n          </p>\n        )}\n        {error && (\n          <p className=\"text-sm text-destructive\" id={key + \"-error\"}>\n            {error}\n          </p>\n        )}\n      </div>\n      {children}\n      <Button\n        {...props}\n        size=\"sm\"\n        type=\"button\"\n        variant=\"outline\"\n        onClick={onAddItem}\n        aria-label={`add ${label}`}\n      >\n        <PlusIcon className=\"h-4 w-4\" />\n      </Button>\n    </div>\n  );\n};\n",
+      "content": "import React from \"react\";\nimport { PlusIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport type { ArrayWrapperProps } from \"@acp-autoform/react\";\n\nexport const ArrayWrapper: React.FC<ArrayWrapperProps> = ({\n  label,\n  error,\n  children,\n  onAddItem,\n  inputProps,\n  parsedField,\n}) => {\n  const { key, ref, \"aria-invalid\": ariaInvalid, ...props } = inputProps;\n\n  return (\n    <div className=\"space-y-2\">\n      <div className=\"space-y-1\">\n        <h3\n          className={`text-md font-medium focus:outline-none rounded-md px-2 py-1 transition-colors ${\n            error\n              ? \"focus:border focus:border-destructive focus:ring-1 focus:ring-destructive/50\"\n              : \"\"\n          }`}\n          ref={ref}\n          tabIndex={-1}\n          aria-invalid={ariaInvalid}\n          aria-describedby={`${key}-error ${key}-description`}\n        >\n          {label}\n          {parsedField.required && <span className=\"text-destructive\"> *</span>}\n        </h3>\n        {parsedField.fieldConfig?.description && (\n          <p\n            className=\"text-sm text-muted-foreground\"\n            id={key + \"-description\"}\n          >\n            {parsedField.fieldConfig.description}\n          </p>\n        )}\n        {error && (\n          <p className=\"text-sm text-destructive\" id={key + \"-error\"}>\n            {error}\n          </p>\n        )}\n      </div>\n      {children}\n      <Button\n        {...props}\n        size=\"sm\"\n        type=\"button\"\n        variant=\"outline\"\n        onClick={(e) => {\n          e.currentTarget.blur();\n          onAddItem();\n        }}\n        aria-label={`add ${label}`}\n      >\n        <PlusIcon className=\"h-4 w-4\" />\n      </Button>\n    </div>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -89,7 +89,7 @@
     {
       "path": "autoform/components/SelectField.tsx",
       "target": "components/ui/autoform/components/SelectField.tsx",
-      "content": "import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps, useField } from \"@acp-autoform/react\";\nimport React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n  parsedField,\n}) => {\n  const { field } = useField({ name: id });\n  const { value, onChange, ...formFieldRest } = field;\n\n  return (\n    <Select\n      onValueChange={onChange}\n      value={value}\n      {...inputProps}\n      {...formFieldRest}\n    >\n      <SelectTrigger\n        id={id}\n        {...field}\n        className={error ? \"border-destructive\" : \"\"}\n      >\n        <SelectValue\n          placeholder={inputProps?.placeholder ?? \"Select an option\"}\n        />\n      </SelectTrigger>\n      <SelectContent>\n        {(parsedField.options || []).map(([key, label], index) => (\n          <SelectItem key={`${key}-${index}`} value={label}>\n            {label}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n};\n",
+      "content": "import {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport { AutoFormFieldProps, useField } from \"@acp-autoform/react\";\nimport React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n  parsedField,\n}) => {\n  const { field } = useField({ name: id });\n  const { value, onChange, onBlur, name } = field;\n  const { ref, \"aria-invalid\": ariaInvalid, ...restInputProps } = inputProps as any;\n\n  return (\n    <Select\n      onValueChange={onChange}\n      value={value}\n      name={name}\n      {...restInputProps}\n    >\n      <SelectTrigger\n        id={id}\n        ref={ref}\n        aria-invalid={ariaInvalid}\n        onBlur={onBlur}\n        className={error ? \"border-destructive\" : \"\"}\n      >\n        <SelectValue\n          placeholder={inputProps?.placeholder ?? \"Select an option\"}\n        />\n      </SelectTrigger>\n      <SelectContent>\n        {(parsedField.options || []).map(([key, label], index) => (\n          <SelectItem key={`${key}-${index}`} value={label}>\n            {label}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -107,13 +107,25 @@
     {
       "path": "autoform/index.ts",
       "target": "components/ui/autoform/index.ts",
-      "content": "export * from \"./AutoForm\";\nexport * from \"./types\";\n",
+      "content": "export { ShadcnAutoFormFieldComponents, ShadcnUIComponents } from \"./AutoForm\";\nexport type { FieldTypes } from \"./AutoForm\";\nexport * from \"./types\";\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "autoform/react-hook-form.tsx",
+      "target": "components/ui/autoform/react-hook-form.tsx",
+      "content": "import { AutoForm as ReactHookFormAutoForm } from \"@acp-autoform/react/react-hook-form\";\nimport type { ComponentType } from \"react\";\nimport type { ExtendableAutoFormProps } from \"@acp-autoform/react\";\nimport { createAutoForm } from \"./AutoForm\";\n\nexport const AutoForm: ComponentType<\n  ExtendableAutoFormProps<any> & Record<string, any>\n> = createAutoForm(ReactHookFormAutoForm);\nexport type { FieldTypes } from \"./AutoForm\";\nexport type * from \"./types\";\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "autoform/tanstack-form.tsx",
+      "target": "components/ui/autoform/tanstack-form.tsx",
+      "content": "import { AutoForm as TanStackAutoForm } from \"@acp-autoform/react/tanstack-form\";\nimport type { ComponentType } from \"react\";\nimport type { ExtendableAutoFormProps } from \"@acp-autoform/react\";\nimport { createAutoForm } from \"./AutoForm\";\n\nexport const AutoForm: ComponentType<\n  ExtendableAutoFormProps<any> & Record<string, any>\n> = createAutoForm(TanStackAutoForm);\nexport type { FieldTypes } from \"./AutoForm\";\nexport type * from \"./types\";\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/types.ts",
       "target": "components/ui/autoform/types.ts",
-      "content": "import type { ExtendableAutoFormProps, FieldValues } from \"@acp-autoform/react\";\n\nexport type AutoFormProps<T extends FieldValues> = ExtendableAutoFormProps<T>;\n",
+      "content": "import type { ExtendableAutoFormProps } from \"@acp-autoform/react\";\n\nexport type AutoFormProps<T extends Record<string, any>> =\n  ExtendableAutoFormProps<T>;\n",
       "type": "registry:ui"
     }
   ]

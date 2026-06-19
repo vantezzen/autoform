@@ -4,6 +4,146 @@
   "homepage": "https://autoform.acp.dev",
   "items": [
     {
+      "name": "autoform-react-rhf",
+      "type": "registry:lib",
+      "title": "AutoForm React (React Hook Form)",
+      "description": "Core AutoForm renderer wired to React Hook Form. Installs the full @acp-autoform/react source for the RHF adapter so you can modify it freely.",
+      "dependencies": [
+        "@acp-autoform/core",
+        "react-hook-form",
+        "@hookform/resolvers"
+      ],
+      "files": [
+        {
+          "path": "packages/react/src/types.ts",
+          "target": "lib/autoform/react/types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/context.ts",
+          "target": "lib/autoform/react/context.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/utils.ts",
+          "target": "lib/autoform/react/utils.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/index.tsx",
+          "target": "lib/autoform/react/index.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/index.ts",
+          "target": "lib/autoform/react/react-hook-form/index.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/AutoForm.tsx",
+          "target": "lib/autoform/react/react-hook-form/AutoForm.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/AutoFormField.tsx",
+          "target": "lib/autoform/react/react-hook-form/AutoFormField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/ArrayField.tsx",
+          "target": "lib/autoform/react/react-hook-form/ArrayField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/ObjectField.tsx",
+          "target": "lib/autoform/react/react-hook-form/ObjectField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/useFieldError.tsx",
+          "target": "lib/autoform/react/react-hook-form/useFieldError.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/react-hook-form/utils.ts",
+          "target": "lib/autoform/react/react-hook-form/utils.ts",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "autoform-react-tanstack",
+      "type": "registry:lib",
+      "title": "AutoForm React (TanStack Form)",
+      "description": "Core AutoForm renderer wired to TanStack Form. Installs the full @acp-autoform/react source for the TanStack adapter so you can modify it freely.",
+      "dependencies": [
+        "@acp-autoform/core",
+        "@tanstack/react-form"
+      ],
+      "files": [
+        {
+          "path": "packages/react/src/types.ts",
+          "target": "lib/autoform/react/types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/context.ts",
+          "target": "lib/autoform/react/context.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/utils.ts",
+          "target": "lib/autoform/react/utils.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/index.tsx",
+          "target": "lib/autoform/react/index.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/index.ts",
+          "target": "lib/autoform/react/tanstack-form/index.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/AutoForm.tsx",
+          "target": "lib/autoform/react/tanstack-form/AutoForm.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/AutoFormField.tsx",
+          "target": "lib/autoform/react/tanstack-form/AutoFormField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/ArrayField.tsx",
+          "target": "lib/autoform/react/tanstack-form/ArrayField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/ObjectField.tsx",
+          "target": "lib/autoform/react/tanstack-form/ObjectField.tsx",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/form-context.ts",
+          "target": "lib/autoform/react/tanstack-form/form-context.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/hooks.ts",
+          "target": "lib/autoform/react/tanstack-form/hooks.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/tanstack-form/utils.ts",
+          "target": "lib/autoform/react/tanstack-form/utils.ts",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "custom-fields-demo",
       "type": "registry:block",
       "title": "Custom Fields Demo",
@@ -200,6 +340,202 @@
         {
           "path": "apps/docs/components/examples/faq/interactive-schema-demo-content.tsx",
           "target": "components/interactive-schema-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-realtime-validation-demo",
+      "type": "registry:block",
+      "title": "TanStack Realtime Validation Demo",
+      "description": "Shows real-time TanStack Form validation state with a disabled submit button until the form can submit.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form"
+      ],
+      "registryDependencies": [
+        "button",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-realtime-validation-demo.tsx",
+          "target": "components/tanstack-realtime-validation-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-dialog-submit-demo",
+      "type": "registry:block",
+      "title": "TanStack Dialog Submit Demo",
+      "description": "Demonstrates submitting and resetting TanStack AutoForm from buttons inside a Dialog using useFormContext and an external formControl.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-dialog-submit-demo.tsx",
+          "target": "components/tanstack-dialog-submit-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-dialog-form-control-demo.tsx",
+          "target": "components/tanstack-dialog-form-control-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-custom-fields-demo",
+      "type": "registry:block",
+      "title": "TanStack Custom Fields Demo",
+      "description": "Uses TanStack custom field components for steppers, radio cards, dates, sliders, color pickers, and file uploads.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form",
+        "@radix-ui/react-radio-group",
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "input",
+        "label",
+        "popover",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-custom-fields-demo.tsx",
+          "target": "components/tanstack-custom-fields-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-custom-field-components.tsx",
+          "target": "components/tanstack-custom-field-components.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-ecommerce-checkout-demo",
+      "type": "registry:block",
+      "title": "TanStack Ecommerce Checkout Demo",
+      "description": "Checkout form demonstrating TanStack subscriptions for cascading selects, conditional coupon fields, gift messages, and payment fields.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form"
+      ],
+      "registryDependencies": [
+        "label",
+        "select",
+        "textarea",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-ecommerce-checkout-demo.tsx",
+          "target": "components/tanstack-ecommerce-checkout-demo.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-ecommerce-checkout-fields.tsx",
+          "target": "components/tanstack-ecommerce-checkout-fields.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-multistep-form-demo",
+      "type": "registry:block",
+      "title": "TanStack Multistep Form Demo",
+      "description": "A TanStack multi-step form with per-step schemas, breadcrumb navigation, and collected submission.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-multistep-form.tsx",
+          "target": "components/tanstack-multistep-form.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-multistep-form-usage-demo.tsx",
+          "target": "components/tanstack-multistep-form-usage.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-nested-autoform-demo",
+      "type": "registry:block",
+      "title": "TanStack Nested AutoForm Demo",
+      "description": "Shows how to use a nested TanStack AutoForm inside a Dialog as a custom field component.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/react",
+        "@tanstack/react-form"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-nested-autoform-demo.tsx",
+          "target": "components/tanstack-nested-autoform-demo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tanstack-interactive-schema-demo",
+      "type": "registry:block",
+      "title": "TanStack Interactive Schema Demo",
+      "description": "A dynamic TanStack form builder combining Monaco Editor with AutoForm for interactive, real-time form generation from a Zod schema string.",
+      "dependencies": [
+        "zod",
+        "@acp-autoform/zod",
+        "@acp-autoform/core",
+        "@acp-autoform/react",
+        "@tanstack/react-form",
+        "@monaco-editor/react"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+      ],
+      "files": [
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-interactive-schema-demo-content.tsx",
+          "target": "components/tanstack-interactive-schema-demo.tsx",
           "type": "registry:component"
         }
       ]

@@ -5,6 +5,12 @@ description: API reference notes for the TanStack Form AutoForm adapter.
 
 For shared source definitions, see [`packages/react/src/types.ts`](https://github.com/adityacodepublic/autoform/blob/main/packages/react/src/types.ts). For the TanStack adapter, see [`packages/react/src/tanstack-form`](https://github.com/adityacodepublic/autoform/tree/main/packages/react/src/tanstack-form).
 
+> **Need deeper control?** If the package API isn't enough, install the full TanStack Form adapter source directly into your project and edit it freely:
+> ```bash
+> npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-react-tanstack.json
+> ```
+> Files land in `lib/autoform/react/`. Change anything — field rendering, array/object handling, the TanStack field context wiring — without being bound by the package's public API.
+
 ## AutoFormProps
 
 <AutoFormPropsTable />
