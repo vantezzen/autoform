@@ -1,6 +1,10 @@
 import React, { ComponentType } from "react";
 import { createFormControl } from "react-hook-form";
-import { useForm } from "@tanstack/react-form";
+import {
+  useAppForm,
+  useFieldContext,
+  useFormContext,
+} from "@acp-autoform/react/tanstack-form";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { AutoFormFieldProps } from "@acp-autoform/react";
 import { z } from "zod/v3";
@@ -40,7 +44,8 @@ export function defineTanStackFormPropertiesTests({
 
   const schemaProvider = new ZodProvider(schema);
 
-  const TanStackFormProbe = ({ form }: AutoFormFieldProps & { form?: any }) => {
+  const TanStackFormProbe = (_props: AutoFormFieldProps) => {
+    const form = useFormContext();
     const [result, setResult] = React.useState({
       values: "initial",
       dirty: "initial",
@@ -48,8 +53,10 @@ export function defineTanStackFormPropertiesTests({
       reset: "initial",
       validate: "initial",
       setFieldValue: "initial",
+      fieldContext: "initial",
       submitSuccessful: "initial",
     });
+    const field = useFieldContext();
 
     return (
       <div>
@@ -123,6 +130,23 @@ export function defineTanStackFormPropertiesTests({
           }}
         >
           setFieldValue
+        </button>
+        <button
+          type="button"
+          name="fieldContext"
+          data-item={result.fieldContext}
+          onClick={() => {
+            field.handleChange("field context value");
+            setResult((prev) => ({
+              ...prev,
+              fieldContext: String(
+                String(field.name) === "probe" &&
+                  form.state.values.probe === "field context value",
+              ),
+            }));
+          }}
+        >
+          fieldContext
         </button>
         <button
           type="button"
@@ -223,6 +247,14 @@ export function defineTanStackFormPropertiesTests({
       cy.get('input[name="name"]').should("have.value", "Jane Doe");
       cy.get('input[name="age"]').should("have.value", "32");
 
+      cy.get('button[name="fieldContext"]')
+        .click()
+        .should("have.attr", "data-item", "true");
+      cy.get('[data-testid="tanstack-state"]').should(
+        "contain",
+        "field context value",
+      );
+
       cy.get('button[name="reset"]')
         .click()
         .should("have.attr", "data-item", "true");
@@ -296,7 +328,7 @@ export function defineExternalFormControlTests({
   }
 
   function TanStackExternalControlForm() {
-    const form = useForm({
+    const form = useAppForm({
       defaultValues: initialValues,
     });
     const [snapshot, setSnapshot] = React.useState("");
@@ -336,6 +368,36 @@ export function defineExternalFormControlTests({
           )}
         </form.Subscribe>
         <output data-testid="tanstack-external-values">{snapshot}</output>
+      </>,
+    );
+  }
+
+  function TanStackControlledValuesForm() {
+    const [controlledValues, setControlledValues] =
+      React.useState(initialValues);
+
+    return withWrapper(
+      Wrapper,
+      <>
+        <TanStackAutoForm
+          schema={schemaProvider}
+          defaultValues={initialValues}
+          values={controlledValues}
+          onSubmit={cy.stub().as("onSubmit")}
+          withSubmit
+        />
+        <button
+          type="button"
+          name="controlled-set"
+          onClick={() =>
+            setControlledValues({
+              name: "Controlled Jane",
+              email: "controlled@example.com",
+            })
+          }
+        >
+          controlled set
+        </button>
       </>,
     );
   }
@@ -399,6 +461,22 @@ export function defineExternalFormControlTests({
         name: "Typed Jane",
         email: "typed@example.com",
       });
+    });
+
+    it("keeps TanStack controlled values and AutoForm inputs in sync", () => {
+      cy.mount(<TanStackControlledValuesForm />);
+
+      cy.get('input[name="name"]').should("have.value", "John Doe");
+      cy.get('input[name="email"]').should("have.value", "john@example.com");
+
+      cy.get('input[name="name"]').clear().type("User Typed");
+      cy.get('button[name="controlled-set"]').click();
+
+      cy.get('input[name="name"]').should("have.value", "Controlled Jane");
+      cy.get('input[name="email"]').should(
+        "have.value",
+        "controlled@example.com",
+      );
     });
   });
 }

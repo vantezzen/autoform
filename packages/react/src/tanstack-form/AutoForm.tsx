@@ -1,49 +1,21 @@
-import React, { useEffect, useRef } from "react";
-import { useForm, createFormHookContexts, useStore, type ReactFormExtendedApi } from "@tanstack/react-form";
-import { getDefaultValues, parseSchema, replaceEmptyValue } from "@acp-autoform/core";
+import React, { useEffect, useMemo } from "react";
+import { formOptions } from "@tanstack/react-form";
+import {
+  getDefaultValues,
+  parseSchema,
+  replaceEmptyValue,
+} from "@acp-autoform/core";
 import type { ParsedSchema } from "@acp-autoform/core";
-import type { AutoFormProps, UseFieldFn } from "../types";
+import type { AutoFormProps } from "../types";
 import { AutoFormProvider } from "../context";
 import { AutoFormField } from "./AutoFormField";
-import { preventPropagation, createSchemaValidator, focusFirstInvalidInput } from "./utils";
-
-type FormApi = ReactFormExtendedApi<any, any, any, any, any, any, any, any, any, any, any, any>;
-
-// Field context — set up once for this adapter.
-// useFieldContext() reads from this when UI components call useField().
-export const { fieldContext, useFieldContext } = createFormHookContexts();
-export const ErrorMapContext = React.createContext<any>(undefined);
-
-/**
- * TanStack-backed useField implementation.
- * Normalizes FieldApi to the shared FieldBinding shape.
- */
-const useFieldTanStack: UseFieldFn = (_opts) => {
-  const fieldApi = useFieldContext();
-  return {
-    field: {
-      value: fieldApi.state.value,
-      onChange: (valueOrEvent: any) => {
-        // Handle both raw values and React synthetic events
-        const value =
-          valueOrEvent?.target !== undefined
-            ? valueOrEvent.target.type === "checkbox"
-              ? valueOrEvent.target.checked
-              : valueOrEvent.target.value
-            : valueOrEvent;
-        fieldApi.handleChange(value);
-      },
-      onBlur: () => fieldApi.handleBlur(),
-      name: String(fieldApi.name).replace(/\[(\d+)\]/g, ".$1"),
-    },
-  };
-};
-
-function syncValues(form: FormApi, values: Record<string, any>) {
-  for (const [key, value] of Object.entries(values)) {
-    form.setFieldValue(key, value, { touch: false } as any);
-  }
-}
+import {
+  getAppForm,
+  preventPropagation,
+  focusFirstInvalidInput,
+} from "./utils";
+import { useAppForm } from "./form-context";
+import { useFieldTanStack, useSyncValues } from "./hooks";
 
 export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   formControl,
@@ -58,85 +30,84 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
-  const { ref: _ref, ...restFormProps } = formProps as React.ComponentProps<"form">;
-  const parsedSchema: ParsedSchema = parseSchema(schema);
-  const validator = createSchemaValidator(schema);
-  const formRef = useRef<FormApi | null>(null);
+  const parsedSchema: ParsedSchema = useMemo(
+    () => parseSchema(schema),
+    [schema],
+  );
+  const validator = useMemo(() => schema.getSchema?.(), [schema]);
+  const { ref: _ref, ...restFormProps } =
+    formProps as React.ComponentProps<"form">;
 
-  const formOptions = {
-    defaultValues: {
-      ...(getDefaultValues(schema) as Partial<T>),
-      ...defaultValues,
-    } as T,
-    ...(validator ? { validators: { onChange: validator as any } } : {}),
-    onSubmit: async ({ value }: { value: T }) => {
-      const validation = schema.validateSchema(replaceEmptyValue(value));
-      if (validation.success) {
-        await onSubmit(validation.data, formRef.current);
-      }
-    },
-    onSubmitInvalid: () => {
-      focusFirstInvalidInput();
-    },
-  };
+  const options = useMemo(
+    () =>
+      formOptions({
+        ...(validator ? { validators: { onChange: validator as any } } : {}),
+        defaultValues: {
+          ...(getDefaultValues(schema) as Partial<T>),
+          ...defaultValues,
+        } as T,
+        onSubmit: async ({ value, formApi }: { value: T; formApi: any }) => {
+          const validation = schema.validateSchema(replaceEmptyValue(value));
+          if (validation.success) {
+            await onSubmit(validation.data, formApi);
+          }
+        },
+        onSubmitInvalid: () => {
+          focusFirstInvalidInput();
+        },
+      }),
+    [defaultValues, onSubmit, schema, validator],
+  );
 
-  const internalForm = useForm(formOptions);
-  const form = (formControl as FormApi | undefined) ?? internalForm;
-  formRef.current = form as FormApi;
+  const internalForm = useAppForm(options);
+  const form = formControl
+    ? (formControl as typeof internalForm)
+    : internalForm;
+
+  useSyncValues(form, values);
 
   useEffect(() => {
     if (formControl) {
-      (formControl as FormApi).update(formOptions as any);
+      (formControl as typeof internalForm).update(options);
     }
-  }, [formControl, schema, onSubmit]);
-
-  // Sync controlled external values
-  useEffect(() => {
-    if (values) {
-      syncValues(form as FormApi, values as Record<string, any>);
-    }
-  }, [values]);
+  }, [formControl, options]);
 
   useEffect(() => {
     onFormInit?.(form);
-  }, []);
+  }, [form, onFormInit]);
 
-  const errorMapStr = useStore(form.store, (state: any) => JSON.stringify(state.errorMap));
-  const errorMap = errorMapStr ? JSON.parse(errorMapStr) : undefined;
+  const AppForm = getAppForm(form);
 
   return (
-    <ErrorMapContext.Provider value={errorMap}>
-        <fieldContext.Provider value={null as any}>
-          <AutoFormProvider
-            value={{
-              schema: parsedSchema,
-              uiComponents,
-              formComponents,
-              useField: useFieldTanStack,
-            }}
-          >
-            <uiComponents.Form
-              onSubmit={preventPropagation(() => {
-                void form.handleSubmit();
-              })}
-              ref={_ref}
-              {...restFormProps}
-            >
-              {parsedSchema.fields.map((field) => (
-                <AutoFormField
-                  key={field.key}
-                  parsedField={field}
-                  path={[field.key]}
-                  form={form as FormApi}
-                />
-              ))}
-              {withSubmit && (
-                <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>
-              )}
-              {children}
-            </uiComponents.Form>
-          </AutoFormProvider>
-        </fieldContext.Provider>
-      </ErrorMapContext.Provider>
+    <AppForm>
+      <AutoFormProvider
+        value={{
+          schema: parsedSchema,
+          uiComponents,
+          formComponents,
+          useField: useFieldTanStack,
+        }}
+      >
+        <uiComponents.Form
+          onSubmit={preventPropagation(() => {
+            void form.handleSubmit();
+          })}
+          ref={_ref}
+          {...restFormProps}
+        >
+          {parsedSchema.fields.map((field) => (
+            <AutoFormField
+              key={field.key}
+              parsedField={field}
+              path={[field.key]}
+            />
+          ))}
+          {withSubmit && (
+            <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>
+          )}
+          {children}
+        </uiComponents.Form>
+      </AutoFormProvider>
+    </AppForm>
   );
 }

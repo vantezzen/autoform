@@ -4,6 +4,7 @@ import { getLabel, ParsedField } from "@acp-autoform/core";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "../context";
 import { useRegister } from "./utils";
+import { getArrayItemDefaultValue } from "../utils";
 
 export const ArrayField: React.FC<{
   id: string;
@@ -17,16 +18,7 @@ export const ArrayField: React.FC<{
     name: path.join("."),
   });
   const ref = useRegister(path.join(".")).ref;
-
-  const subFieldType = parsedField.schema?.[0]?.type;
-  let defaultValue: any;
-  if (subFieldType === "object") {
-    defaultValue = {};
-  } else if (subFieldType === "array") {
-    defaultValue = [];
-  } else {
-    defaultValue = null;
-  }
+  const defaultValue = getArrayItemDefaultValue(parsedField);
 
   return (
     <uiComponents.ArrayWrapper

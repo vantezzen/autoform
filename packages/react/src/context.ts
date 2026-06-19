@@ -15,7 +15,7 @@ export function useAutoForm() {
 
 /**
  * Context-delegating useField hook.
- * UI components call this — the actual implementation is injected by whichever
+ * UI components call this. The actual implementation is injected by whichever
  * form library adapter (./react-hook-form or ./tanstack-form) wraps the tree.
  */
 export function useField(opts: { name: string }): UseFieldReturn {

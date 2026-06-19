@@ -26,29 +26,9 @@ const useFieldErrorSubscribe = (
         errors: true,
       },
       callback: ({ errors }) => {
-        let newError = getPathInObject(errors, path)?.message as string | undefined;
-
-        if (!newError) {
-          let currentPath = path.join(".");
-          while (currentPath.length > 0) {
-            const lastDot = currentPath.lastIndexOf(".");
-            const lastBracket = currentPath.lastIndexOf("[");
-            const cutIndex = Math.max(lastDot, lastBracket);
-            
-            if (cutIndex === -1) break;
-            
-            currentPath = currentPath.substring(0, cutIndex);
-            // Convert path string back to array path for getPathInObject
-            const parentPathArray = currentPath.replace(/\[/g, '.').replace(/\]/g, '').split('.');
-            const parentError = getPathInObject(errors, parentPathArray)?.message as string | undefined;
-            
-            if (parentError && parentError.toLowerCase().includes("required")) {
-              newError = parentError;
-              break;
-            }
-          }
-        }
-
+        const newError = getPathInObject(errors, path)?.message as
+          | string
+          | undefined;
         setError((prev) => (prev !== newError ? newError : prev));
       },
     });
@@ -66,27 +46,5 @@ const useFieldErrorFallback = (path: string[]) => {
     exact: true,
   });
 
-  let error = getPathInObject(errors, path)?.message as string | undefined;
-
-  if (!error) {
-    let currentPath = path.join(".");
-    while (currentPath.length > 0) {
-      const lastDot = currentPath.lastIndexOf(".");
-      const lastBracket = currentPath.lastIndexOf("[");
-      const cutIndex = Math.max(lastDot, lastBracket);
-      
-      if (cutIndex === -1) break;
-      
-      currentPath = currentPath.substring(0, cutIndex);
-      const parentPathArray = currentPath.replace(/\[/g, '.').replace(/\]/g, '').split('.');
-      const parentError = getPathInObject(errors, parentPathArray)?.message as string | undefined;
-      
-      if (parentError && parentError.toLowerCase().includes("required")) {
-        error = parentError;
-        break;
-      }
-    }
-  }
-
-  return error;
+  return getPathInObject(errors, path)?.message as string | undefined;
 };

@@ -4,7 +4,7 @@ import { useAutoForm } from "../context";
 import { useFieldError } from "./useFieldError";
 import { ArrayField } from "./ArrayField";
 import { ObjectField } from "./ObjectField";
-import { AutoFormFieldProps } from "../types";
+import type { AutoFormFieldProps } from "../types";
 
 export const AutoFormField: React.FC<{
   parsedField: ParsedField;

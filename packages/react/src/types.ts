@@ -7,7 +7,7 @@ import {
   SchemaProvider,
 } from "@acp-autoform/core";
 
-// ─── Field binding contract ────────────────────────────────────────────────────
+// Field binding contract
 // Normalized shape every form-library adapter must return from useField().
 
 export interface FieldBinding {
@@ -15,7 +15,7 @@ export interface FieldBinding {
   onChange: (...event: any[]) => void;
   onBlur: () => void;
   name: string;
-  /** ref is optional — not all adapters provide one */
+  /** ref is optional - not all adapters provide one */
   ref?: React.Ref<any>;
 }
 
@@ -25,14 +25,14 @@ export interface UseFieldReturn {
 
 export type UseFieldFn = (opts: { name: string }) => UseFieldReturn;
 
-// ─── AutoForm props ────────────────────────────────────────────────────────────
+// AutoForm props
 
 export interface AutoFormProps<T extends Record<string, any> = Record<string, any>> {
   /** Schema adapter that manages fields, default values, and validation. */
   schema: SchemaProvider<T>;
   /**
    * External form control handle. For react-hook-form: the return of createFormControl().
-   * For TanStack: the form instance returned by useForm() in a parent.
+   * For TanStack: the form instance returned by the adapter's useAppForm() in a parent.
    */
   formControl?: any;
   /**
@@ -55,7 +55,7 @@ export interface AutoFormProps<T extends Record<string, any> = Record<string, an
   children?: ReactNode;
   /** Layout/wrapper components for fields, errors, and structure. */
   uiComponents: AutoFormUIComponents;
-  /** Form components mapped to field types (string, number, select, …). */
+  /** Form components mapped to field types (string, number, select, etc.). */
   formComponents: AutoFormFieldComponents;
   /**
    * Show a default submit button after all fields.
@@ -82,7 +82,7 @@ export type ExtendableAutoFormProps<T extends Record<string, any>> = Omit<
   formComponents?: Partial<AutoFormFieldComponents>;
 };
 
-// ─── UI component contracts ────────────────────────────────────────────────────
+// UI component contracts
 
 export interface AutoFormUIComponents {
   /** Root form element. */
@@ -105,7 +105,7 @@ export interface AutoFormFieldComponents {
   [key: string]: React.ComponentType<AutoFormFieldProps>;
 }
 
-// ─── Wrapper prop types ────────────────────────────────────────────────────────
+// Wrapper prop types
 
 export interface FieldWrapperProps {
   label: Renderable<ReactNode>;
@@ -136,7 +136,7 @@ export interface ObjectWrapperProps {
   parsedField: ParsedField;
 }
 
-// ─── Field component props ─────────────────────────────────────────────────────
+// Field component props
 
 export interface AutoFormFieldProps {
   path: string[];
@@ -147,7 +147,7 @@ export interface AutoFormFieldProps {
   inputProps: any;
 }
 
-// ─── Context type ──────────────────────────────────────────────────────────────
+// Context type
 
 export interface AutoFormContextType {
   schema: ParsedSchema;
@@ -157,7 +157,7 @@ export interface AutoFormContextType {
   useField: UseFieldFn;
 }
 
-// ─── FieldConfig ───────────────────────────────────────────────────────────────
+// FieldConfig
 
 export type FieldConfig<
   FieldTypes = string,
@@ -169,6 +169,6 @@ export type FieldConfig<
   CustomData
 >;
 
-// ─── Re-exports ────────────────────────────────────────────────────────────────
+// Re-exports
 
 export type { SchemaProvider, ParsedField, ParsedSchema } from "@acp-autoform/core";

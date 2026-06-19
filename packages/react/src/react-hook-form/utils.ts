@@ -1,7 +1,6 @@
 import { SchemaProvider, replaceEmptyValue } from "@acp-autoform/core";
 import React from "react";
 import {
-  FieldPath,
   FieldValues,
   Resolver,
   ResolverOptions,
@@ -107,10 +106,11 @@ export function createSchemaResolver<T extends FieldValues>(
 async function getSchemaResolver<T extends FieldValues>(
   schema: SchemaProvider<T>,
 ): Promise<Resolver<T>> {
-  const rawSchema = schema.getSchema?.();
+    const rawSchema = schema.getSchema?.();
   if (!schema.schemaType || !rawSchema) {
     throw new Error(
-      "AutoForm: schema provider must expose schemaType and getSchema() to use resolver validation.",
+      "AutoForm: schema provider must expose schemaType and getSchema() " +
+        "to use resolver validation.",
     );
   }
 

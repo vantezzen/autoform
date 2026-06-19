@@ -1,4 +1,3 @@
-import { SchemaProvider } from "@acp-autoform/core";
 import React from "react";
 
 /**
@@ -10,9 +9,9 @@ export function focusFirstInvalidInput(): void {
     // Find the first element marked as invalid natively or via our data attribute
     // Using a combined selector ensures we find the first one in document order
     const firstInvalid = document.querySelector<HTMLElement>(
-      '[aria-invalid="true"]'
+      '[aria-invalid="true"]',
     );
-    
+
     if (!firstInvalid) return;
 
     // If the element itself is directly focusable, focus it
@@ -29,7 +28,7 @@ export function focusFirstInvalidInput(): void {
 
     // Otherwise, it's a wrapper (like MUI or Mantine), find the first focusable input inside it
     const input = firstInvalid.querySelector<HTMLElement>(
-      'input, button, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'input, button, select, textarea, [tabindex]:not([tabindex="-1"])',
     );
     if (input) {
       input.focus();
@@ -37,6 +36,19 @@ export function focusFirstInvalidInput(): void {
       firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, 50);
+}
+
+export function getAppForm(form: {
+  AppForm?: React.ComponentType<React.PropsWithChildren>;
+}): React.ComponentType<React.PropsWithChildren> {
+  const AppForm = form.AppForm;
+  if (!AppForm) {
+    throw new Error(
+      "TanStack AutoForm formControl must be created with useAppForm " +
+        "exported from @acp-autoform/react/tanstack-form.",
+    );
+  }
+  return AppForm;
 }
 
 /**
@@ -52,12 +64,12 @@ export function formatTanStackPath(path: string[]): string {
   }, "");
 }
 
-/**
- * Formats a path for DOM names/ids so shared UI tests and form components see
- * the same public field names regardless of the underlying form adapter.
- */
-export function formatDomPath(path: string[]): string {
-  return path.join(".");
+export function getErrorMessage(fieldApi: any): string | undefined {
+  const error = fieldApi.state.meta.errors?.[0];
+  if (!error) return undefined;
+  if (typeof error === "string") return error;
+  if (typeof error.message === "string") return error.message;
+  return String(error);
 }
 
 /**
@@ -70,14 +82,3 @@ export const preventPropagation =
     e.stopPropagation();
     await callback(e);
   };
-
-/**
- * Creates a TanStack Form validator from an AutoForm schema provider.
- * TanStack natively supports Standard Schema (Zod ≥3.24, Yup ≥1.7, Valibot, ArkType).
- * Returns the raw schema object to pass to validators.onChange — no adapter package needed.
- */
-export function createSchemaValidator(
-  schema: SchemaProvider<any>,
-): object | undefined {
-  return schema.getSchema?.() ?? undefined;
-}
