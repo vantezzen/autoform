@@ -92,19 +92,29 @@ function MyForm() {
 
 ## Custom fields
 
-Custom field components receive `AutoFormFieldProps`. Use AutoForm's shared `useField` hook when you need basic field bindings that work across adapters.
+Custom field components receive `AutoFormFieldProps`. Use `useFieldContext` from `@acp-autoform/react/tanstack-form` to connect custom inputs to the TanStack field API.
 
 ```tsx
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
-  const { field } = useField({ name: id });
+  const field = useFieldContext<string>();
 
-  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+  return (
+    <input
+      id={id}
+      name={String(field.name)}
+      value={field.state.value ?? ""}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.value)}
+      {...inputProps}
+    />
+  );
 }
 ```
 
-Use `useFieldContext` from `@acp-autoform/react/tanstack-form` when you need TanStack-specific state or methods.
+Use the same hook when you need TanStack-specific state or methods.
 
 ```tsx
 import { useFieldContext } from "@acp-autoform/react/tanstack-form";

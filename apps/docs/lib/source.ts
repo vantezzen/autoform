@@ -9,6 +9,26 @@ export const source = loader({
   baseUrl: "/docs",
   source: docs.toFumadocsSource(),
   icon(icon) {
+    if (icon === "TanStackLogo") {
+      return createElement(
+        "span",
+        {
+          "aria-hidden": true,
+          className: "inline-flex size-4 shrink-0 items-center justify-center",
+        },
+        createElement("img", {
+          alt: "",
+          className: "size-4 object-contain dark:hidden",
+          src: "https://tanstack.com/images/logos/logo-black.svg",
+        }),
+        createElement("img", {
+          alt: "",
+          className: "hidden size-4 object-contain dark:block",
+          src: "https://tanstack.com/images/logos/logo-white.svg",
+        }),
+      );
+    }
+
     if (icon && icon in icons)
       return createElement(icons[icon as keyof typeof icons]);
   },

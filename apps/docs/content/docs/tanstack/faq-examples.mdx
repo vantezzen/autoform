@@ -64,11 +64,12 @@ function DialogForm() {
 Register the custom input in `formComponents` and mark the matching schema field with `fieldConfig({ fieldType: "..." })`.
 
 ```tsx
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 import { fieldConfig } from "@acp-autoform/zod";
 
 function SliderField({ id, inputProps }: AutoFormFieldProps) {
-  const { field } = useField({ name: id });
+  const field = useFieldContext<number>();
 
   return (
     <input
@@ -77,9 +78,9 @@ function SliderField({ id, inputProps }: AutoFormFieldProps) {
       min={0}
       max={100}
       {...inputProps}
-      value={field.value ?? 0}
-      onBlur={field.onBlur}
-      onChange={(event) => field.onChange(Number(event.target.value))}
+      value={field.state.value ?? 0}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(Number(event.target.value))}
     />
   );
 }
@@ -138,16 +139,17 @@ const form = useAppForm(formOptions({ defaultValues: currentValues }));
 Create a custom field component, register it in `formComponents`, and pass the nested AutoForm submit value back with the current field's change handler.
 
 ```tsx
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 
 function AddressField({ id }: AutoFormFieldProps) {
-  const { field } = useField({ name: id });
+  const field = useFieldContext();
 
   return (
     <AutoForm
       schema={addressSchemaProvider}
-      defaultValues={field.value}
-      onSubmit={(address) => field.onChange(address)}
+      defaultValues={field.state.value}
+      onSubmit={(address) => field.handleChange(address)}
       withSubmit
     />
   );

@@ -140,20 +140,6 @@ const FieldRegistrationDetail = (
     rows={[
       [
         <Link
-          key="uf"
-          href="/docs/react/customization#usefield"
-          className="font-mono underline text-fd-primary"
-        >
-          useField()
-        </Link>,
-        <>
-          Used to bind custom fields. Returns{" "}
-          {"{ value, onChange, onBlur, name, disabled, ref }"}. <br /> Received
-          as a prop on AutoFormFieldProps, not imported.
-        </>,
-      ],
-      [
-        <Link
           key="uc"
           href="https://react-hook-form.com/docs/usecontroller"
           className="font-mono underline text-fd-primary"
@@ -163,7 +149,7 @@ const FieldRegistrationDetail = (
         <>
           When you also need fieldState (e.g. invalid, error) or formState along
           with field bindings. Useful for component-specific styling or aria
-          attributes, use either useField or this.
+          attributes.
         </>,
       ],
     ]}
@@ -277,7 +263,7 @@ const ROWS: (RowEntry & { id: string })[] = [
   {
     id: "field-registration",
     scenario: "Connect a custom field input",
-    methods: <code>useField(), useController</code>,
+    methods: <code>useController</code>,
     where: "Inside field component",
     detail: FieldRegistrationDetail,
   },

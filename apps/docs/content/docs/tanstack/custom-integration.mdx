@@ -64,23 +64,33 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
 
 ## Implement field components
 
-For adapter-neutral field components, use `useField` from `@acp-autoform/react`. AutoForm provides the correct implementation for the current adapter.
+For TanStack field components, use `useFieldContext` from `@acp-autoform/react/tanstack-form`.
 
 ```tsx
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   id,
 }) => {
-  const { field } = useField({ name: id });
+  const field = useFieldContext<string>();
 
-  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+  return (
+    <input
+      id={id}
+      name={String(field.name)}
+      value={field.state.value ?? ""}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.value)}
+      {...inputProps}
+    />
+  );
 };
 ```
 
-Use TanStack's field context only when your component needs TanStack-specific APIs:
+The same context gives access to TanStack-specific APIs:
 
 ```tsx
 import React from "react";

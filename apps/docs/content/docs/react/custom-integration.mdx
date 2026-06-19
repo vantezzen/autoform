@@ -201,14 +201,15 @@ Here's an example of how to implement these components:
 ```tsx
 // src/components/StringField.tsx
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   error,
   id,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
 
   return (
     <input
@@ -225,13 +226,14 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
 ```tsx
 // src/components/NumberField.tsx
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   id,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
 
   return <input id={id} type="number" {...inputProps} {...field} />;
 };
@@ -240,10 +242,11 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
 ```tsx
 // src/components/DateField.tsx
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({ inputProps, id }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
 
   return <input id={id} type="date" {...inputProps} {...field} />;
 };
@@ -253,7 +256,7 @@ You'll also want to implement boolean, select, and any other field types your sc
 
 Additionally, you can create custom field components for other types like checkboxes, radio buttons, etc. These can later be used by setting a custom `fieldType` in the schema.
 
-`inputProps` contains props from `fieldConfig.inputProps`. Import the `useField` hook from `@acp-autoform/react` to connect the component to the form. `useField({ name: id })` returns exactly what `useController({ name: id })` returns (it is an alias): `field`, `fieldState`, and `formState`. This approach avoids adding `react-hook-form` directly to your package's `dependencies`.
+`inputProps` contains props from `fieldConfig.inputProps`. Import `useController` from `react-hook-form` to connect the component to the form. Use `useController({ name: id })` with the `id` from `AutoFormFieldProps`.
 
 <Accordions type="single">
   <Accordion title="AutoFormFieldProps reference">
@@ -323,14 +326,15 @@ If you want to add custom field types, you can create new components and add the
 ```tsx
 // src/components/CustomField.tsx
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+import { AutoFormFieldProps } from "@acp-autoform/react";
 
 export const CustomField: React.FC<AutoFormFieldProps> = ({
   error,
   id,
   inputProps,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
 
   return (
     <div>

@@ -11,7 +11,7 @@ The form data, states and methods are managed by TanStack Form. AutoForm's TanSt
 | --- | --- |
 | Handle validated submit data | `onSubmit={(data, form) => ...}` |
 | Access form methods inside AutoForm children | `useFormContext` from `@acp-autoform/react/tanstack-form` |
-| Access the current field inside a custom field component | `useField` from `@acp-autoform/react` |
+| Access the current field inside a custom field component | `useFieldContext` from `@acp-autoform/react/tanstack-form` |
 | Access TanStack-specific field state | `useFieldContext` from `@acp-autoform/react/tanstack-form` |
 | Control the form from a parent component | Create a form with `useAppForm` and pass it to `formControl` |
 
@@ -136,19 +136,29 @@ When `formControl` is provided, AutoForm updates that form with the schema valid
 
 ## 4. Reading field state
 
-Field components can use the adapter-agnostic `useField` hook when they only need value, blur and change handlers:
+Field components can use `useFieldContext` to access the TanStack field API:
 
 ```tsx
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
-  const { field } = useField({ name: id });
+  const field = useFieldContext<string>();
 
-  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+  return (
+    <input
+      id={id}
+      name={String(field.name)}
+      value={field.state.value ?? ""}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.value)}
+      {...inputProps}
+    />
+  );
 }
 ```
 
-Use `useFieldContext` for TanStack-specific field APIs like `state.meta`, `handleChange`, `handleBlur` and `name`:
+The same hook exposes field state such as `state.meta`, `handleChange`, `handleBlur` and `name`:
 
 ```tsx
 import { useFieldContext } from "@acp-autoform/react/tanstack-form";
