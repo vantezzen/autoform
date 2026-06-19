@@ -1,0 +1,142 @@
+---
+title: API
+description: API reference notes for the TanStack Form AutoForm adapter.
+---
+
+For shared source definitions, see [`packages/react/src/types.ts`](https://github.com/adityacodepublic/autoform/blob/main/packages/react/src/types.ts). For the TanStack adapter, see [`packages/react/src/tanstack-form`](https://github.com/adityacodepublic/autoform/tree/main/packages/react/src/tanstack-form).
+
+## AutoFormProps
+
+<AutoFormPropsTable />
+
+UI integrations such as `@acp-autoform/mui`, `@acp-autoform/ant`, etc. provide default `uiComponents` and `formComponents`, while still allowing you to override them.
+
+### `schema`
+
+`schema` must be a schema provider instance from one of the schema packages.
+
+```tsx
+import { ZodProvider } from "@acp-autoform/zod";
+import * as z from "zod";
+
+const schema = z.object({
+  username: z.string(),
+});
+
+<AutoForm schema={new ZodProvider(schema)} withSubmit />;
+```
+
+### `defaultValues` vs `values`
+
+Use `defaultValues` for the initial form state. Use `values` only when the form should react to external state changes.
+
+```tsx
+<AutoForm schema={schemaProvider} defaultValues={{ username: "johndoe" }} />
+```
+
+```tsx
+const [user, setUser] = useState({ username: "johndoe" });
+
+<AutoForm schema={schemaProvider} values={user} />;
+```
+
+For TanStack Form, `values` is synchronized into the current form with `setFieldValue`. This is useful for controlled external state, but `defaultValues` is simpler when you only need initial values.
+
+### `formControl`
+
+Use `formControl` when a parent component needs direct access to TanStack Form methods and state. Create it with `useAppForm` from `@acp-autoform/react/tanstack-form`.
+
+```tsx
+import { formOptions } from "@tanstack/react-form";
+import { useAppForm } from "@acp-autoform/react/tanstack-form";
+
+function MyForm() {
+  const form = useAppForm(formOptions({ defaultValues: {} }));
+
+  return (
+    <>
+      <AutoForm schema={schemaProvider} formControl={form} />
+      <button onClick={() => form.reset()}>Reset</button>
+    </>
+  );
+}
+```
+
+### `formComponents`
+
+`formComponents` maps AutoForm field types to React components. It is the right extension point for custom inputs.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  formComponents={{
+    markdown: MarkdownEditor,
+    colorPicker: ColorPickerInput,
+  }}
+/>
+```
+
+### `uiComponents`
+
+`uiComponents` replaces structural pieces such as wrappers, error messages, and the submit button. It is the right extension point for layout and design-system integration.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  uiComponents={{
+    FieldWrapper: CustomFieldWrapper,
+    ErrorMessage: ({ error }) => <span className="text-red-500">{error}</span>,
+  }}
+/>
+```
+
+## Custom fields
+
+Custom field components receive `AutoFormFieldProps`. Use AutoForm's shared `useField` hook when you need basic field bindings that work across adapters.
+
+```tsx
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+
+export function StringField({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useField({ name: id });
+
+  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+}
+```
+
+Use `useFieldContext` from `@acp-autoform/react/tanstack-form` when you need TanStack-specific state or methods.
+
+```tsx
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+
+function CustomStatus() {
+  const field = useFieldContext();
+
+  return field.state.meta.isTouched ? <span>Touched</span> : null;
+}
+```
+
+<AutoFormFieldPropsTable />
+
+## TanStack adapter exports
+
+```tsx
+import {
+  AutoForm,
+  useAppForm,
+  useFormContext,
+  useFieldContext,
+} from "@acp-autoform/react/tanstack-form";
+```
+
+Use UI package subpaths for rendered forms:
+
+```tsx
+import { AutoForm } from "@acp-autoform/mui/tanstack-form";
+```
+
+## UI components
+
+These components are used by the base renderer to assemble the form. Override them when you want to change layout, labels, error placement, object sections, array controls, or submit behavior.
+
+<AutoFormUIComponentsTable />

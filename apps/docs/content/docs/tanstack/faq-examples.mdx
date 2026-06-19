@@ -1,0 +1,155 @@
+---
+title: FAQ & Examples
+description: Common TanStack Form usage patterns.
+---
+
+## How do I show validation state in real time and disable submit until valid?
+
+Use TanStack Form's subscription APIs. Inside AutoForm children, get the form with `useFormContext`, then subscribe to the state slice you need.
+
+```tsx
+import { useFormContext } from "@acp-autoform/react/tanstack-form";
+
+function SubmitButton() {
+  const form = useFormContext();
+
+  return (
+    <form.Subscribe selector={(state) => state.canSubmit}>
+      {(canSubmit) => (
+        <button type="submit" disabled={!canSubmit}>
+          Submit
+        </button>
+      )}
+    </form.Subscribe>
+  );
+}
+
+<AutoForm schema={schemaProvider}>
+  <SubmitButton />
+</AutoForm>;
+```
+
+## How do I submit or reset AutoForm from buttons in a dialog?
+
+Use one of these approaches:
+
+1. Render the dialog actions inside AutoForm and call `useFormContext`.
+2. Create a form with `useAppForm`, pass it as `formControl`, and call methods on it from outside AutoForm.
+
+```tsx
+import { formOptions } from "@tanstack/react-form";
+import { useAppForm } from "@acp-autoform/react/tanstack-form";
+
+function DialogForm() {
+  const form = useAppForm(formOptions({ defaultValues: {} }));
+
+  return (
+    <Dialog>
+      <AutoForm formControl={form} schema={schemaProvider} />
+      <DialogFooter>
+        <button type="button" onClick={() => form.reset()}>
+          Reset
+        </button>
+        <button type="button" onClick={() => form.handleSubmit()}>
+          Submit
+        </button>
+      </DialogFooter>
+    </Dialog>
+  );
+}
+```
+
+## How do I add custom fields?
+
+Register the custom input in `formComponents` and mark the matching schema field with `fieldConfig({ fieldType: "..." })`.
+
+```tsx
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { fieldConfig } from "@acp-autoform/zod";
+
+function SliderField({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useField({ name: id });
+
+  return (
+    <input
+      id={id}
+      type="range"
+      min={0}
+      max={100}
+      {...inputProps}
+      value={field.value ?? 0}
+      onBlur={field.onBlur}
+      onChange={(event) => field.onChange(Number(event.target.value))}
+    />
+  );
+}
+
+const schema = z.object({
+  volume: z.number().check(fieldConfig({ fieldType: "slider" })),
+});
+
+<AutoForm
+  schema={new ZodProvider(schema)}
+  formComponents={{
+    slider: SliderField,
+  }}
+/>;
+```
+
+## How do I create fields with dependencies between them?
+
+Use schema validation for data rules, and TanStack subscriptions for UI behavior.
+
+```tsx
+import { useFormContext } from "@acp-autoform/react/tanstack-form";
+
+function GiftMessageHint() {
+  const form = useFormContext();
+
+  return (
+    <form.Subscribe selector={(state) => state.values.isGift}>
+      {(isGift) => (isGift ? <span>Gift message enabled</span> : null)}
+    </form.Subscribe>
+  );
+}
+```
+
+For input-level dependencies, custom field components can read the form context and update their rendered options from `form.state.values` or `form.Subscribe`.
+
+## How do I create a simple multistep form?
+
+Use a separate schema per step. Render one AutoForm per step, validate with `form.handleSubmit()`, and store each step's submitted values in parent state before moving forward.
+
+```tsx
+const form = useAppForm(formOptions({ defaultValues: currentValues }));
+
+<AutoForm
+  formControl={form}
+  schema={currentStep.schema}
+  onSubmit={(data) => {
+    setCurrentValues((values) => ({ ...values, ...data }));
+    setStep((step) => step + 1);
+  }}
+/>;
+```
+
+## How do I use another AutoForm inside an AutoForm field?
+
+Create a custom field component, register it in `formComponents`, and pass the nested AutoForm submit value back with the current field's change handler.
+
+```tsx
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+
+function AddressField({ id }: AutoFormFieldProps) {
+  const { field } = useField({ name: id });
+
+  return (
+    <AutoForm
+      schema={addressSchemaProvider}
+      defaultValues={field.value}
+      onSubmit={(address) => field.onChange(address)}
+      withSubmit
+    />
+  );
+}
+```

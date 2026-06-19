@@ -1,0 +1,218 @@
+---
+title: Getting Started
+description: Render AutoForm with the TanStack Form adapter.
+---
+
+> New to AutoForm? Check out the [introduction](/docs) first.
+
+The TanStack Form route uses the same schema providers and UI packages as the React Hook Form route, but imports the form adapter from each package's `tanstack-form` subpath.
+
+<div className='fd-steps [&_h2]:fd-step'>
+
+## Install AutoForm's form engine
+
+Install TanStack Form with the AutoForm React base package:
+
+<ModeTab command="@acp-autoform/react @tanstack/react-form" />
+
+If you use a published UI integration, the UI package depends on `@acp-autoform/react`, but `@tanstack/react-form` is still the form-engine peer dependency you should install in your app.
+
+## Install AutoForm's integration to your UI library
+
+AutoForm integrates directly into your UI library to render fields. Choose one official integration:
+
+#### Shadcn/ui
+
+<ModeTab
+  mode="cli"
+  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+/>
+
+Use the generated TanStack adapter export:
+
+```tsx
+import { AutoForm } from "@/components/ui/autoform/tanstack-form";
+```
+
+#### Material UI
+
+<Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
+```json tab="manual"
+{
+  "@mui/material": "^6",
+  "@emotion/react": "^11",
+  "@emotion/styled": "^11"
+}
+```
+
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-0"
+    command="@mui/material@^6 @emotion/react@^11 @emotion/styled@^11"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@acp-autoform/mui" />
+
+```tsx
+import { AutoForm } from "@acp-autoform/mui/tanstack-form";
+```
+
+#### Mantine
+
+<Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
+```json tab="manual"
+{
+  "@mantine/core": "^7",
+  "@mantine/dates": "^7"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-0"
+    command="@mantine/core@^7 @mantine/dates@^7"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@acp-autoform/mantine" />
+
+```tsx
+import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
+```
+
+#### Ant Design
+
+<Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
+```json tab="manual"
+{
+  "antd": "^5"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab className=" border-0" command="antd@^5" />
+</Tab>
+</Tabs>
+<ModeTab command="@acp-autoform/ant" />
+
+```tsx
+import { AutoForm } from "@acp-autoform/ant/tanstack-form";
+```
+
+#### Chakra UI
+
+<Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
+```json tab="manual"
+{
+  "@chakra-ui/react": "^3.8",
+  "@emotion/react": "^11.14"
+}
+```
+<Tab value="cli" className="p-0">
+  <ModeTab
+    className=" border-0"
+    command="@chakra-ui/react@^3.8 @emotion/react@^11.14"
+  />
+</Tab>
+</Tabs>
+<ModeTab command="@acp-autoform/chakra" />
+
+```tsx
+import { AutoForm } from "@acp-autoform/chakra/tanstack-form";
+```
+
+If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/tanstack/custom-integration).
+
+## Install AutoForm's integration to your schema library
+
+#### Zod
+
+<ModeTab command="@acp-autoform/zod" />
+
+<Callout>Requires zod version greater than 3.25.0 to be installed.</Callout>
+
+#### Yup
+
+<ModeTab command="@acp-autoform/yup" />
+
+#### Joi
+
+<ModeTab command="@acp-autoform/joi" />
+
+In the docs, we use Zod as the schema example. Replace the schema provider import with the one for your schema library.
+
+## Create a form
+
+```tsx
+"use client";
+
+import * as z from "zod";
+import { AutoForm } from "@acp-autoform/mui/tanstack-form";
+import { ZodProvider } from "@acp-autoform/zod";
+
+const mySchema = z.object({
+  name: z.string(),
+  age: z.coerce.number(),
+});
+
+const schemaProvider = new ZodProvider(mySchema);
+
+export default function MyForm() {
+  return (
+    <AutoForm
+      schema={schemaProvider}
+      onSubmit={(data, form) => {
+        console.log(data);
+        console.log(form.state.values);
+      }}
+      withSubmit
+    />
+  );
+}
+```
+
+</div>
+
+## Next.js and RSC
+
+AutoForm can only be used inside a client-side React component due to schema serialization and client form state. In a Next.js app, mark the component that renders AutoForm with `"use client"`.
+
+## Submitting the form
+
+Use `withSubmit` to render AutoForm's default submit button:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit} withSubmit />
+```
+
+You can also render your own submit button as a child:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit}>
+  <button type="submit">Save</button>
+</AutoForm>
+```
+
+## Accessing form data and methods
+
+AutoForm exposes TanStack Form state and methods through:
+
+- `onSubmit`, where the second argument is the TanStack form API.
+- `useFormContext`, for components rendered inside AutoForm.
+- `formControl`, when a parent creates a form instance with `useAppForm` and passes it into AutoForm.
+
+See [form control](/docs/tanstack/form-control) for examples.
+
+## Custom field components
+
+For UI integrations and custom fields, prefer AutoForm's shared `useField` export from `@acp-autoform/react`. It connects to the active adapter, so the same field component can work with React Hook Form or TanStack Form.
+
+When a custom component needs TanStack-specific field APIs, use `useFieldContext` from `@acp-autoform/react/tanstack-form`. See [customization](/docs/tanstack/customization#connecting-custom-fields-to-tanstack-form).
+
+## Next Steps
+
+- [How to define your zod schema](/docs/schema-providers/zod)
+- [How to define your yup schema](/docs/schema-providers/yup)
+- [How to define your joi schema](/docs/schema-providers/joi)
+- [Accessing form data & methods](/docs/tanstack/form-control)
+- [How to customize your form](/docs/tanstack/customization)
+- [API Reference](/docs/tanstack/api)

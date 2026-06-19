@@ -1,6 +1,6 @@
 {
-  "title": "React Hook Form",
-  "icon": "Atom",
+  "title": "TanStack Form",
+  "icon": "FormInput",
   "pages": [
     "---Guide---",
     "getting-started",
@@ -8,8 +8,6 @@
     "customization",
     "api",
     "faq-examples",
-    "---Migration---",
-    "migration",
     "---Custom---",
     "custom-integration"
   ]

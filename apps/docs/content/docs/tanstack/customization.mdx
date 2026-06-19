@@ -1,0 +1,255 @@
+---
+title: Customization
+description: Customize AutoForm fields, wrappers and custom components with the TanStack Form adapter.
+---
+
+Import `fieldConfig` from your schema package: [@acp-autoform/zod](/docs/schema-providers/zod#field-configuration), [@acp-autoform/yup](/docs/schema-providers/yup#field-configuration), or [@acp-autoform/joi](/docs/schema-providers/joi#field-configuration).
+
+In the examples below, we use Zod.
+
+```tsx
+import * as z from "zod";
+import { fieldConfig } from "@acp-autoform/zod";
+import { FieldTypes } from "@acp-autoform/mui/tanstack-form";
+
+const schema = z.object({
+  username: z.string().check(
+    fieldConfig({
+      label: "Username",
+      description: "Choose a unique username.",
+      inputProps: {
+        placeholder: "Enter your username",
+      },
+    }),
+  ),
+
+  password: z.string().check(
+    fieldConfig({
+      inputProps: {
+        type: "password",
+        placeholder: "Enter your password",
+      },
+    }),
+  ),
+});
+```
+
+## Input props
+
+Use `inputProps` to pass props to the resolved field component.
+
+```tsx
+const schema = z.object({
+  username: z.string().check(
+    fieldConfig({
+      inputProps: {
+        type: "text",
+        placeholder: "Username",
+      },
+    }),
+  ),
+});
+```
+
+## Description
+
+Use `description` to add helper content below the field. You can use JSX in the description.
+
+```tsx
+const schema = z.object({
+  username: z.string().check(
+    fieldConfig({
+      description:
+        "Enter a unique username. This will be shown to other users.",
+    }),
+  ),
+});
+```
+
+## Order
+
+Use `order` to change field ordering. Smaller numbers render first. Fields without an order use `0`.
+
+```tsx
+const schema = z.object({
+  termsOfService: z.boolean().check(
+    fieldConfig({
+      order: 1,
+    }),
+  ),
+  username: z.string().check(
+    fieldConfig({
+      order: -1,
+    }),
+  ),
+});
+```
+
+## Custom fields
+
+You can customize fields in two ways: override UI components such as `FieldWrapper`, or add new field components through `formComponents`.
+
+AutoForm renders every generated field inside the `FieldWrapper` UI component. The wrapper renders the resolved `label`, validation `error` and field component as `children`, so normal field components should render only the input control.
+
+### Overriding default UI components
+
+```tsx
+import { FieldWrapperProps } from "@acp-autoform/react";
+
+export function CustomFieldWrapper({
+  children,
+  label,
+  error,
+  id,
+}: FieldWrapperProps) {
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      {children}
+      {error}
+    </div>
+  );
+}
+
+<AutoForm
+  uiComponents={{
+    FieldWrapper: CustomFieldWrapper,
+  }}
+/>;
+```
+
+### Adding new form components
+
+For field components that should work with either React Hook Form or TanStack Form, use AutoForm's shared `useField` hook. It is provided by the active adapter at runtime.
+
+```tsx
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+
+export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
+  const { field } = useField({ name: id });
+
+  return (
+    <input
+      id={id}
+      type="text"
+      {...inputProps}
+      {...field}
+      value={field.value ?? ""}
+    />
+  );
+}
+
+<AutoForm
+  formComponents={{
+    custom: CustomInput,
+  }}
+/>;
+
+const schema = z.object({
+  username: z.string().check(
+    fieldConfig<React.ReactNode, FieldTypes | "custom">({
+      fieldType: "custom",
+    }),
+  ),
+});
+```
+
+### Connecting custom fields to TanStack Form
+
+If a component needs TanStack-specific APIs, use `useFieldContext` from the TanStack adapter export. The component must render inside AutoForm's generated field, which AutoForm does for entries in `formComponents`.
+
+```tsx
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+
+export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {
+  const field = useFieldContext<boolean>();
+
+  return (
+    <input
+      id={id}
+      name={String(field.name)}
+      type="checkbox"
+      checked={!!field.state.value}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.checked)}
+      {...inputProps}
+    />
+  );
+}
+```
+
+TanStack field errors are available on `field.state.meta.errors`.
+
+```tsx
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+
+export function FieldStatus() {
+  const field = useFieldContext();
+  const error = field.state.meta.errors[0];
+
+  return error ? <span>{String(error)}</span> : null;
+}
+```
+
+## Form element customization
+
+Pass props to the underlying form element with `formProps`.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{
+    className: "my-custom-form",
+    "data-testid": "user-form",
+    noValidate: true,
+  }}
+/>
+```
+
+## Submit Button
+
+Use `withSubmit` for AutoForm's default submit button:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit} withSubmit />
+```
+
+Render a custom submit button as a child when you need custom markup:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit}>
+  <button type="submit">Create Account</button>
+</AutoForm>
+```
+
+For buttons outside AutoForm, create a TanStack form with `useAppForm`, pass it to `formControl`, and call methods on that form instance:
+
+```tsx
+import { formOptions } from "@tanstack/react-form";
+import { useAppForm } from "@acp-autoform/react/tanstack-form";
+
+export default function MyForm() {
+  const form = useAppForm(formOptions({ defaultValues: {} }));
+
+  return (
+    <div>
+      <AutoForm formControl={form} schema={schemaProvider} />
+
+      <button type="button" onClick={() => form.handleSubmit()}>
+        Submit
+      </button>
+      <button type="button" onClick={() => form.reset()}>
+        Reset
+      </button>
+    </div>
+  );
+}
+```
+
+## Custom validation and value cleanup
+
+AutoForm validates with the schema provider before calling `onSubmit` and cleans empty values such as `""` and `null` before validation. The TanStack adapter also passes the provider schema to TanStack as an `onChange` validator when the provider exposes one.
+
+If you need fully custom validation behavior, create the external form with `useAppForm(formOptions(...))`, pass it to `formControl`, and keep the schema provider as the final submit validator.

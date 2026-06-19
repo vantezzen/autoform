@@ -1,0 +1,178 @@
+---
+title: Custom Integration
+description: Build a custom UI integration for the TanStack Form AutoForm adapter.
+---
+
+This guide shows how to create a UI integration that can render with the TanStack Form adapter. The UI component registry is the same shape as the React Hook Form route; the adapter changes when you choose the base `AutoForm` import.
+
+<div className='fd-steps [&_h2]:fd-step'>
+
+## Set up the project
+
+```bash
+mkdir @autoform-custom-ui
+cd @autoform-custom-ui
+npm init -y
+npm install @acp-autoform/react @tanstack/react-form react
+```
+
+## Define custom types
+
+```tsx
+import {
+  AutoFormUIComponents,
+  AutoFormFieldComponents,
+} from "@acp-autoform/react";
+
+export interface CustomAutoFormUIComponents extends AutoFormUIComponents {}
+
+export interface CustomAutoFormFieldComponents
+  extends AutoFormFieldComponents {}
+```
+
+## Implement UI components
+
+Implement the required UI components:
+
+1. Form
+2. FieldWrapper
+3. ErrorMessage
+4. SubmitButton
+5. ObjectWrapper
+6. ArrayWrapper
+7. ArrayElementWrapper
+
+```tsx
+import React from "react";
+import { FieldWrapperProps } from "@acp-autoform/react";
+
+export const FieldWrapper: React.FC<FieldWrapperProps> = ({
+  label,
+  error,
+  children,
+  id,
+}) => {
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      {children}
+      {error && <span>{error}</span>}
+    </div>
+  );
+};
+```
+
+## Implement field components
+
+For adapter-neutral field components, use `useField` from `@acp-autoform/react`. AutoForm provides the correct implementation for the current adapter.
+
+```tsx
+import React from "react";
+import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+
+export const StringField: React.FC<AutoFormFieldProps> = ({
+  inputProps,
+  id,
+}) => {
+  const { field } = useField({ name: id });
+
+  return <input id={id} {...inputProps} {...field} value={field.value ?? ""} />;
+};
+```
+
+Use TanStack's field context only when your component needs TanStack-specific APIs:
+
+```tsx
+import React from "react";
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+
+export const BooleanField: React.FC<AutoFormFieldProps> = ({ inputProps, id }) => {
+  const field = useFieldContext<boolean>();
+
+  return (
+    <input
+      id={id}
+      type="checkbox"
+      checked={!!field.state.value}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.checked)}
+      {...inputProps}
+    />
+  );
+};
+```
+
+## Create the AutoForm component
+
+Bind your UI registry to the TanStack base adapter:
+
+```tsx
+import { AutoForm as BaseAutoForm } from "@acp-autoform/react/tanstack-form";
+import {
+  AutoFormFieldComponents,
+  AutoFormProps,
+  AutoFormUIComponents,
+} from "@acp-autoform/react";
+
+const uiComponents: AutoFormUIComponents = {
+  Form,
+  FieldWrapper,
+  ErrorMessage,
+  SubmitButton,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper,
+};
+
+const formComponents: AutoFormFieldComponents = {
+  string: StringField,
+  number: NumberField,
+  boolean: BooleanField,
+};
+
+export function AutoForm<T extends Record<string, any>>(
+  props: Omit<AutoFormProps<T>, "uiComponents" | "formComponents">,
+) {
+  return (
+    <BaseAutoForm
+      {...props}
+      uiComponents={uiComponents}
+      formComponents={formComponents}
+    />
+  );
+}
+```
+
+## Export both adapters
+
+If your integration supports both adapters, expose explicit subpaths:
+
+```tsx
+// react-hook-form.tsx
+import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/react/react-hook-form";
+import { createAutoForm } from "./AutoForm";
+
+export const AutoForm = createAutoForm(ReactHookFormAutoForm);
+```
+
+```tsx
+// tanstack-form.tsx
+import { AutoForm as TanStackAutoForm } from "@acp-autoform/react/tanstack-form";
+import { createAutoForm } from "./AutoForm";
+
+export const AutoForm = createAutoForm(TanStackAutoForm);
+```
+
+</div>
+
+## Using your custom UI integration
+
+```tsx
+import { AutoForm } from "@acp-autoform/custom-ui/tanstack-form";
+import { ZodProvider } from "@acp-autoform/zod";
+
+function MyForm() {
+  return <AutoForm schema={schemaProvider} onSubmit={console.log} withSubmit />;
+}
+```
