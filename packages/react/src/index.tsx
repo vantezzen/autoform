@@ -4,3 +4,4 @@
 // ./react-hook-form and ./tanstack-form so consumers can bundle one adapter.
 export * from "./types";
 export * from "./context";
+export { focusFirstInvalidInput, preventPropagation } from "./utils";

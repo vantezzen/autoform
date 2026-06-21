@@ -1,4 +1,25 @@
 import type { ParsedField } from "@acp-autoform/core";
+import type { FormEvent } from "react";
+
+export function focusFirstInvalidInput(): void {
+  setTimeout(
+    () =>
+      document
+        .querySelector<HTMLElement>(
+          '[aria-invalid="true"]:is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled),[aria-invalid="true"] :is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled)',
+        )
+        ?.focus(),
+    50,
+  );
+}
+
+export const preventPropagation =
+  (callback: (event: FormEvent<HTMLFormElement>) => void | Promise<void>) =>
+  (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    return callback(event);
+  };
 
 export function getArrayItemDefaultValue(parsedField: ParsedField): any {
   const itemField = parsedField.schema?.[0];

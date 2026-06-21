@@ -3,7 +3,7 @@ import { getLabel } from "@acp-autoform/core";
 import type { ParsedField } from "@acp-autoform/core";
 import { useAutoForm } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
-import { useFieldContext } from "./form-context";
+import { useFieldContext } from "./hooks";
 import { getArrayItemDefaultValue } from "../utils";
 import { focusFirstFieldInPath } from "./utils";
 

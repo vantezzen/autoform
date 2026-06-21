@@ -12,7 +12,8 @@ import { getDefaultValues, parseSchema } from "@acp-autoform/core";
 import type { AutoFormProps, UseFieldFn } from "../types";
 import { AutoFormProvider } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
-import { createSchemaResolver, focusFirstInvalidInput, preventPropagation } from "./utils";
+import { focusFirstInvalidInput, preventPropagation } from "../utils";
+import { createSchemaResolver } from "./utils";
 
 /**
  * RHF-backed useField implementation.

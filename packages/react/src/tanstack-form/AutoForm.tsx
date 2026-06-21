@@ -5,18 +5,17 @@ import {
   parseSchema,
   replaceEmptyValue,
 } from "@acp-autoform/core";
-import type { ParsedSchema } from "@acp-autoform/core";
 import type { AutoFormProps } from "../types";
 import { AutoFormProvider } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
+import { focusFirstInvalidInput, preventPropagation } from "../utils";
+import { getAppForm } from "./utils";
 import {
-  getAppForm,
-  preventPropagation,
-  focusFirstInvalidInput,
-} from "./utils";
-import { useAppForm } from "./form-context";
-import { useFieldTanStack, useSyncValues } from "./hooks";
-import { useExternalFormOptions } from "./external-form-options";
+  useAppForm,
+  useExternalFormOptions,
+  useFieldTanStack,
+  useSyncValues,
+} from "./hooks";
 
 export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   formControl,
@@ -31,17 +30,14 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
-  const parsedSchema: ParsedSchema = useMemo(
-    () => parseSchema(schema),
-    [schema],
-  );
-  const validator = useMemo(() => schema.getSchema?.(), [schema]);
+  const parsedSchema = useMemo(() => parseSchema(schema), [schema]);
   const { ref: _ref, ...restFormProps } =
     formProps as React.ComponentProps<"form">;
 
   const options = useMemo(
-    () =>
-      formOptions({
+    () => {
+      const validator = schema.getSchema?.();
+      return formOptions({
         ...(validator ? { validators: { onDynamic: validator as any } } : {}),
         validationLogic: revalidateLogic(),
         defaultValues: {
@@ -54,23 +50,17 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
             await onSubmit(validation.data, formApi);
           }
         },
-        onSubmitInvalid: () => {
-          focusFirstInvalidInput();
-        },
-      }),
-    [defaultValues, onSubmit, schema, validator],
+        onSubmitInvalid: focusFirstInvalidInput,
+      });
+    },
+    [defaultValues, onSubmit, schema],
   );
 
   const internalForm = useAppForm(options);
-  const form = formControl
-    ? (formControl as typeof internalForm)
-    : internalForm;
+  const form = (formControl ?? internalForm) as typeof internalForm;
 
   useSyncValues(form, values);
-  useExternalFormOptions(
-    formControl ? (formControl as typeof internalForm) : undefined,
-    options,
-  );
+  useExternalFormOptions(formControl as typeof internalForm, options);
 
   useEffect(() => {
     onFormInit?.(form);

@@ -1,5 +1,4 @@
 import { SchemaProvider, replaceEmptyValue } from "@acp-autoform/core";
-import React from "react";
 import {
   FieldValues,
   Resolver,
@@ -8,45 +7,6 @@ import {
   useFormContext,
   UseFormRegister,
 } from "react-hook-form";
-
-/**
- * Focus the first input element marked as invalid.
- * Used by both RHF (onError) and TanStack (onSubmitInvalid) adapters.
- * AutoFormField auto-injects aria-invalid into inputProps.
- */
-export function focusFirstInvalidInput(): void {
-  setTimeout(() => {
-    // Find the first element marked as invalid natively or via our data attribute
-    // Using a combined selector ensures we find the first one in document order
-    const firstInvalid = document.querySelector<HTMLElement>(
-      '[aria-invalid="true"]'
-    );
-    
-    if (!firstInvalid) return;
-
-    // If the element itself is directly focusable, focus it
-    if (
-      firstInvalid.tagName === "INPUT" ||
-      firstInvalid.tagName === "SELECT" ||
-      firstInvalid.tagName === "TEXTAREA" ||
-      firstInvalid.tagName === "BUTTON" ||
-      firstInvalid.hasAttribute("tabindex")
-    ) {
-      firstInvalid.focus();
-      return;
-    }
-
-    // Otherwise, it's a wrapper, find the first focusable input inside it
-    const input = firstInvalid.querySelector<HTMLElement>(
-      'input, button, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (input) {
-      input.focus();
-    } else {
-      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, 50);
-}
 
 /**
  * This custom hook shares the same props and methods as register.
@@ -72,16 +32,6 @@ export function getPathInObject(obj: any, path: string[]): any {
   }
   return current.message ? current : (current.root ?? current);
 }
-
-/**
- * Wraps the form submit handler to stop event propagation before executing.
- */
-export const preventPropagation =
-  (callback: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>) =>
-  async (e: React.FormEvent<HTMLFormElement>) => {
-    e.stopPropagation();
-    await callback(e);
-  };
 
 /**
  * Creates a React Hook Form resolver for an AutoForm schema provider.

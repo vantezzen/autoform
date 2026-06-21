@@ -94,6 +94,7 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       cy.get(".lucide-plus").click();
 
       cy.focused().should("have.attr", "name", "friends.0.name");
+      cy.get('button[type="submit"]').click();
       cy.get('input[name="friends.0.name"]')
         .should("have.attr", "aria-invalid", "true");
       cy.get('input[name="friends.0.profile.details.email"]')

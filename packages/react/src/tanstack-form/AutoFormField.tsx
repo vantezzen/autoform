@@ -5,7 +5,7 @@ import type { AutoFormFieldProps } from "../types";
 import { useAutoForm } from "@acp-autoform/react";
 import { ArrayField } from "./ArrayField";
 import { ObjectField } from "./ObjectField";
-import { useFormContext } from "./form-context";
+import { useFormContext } from "./hooks";
 import { formatTanStackPath, getErrorMessage } from "./utils";
 
 export const AutoFormField: React.FC<{
@@ -18,11 +18,8 @@ export const AutoFormField: React.FC<{
   const domPath = path.join(".");
   const fullPath = formatTanStackPath(path);
   const fieldConfig = parsedField.fieldConfig;
+  const label = getLabel(parsedField);
   const FieldWrapper = fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
-  const fieldProps = {
-    name: fullPath as any,
-    mode: parsedField.type === "array" ? "array" : undefined,
-  };
 
   let FieldComponent: React.ComponentType<AutoFormFieldProps>;
   if (parsedField.type === "array") {
@@ -43,13 +40,16 @@ export const AutoFormField: React.FC<{
 
   const AppField = form.AppField as React.ComponentType<any>;
   return (
-    <AppField {...fieldProps}>
+    <AppField
+      name={fullPath}
+      mode={parsedField.type === "array" ? "array" : undefined}
+    >
       {(fieldApi: any) => {
         const error = getErrorMessage(fieldApi);
 
         return (
           <FieldWrapper
-            label={getLabel(parsedField)}
+            label={label}
             error={error}
             id={domPath}
             parsedField={parsedField}
@@ -60,7 +60,7 @@ export const AutoFormField: React.FC<{
               id={domPath}
               error={error}
               parsedField={parsedField}
-              label={getLabel(parsedField)}
+              label={label}
               inputProps={{
                 ...fieldConfig?.inputProps,
                 "aria-invalid": !!error || undefined,

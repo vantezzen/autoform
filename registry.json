@@ -127,16 +127,6 @@
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/tanstack-form/form-context.ts",
-          "target": "lib/autoform/react/tanstack-form/form-context.ts",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/react/src/tanstack-form/external-form-options.ts",
-          "target": "lib/autoform/react/tanstack-form/external-form-options.ts",
-          "type": "registry:file"
-        },
-        {
           "path": "packages/react/src/tanstack-form/hooks.ts",
           "target": "lib/autoform/react/tanstack-form/hooks.ts",
           "type": "registry:file"

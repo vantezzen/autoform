@@ -10,20 +10,6 @@ export function focusFirstFieldInPath(path: string): void {
     ?.focus();
 }
 
-/**
- * Focus the first input element marked as invalid.
- * AutoFormField auto-injects aria-invalid into inputProps.
- */
-export function focusFirstInvalidInput(): void {
-  requestAnimationFrame(() =>
-    document
-      .querySelector<HTMLElement>(
-        '[aria-invalid="true"]:is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled),[aria-invalid="true"] :is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled)',
-      )
-      ?.focus(),
-  );
-}
-
 export function getAppForm(form: {
   AppForm?: React.ComponentType<React.PropsWithChildren>;
 }): React.ComponentType<React.PropsWithChildren> {
@@ -57,14 +43,3 @@ export function getErrorMessage(fieldApi: any): string | undefined {
   if (typeof error.message === "string") return error.message;
   return String(error);
 }
-
-/**
- * Wraps the form submit handler to stop event propagation.
- */
-export const preventPropagation =
-  (callback: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>) =>
-  (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    return callback(e);
-  };
