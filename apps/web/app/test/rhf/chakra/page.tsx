@@ -1,4 +1,4 @@
-import { ChakraTanstack } from "../../../../components/Chakra";
+import { ChakraRHF } from "../../../../components/Chakra";
 
 export default function Page() {
   return (
@@ -6,9 +6,9 @@ export default function Page() {
       <h1
         style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}
       >
-        TanStack Form - Chakra
+        React Hook Form - Chakra UI
       </h1>
-      <ChakraTanstack />
+      <ChakraRHF />
     </div>
   );
 }

@@ -46,7 +46,7 @@ export function defineTanStackFormPropertiesTests({
   const schemaProvider = new ZodProvider(schema);
 
   const TanStackFormProbe = (_props: AutoFormFieldProps) => {
-    const form = useFormContext();
+    const form = useFormContext() as any;
     const [result, setResult] = React.useState({
       values: "initial",
       dirty: "initial",
