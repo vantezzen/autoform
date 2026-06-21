@@ -40,7 +40,7 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   const shouldFocusError = useRef(
     formControl?.control?._options?.shouldFocusError !== false,
   ).current;
-  const { ref: _ref, ...restFormProps } = formProps as React.ComponentProps<"form">;
+  const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
   const resolver = createSchemaResolver(schema);
 

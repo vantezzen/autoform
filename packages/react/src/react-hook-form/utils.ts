@@ -21,6 +21,9 @@ export function useRegister<TFieldValues extends FieldValues = FieldValues>(
 
 /**
  * Retrieves the error of a field using given error object and field path.
+ *
+ * @param obj - errors object form react-hook-form.
+ * @param path - field path.
  */
 export function getPathInObject(obj: any, path: string[]): any {
   let current = obj;
@@ -35,6 +38,10 @@ export function getPathInObject(obj: any, path: string[]): any {
 
 /**
  * Creates a React Hook Form resolver for an AutoForm schema provider.
+ *
+ * @param schema - AutoForm schema provider with `schemaType` and `getSchema`.
+ *
+ * @returns A React Hook Form resolver that validates cleaned form values.
  */
 export function createSchemaResolver<T extends FieldValues>(
   schema: SchemaProvider<T>,
@@ -53,14 +60,20 @@ export function createSchemaResolver<T extends FieldValues>(
   };
 }
 
+/**
+ * Gets the library-specific React Hook Form resolver for a schema provider.
+ *
+ * @param schema - AutoForm schema provider with resolver metadata.
+ *
+ * @returns The matching resolver.
+ */
 async function getSchemaResolver<T extends FieldValues>(
   schema: SchemaProvider<T>,
 ): Promise<Resolver<T>> {
-    const rawSchema = schema.getSchema?.();
+  const rawSchema = schema.getSchema?.();
   if (!schema.schemaType || !rawSchema) {
     throw new Error(
-      "AutoForm: schema provider must expose schemaType and getSchema() " +
-        "to use resolver validation.",
+      "AutoForm: schema provider must expose schemaType and getSchema() to use resolver validation.",
     );
   }
 
