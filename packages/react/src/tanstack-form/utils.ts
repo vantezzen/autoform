@@ -1,20 +1,13 @@
 import React from "react";
 
 export function focusFirstFieldInPath(path: string): void {
-  const candidates = document.querySelectorAll<HTMLElement>(
-    'input:not([type="hidden"]), select, textarea, button, [tabindex]:not([tabindex="-1"])',
-  );
-
-  for (const candidate of candidates) {
-    const belongsToPath = [candidate.id, candidate.getAttribute("name")].some(
-      (value) => value === path || value?.startsWith(`${path}.`),
-    );
-
-    if (belongsToPath && !candidate.hasAttribute("disabled")) {
-      candidate.focus();
-      return;
-    }
-  }
+  const exact = CSS.escape(path);
+  const prefix = CSS.escape(`${path}.`);
+  document
+    .querySelector<HTMLElement>(
+      `:is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled):is([id="${exact}"],[name="${exact}"],[id^="${prefix}"],[name^="${prefix}"])`,
+    )
+    ?.focus();
 }
 
 /**
@@ -22,37 +15,13 @@ export function focusFirstFieldInPath(path: string): void {
  * AutoFormField auto-injects aria-invalid into inputProps.
  */
 export function focusFirstInvalidInput(): void {
-  setTimeout(() => {
-    // Find the first element marked as invalid natively or via our data attribute
-    // Using a combined selector ensures we find the first one in document order
-    const firstInvalid = document.querySelector<HTMLElement>(
-      '[aria-invalid="true"]',
-    );
-
-    if (!firstInvalid) return;
-
-    // If the element itself is directly focusable, focus it
-    if (
-      firstInvalid.tagName === "INPUT" ||
-      firstInvalid.tagName === "SELECT" ||
-      firstInvalid.tagName === "TEXTAREA" ||
-      firstInvalid.tagName === "BUTTON" ||
-      firstInvalid.hasAttribute("tabindex")
-    ) {
-      firstInvalid.focus();
-      return;
-    }
-
-    // Otherwise, it's a wrapper (like MUI or Mantine), find the first focusable input inside it
-    const input = firstInvalid.querySelector<HTMLElement>(
-      'input, button, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    if (input) {
-      input.focus();
-    } else {
-      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, 50);
+  requestAnimationFrame(() =>
+    document
+      .querySelector<HTMLElement>(
+        '[aria-invalid="true"]:is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled),[aria-invalid="true"] :is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled)',
+      )
+      ?.focus(),
+  );
 }
 
 export function getAppForm(form: {
@@ -94,8 +63,8 @@ export function getErrorMessage(fieldApi: any): string | undefined {
  */
 export const preventPropagation =
   (callback: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>) =>
-  async (e: React.FormEvent<HTMLFormElement>) => {
+  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    await callback(e);
+    return callback(e);
   };

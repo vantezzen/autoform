@@ -14,16 +14,13 @@ export const ObjectField: React.FC<{
 
   return (
     <ObjectWrapper label={getLabel(parsedField)} parsedField={parsedField}>
-      {Object.entries(parsedField.schema!).map(([_key, subField]) => {
-        const sf = subField as ParsedField;
-        return (
-          <AutoFormField
-            key={`${path.join(".")}.${sf.key}`}
-            parsedField={sf}
-            path={[...path, sf.key]}
-          />
-        );
-      })}
+      {parsedField.schema!.map((subField) => (
+        <AutoFormField
+          key={`${path.join(".")}.${subField.key}`}
+          parsedField={subField}
+          path={[...path, subField.key]}
+        />
+      ))}
     </ObjectWrapper>
   );
 };
