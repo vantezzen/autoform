@@ -174,7 +174,9 @@ function CustomArrayWrapper({ label, children, onAddItem }: ArrayWrapperProps) {
     <section>
       <h3>{label}</h3>
       {children}
-      <button type="button" onClick={onAddItem}>Add item</button>
+      <button type="button" onClick={onAddItem}>
+        Add item
+      </button>
     </section>
   );
 }
@@ -188,17 +190,25 @@ function CustomArrayElementWrapper({
     <div>
       <span>Item {index + 1}</span>
       {children}
-      <button type="button" onClick={onRemove}>Remove item</button>
+      <button type="button" onClick={onRemove}>
+        Remove item
+      </button>
     </div>
   );
 }
 
 const schema = z.object({
   profile: z
-    .object({ displayName: z.string() })
+    .object({
+      displayName: z.string(),
+    })
     .check(fieldConfig({ objectWrapper: CustomObjectWrapper })),
   addresses: z
-    .array(z.object({ city: z.string() }))
+    .array(
+      z.object({
+        city: z.string(),
+      }),
+    )
     .check(
       fieldConfig({
         arrayWrapper: CustomArrayWrapper,

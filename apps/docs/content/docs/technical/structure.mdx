@@ -29,13 +29,17 @@ Example with @acp-autoform/zod:
 ```tsx
 // packages/zod/src/v4/provider.ts
 import * as z from "zod/v4/core";
-import { ParsedSchema, SchemaProvider, SchemaValidation } from "@acp-autoform/core";
+import {
+  ParsedSchema,
+  SchemaProvider,
+  SchemaValidation,
+} from "@acp-autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 
-export class ZodProvider<T extends z.$ZodObject>
-  implements SchemaProvider<z.infer<T>>
-{
+export class ZodProvider<T extends z.$ZodObject> implements SchemaProvider<
+  z.infer<T>
+> {
   schemaType = "zod" as const;
 
   constructor(private schema: T) {
@@ -89,7 +93,7 @@ interface SchemaProvider {
 
 ## 3. @acp-autoform/react
 
-This package provides the shared React contracts, context, and adapter-agnostic hooks used by every React UI integration. Runtime form implementations are exposed through the `react-hook-form` and `tanstack-form` subpaths.
+This package provides the React contracts, context, and adapter-agnostic hooks used by every React UI integration. Runtime form implementations are exposed through the `react-hook-form` and `tanstack-form` subpaths.
 
 Key features:
 

@@ -255,7 +255,7 @@ You'll also want to implement boolean, select, and any other field types your sc
 
 Additionally, you can create custom field components for other types like checkboxes, radio buttons, etc. These can later be used by setting a custom `fieldType` in the schema.
 
-`inputProps` contains props from `fieldConfig.inputProps`. Import the `useField` hook from `@acp-autoform/react` to connect the component to the active form adapter. `useField({ name: id })` returns a normalized `field` binding with `value`, `onChange`, `onBlur`, `name`, and an optional `ref`. This keeps the UI integration independent from React Hook Form and TanStack Form.
+`inputProps` contains props from `fieldConfig.inputProps`. Import the `useField` hook from `@acp-autoform/react` to connect the component to the form. `useField({ name: id })` returns exactly what `useController({ name: id })` returns (it is an alias): `field`, `fieldState`, and `formState`. This approach avoids adding `react-hook-form` directly to your package's `dependencies`.
 
 <Accordions type="single">
   <Accordion title="AutoFormFieldProps reference">
@@ -265,10 +265,11 @@ Additionally, you can create custom field components for other types like checkb
 
 ## Create the AutoForm component
 
-Create a new file called `src/AutoForm.tsx`. This example wraps the React Hook Form adapter and provides your custom UI components. Use the `tanstack-form` subpath when building the TanStack variant.
+Create a new file called `src/AutoForm.tsx`. This will wrap the base `AutoForm` component from `@acp-autoform/react` and provide your custom UI components:
 
 ```tsx
 // src/AutoForm.tsx
+// Use the `tanstack-form` subpath when building the TanStack variant.
 import { AutoForm as BaseAutoForm } from "@acp-autoform/react/react-hook-form";
 import {
   CustomAutoFormUIComponents,
