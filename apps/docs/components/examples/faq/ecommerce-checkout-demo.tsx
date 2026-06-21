@@ -4,7 +4,7 @@ import * as React from "react";
 import * as z from "zod";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 
-import { AutoForm } from "@/components/ui/autoform";
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import {
   CountrySelectField,
   StateSelectField,

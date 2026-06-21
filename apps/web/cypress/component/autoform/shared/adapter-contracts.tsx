@@ -1,5 +1,6 @@
 import React, { ComponentType } from "react";
 import { createFormControl } from "react-hook-form";
+import { formOptions, revalidateLogic } from "@tanstack/react-form";
 import {
   useAppForm,
   useFieldContext,
@@ -284,6 +285,13 @@ export function defineExternalFormControlTests({
     name: "John Doe",
     email: "john@example.com",
   };
+  const userValidationLogic = revalidateLogic({
+    mode: "blur",
+    modeAfterSubmission: "blur",
+  });
+  const userOnDynamic = () => undefined;
+  const userOnSubmitInvalid = () => undefined;
+  const userOnSubmit = () => undefined;
 
   function RHFExternalControlForm() {
     const { formControl, setValue, getValues } = React.useMemo(
@@ -402,6 +410,59 @@ export function defineExternalFormControlTests({
     );
   }
 
+  function TanStackExternalOptionsForm() {
+    const form = useAppForm(
+      formOptions({
+        defaultValues: {
+          name: "External default",
+          email: "external-default@example.com",
+        },
+        validationLogic: userValidationLogic,
+        validators: { onDynamic: userOnDynamic },
+        onSubmit: userOnSubmit,
+        onSubmitInvalid: userOnSubmitInvalid,
+      }),
+    );
+    const [snapshot, setSnapshot] = React.useState("");
+
+    return withWrapper(
+      Wrapper,
+      <>
+        <TanStackAutoForm
+          schema={schemaProvider}
+          formControl={form}
+          defaultValues={initialValues}
+          onSubmit={cy.stub().as("autoFormSubmit")}
+          withSubmit
+        />
+        <button
+          type="button"
+          name="read-options"
+          onClick={() =>
+            setSnapshot(
+              JSON.stringify({
+                validationLogicPreserved:
+                  form.options.validationLogic === userValidationLogic,
+                validatorPreserved:
+                  form.options.validators?.onDynamic === userOnDynamic,
+                invalidHandlerPreserved:
+                  form.options.onSubmitInvalid === userOnSubmitInvalid,
+                submitOwnedByAutoForm:
+                  form.options.onSubmit !== userOnSubmit,
+                defaultValuesOwnedByAutoForm:
+                  form.options.defaultValues?.name === initialValues.name &&
+                  form.options.defaultValues?.email === initialValues.email,
+              }),
+            )
+          }
+        >
+          read options
+        </button>
+        <output data-testid="tanstack-option-ownership">{snapshot}</output>
+      </>,
+    );
+  }
+
   describe(`External formControl Tests (${label})`, () => {
     it("keeps RHF external formControl and AutoForm inputs in sync", () => {
       cy.mount(<RHFExternalControlForm />);
@@ -477,6 +538,26 @@ export function defineExternalFormControlTests({
         "have.value",
         "controlled@example.com",
       );
+    });
+
+    it("preserves user-owned TanStack options on an external formControl", () => {
+      cy.mount(<TanStackExternalOptionsForm />);
+
+      cy.get('input[name="name"]').should("have.value", "John Doe");
+      cy.get('input[name="email"]').should("have.value", "john@example.com");
+      cy.get('button[name="read-options"]').click();
+      cy.get('[data-testid="tanstack-option-ownership"]').should(($output) => {
+        expect(JSON.parse($output.text())).to.deep.equal({
+          validationLogicPreserved: true,
+          validatorPreserved: true,
+          invalidHandlerPreserved: true,
+          submitOwnedByAutoForm: true,
+          defaultValuesOwnedByAutoForm: true,
+        });
+      });
+
+      cy.get('button[type="submit"]').click();
+      cy.get("@autoFormSubmit").should("have.been.calledWith", initialValues);
     });
   });
 }

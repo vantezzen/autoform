@@ -1,5 +1,17 @@
 # @acp-autoform/zod
 
+## 6.0.1
+
+### Patch Changes
+
+- Publish ESM-first package metadata with explicit CommonJS fallbacks, conditional type declarations, package export maps, and clean dual-format builds.
+
+## 6.0.0
+
+### Major Changes
+
+- 9b94fca: Add per-field structural wrapper overrides for object, array, and array item fields.
+
 ## 5.0.1
 
 ### Patch Changes

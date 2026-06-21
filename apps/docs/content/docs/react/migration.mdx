@@ -41,7 +41,7 @@ You also need to wrap your schema in a `ZodProvider` and pass it to the `AutoFor
 
 ```diff
 - import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
-+ import { AutoForm } from "@/components/ui/autoform";
++ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 + import { ZodProvider } from "@acp-autoform/zod";
 
 const mySchema = z.object({
@@ -137,7 +137,7 @@ const [values, setValues] = useState({});
 
 ## Update custom components
 
-If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config.
+If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config. Object, array, and array element wrappers can also be customized per field with `objectWrapper`, `arrayWrapper`, and `arrayElementWrapper`.
 
 ```tsx
 const schema = z.object({

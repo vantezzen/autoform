@@ -2,7 +2,7 @@ import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { getLabel, ParsedField } from "@acp-autoform/core";
 import { AutoFormField } from "./AutoFormField";
-import { useAutoForm } from "../context";
+import { useAutoForm } from "@acp-autoform/react";
 import { useRegister } from "./utils";
 import { getArrayItemDefaultValue } from "../utils";
 
@@ -18,10 +18,15 @@ export const ArrayField: React.FC<{
     name: path.join("."),
   });
   const ref = useRegister(path.join(".")).ref;
+  const ArrayWrapper =
+    parsedField.fieldConfig?.arrayWrapper || uiComponents.ArrayWrapper;
+  const ArrayElementWrapper =
+    parsedField.fieldConfig?.arrayElementWrapper ||
+    uiComponents.ArrayElementWrapper;
   const defaultValue = getArrayItemDefaultValue(parsedField);
 
   return (
-    <uiComponents.ArrayWrapper
+    <ArrayWrapper
       error={error}
       parsedField={parsedField}
       inputProps={{
@@ -33,7 +38,7 @@ export const ArrayField: React.FC<{
       onAddItem={() => append(defaultValue)}
     >
       {fields.map((item, index) => (
-        <uiComponents.ArrayElementWrapper
+        <ArrayElementWrapper
           key={item.id}
           onRemove={() => remove(index)}
           index={index}
@@ -42,8 +47,8 @@ export const ArrayField: React.FC<{
             parsedField={parsedField.schema![0]!}
             path={[...path, index.toString()]}
           />
-        </uiComponents.ArrayElementWrapper>
+        </ArrayElementWrapper>
       ))}
-    </uiComponents.ArrayWrapper>
+    </ArrayWrapper>
   );
 };

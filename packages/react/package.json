@@ -1,30 +1,48 @@
 {
   "name": "@acp-autoform/react",
-  "version": "5.0.0",
-  "main": "./dist/index.js",
+  "version": "7.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./react-hook-form": {
-      "types": "./dist/react-hook-form/index.d.ts",
-      "import": "./dist/react-hook-form/index.mjs",
-      "require": "./dist/react-hook-form/index.js"
+      "import": {
+        "types": "./dist/react-hook-form/index.d.ts",
+        "default": "./dist/react-hook-form/index.mjs"
+      },
+      "require": {
+        "types": "./dist/react-hook-form/index.d.cts",
+        "default": "./dist/react-hook-form/index.cjs"
+      }
     },
     "./tanstack-form": {
-      "types": "./dist/tanstack-form/index.d.ts",
-      "import": "./dist/tanstack-form/index.mjs",
-      "require": "./dist/tanstack-form/index.js"
-    }
+      "import": {
+        "types": "./dist/tanstack-form/index.d.ts",
+        "default": "./dist/tanstack-form/index.mjs"
+      },
+      "require": {
+        "types": "./dist/tanstack-form/index.d.cts",
+        "default": "./dist/tanstack-form/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.tsx src/react-hook-form/index.ts src/tanstack-form/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.tsx src/react-hook-form/index.ts src/tanstack-form/index.ts --format cjs,esm --dts --watch"
+    "build": "tsup src/index.tsx src/react-hook-form/index.ts src/tanstack-form/index.ts --format cjs,esm --dts --clean --external @acp-autoform/react --config ../../tsup.config.ts",
+    "dev": "tsup src/index.tsx src/react-hook-form/index.ts src/tanstack-form/index.ts --format cjs,esm --dts --watch --external @acp-autoform/react --config ../../tsup.config.ts"
   },
   "repository": {
     "type": "git",
@@ -47,22 +65,32 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@acp-autoform/core": "*"
+    "@acp-autoform/core": "^4.0.0"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^3.9.0 || ^4 || ^5",
     "@tanstack/react-form": "^1",
-    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react": "^17 || ^18 || ^19",
     "react-hook-form": "^7"
   },
   "peerDependenciesMeta": {
-    "react-hook-form": { "optional": true },
-    "@hookform/resolvers": { "optional": true },
-    "@tanstack/react-form": { "optional": true }
+    "react-hook-form": {
+      "optional": true
+    },
+    "@hookform/resolvers": {
+      "optional": true
+    },
+    "@tanstack/react-form": {
+      "optional": true
+    }
   },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -1,7 +1,9 @@
+"use client";
+
 import {
   AutoFormUIComponents,
-  AutoFormProps,
-  ExtendableAutoFormProps,
+  AutoFormComponent,
+  AutoFormProps as BaseAutoFormProps,
 } from "@acp-autoform/react";
 import { ConfigProvider } from "antd";
 import type { AutoFormProps as AntAutoFormProps } from "./types";
@@ -18,7 +20,6 @@ import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
 import { useEffect, useState } from "react";
-import React from "react";
 import "@ant-design/v5-patch-for-react-19";
 
 const AntUIComponents: AutoFormUIComponents = {
@@ -43,16 +44,16 @@ export type FieldTypes = keyof typeof AntAutoFormFieldComponents;
 /**
  * Factory that binds the Ant Design component registry to any BaseAutoForm.
  */
-export function createAutoForm<T extends Record<string, any>>(
-  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
-) {
-  return function AntAutoForm({
+export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+  return function AntAutoForm<
+    T extends Record<string, any> = Record<string, any>,
+  >({
     antFormProps,
     antProviderProps,
     uiComponents,
     formComponents,
     ...props
-  }: ExtendableAutoFormProps<T> & AntAutoFormProps<T>) {
+  }: AntAutoFormProps<T>) {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -63,7 +64,7 @@ export function createAutoForm<T extends Record<string, any>>(
 
     const form = (
       <BaseAutoForm
-        {...(props as AutoFormProps<T>)}
+        {...(props as BaseAutoFormProps<T>)}
         formProps={{ ...antFormProps, ...(props as any).formProps }}
         uiComponents={{ ...AntUIComponents, ...uiComponents }}
         formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}

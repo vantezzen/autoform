@@ -1,7 +1,7 @@
 import React from "react";
 import { getLabel } from "@acp-autoform/core";
 import type { ParsedField } from "@acp-autoform/core";
-import { useAutoForm } from "../context";
+import { useAutoForm } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
 
 export const ObjectField: React.FC<{
@@ -9,12 +9,11 @@ export const ObjectField: React.FC<{
   path: string[];
 }> = ({ path, parsedField }) => {
   const { uiComponents } = useAutoForm();
+  const ObjectWrapper =
+    parsedField.fieldConfig?.objectWrapper || uiComponents.ObjectWrapper;
 
   return (
-    <uiComponents.ObjectWrapper
-      label={getLabel(parsedField)}
-      parsedField={parsedField}
-    >
+    <ObjectWrapper label={getLabel(parsedField)} parsedField={parsedField}>
       {Object.entries(parsedField.schema!).map(([_key, subField]) => {
         const sf = subField as ParsedField;
         return (
@@ -25,6 +24,6 @@ export const ObjectField: React.FC<{
           />
         );
       })}
-    </uiComponents.ObjectWrapper>
+    </ObjectWrapper>
   );
 };

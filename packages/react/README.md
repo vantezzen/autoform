@@ -1,11 +1,18 @@
 # React integration for AutoForm
 
-This package provides a React integration for AutoForm. You'll most likely use UI-library specific packages like [shadcn](https://autoform-acp-docs.vercel.app/docs/react/getting-started#shadcnui), `@acp-autoform/mui` instead of this package - unless you want to create your own integration.
+This package provides the shared React contracts and adapter-agnostic hooks for AutoForm. Runtime implementations are available from the `react-hook-form` and `tanstack-form` subpaths. Most applications should use a UI integration such as `@acp-autoform/mui`.
 
 ## Installation
 
 ```bash
 npm install @acp-autoform/react
+```
+
+Install one form engine and import its explicit entrypoint:
+
+```tsx
+import { AutoForm as RHFAutoForm } from "@acp-autoform/react/react-hook-form";
+import { AutoForm as TanStackAutoForm } from "@acp-autoform/react/tanstack-form";
 ```
 
 For more information on how to use this package, see the [AutoForm documentation](https://autoform-acp-docs.vercel.app/docs/react/getting-started).

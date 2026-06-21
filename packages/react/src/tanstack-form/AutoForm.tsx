@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { formOptions } from "@tanstack/react-form";
+import { formOptions, revalidateLogic } from "@tanstack/react-form";
 import {
   getDefaultValues,
   parseSchema,
@@ -7,7 +7,7 @@ import {
 } from "@acp-autoform/core";
 import type { ParsedSchema } from "@acp-autoform/core";
 import type { AutoFormProps } from "../types";
-import { AutoFormProvider } from "../context";
+import { AutoFormProvider } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
 import {
   getAppForm,
@@ -16,6 +16,7 @@ import {
 } from "./utils";
 import { useAppForm } from "./form-context";
 import { useFieldTanStack, useSyncValues } from "./hooks";
+import { useExternalFormOptions } from "./external-form-options";
 
 export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   formControl,
@@ -41,7 +42,8 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   const options = useMemo(
     () =>
       formOptions({
-        ...(validator ? { validators: { onChange: validator as any } } : {}),
+        ...(validator ? { validators: { onDynamic: validator as any } } : {}),
+        validationLogic: revalidateLogic(),
         defaultValues: {
           ...(getDefaultValues(schema) as Partial<T>),
           ...defaultValues,
@@ -65,12 +67,10 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
     : internalForm;
 
   useSyncValues(form, values);
-
-  useEffect(() => {
-    if (formControl) {
-      (formControl as typeof internalForm).update(options);
-    }
-  }, [formControl, options]);
+  useExternalFormOptions(
+    formControl ? (formControl as typeof internalForm) : undefined,
+    options,
+  );
 
   useEffect(() => {
     onFormInit?.(form);

@@ -9,8 +9,11 @@ export type Renderable<AdditionalRenderable = null> =
 export interface FieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 > {
   /** Help text or supporting content rendered near the field. */
   description?: Renderable<AdditionalRenderable>;
@@ -22,10 +25,16 @@ export interface FieldConfig<
   fieldType?: FieldTypes;
   /** Sort order for generated fields. Lower values render first. */
   order?: number;
-  /** Wrapper component override for this field only. */
-  fieldWrapper?: FieldWrapper;
   /** Integration or app-specific metadata for custom components. */
   customData?: CustomData;
+  /** Wrapper component override for this field only. */
+  fieldWrapper?: FieldWrapper;
+  /** Object wrapper component override for this field only. */
+  objectWrapper?: ObjectWrapper;
+  /** Array wrapper component override for this field only. */
+  arrayWrapper?: ArrayWrapper;
+  /** Array element wrapper component override for this field only. */
+  arrayElementWrapper?: ArrayElementWrapper;
 }
 
 export interface ParsedField<AdditionalRenderable = null, FieldTypes = string> {

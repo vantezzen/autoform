@@ -1,17 +1,32 @@
 {
   "name": "@acp-autoform/core",
-  "version": "3.1.1",
-  "main": "./dist/index.js",
+  "version": "4.0.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean --config ../../tsup.config.ts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --config ../../tsup.config.ts"
   },
   "devDependencies": {
     "@acp-autoform/eslint-config": "*",
@@ -28,6 +43,10 @@
   "files": [
     "dist"
   ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -1,10 +1,12 @@
 {
   "name": "acp-autoform",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --concurrency 20",
     "lint": "turbo lint",
+    "check:packages": "node scripts/check-package-boundaries.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cypress": "turbo run cypress --filter=web",
     "cypress:dev": "turbo run cypress --filter=web --parallel"

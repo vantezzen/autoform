@@ -89,11 +89,11 @@ interface SchemaProvider {
 
 ## 3. @acp-autoform/react
 
-This package provides React-specific implementations and hooks for using AutoForm in React applications.
+This package provides the shared React contracts, context, and adapter-agnostic hooks used by every React UI integration. Runtime form implementations are exposed through the `react-hook-form` and `tanstack-form` subpaths.
 
 Key features:
 
-- Implements the `AutoForm` component
+- Exposes separate React Hook Form and TanStack Form `AutoForm` implementations
 - Provides React context for form state management
 - Defines types for React-specific props and components
 
@@ -111,9 +111,8 @@ Example with @acp-autoform/mui:
 
 ```tsx
 // packages/mui/src/AutoForm.tsx
-import React from "react";
+import { AutoForm as BaseAutoForm } from "@acp-autoform/react/react-hook-form";
 import {
-  AutoForm as BaseAutoForm,
   AutoFormUIComponents,
   AutoFormFieldComponents,
 } from "@acp-autoform/react";

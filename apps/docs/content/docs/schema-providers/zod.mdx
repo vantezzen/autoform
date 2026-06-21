@@ -10,7 +10,7 @@ Basic usage:
 "use client";
 import * as z from "zod";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
-import { AutoForm, FieldTypes } from "@acp-autoform/mui"; // use any UI library
+import { AutoForm, FieldTypes } from "@acp-autoform/mui/react-hook-form"; // use any UI library
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -37,7 +37,7 @@ const formSchema = z.object({
     // You can add additional config for how to render this field
     // using fieldConfig
     .check(
-      fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+      fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
         description: "We recommend to use a strong password.",
         inputProps: {
           type: "password",
@@ -119,7 +119,6 @@ When using numbers and dates, you should use coerce. This is because input eleme
 ```tsx
 const formSchema = z.object({
   favouriteNumber: z.coerce.number(),
-  birthday: z.coerce.date(),
 });
 ```
 
@@ -339,7 +338,7 @@ import { FieldTypes } from "@acp-autoform/mui";
 import { fieldConfig } from "@acp-autoform/zod";
 
 z.string().check(
-  fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+  fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
     inputProps: {
       type: "password",
     },

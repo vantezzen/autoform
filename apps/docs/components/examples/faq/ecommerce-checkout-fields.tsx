@@ -164,7 +164,6 @@ export function GiftMessageField({
   id,
   error,
   inputProps,
-  parsedField,
 }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
   const isGift = useWatch({ name: "isGift" });

@@ -74,6 +74,10 @@ export interface AutoFormProps<T extends Record<string, any> = Record<string, an
   formProps?: React.ComponentProps<"form"> | Record<string, any>;
 }
 
+export type AutoFormComponent = <
+  T extends Record<string, any> = Record<string, any>,
+>(props: AutoFormProps<T>) => React.ReactElement;
+
 export type ExtendableAutoFormProps<T extends Record<string, any>> = Omit<
   AutoFormProps<T>,
   "uiComponents" | "formComponents"
@@ -162,11 +166,18 @@ export interface AutoFormContextType {
 export type FieldConfig<
   FieldTypes = string,
   CustomData = Record<string, any>,
+  FieldWrapper = React.ComponentType<FieldWrapperProps>,
+  ObjectWrapper = React.ComponentType<ObjectWrapperProps>,
+  ArrayWrapper = React.ComponentType<ArrayWrapperProps>,
+  ArrayElementWrapper = React.ComponentType<ArrayElementWrapperProps>,
 > = BaseFieldConfig<
   ReactNode,
   FieldTypes,
-  React.ComponentType<FieldWrapperProps>,
-  CustomData
+  CustomData,
+  FieldWrapper,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper
 >;
 
 // Re-exports

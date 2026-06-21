@@ -8,7 +8,7 @@ Basic usage:
 "use client";
 import { YupProvider, fieldConfig } from "@acp-autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
-import { AutoForm, FieldTypes } from "@acp-autoform/mui"; // use any UI library
+import { AutoForm, FieldTypes } from "@acp-autoform/mui/react-hook-form"; // use any UI library
 
 // Define your form schema using yup
 const yupFormSchema = object({
@@ -26,7 +26,7 @@ const yupFormSchema = object({
     .email()
     // You can use fieldConfig to set additional configuration for a field
     .transform(
-      fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+      fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
         inputProps: {
           type: "email",
         },
@@ -250,7 +250,7 @@ Provide external types for full TypeScript support.
 import { FieldTypes } from "@acp-autoform/mui";
 
 string().transform(
-  fieldConfig<React.ReactNode, FieldTypes, any, { isImportant?: boolean }>({
+  fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
     inputProps: {
       placeholder: "Your name",
     },

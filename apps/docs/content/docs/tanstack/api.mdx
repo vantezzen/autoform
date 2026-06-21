@@ -68,6 +68,8 @@ function MyForm() {
 }
 ```
 
+AutoForm owns the external form's `defaultValues` and `onSubmit` options so its props and final schema validation remain authoritative. Other options supplied to `useAppForm`, including `validationLogic`, listeners, transforms, async settings, and validators, are preserved. AutoForm adds its schema validator, default revalidation logic, and invalid-field focus behavior only where the external form did not provide an equivalent option.
+
 ### `formComponents`
 
 `formComponents` maps AutoForm field types to React components. It is the right extension point for custom inputs.

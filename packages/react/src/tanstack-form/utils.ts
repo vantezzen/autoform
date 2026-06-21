@@ -1,5 +1,22 @@
 import React from "react";
 
+export function focusFirstFieldInPath(path: string): void {
+  const candidates = document.querySelectorAll<HTMLElement>(
+    'input:not([type="hidden"]), select, textarea, button, [tabindex]:not([tabindex="-1"])',
+  );
+
+  for (const candidate of candidates) {
+    const belongsToPath = [candidate.id, candidate.getAttribute("name")].some(
+      (value) => value === path || value?.startsWith(`${path}.`),
+    );
+
+    if (belongsToPath && !candidate.hasAttribute("disabled")) {
+      candidate.focus();
+      return;
+    }
+  }
+}
+
 /**
  * Focus the first input element marked as invalid.
  * AutoFormField auto-injects aria-invalid into inputProps.

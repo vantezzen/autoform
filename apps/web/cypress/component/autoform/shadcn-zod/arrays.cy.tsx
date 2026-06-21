@@ -69,5 +69,118 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       friends: [{ name: "Bob", age: 30 }],
     });
   });
+
+  if (name === "tanstack-form") {
+    it("focuses and validates a newly added nested array item", () => {
+      const nestedArraySchema = z.object({
+        friends: z.array(
+          z.object({
+            name: z.string(),
+            profile: z.object({
+              details: z.object({
+                email: z.string(),
+              }),
+            }),
+          }),
+        ),
+      });
+
+      cy.mount(
+        <TestWrapper>
+          <AutoForm schema={new ZodProvider(nestedArraySchema)} withSubmit />
+        </TestWrapper>,
+      );
+
+      cy.get(".lucide-plus").click();
+
+      cy.focused().should("have.attr", "name", "friends.0.name");
+      cy.get('input[name="friends.0.name"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get('input[name="friends.0.profile.details.email"]')
+        .should("have.attr", "aria-invalid", "true");
+    });
+
+    it("shows every nested array item error on submit and change", () => {
+      const requiredArraySchema = z.object({
+        friends: z.array(
+          z.object({
+            name: z.string(),
+            profile: z.object({
+              city: z.string(),
+              details: z.object({
+                email: z.string(),
+              }),
+            }),
+          }),
+        ),
+      });
+
+      cy.mount(
+        <TestWrapper>
+          <AutoForm
+            schema={new ZodProvider(requiredArraySchema)}
+            onSubmit={cy.stub().as("onSubmit")}
+            withSubmit
+          />
+        </TestWrapper>,
+      );
+
+      cy.get(".lucide-plus").click();
+      cy.get('button[type="submit"]').click();
+
+      cy.get('input[name="friends.0.name"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get('input[name="friends.0.profile.city"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get('input[name="friends.0.profile.details.email"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get("@onSubmit").should("not.have.been.called");
+
+      cy.get('input[name="friends.0.profile.city"]').type("Paris");
+
+      cy.get('input[name="friends.0.name"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get('input[name="friends.0.profile.city"]')
+        .should("not.have.attr", "aria-invalid");
+      cy.get('input[name="friends.0.profile.details.email"]')
+        .should("have.attr", "aria-invalid", "true");
+    });
+
+    it("keeps nested array errors visible when Enter submits", () => {
+      const onFormInit = cy.stub().as("onFormInit");
+      const nestedArraySchema = z.object({
+        friends: z.array(
+          z.object({
+            profile: z.object({
+              details: z.object({
+                email: z.string(),
+              }),
+            }),
+          }),
+        ),
+      });
+
+      cy.mount(
+        <TestWrapper>
+          <AutoForm
+            schema={new ZodProvider(nestedArraySchema)}
+            onSubmit={cy.stub().as("onSubmit")}
+            onFormInit={onFormInit}
+            withSubmit
+          />
+        </TestWrapper>,
+      );
+
+      cy.get(".lucide-plus").click();
+      cy.get('input[name="friends.0.profile.details.email"]').type("{enter}");
+
+      cy.get('input[name="friends.0.profile.details.email"]')
+        .should("have.attr", "aria-invalid", "true");
+      cy.get("@onSubmit").should("not.have.been.called");
+      cy.get("@onFormInit").then((stub: any) => {
+        expect(stub.firstCall.args[0].state.submissionAttempts).to.equal(1);
+      });
+    });
+  }
 });
 });

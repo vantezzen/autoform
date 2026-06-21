@@ -10,6 +10,16 @@ Check out the [AutoForm documentation](https://autoform-acp-docs.vercel.app) for
 
 ---
 
+## AutoForm Skill (optional)
+
+If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot), you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific documentation, examples, and best practices.
+
+```bash
+npx skills add https://github.com/adityacodepublic/autoform/tree/acp-package/skills --skill autoform
+```
+
+---
+
 What is AutoForm? Let's say you have a zod schema that you already use for your backend:
 
 ```ts
@@ -28,7 +38,7 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@acp-autoform/shadcn";
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import { schemaProvider } from "./schema";
 
 function MyForm() {

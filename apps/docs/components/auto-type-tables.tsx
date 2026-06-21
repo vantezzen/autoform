@@ -102,9 +102,9 @@ export async function AutoFormFieldPropsTable() {
     );
   }
 
-  if (fieldProps.field) {
-    fieldProps.field = withNestedDescriptionTable(
-      fieldProps.field,
+  if (fieldProps.parsedField) {
+    fieldProps.parsedField = withNestedDescriptionTable(
+      fieldProps.parsedField,
       "Parsed schema metadata available on the current field.",
       "type-table-parsed-field",
       parsedField,
@@ -147,7 +147,7 @@ export async function AutoFormUIComponentsTable() {
   ]);
 
   // For FieldWrapper, ArrayWrapper, ObjectWrapper. Nest ParsedField > FieldConfig
-  // under their `field` prop, each with unique table IDs to avoid duplicate keys.
+  // under their `parsedField` prop, each with unique table IDs to avoid duplicate keys.
   const componentIds = ["field-wrapper", "array-wrapper", "object-wrapper"];
   const propsWithField = [
     fieldWrapperProps,
@@ -159,7 +159,7 @@ export async function AutoFormUIComponentsTable() {
     const props = propsWithField[i];
     const prefix = componentIds[i];
 
-    if (props.field) {
+    if (props.parsedField) {
       const nestedParsedField = { ...parsedField };
       if (nestedParsedField.fieldConfig) {
         nestedParsedField.fieldConfig = withNestedDescriptionTable(
@@ -169,8 +169,8 @@ export async function AutoFormUIComponentsTable() {
           fieldConfig,
         );
       }
-      props.field = withNestedDescriptionTable(
-        props.field,
+      props.parsedField = withNestedDescriptionTable(
+        props.parsedField,
         "Parsed schema metadata available on the current field.",
         `type-table-ui-${prefix}-parsed-field`,
         nestedParsedField,

@@ -6,7 +6,7 @@ import { createFormControl } from "react-hook-form";
 import * as z from "zod";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 
-import { AutoForm } from "@/components/ui/autoform";
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

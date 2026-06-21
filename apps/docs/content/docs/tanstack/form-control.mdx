@@ -132,7 +132,7 @@ export default function MyForm() {
 }
 ```
 
-When `formControl` is provided, AutoForm updates that form with the schema validator, submit handler and default values it builds from the schema.
+When `formControl` is provided, AutoForm replaces only the form's `defaultValues` and `onSubmit` options. Options configured by the parent, such as `validationLogic`, listeners, transforms, async settings, custom validators, and `onSubmitInvalid`, remain in control. AutoForm supplies its schema validator, default revalidation logic, and invalid-field focus behavior only when the external form has not provided the corresponding option.
 
 ## 4. Reading field state
 

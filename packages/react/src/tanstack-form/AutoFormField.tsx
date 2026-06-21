@@ -2,7 +2,7 @@ import React from "react";
 import { getLabel } from "@acp-autoform/core";
 import type { ParsedField } from "@acp-autoform/core";
 import type { AutoFormFieldProps } from "../types";
-import { useAutoForm } from "../context";
+import { useAutoForm } from "@acp-autoform/react";
 import { ArrayField } from "./ArrayField";
 import { ObjectField } from "./ObjectField";
 import { useFormContext } from "./form-context";

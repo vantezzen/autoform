@@ -253,6 +253,6 @@ export default function MyForm() {
 
 ## Custom validation and value cleanup
 
-AutoForm validates with the schema provider before calling `onSubmit` and cleans empty values such as `""` and `null` before validation. The TanStack adapter also passes the provider schema to TanStack as an `onChange` validator when the provider exposes one.
+AutoForm validates with the schema provider before calling `onSubmit` and cleans empty values such as `""` and `null` before validation. The TanStack adapter also supplies the provider schema as a dynamic validator when the external form does not define its own validator for that event.
 
-If you need fully custom validation behavior, create the external form with `useAppForm(formOptions(...))`, pass it to `formControl`, and keep the schema provider as the final submit validator.
+For custom validation behavior, create the external form with `useAppForm(formOptions(...))` and pass it to `formControl`. AutoForm preserves user-owned options such as `validationLogic`, validators, listeners, transforms, and async settings while retaining ownership of `defaultValues`, `onSubmit`, and final schema validation.

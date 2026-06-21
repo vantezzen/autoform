@@ -1,6 +1,9 @@
+"use client";
+
 import type {
+  AutoFormComponent,
   AutoFormUIComponents,
-  AutoFormProps,
+  AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
 } from "@acp-autoform/react";
 import { Form } from "./components/Form";
@@ -15,8 +18,6 @@ import { SelectField } from "./components/SelectField";
 import { ObjectWrapper } from "./components/ObjectWrapper";
 import { ArrayWrapper } from "./components/ArrayWrapper";
 import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
-import React from "react";
-
 const ShadcnUIComponents: AutoFormUIComponents = {
   Form,
   FieldWrapper,
@@ -41,17 +42,17 @@ export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
  * Usage: const ShadcnAutoForm = createAutoForm(AutoForm) where AutoForm
  * is imported from "@acp-autoform/react/react-hook-form" or "@acp-autoform/react/tanstack-form".
  */
-export function createAutoForm<T extends Record<string, any>>(
-  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
-) {
-  return function ShadcnAutoForm({
+export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+  return function ShadcnAutoForm<
+    T extends Record<string, any> = Record<string, any>,
+  >({
     uiComponents,
     formComponents,
     ...props
   }: ExtendableAutoFormProps<T>) {
     return (
       <BaseAutoForm
-        {...(props as AutoFormProps<T>)}
+        {...(props as BaseAutoFormProps<T>)}
         uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
         formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
       />
@@ -59,5 +60,4 @@ export function createAutoForm<T extends Record<string, any>>(
   };
 }
 
-// Convenience default export with empty base (for backward compat discovery)
 export { ShadcnUIComponents };

@@ -6,14 +6,20 @@ export const JOI_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
 export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 >(
   config: FieldConfig<
     AdditionalRenderable,
     FieldTypes,
+    CustomData,
     FieldWrapper,
-    CustomData
+    ObjectWrapper,
+    ArrayWrapper,
+    ArrayElementWrapper
   >,
 ) {
   const transformFunction = function (value: any) {

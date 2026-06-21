@@ -47,7 +47,19 @@ const localReactItems = registry.items.filter(
 for (const item of localReactItems) {
   const files = await Promise.all(
     (item.files ?? []).map(async (file) => {
-      const content = await readFile(join(root, file.path), "utf8");
+      let content = await readFile(join(root, file.path), "utf8");
+
+      if (
+        file.path.includes("/react-hook-form/") ||
+        file.path.includes("/tanstack-form/")
+      ) {
+        content = content
+          .replace(
+            'export * from "@acp-autoform/react";',
+            'export * from "../types";\nexport * from "../context";',
+          )
+          .replaceAll('from "@acp-autoform/react"', 'from "../context"');
+      }
 
       return {
         ...file,

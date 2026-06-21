@@ -9,8 +9,8 @@ import {
   useController,
 } from "react-hook-form";
 import { getDefaultValues, parseSchema } from "@acp-autoform/core";
-import { AutoFormProps, UseFieldFn } from "../types";
-import { AutoFormProvider } from "../context";
+import type { AutoFormProps, UseFieldFn } from "../types";
+import { AutoFormProvider } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
 import { createSchemaResolver, focusFirstInvalidInput, preventPropagation } from "./utils";
 

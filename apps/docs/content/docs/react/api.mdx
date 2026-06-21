@@ -94,6 +94,8 @@ function MyForm() {
 />
 ```
 
+`FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` can also be overridden per schema field through `fieldConfig`. The field-level wrapper has higher priority than the wrapper passed through `uiComponents`.
+
 ## Custom fields
 
 Custom field components receive `AutoFormFieldProps` which contain useful data about that field. import `useController` from `react-hook-form` and spread the returned field props into your input. Pass the `id` from the props as the `name` option.

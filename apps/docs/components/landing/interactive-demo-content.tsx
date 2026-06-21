@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-// import { AutoForm } from "@acp-autoform/mui";
+// import { AutoForm } from "@acp-autoform/mui/react-hook-form";
 import { z } from "zod";
 import { SchemaProvider } from "@acp-autoform/core";
 import { ZodProvider } from "@acp-autoform/zod";
@@ -63,6 +63,7 @@ function InteractiveDemoContent() {
   useEffect(() => {
     try {
       const z = globalZod;
+      void z;
       const parsedSchema = eval(code);
       const provider = new ZodProvider(parsedSchema);
       provider.parseSchema();

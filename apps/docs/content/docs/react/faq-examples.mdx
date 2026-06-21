@@ -142,7 +142,7 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
 
 **1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate with AutoForm's resolver, so error messages are placed on the correct fields automatically.
 
-**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext) inside a custom field component or a `fieldWrapper`. AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree.
+**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext). AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree. You can use them inside custom field components or UI components such as `fieldWrapper`, `objectWrapper`, `arrayWrapper`, and `arrayElementWrapper`.
 
 | Pattern                    | Example in the demo below                                                    |
 | -------------------------- | ---------------------------------------------------------------------------- |

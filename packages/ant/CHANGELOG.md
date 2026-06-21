@@ -1,5 +1,18 @@
 # @acp-autoform/ant
 
+## 4.0.0
+
+### Major Changes
+
+- Split React Hook Form and TanStack Form into explicit package subpaths while keeping shared React contracts and the adapter-agnostic `useField` hook at the package root.
+
+  UI integrations now expose `/react-hook-form` and `/tanstack-form` convenience entries plus a root `createAutoForm` factory. Packages are ESM-first with `"type": "module"` while retaining explicit `.cjs`/`.d.cts` CommonJS exports. Both formats share one `AutoFormContext`, preserve generic schema inference, and install only the selected optional form-engine peer.
+
+### Patch Changes
+
+- Updated dependencies
+  - @acp-autoform/react@7.0.0
+
 ## 3.0.0
 
 ### Major Changes

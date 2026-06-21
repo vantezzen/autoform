@@ -1,30 +1,48 @@
 {
   "name": "@acp-autoform/ant",
-  "version": "3.0.0",
-  "main": "./dist/index.js",
+  "version": "4.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./react-hook-form": {
-      "types": "./dist/react-hook-form.d.ts",
-      "import": "./dist/react-hook-form.mjs",
-      "require": "./dist/react-hook-form.js"
+      "import": {
+        "types": "./dist/react-hook-form.d.ts",
+        "default": "./dist/react-hook-form.mjs"
+      },
+      "require": {
+        "types": "./dist/react-hook-form.d.cts",
+        "default": "./dist/react-hook-form.cjs"
+      }
     },
     "./tanstack-form": {
-      "types": "./dist/tanstack-form.d.ts",
-      "import": "./dist/tanstack-form.mjs",
-      "require": "./dist/tanstack-form.js"
-    }
+      "import": {
+        "types": "./dist/tanstack-form.d.ts",
+        "default": "./dist/tanstack-form.mjs"
+      },
+      "require": {
+        "types": "./dist/tanstack-form.d.cts",
+        "default": "./dist/tanstack-form.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts",
-    "dev": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --watch"
+    "build": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --clean --config ../../tsup.config.ts",
+    "dev": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --watch --config ../../tsup.config.ts"
   },
   "repository": {
     "type": "git",
@@ -45,18 +63,21 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@acp-autoform/react": "*",
+    "@acp-autoform/react": "^7.0.0",
     "@ant-design/icons": "^5.6.1",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "dayjs": "^1.11.13"
   },
   "peerDependencies": {
     "antd": "^5",
-    "react": "^16.8.0 || ^17 || ^18 || ^19"
+    "react": "^16.9.0 || ^17 || ^18 || ^19"
   },
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "publishConfig": {
     "access": "public"
   }

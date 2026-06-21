@@ -106,6 +106,8 @@ AutoForm renders every generated field inside the `FieldWrapper` `UI component`.
 
 You can override the default UI components with custom components. This allows you to customize the look and feel, either globally or for specific fields.
 
+`FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` can be overridden globally through `uiComponents`, or per field through `fieldConfig`. When both are provided, the wrapper from `fieldConfig` is used for that field.
+
 **Example: Creating custom FieldWrapper**
 
 The `FieldWrapper` is responsible for rendering the field label and error, so when you use a custom wrapper, you need to handle these yourself. You can take a look at the `FieldWrapperProps` type to see what props are passed.
@@ -146,6 +148,63 @@ const schema = z.object({
       fieldWrapper: CustomFieldWrapper,
     }),
   ),
+});
+```
+
+You can use the same pattern for nested object fields and array fields:
+
+```tsx
+import {
+  ArrayElementWrapperProps,
+  ArrayWrapperProps,
+  ObjectWrapperProps,
+} from "@acp-autoform/react";
+
+function CustomObjectWrapper({ label, children }: ObjectWrapperProps) {
+  return (
+    <section>
+      <h3>{label}</h3>
+      {children}
+    </section>
+  );
+}
+
+function CustomArrayWrapper({ label, children, onAddItem }: ArrayWrapperProps) {
+  return (
+    <section>
+      <h3>{label}</h3>
+      {children}
+      <button type="button" onClick={onAddItem}>Add item</button>
+    </section>
+  );
+}
+
+function CustomArrayElementWrapper({
+  children,
+  index,
+  onRemove,
+}: ArrayElementWrapperProps) {
+  return (
+    <div>
+      <span>Item {index + 1}</span>
+      {children}
+      <button type="button" onClick={onRemove}>Remove item</button>
+    </div>
+  );
+}
+
+const schema = z.object({
+  profile: z
+    .object({ displayName: z.string() })
+    .check(fieldConfig({ objectWrapper: CustomObjectWrapper })),
+  addresses: z
+    .array(z.object({ city: z.string() }))
+    .check(
+      fieldConfig({
+        arrayWrapper: CustomArrayWrapper,
+        arrayElementWrapper: CustomArrayElementWrapper,
+      }),
+    ),
 });
 ```
 

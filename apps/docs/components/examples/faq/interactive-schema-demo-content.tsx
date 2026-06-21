@@ -6,7 +6,7 @@ import { z } from "zod";
 import { ZodProvider } from "@acp-autoform/zod";
 import { SchemaProvider } from "@acp-autoform/core";
 
-import { AutoForm } from "@/components/ui/autoform";
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
 const editorOptions = {
   minimap: { enabled: false },
@@ -64,8 +64,8 @@ export default function InteractiveSchemaDemoContent() {
 
   useEffect(() => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const z = globalZod;
+      void z;
       const parsedSchema = eval(code); // Warning: eval is unsafe. Do not use with untrusted input.
       const provider = new ZodProvider(parsedSchema);
       provider.parseSchema();

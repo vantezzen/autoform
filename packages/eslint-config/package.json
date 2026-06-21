@@ -2,6 +2,7 @@
   "name": "@acp-autoform/eslint-config",
   "version": "2.0.0",
   "private": true,
+  "license": "MIT",
   "files": [
     "library.js",
     "next.js",

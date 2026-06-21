@@ -1,10 +1,11 @@
 import React from "react";
 import { getLabel } from "@acp-autoform/core";
 import type { ParsedField } from "@acp-autoform/core";
-import { useAutoForm } from "../context";
+import { useAutoForm } from "@acp-autoform/react";
 import { AutoFormField } from "./AutoFormField";
 import { useFieldContext } from "./form-context";
 import { getArrayItemDefaultValue } from "../utils";
+import { focusFirstFieldInPath } from "./utils";
 
 export const ArrayField: React.FC<{
   id: string;
@@ -15,18 +16,33 @@ export const ArrayField: React.FC<{
 }> = ({ id, path, inputProps, error, parsedField }) => {
   const { uiComponents } = useAutoForm();
   const field = useFieldContext() as any;
+  const ArrayWrapper =
+    parsedField.fieldConfig?.arrayWrapper || uiComponents.ArrayWrapper;
+  const ArrayElementWrapper =
+    parsedField.fieldConfig?.arrayElementWrapper ||
+    uiComponents.ArrayElementWrapper;
   const defaultValue = getArrayItemDefaultValue(parsedField);
 
+  const addItem = () => {
+    const itemPath = [...path, field.state.value?.length ?? 0].join(".");
+    field.pushValue(defaultValue);
+
+    setTimeout(() => {
+      focusFirstFieldInPath(itemPath);
+      // void field.form.validate("change");
+    });
+  };
+
   return (
-    <uiComponents.ArrayWrapper
+    <ArrayWrapper
       error={error}
       parsedField={parsedField}
       inputProps={{ key: `${id}-input`, ...inputProps }}
       label={getLabel(parsedField)}
-      onAddItem={() => field.pushValue(defaultValue)}
+      onAddItem={addItem}
     >
       {field.state.value?.map((_item: any, index: number) => (
-        <uiComponents.ArrayElementWrapper
+        <ArrayElementWrapper
           key={index}
           onRemove={() => field.removeValue(index)}
           index={index}
@@ -35,8 +51,8 @@ export const ArrayField: React.FC<{
             parsedField={parsedField.schema![0]!}
             path={[...path, index.toString()]}
           />
-        </uiComponents.ArrayElementWrapper>
+        </ArrayElementWrapper>
       ))}
-    </uiComponents.ArrayWrapper>
+    </ArrayWrapper>
   );
 };

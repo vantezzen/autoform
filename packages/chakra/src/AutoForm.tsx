@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   AutoFormUIComponents,
-  AutoFormProps,
-  ExtendableAutoFormProps,
+  AutoFormComponent,
+  AutoFormProps as BaseAutoFormProps,
 } from "@acp-autoform/react";
 import type { AutoFormProps as ChakraAutoFormProps } from "./types";
 import { Form } from "./components/autoform/Form";
@@ -41,15 +43,15 @@ export type FieldTypes = keyof typeof ChakraAutoFormFieldComponents;
 /**
  * Factory that binds the Chakra UI component registry to any BaseAutoForm.
  */
-export function createAutoForm<T extends Record<string, any>>(
-  BaseAutoForm: React.ComponentType<AutoFormProps<T>>,
-) {
-  return function ChakraAutoForm({
+export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+  return function ChakraAutoForm<
+    T extends Record<string, any> = Record<string, any>,
+  >({
     uiComponents,
     formComponents,
     colorModeProps,
     ...props
-  }: ExtendableAutoFormProps<T> & ChakraAutoFormProps<T>) {
+  }: ChakraAutoFormProps<T>) {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -61,7 +63,7 @@ export function createAutoForm<T extends Record<string, any>>(
     return (
       <Provider {...(colorModeProps as any)}>
         <BaseAutoForm
-          {...(props as AutoFormProps<T>)}
+          {...(props as BaseAutoFormProps<T>)}
           uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
           formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
         />

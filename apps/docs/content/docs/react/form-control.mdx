@@ -36,7 +36,7 @@ The form data can be accessed with the `onSubmit` prop. This will be called when
 AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` as children can use [`useFormContext`](https://react-hook-form.com/docs/useformcontext) to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI are rendered as children inside `AutoForm`. See [`examples`](/docs/react/faq-and-examples) for more information.
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mui";
+import { AutoForm } from "@acp-autoform/mui/react-hook-form";
 import { useFormContext } from "react-hook-form";
 
 function QuickActions() {
@@ -84,7 +84,7 @@ You can use the [`createFormControl`](https://react-hook-form.com/docs/createFor
 ```tsx
 import * as React from "react";
 import * as z from "zod";
-import { AutoForm } from "@acp-autoform/mui";
+import { AutoForm } from "@acp-autoform/mui/react-hook-form";
 import { createFormControl } from "react-hook-form";
 import { ZodProvider } from "@acp-autoform/zod";
 

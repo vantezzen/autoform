@@ -2,7 +2,12 @@
   "extends": "@acp-autoform/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "ignoreDeprecations": "5.0",
+    "paths": {
+      "@acp-autoform/react": ["./src/index.tsx"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

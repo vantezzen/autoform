@@ -6,14 +6,20 @@ export type SuperRefineFunction = () => unknown;
 export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 >(
   config: FieldConfig<
     AdditionalRenderable,
     FieldTypes,
+    CustomData,
     FieldWrapper,
-    CustomData
+    ObjectWrapper,
+    ArrayWrapper,
+    ArrayElementWrapper
   >,
 ): SuperRefineFunction {
   const refinementFunction: SuperRefineFunction = () => {
