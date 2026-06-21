@@ -1,6 +1,6 @@
 {
   "name": "@acp-autoform/mantine",
-  "version": "5.0.0",
+  "version": "5.0.0-beta.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -64,7 +64,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@acp-autoform/react": "^7.0.0",
+    "@acp-autoform/react": "7.0.0-beta.0",
     "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
