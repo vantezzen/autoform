@@ -56,7 +56,11 @@ function useCountries() {
 }
 
 // ── CountrySelectField ────────────────────────────────────────────────────────
-export function CountrySelectField({ id, error }: AutoFormFieldProps) {
+export function CountrySelectField({
+  id,
+  error,
+  inputProps,
+}: AutoFormFieldProps) {
   const { field } = useController({ name: id });
   const { setValue } = useFormContext();
   const { countries, labels } = useCountries();
@@ -72,7 +76,7 @@ export function CountrySelectField({ id, error }: AutoFormFieldProps) {
     >
       <SelectTrigger
         id={id}
-        ref={field.ref}
+        {...inputProps}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue
@@ -93,7 +97,11 @@ export function CountrySelectField({ id, error }: AutoFormFieldProps) {
 }
 
 // ── StateSelectField ──────────────────────────────────────────────────────────
-export function StateSelectField({ id, error }: AutoFormFieldProps) {
+export function StateSelectField({
+  id,
+  error,
+  inputProps,
+}: AutoFormFieldProps) {
   const { field } = useController({ name: id });
   const { countries } = useCountries();
   const selectedIso2: string = useWatch({ name: "country" });
@@ -117,7 +125,7 @@ export function StateSelectField({ id, error }: AutoFormFieldProps) {
     >
       <SelectTrigger
         id={id}
-        ref={field.ref}
+        {...inputProps}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue placeholder={placeholder} />

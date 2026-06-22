@@ -79,9 +79,12 @@ export function CountrySelectField({
       }}
       value={field.state.value ?? ""}
       disabled={countries.length === 0}
-      {...inputProps}
     >
-      <SelectTrigger id={id} className={error ? "border-destructive" : ""}>
+      <SelectTrigger
+        id={id}
+        className={error ? "border-destructive" : ""}
+        {...inputProps}
+      >
         <SelectValue
           placeholder={
             countries.length === 0 ? "Loading countries..." : "Select a country"
@@ -125,10 +128,10 @@ export function StateSelectField({
             onValueChange={field.handleChange}
             value={field.state.value ?? ""}
             disabled={!selectedIso2 || states.length === 0}
-            {...inputProps}
           >
             <SelectTrigger
               id={id}
+              {...inputProps}
               className={error ? "border-destructive" : ""}
             >
               <SelectValue placeholder={placeholder} />
