@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import { z } from "zod";
 import { SchemaProvider } from "@acp-autoform/core";
 import { ZodProvider } from "@acp-autoform/zod";
-import { PreviewAutoForm } from "@/components/examples/faq/autoform-preview";
+import { AutoForm } from "@/components/ui/autoform";
 
 const defaultCode = `z.object({
   name: z.string(),
@@ -89,7 +89,7 @@ function InteractiveDemoContent() {
       </div>
 
       <div className="p-6 pb-20 md:pb-24">
-        <PreviewAutoForm
+        <AutoForm
           key={formKey}
           schema={schemaProvider}
           onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
