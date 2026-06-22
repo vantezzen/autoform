@@ -121,6 +121,11 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       .contains("green")
       .click();
 
+    cy.get('div[data-radix-collection-item][role="option"]')
+      .should("be.visible")
+      .contains("green")
+      .click();
+
     // sub-object focus
     cy.get('button[type="submit"]').click();
     cy.contains("City name must be at least 2 characters").should("be.visible");
@@ -129,6 +134,74 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
 
     cy.get('button[type="submit"]').click();
     cy.get("@onSubmit").should("have.been.called");
+  });
+
+  it("shows form-level validation errors from superRefine", () => {
+    const superRefineSchema = z.object({
+      password: z.string(),
+      confirmPassword: z.string(),
+    }).superRefine((data, ctx) => {
+      if (data.password !== data.confirmPassword) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Passwords do not match",
+          path: ["confirmPassword"],
+        });
+      }
+    });
+
+    const newSchemaProvider = new ZodProvider(superRefineSchema);
+
+    cy.mount(
+      <TestWrapper>
+        <AutoForm
+          schema={newSchemaProvider}
+          onSubmit={cy.stub().as("onSubmit")}
+          withSubmit
+        />
+      </TestWrapper>,
+    );
+
+    cy.get('input[name="password"]').type("password123");
+    cy.get('input[name="confirmPassword"]').type("password456");
+
+    cy.get('button[type="submit"]').click();
+
+    cy.contains("Passwords do not match").should("be.visible");
+    cy.get("@onSubmit").should("not.have.been.called");
+  });
+
+  it("shows form-level validation errors from superRefine on nested fields", () => {
+    const nestedSchema = z.object({
+      payment: z.object({
+        cardNumber: z.string().optional(),
+      }),
+    }).superRefine((data, ctx) => {
+      if (!data.payment?.cardNumber) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Card number is required",
+          path: ["payment", "cardNumber"],
+        });
+      }
+    });
+
+    const newSchemaProvider = new ZodProvider(nestedSchema);
+
+    cy.mount(
+      <TestWrapper>
+        <AutoForm
+          schema={newSchemaProvider}
+          onSubmit={cy.stub().as("onSubmit")}
+          withSubmit
+        />
+      </TestWrapper>,
+    );
+
+    cy.get('button[type="submit"]').click();
+
+    cy.contains("Card number is required").should("be.visible");
+    cy.get("@onSubmit").should("not.have.been.called");
   });
 });
 });

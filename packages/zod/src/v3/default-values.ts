@@ -10,6 +10,18 @@ export function getDefaultValueInZodStack(schema: z.ZodTypeAny): any {
     return getDefaultValueInZodStack(schema.innerType());
   }
 
+  if (schema instanceof z.ZodObject) {
+    return getDefaultValues(schema);
+  }
+
+  if (schema instanceof z.ZodOptional) {
+    return getDefaultValueInZodStack(schema.unwrap());
+  }
+
+  if (schema instanceof z.ZodNullable) {
+    return getDefaultValueInZodStack(schema.unwrap());
+  }
+
   return undefined;
 }
 
