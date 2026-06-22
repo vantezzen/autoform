@@ -11,9 +11,9 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
       <div>
         <h3 className="text-lg font-medium">{label}</h3>
         {parsedField.fieldConfig?.description && (
-          <p className="text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             {parsedField.fieldConfig.description}
-          </p>
+          </div>
         )}
       </div>
       {children}

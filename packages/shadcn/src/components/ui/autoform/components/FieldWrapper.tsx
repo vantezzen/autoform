@@ -25,12 +25,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       )}
       {children}
       {!hideHelperText && parsedField.fieldConfig?.description && (
-        <p className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground">
           {parsedField.fieldConfig.description}
-        </p>
+        </div>
       )}
       {!hideHelperText && error && (
-        <p className="text-sm text-destructive">{error}</p>
+        <div className="text-sm text-destructive">{error}</div>
       )}
     </div>
   );

@@ -31,17 +31,17 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
           {parsedField.required && <span className="text-destructive"> *</span>}
         </h3>
         {parsedField.fieldConfig?.description && (
-          <p
+          <div
             className="text-sm text-muted-foreground"
             id={key + "-description"}
           >
             {parsedField.fieldConfig.description}
-          </p>
+          </div>
         )}
         {error && (
-          <p className="text-sm text-destructive" id={key + "-error"}>
+          <div className="text-sm text-destructive" id={key + "-error"}>
             {error}
-          </p>
+          </div>
         )}
       </div>
       {children}

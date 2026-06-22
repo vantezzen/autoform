@@ -61,7 +61,11 @@ function useCountries() {
   return { countries, labels };
 }
 
-export function CountrySelectField({ id, error }: AutoFormFieldProps) {
+export function CountrySelectField({
+  id,
+  error,
+  inputProps,
+}: AutoFormFieldProps) {
   const field = useFieldContext<string>();
   const form = useFormContext();
   const formApi = form as any;
@@ -75,6 +79,7 @@ export function CountrySelectField({ id, error }: AutoFormFieldProps) {
       }}
       value={field.state.value ?? ""}
       disabled={countries.length === 0}
+      {...inputProps}
     >
       <SelectTrigger id={id} className={error ? "border-destructive" : ""}>
         <SelectValue
@@ -94,7 +99,11 @@ export function CountrySelectField({ id, error }: AutoFormFieldProps) {
   );
 }
 
-export function StateSelectField({ id, error }: AutoFormFieldProps) {
+export function StateSelectField({
+  id,
+  error,
+  inputProps,
+}: AutoFormFieldProps) {
   const field = useFieldContext<string>();
   const form = useFormContext();
   const { countries } = useCountries();
@@ -116,6 +125,7 @@ export function StateSelectField({ id, error }: AutoFormFieldProps) {
             onValueChange={field.handleChange}
             value={field.state.value ?? ""}
             disabled={!selectedIso2 || states.length === 0}
+            {...inputProps}
           >
             <SelectTrigger
               id={id}
