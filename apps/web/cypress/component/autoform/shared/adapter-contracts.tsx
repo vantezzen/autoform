@@ -33,6 +33,7 @@ export function defineTanStackFormPropertiesTests({
   const schema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
+    website: z.string().url().optional(),
     probe: z
       .string()
       .optional()
@@ -219,6 +220,7 @@ export function defineTanStackFormPropertiesTests({
 
       cy.get('input[name="name"]').type("John Doe");
       cy.get('input[name="age"]').type("25").blur();
+      cy.get('input[name="website"]').type("https://example.com").clear();
 
       cy.get('button[name="values"]')
         .click()
@@ -240,6 +242,7 @@ export function defineTanStackFormPropertiesTests({
       cy.get("@onSubmit").should("have.been.calledWith", {
         name: "John Doe",
         age: 25,
+        website: undefined,
       });
 
       cy.get('button[name="setFieldValue"]')
@@ -260,6 +263,33 @@ export function defineTanStackFormPropertiesTests({
         .click()
         .should("have.attr", "data-item", "true");
       cy.get('input[name="name"]').should("have.value", "");
+    });
+
+    it("can disable empty-value replacement", () => {
+      cy.mount(
+        withWrapper(
+          Wrapper,
+          <AutoForm
+            schema={schemaProvider}
+            defaultValues={{
+              name: "John Doe",
+              age: 25,
+              website: "",
+            }}
+            formProps={{ removeEmptyValue: false }}
+            onSubmit={cy.stub().as("rawValueSubmit")}
+            withSubmit
+          />,
+        ),
+      );
+
+      cy.get('button[type="submit"]').click();
+      cy.get("@rawValueSubmit").should("not.have.been.called");
+      cy.get('input[name="website"]').should(
+        "have.attr",
+        "aria-invalid",
+        "true",
+      );
     });
   });
 }

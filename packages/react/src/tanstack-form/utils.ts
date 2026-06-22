@@ -1,4 +1,27 @@
 import React from "react";
+import { replaceEmptyValue } from "@acp-autoform/core";
+import type { SchemaProvider } from "@acp-autoform/core";
+
+export function createSchemaValidator<T extends Record<string, any>>(
+  schema: SchemaProvider<T>,
+  removeEmptyValue = true,
+) {
+  return ({ value }: { value: T }) => {
+    const validation = schema.validateSchema(
+      removeEmptyValue ? replaceEmptyValue(value) : value,
+    );
+    if (validation.success) return;
+
+    return {
+      fields: Object.fromEntries(
+        validation.errors.map((error) => [
+          formatTanStackPath(error.path.map(String)),
+          error,
+        ]),
+      ),
+    };
+  };
+}
 
 export function focusFirstFieldInPath(path: string): void {
   const exact = CSS.escape(path);

@@ -1,82 +1,36 @@
 import { useEffect } from "react";
-import {
-  createFormHook,
-  createFormHookContexts,
-  useIsomorphicLayoutEffect,
-} from "@tanstack/react-form";
+import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
+import type { AnyFormApi, AnyFormOptions } from "@tanstack/react-form";
 import type { UseFieldFn } from "../types";
 
 export const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();
 
-const { useAppForm: useBaseAppForm } = createFormHook({
+export const { useAppForm } = createFormHook({
   fieldContext,
   formContext,
   fieldComponents: {},
   formComponents: {},
 });
 
-type Options = Record<string, any>;
-type Form = {
-  options: Options;
-  update: (options: Options) => void;
-};
-type OptionsState = { external: Options; autoForm?: Options };
-
-const optionsByForm = new WeakMap<Form, OptionsState>();
-
-function getOptions(form: Form) {
-  let options = optionsByForm.get(form);
-  if (!options) {
-    options = { external: form.options };
-    optionsByForm.set(form, options);
-  }
-  return options;
-}
-
-function applyOptions(form: Form) {
-  const { autoForm, external } = getOptions(form);
-  const options = autoForm
-    ? {
-        ...external,
-        validators: {
-          ...autoForm.validators,
-          ...external.validators,
-        },
-        validationLogic: external.validationLogic ?? autoForm.validationLogic,
-        defaultValues: autoForm.defaultValues,
-        onSubmit: autoForm.onSubmit,
-        onSubmitInvalid: external.onSubmitInvalid ?? autoForm.onSubmitInvalid,
-      }
-    : external;
-
-  form.update(options);
-  form.options = options;
-}
-export const useAppForm = ((options: any) => {
-  const form = useBaseAppForm(options);
-  getOptions(form).external = options ?? {};
-  useIsomorphicLayoutEffect(() => applyOptions(form));
-
-  return form;
-}) as unknown as typeof useBaseAppForm;
-
 export function useExternalFormOptions(
-  form: Form | undefined,
-  options: Options,
+  form: AnyFormApi | undefined,
+  options: AnyFormOptions,
 ): void {
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (!form) return;
 
-    const state = getOptions(form);
-    state.autoForm = options;
-    applyOptions(form);
-
-    return () => {
-      if (state.autoForm !== options) return;
-      delete state.autoForm;
-      applyOptions(form);
+    const merged = {
+      validators: options.validators,
+      validationLogic: options.validationLogic,
+      onSubmitInvalid: options.onSubmitInvalid,
+      ...form.options,
+      defaultValues: options.defaultValues,
+      onSubmit: options.onSubmit,
     };
+
+    form.update(merged);
+    form.options = merged;
   }, [form, options]);
 }
 

@@ -69,6 +69,7 @@ const zodFormSchema = z.object({
         },
       }),
     ),
+  optionalField: z.string().min(2).optional(),
   favouriteNumber: z.coerce
     .number({
       invalid_type_error: "Favourite number must be a number.",
