@@ -47,7 +47,6 @@
     "zod": "^4.0.10"
   },
   "dependencies": {
-    "@acp-autoform/react": "*",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.2",
@@ -61,6 +60,7 @@
     "lucide-react": "*"
   },
   "peerDependencies": {
+    "@acp-autoform/react": "*",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "zod": "^3"
   }

@@ -65,10 +65,8 @@
     "tsup": "^8.3.0",
     "typescript": "^5.3.3"
   },
-  "dependencies": {
-    "@acp-autoform/react": "^7.0.0"
-  },
   "peerDependencies": {
+    "@acp-autoform/react": "^7.0.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^6.0.0",

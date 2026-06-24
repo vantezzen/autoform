@@ -63,12 +63,12 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@acp-autoform/react": "^7.0.0",
     "@ant-design/icons": "^5.6.1",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "dayjs": "^1.11.13"
   },
   "peerDependencies": {
+    "@acp-autoform/react": "^7.0.0",
     "antd": "^5",
     "react": "^16.9.0 || ^17 || ^18 || ^19"
   },

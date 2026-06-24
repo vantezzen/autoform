@@ -64,10 +64,10 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@acp-autoform/react": "^7.0.0",
     "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
+    "@acp-autoform/react": "^7.0.0",
     "@mantine/core": "^7",
     "@mantine/dates": "^7",
     "react": "^18 || ^19"
