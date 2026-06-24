@@ -140,7 +140,7 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
 
 ## How do I create fields with dependencies between them?
 
-**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate with AutoForm's resolver, so error messages are placed on the correct fields automatically.
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate with AutoForm's resolver, so error messages are placed in the correct fields.
 
 **2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext). AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree. You can use them inside custom field component or UI components like `fieldWrapper`, `objectWrapper`, `arrayWrapper`, `arrayElementWrapper`.
 
@@ -198,7 +198,6 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
 
 Use a separate schema for each step. Render the current step, call `trigger()` to validate
 it, then use `getValues()` to read and save its values in state before moving forward.
-Since each step is its own AutoForm instance, validation is isolated to the current step.
 
 <Tabs persist items={["preview", "code"]} label="Multistep form">
   <Tab value="preview">
@@ -272,7 +271,7 @@ Define a custom field component, register it in `formComponents`, then mark the 
 
 ## How do I create a interactive, dynamic form builder?
 
-Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`. AutoForm re-renders the form instantly whenever the schema updates.
+Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`.
 
 <Tabs persist items={["preview", "code"]} label="Interactive form builder">
   <Tab value="preview">

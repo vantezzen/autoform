@@ -7,15 +7,28 @@ description: Render AutoForm with the TanStack Form adapter.
 
 The TanStack Form route uses the same schema providers and UI packages as the React Hook Form route, but imports the form adapter from each package's `tanstack-form` subpath.
 
+## Install the AutoForm Agent Skill (optional)
+
+If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot),
+you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific
+documentation, examples, and best practices.
+
+<ModeTab
+  mode="cli"
+  command="skills add https://github.com/adityacodepublic/autoform/tree/acp-package/skills --skill autoform"
+/>
+
+---
+
 <div className='fd-steps [&_h2]:fd-step'>
 
 ## Install AutoForm's form engine
 
-Install TanStack Form with the AutoForm React base package:
+Install TanStack Form and the AutoForm React base package:
 
 <ModeTab command="@acp-autoform/react @tanstack/react-form" />
 
-If you use a published UI integration, the UI package depends on `@acp-autoform/react`, but `@tanstack/react-form` is still the form-engine peer dependency you should install in your app.
+---
 
 ## Install AutoForm's integration to your UI library
 
@@ -33,6 +46,8 @@ Use the generated TanStack adapter export:
 ```tsx
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 ```
+
+---
 
 #### Material UI
 
@@ -58,6 +73,8 @@ import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 import { AutoForm } from "@acp-autoform/mui/tanstack-form";
 ```
 
+---
+
 #### Mantine
 
 <Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
@@ -80,6 +97,8 @@ import { AutoForm } from "@acp-autoform/mui/tanstack-form";
 import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
 ```
 
+---
+
 #### Ant Design
 
 <Tabs persist items={['manual', 'cli']} label='peer dependencies' defaultIndex={1}>
@@ -97,6 +116,8 @@ import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
 ```tsx
 import { AutoForm } from "@acp-autoform/ant/tanstack-form";
 ```
+
+---
 
 #### Chakra UI
 
@@ -120,7 +141,7 @@ import { AutoForm } from "@acp-autoform/ant/tanstack-form";
 import { AutoForm } from "@acp-autoform/chakra/tanstack-form";
 ```
 
-If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/tanstack/custom-integration).
+If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/tanstack/custom-integration).
 
 ## Install AutoForm's integration to your schema library
 
@@ -130,9 +151,13 @@ If you want to integrate into your own UI components or another UI library, chec
 
 <Callout>Requires zod version greater than 3.25.0 to be installed.</Callout>
 
+---
+
 #### Yup
 
 <ModeTab command="@acp-autoform/yup" />
+
+---
 
 #### Joi
 
@@ -161,8 +186,8 @@ export default function MyForm() {
     <AutoForm
       schema={schemaProvider}
       onSubmit={(data, form) => {
-        console.log(data);
-        console.log(form.state.values);
+        console.log(data); // Cleaned schema-parsed values
+        console.log(form.state.values); // Original raw TanStack values
       }}
       withSubmit
     />

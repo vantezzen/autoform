@@ -1,6 +1,6 @@
 ---
 title: Custom Integration
-description: Build a custom UI integration for the TanStack Form AutoForm adapter.
+description: Build a custom UI integration for the TanStack Form AutoForm adapter. By following these steps, you’ll be able to use AutoForm with your preferred UI library or custom components.
 ---
 
 This guide shows how to create a UI integration that can render with the TanStack Form adapter. The UI component registry is the same shape as the React Hook Form route; the adapter changes when you choose the base `AutoForm` import.
@@ -26,8 +26,7 @@ import {
 
 export interface CustomAutoFormUIComponents extends AutoFormUIComponents {}
 
-export interface CustomAutoFormFieldComponents
-  extends AutoFormFieldComponents {}
+export interface CustomAutoFormFieldComponents extends AutoFormFieldComponents {}
 ```
 
 ## Implement UI components
@@ -97,7 +96,10 @@ import React from "react";
 import { AutoFormFieldProps } from "@acp-autoform/react";
 import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 
-export const BooleanField: React.FC<AutoFormFieldProps> = ({ inputProps, id }) => {
+export const BooleanField: React.FC<AutoFormFieldProps> = ({
+  inputProps,
+  id,
+}) => {
   const field = useFieldContext<boolean>();
 
   return (

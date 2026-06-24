@@ -5,10 +5,6 @@ description: Render AutoForm with the React Hook Form adapter.
 
 > New to AutoForm? Check out the [introduction](/docs) first.
 
-This page documents AutoForm's React Hook Form adapter. For the TanStack Form adapter, see [TanStack Form](/docs/tanstack/getting-started).
-
-> Migrating from the old shadcn/ui component? Check out the [migration guide](/docs/react/migration).
-
 ## Install the AutoForm Agent Skill (optional)
 
 If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot),
@@ -28,14 +24,9 @@ documentation, examples, and best practices.
 
 AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
 
-Before installing an @autoform UI package make sure you have installed:
+Before installing an AutoForm UI package, install the React base package and React Hook Form dependencies directly in your app:
 
-```json
-react-hook-form
-
-@hookform/resolvers
-
-```
+<ModeTab command="@acp-autoform/react react-hook-form @hookform/resolvers" />
 
 ---
 
@@ -46,7 +37,11 @@ react-hook-form
   command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
 />
 
-Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
+```tsx
+import { AutoForm } from "@/components/ui/autoform";
+```
+
+By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
 
 ---
 
@@ -70,6 +65,10 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
 </Tabs>
 <ModeTab command="@acp-autoform/mui" />
 
+```tsx
+import { AutoForm } from "@acp-autoform/mui/react-hook-form";
+```
+
 ---
 
 #### Mantine
@@ -90,6 +89,10 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
 </Tabs>
 <ModeTab command="@acp-autoform/mantine" />
 
+```tsx
+import { AutoForm } from "@acp-autoform/mantine/react-hook-form";
+```
+
 ---
 
 #### Ant Design
@@ -108,6 +111,10 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
 </Tab>
 </Tabs>
 <ModeTab command="@acp-autoform/ant" />
+
+```tsx
+import { AutoForm } from "@acp-autoform/ant/react-hook-form";
+```
 
 ---
 
@@ -129,9 +136,13 @@ Use `import { AutoForm } from "@/components/ui/autoform"` to import the componen
 </Tabs>
 <ModeTab command="@acp-autoform/chakra" />
 
-If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/react/custom-integration).
+```tsx
+import { AutoForm } from "@acp-autoform/chakra/react-hook-form";
+```
 
-In the docs, we will use Shadcn UI as an example but simply replace the imports with the ones from your UI library.
+If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/react/custom-integration).
+
+In the docs, we will use mui as an example but simply replace the imports with the ones from your UI library.
 
 ## Install AutoForm's integration to your schema library
 

@@ -5,12 +5,6 @@ description: API reference notes for the TanStack Form AutoForm adapter.
 
 For shared source definitions, see [`packages/react/src/types.ts`](https://github.com/adityacodepublic/autoform/blob/main/packages/react/src/types.ts). For the TanStack adapter, see [`packages/react/src/tanstack-form`](https://github.com/adityacodepublic/autoform/tree/main/packages/react/src/tanstack-form).
 
-> **Need deeper control?** If the package API isn't enough, install the full TanStack Form adapter source directly into your project and edit it freely:
-> ```bash
-> npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-react-tanstack.json
-> ```
-> Files land in `lib/autoform/react/`. Change anything — field rendering, array/object handling, the TanStack field context wiring — without being bound by the package's public API.
-
 ## AutoFormProps
 
 <AutoFormPropsTable />
@@ -57,7 +51,7 @@ import { formOptions } from "@tanstack/react-form";
 import { useAppForm } from "@acp-autoform/react/tanstack-form";
 
 function MyForm() {
-  const form = useAppForm(formOptions({ defaultValues: {} }));
+  const form = useAppForm(formOptions());
 
   return (
     <>
@@ -68,7 +62,7 @@ function MyForm() {
 }
 ```
 
-AutoForm owns the external form's `defaultValues` and `onSubmit` options so its props and final schema validation remain authoritative. Other options supplied to `useAppForm`, including `validationLogic`, listeners, transforms, async settings, and validators, are preserved. AutoForm adds its schema validator, default revalidation logic, and invalid-field focus behavior only where the external form did not provide an equivalent option.
+You can add options to `useAppForm`, like `validationLogic`, listeners, transforms, async settings, and validators. AutoForm adds its schema validator, default revalidation logic, and invalid-field focus behavior only where the external form did not provide an equivalent option.
 
 ### `formComponents`
 
@@ -98,6 +92,8 @@ AutoForm owns the external form's `defaultValues` and `onSubmit` options so its 
 />
 ```
 
+`FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` can also be overridden per schema field through `fieldConfig`. The field-level wrapper has higher priority than the wrapper passed through `uiComponents`.
+
 ## Custom fields
 
 Custom field components receive `AutoFormFieldProps`. Use `useFieldContext` from `@acp-autoform/react/tanstack-form` to connect custom inputs to the TanStack field API.
@@ -119,18 +115,6 @@ export function StringField({ id, inputProps }: AutoFormFieldProps) {
       {...inputProps}
     />
   );
-}
-```
-
-Use the same hook when you need TanStack-specific state or methods.
-
-```tsx
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
-
-function CustomStatus() {
-  const field = useFieldContext();
-
-  return field.state.meta.isTouched ? <span>Touched</span> : null;
 }
 ```
 

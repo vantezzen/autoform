@@ -116,7 +116,36 @@ export default function MyForm() {
 }
 ```
 
-## 4. `Deprecated`: Using onFormInit
+## 4. Custom field components and reading field state
+
+Custom field components can use `useController` from `react-hook-form` to access the field API (which exposes the field's value, bindings, and state such as `error` and `isDirty`):
+
+```tsx
+import { AutoFormFieldProps } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+
+export function StringField({ id, inputProps }: AutoFormFieldProps) {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name: id });
+  const hasError = !!error;
+
+  return (
+    <input
+      id={id}
+      name={field.name}
+      value={field.value ?? ""}
+      onBlur={field.onBlur}
+      onChange={(event) => field.onChange(event.target.value)}
+      className={hasError ? "border-red-500 animate-bounce" : ""}
+      {...inputProps}
+    />
+  );
+}
+```
+
+## 5. `Deprecated`: Using onFormInit
 
 `onFormInit` is deprecated and supported for backwards compatibility, the preferred way
 is to use `formControl` from `createFormControl` when available.

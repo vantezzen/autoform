@@ -142,7 +142,14 @@ Register the custom input in `formComponents`, read the current field with `useF
 
 ## How do I create fields with dependencies between them?
 
-Use schema validation for data rules, and TanStack Form subscriptions for UI behavior. Custom fields and wrappers can subscribe to related values with `form.Subscribe`.
+Use schema validation for data rules, and TanStack Form subscriptions for UI behavior. Custom fields and wrappers can subscribe to related values with [`form.Subscribe` or `useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity).
+
+| Pattern                    | Example in the demo below                                                    |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked        |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
+| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
 
 <Tabs persist items={["preview", "code"]} label="TanStack ecommerce checkout">
   <Tab value="preview">
@@ -189,7 +196,7 @@ Use schema validation for data rules, and TanStack Form subscriptions for UI beh
 
 ## How do I create a simple multistep form?
 
-Use a separate schema for each step. Render the current step, save each submitted step value in parent state, then move to the next step.
+Use separate schema for each step. Render the current step, save each submitted step value in parent state, then move to the next step.
 
 <Tabs persist items={["preview", "code"]} label="TanStack multistep form">
   <Tab value="preview">
@@ -236,7 +243,7 @@ Use a separate schema for each step. Render the current step, save each submitte
 
 ## How do I use another AutoForm inside an AutoForm field?
 
-Create a custom field component, register it in `formComponents`, and pass the nested AutoForm submit value back with the current field's change handler.
+Create a custom field component, register it in `formComponents`, and pass the nested AutoForm submit value back with the current field's onChange handler.
 
 <Tabs persist items={["preview", "code"]} label="TanStack nested AutoForm">
   <Tab value="preview">
