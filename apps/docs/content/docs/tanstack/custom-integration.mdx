@@ -127,7 +127,7 @@ import {
   AutoFormUIComponents,
 } from "@acp-autoform/react";
 
-const uiComponents: AutoFormUIComponents = {
+export const uiComponents: AutoFormUIComponents = {
   Form,
   FieldWrapper,
   ErrorMessage,
@@ -165,15 +165,31 @@ For a TanStack-only integration, export the TanStack entry directly:
 export { AutoForm } from "./AutoForm";
 ```
 
-If your integration supports both React Hook Form and TanStack Form, keep shared wrapper UI components common, but provide adapter-specific field components or an internal adapter binding for each entry. TanStack field components use `useFieldContext`; React Hook Form field components should use `useController`.
+If your integration supports both React Hook Form and TanStack Form, keep shared wrapper UI components common, but provide adapter-specific field components in each entry. TanStack field components use `useFieldContext`; React Hook Form field components should use `useController`.
 
 ```tsx
 // tanstack-form.tsx
 import { AutoForm as TanStackAutoForm } from "@acp-autoform/react/tanstack-form";
-import { createAutoForm } from "./AutoForm";
+import type {
+  AutoFormProps as BaseAutoFormProps,
+  ExtendableAutoFormProps,
+} from "@acp-autoform/react";
+import { uiComponents } from "./AutoForm";
 import { TanStackFieldComponents } from "./components/tanstack";
 
-export const AutoForm = createAutoForm(TanStackAutoForm, TanStackFieldComponents);
+export function AutoForm<T extends Record<string, any> = Record<string, any>>({
+  uiComponents: uiOverrides,
+  formComponents,
+  ...props
+}: ExtendableAutoFormProps<T>) {
+  return (
+    <TanStackAutoForm
+      {...(props as BaseAutoFormProps<T>)}
+      uiComponents={{ ...uiComponents, ...uiOverrides }}
+      formComponents={{ ...TanStackFieldComponents, ...formComponents }}
+    />
+  );
+}
 ```
 
 </div>

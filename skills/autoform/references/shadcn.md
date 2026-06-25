@@ -51,13 +51,13 @@ npm install @acp-autoform/zod
 
 Unlike `@acp-autoform/mui` or other npm UI packages, the shadcn integration uses the **shadcn registry** pattern. The AutoForm components are copied into your project and you own the code — you can edit, extend, and customize them freely.
 
-The shadcn integration provides separate React Hook Form and TanStack Form entries over the corresponding `@acp-autoform/react` adapter. Both entries reuse the same shadcn-styled `uiComponents` and `formComponents`; user-provided overrides are merged on top.
+The shadcn integration provides separate React Hook Form and TanStack Form entries over the corresponding `@acp-autoform/react` adapter. Each installed entry contains the small shadcn UI component map and the adapter-specific field component map directly, so users can read and edit the installed code without a factory indirection.
 
 Import path:
 
 ```tsx
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
-import type { FieldTypes } from "@/components/ui/autoform";
+import type { FieldTypes } from "@/components/ui/autoform/react-hook-form";
 ```
 
 ---
@@ -68,8 +68,7 @@ After installation, `components/ui/autoform/` contains:
 
 ```
 autoform/
-├── index.ts                # Shared factory, component maps, and types
-├── AutoForm.tsx            # Adapter-agnostic UI component factory
+├── index.ts                # Shared integration types
 ├── react-hook-form.tsx     # React Hook Form convenience entry
 ├── tanstack-form.tsx       # TanStack Form convenience entry
 ├── types.ts                # Shared integration types
@@ -88,16 +87,17 @@ autoform/
     └── ArrayElementWrapper.tsx  # Array item with remove button
 ```
 
-### AutoForm.tsx internals
+### react-hook-form.tsx internals
 
 ```tsx
+import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/react/react-hook-form";
 import type {
-  AutoFormComponent,
   AutoFormUIComponents,
+  AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
 } from "@acp-autoform/react";
 
-const ShadcnUIComponents: AutoFormUIComponents = {
+const UIComponents: AutoFormUIComponents = {
   Form,
   FieldWrapper,
   ErrorMessage,
@@ -107,28 +107,29 @@ const ShadcnUIComponents: AutoFormUIComponents = {
   ArrayElementWrapper,
 };
 
-export const ShadcnAutoFormFieldComponents = {
+const RHFFieldComponents = {
   string: StringField,
   number: NumberField,
   boolean: BooleanField,
   date: DateField,
   select: SelectField,
 } as const;
-export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
 export function AutoForm<T extends Record<string, any>>({
   uiComponents,
   formComponents,
   ...props
-}: AutoFormProps<T>) {
+}: ExtendableAutoFormProps<T>) {
   return (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
-      formComponents={{ ...ShadcnAutoFormFieldComponents, ...formComponents }}
+    <ReactHookFormAutoForm
+      {...(props as BaseAutoFormProps<T>)}
+      uiComponents={{ ...UIComponents, ...uiComponents }}
+      formComponents={{ ...RHFFieldComponents, ...formComponents }}
     />
   );
 }
+
+export type FieldTypes = "string" | "number" | "boolean" | "date" | "select";
 ```
 
 The user-provided `uiComponents` and `formComponents` are spread on top, so custom overrides merge cleanly.
@@ -231,31 +232,14 @@ export const TextareaField: React.FC<AutoFormFieldProps> = ({
     />
   );
 };
-
-export function createAutoForm(BaseAutoForm: AutoFormComponent) {
-  return function ShadcnAutoForm<T extends Record<string, any>>(
-    { uiComponents, formComponents, ...props }: ExtendableAutoFormProps<T>,
-  ) {
-    return (
-      <BaseAutoForm
-        {...props}
-        uiComponents={{ ...ShadcnUIComponents, ...uiComponents }}
-        formComponents={{
-          ...ShadcnAutoFormFieldComponents,
-          ...formComponents,
-        }}
-      />
-    );
-  };
-}
 ```
 
-The `react-hook-form.tsx` and `tanstack-form.tsx` entries each pass their base adapter to this factory. Shared wrappers stay common, while field components bind through the selected adapter's hook.
+Add the new field to the adapter entry you use. For React Hook Form, edit `components/ui/autoform/react-hook-form.tsx`; for TanStack Form, edit `components/ui/autoform/tanstack-form.tsx`.
 
-2. Register it in `AutoForm.tsx`:
+2. Register it in `react-hook-form.tsx`:
 
 ```tsx
-export const ShadcnAutoFormFieldComponents = {
+const RHFFieldComponents = {
   string: StringField,
   number: NumberField,
   boolean: BooleanField,
@@ -317,7 +301,7 @@ const schemaProvider = new YupProvider(schema);
 import * as z from "zod";
 import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
-import type { FieldTypes } from "@/components/ui/autoform";
+import type { FieldTypes } from "@/components/ui/autoform/react-hook-form";
 
 const userSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

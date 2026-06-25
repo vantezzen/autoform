@@ -1,13 +1,37 @@
 "use client";
 
 import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/react/react-hook-form";
-import { createAutoForm } from "./AutoForm";
+import type {
+  AutoFormUIComponents,
+  AutoFormProps as BaseAutoFormProps,
+  ExtendableAutoFormProps,
+} from "@acp-autoform/react";
 
+import { Form } from "./components/Form";
+import { FieldWrapper } from "./components/FieldWrapper";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { SubmitButton } from "./components/SubmitButton";
+import { ObjectWrapper } from "./components/ObjectWrapper";
+import { ArrayWrapper } from "./components/ArrayWrapper";
+import { ArrayElementWrapper } from "./components/ArrayElementWrapper";
 import { StringField } from "./components/rhf/StringField";
 import { NumberField } from "./components/rhf/NumberField";
 import { BooleanField } from "./components/rhf/BooleanField";
 import { DateField } from "./components/rhf/DateField";
 import { SelectField } from "./components/rhf/SelectField";
+
+export type FieldTypes = "string" | "number" | "boolean" | "date" | "select";
+export type * from "./types";
+
+const UIComponents: AutoFormUIComponents = {
+  Form,
+  FieldWrapper,
+  ErrorMessage,
+  SubmitButton,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper,
+};
 
 const RHFFieldComponents = {
   string: StringField,
@@ -17,6 +41,16 @@ const RHFFieldComponents = {
   select: SelectField,
 } as const;
 
-export const AutoForm = createAutoForm(ReactHookFormAutoForm, RHFFieldComponents);
-export type { FieldTypes } from "./AutoForm";
-export type * from "./types";
+export function AutoForm<T extends Record<string, any> = Record<string, any>>({
+  uiComponents,
+  formComponents,
+  ...props
+}: ExtendableAutoFormProps<T>) {
+  return (
+    <ReactHookFormAutoForm
+      {...(props as BaseAutoFormProps<T>)}
+      uiComponents={{ ...UIComponents, ...uiComponents }}
+      formComponents={{ ...RHFFieldComponents, ...formComponents }}
+    />
+  );
+}
