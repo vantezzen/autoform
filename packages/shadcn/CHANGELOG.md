@@ -5,7 +5,7 @@
 ### Major Changes
 
 - refactor(breaking): rename `field` prop to `parsedField` in all wrapper components (`AutoFormFieldProps`, `FieldWrapperProps`, etc.) to prevent variable shadowing with `react-hook-form` controllers.
-- Choose the generated `react-hook-form` or `tanstack-form` entry explicitly. Shared UI components continue to use the adapter-agnostic `useField` hook.
+- Choose the generated `react-hook-form` or `tanstack-form` entry explicitly. Generated field components bind directly to the selected adapter (`useController` for React Hook Form, `useFieldContext` for TanStack Form).
 
 ### Patch Changes
 

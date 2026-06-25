@@ -60,8 +60,8 @@
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/react-hook-form/useFieldError.tsx",
-          "target": "lib/autoform/react/react-hook-form/useFieldError.tsx",
+          "path": "packages/react/src/react-hook-form/hooks.ts",
+          "target": "lib/autoform/react/react-hook-form/hooks.ts",
           "type": "registry:file"
         },
         {

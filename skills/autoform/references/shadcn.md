@@ -250,7 +250,7 @@ export function createAutoForm(BaseAutoForm: AutoFormComponent) {
 }
 ```
 
-The `react-hook-form.tsx` and `tanstack-form.tsx` entries each pass their base adapter to this factory, so the UI implementation and `useField`-based controls remain shared.
+The `react-hook-form.tsx` and `tanstack-form.tsx` entries each pass their base adapter to this factory. Shared wrappers stay common, while field components bind through the selected adapter's hook.
 
 2. Register it in `AutoForm.tsx`:
 

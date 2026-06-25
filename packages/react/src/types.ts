@@ -7,8 +7,7 @@ import {
   SchemaProvider,
 } from "@acp-autoform/core";
 
-// Field binding contract
-// Normalized shape every form-library adapter must return from useField().
+// Internal field binding contract used by UI packages to inject adapter hooks.
 
 export interface FieldBinding {
   value: any;

@@ -4,9 +4,11 @@ import {
   AutoFormUIComponents,
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@acp-autoform/react";
 import { ConfigProvider } from "antd";
 import type { AutoFormProps as AntAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -42,9 +44,12 @@ const AntAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof AntAutoFormFieldComponents;
 
 /**
- * Factory that binds the Ant Design component registry to any BaseAutoForm.
+ * Factory that binds the Ant Design component registry to a specific form adapter.
  */
-export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
   return function AntAutoForm<
     T extends Record<string, any> = Record<string, any>,
   >({
@@ -63,12 +68,14 @@ export function createAutoForm(BaseAutoForm: AutoFormComponent) {
     if (!isMounted) return null;
 
     const form = (
-      <BaseAutoForm
-        {...(props as BaseAutoFormProps<T>)}
-        formProps={{ ...antFormProps, ...(props as any).formProps }}
-        uiComponents={{ ...AntUIComponents, ...uiComponents }}
-        formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
-      />
+      <FieldHookProvider value={useField}>
+        <BaseAutoForm
+          {...(props as BaseAutoFormProps<T>)}
+          formProps={{ ...antFormProps, ...(props as any).formProps }}
+          uiComponents={{ ...AntUIComponents, ...uiComponents }}
+          formComponents={{ ...AntAutoFormFieldComponents, ...formComponents }}
+        />
+      </FieldHookProvider>
     );
 
     return antProviderProps ? (

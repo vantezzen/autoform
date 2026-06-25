@@ -5,8 +5,10 @@ import {
   AutoFormUIComponents,
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@acp-autoform/react";
 import type { AutoFormProps as ChakraAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/autoform/Form";
 import { FieldWrapper } from "./components/autoform/FieldWrapper";
 import { ErrorMessage } from "./components/autoform/ErrorMessage";
@@ -41,9 +43,12 @@ const ChakraAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof ChakraAutoFormFieldComponents;
 
 /**
- * Factory that binds the Chakra UI component registry to any BaseAutoForm.
+ * Factory that binds the Chakra UI component registry to a specific form adapter.
  */
-export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
   return function ChakraAutoForm<
     T extends Record<string, any> = Record<string, any>,
   >({
@@ -62,11 +67,13 @@ export function createAutoForm(BaseAutoForm: AutoFormComponent) {
 
     return (
       <Provider {...(colorModeProps as any)}>
-        <BaseAutoForm
-          {...(props as BaseAutoFormProps<T>)}
-          uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
-          formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
-        />
+        <FieldHookProvider value={useField}>
+          <BaseAutoForm
+            {...(props as BaseAutoFormProps<T>)}
+            uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
+            formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
+          />
+        </FieldHookProvider>
       </Provider>
     );
   };

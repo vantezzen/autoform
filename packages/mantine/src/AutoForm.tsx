@@ -4,9 +4,11 @@ import {
   AutoFormUIComponents,
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@acp-autoform/react";
 import { MantineProvider } from "@mantine/core";
 import type { AutoFormProps as MantineAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -40,9 +42,12 @@ export const MantineAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof MantineAutoFormFieldComponents;
 
 /**
- * Factory that binds the Mantine component registry to any BaseAutoForm.
+ * Factory that binds the Mantine component registry to a specific form adapter.
  */
-export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
   return function MantineAutoForm<
     T extends Record<string, any> = Record<string, any>,
   >({
@@ -52,11 +57,13 @@ export function createAutoForm(BaseAutoForm: AutoFormComponent) {
     ...props
   }: MantineAutoFormProps<T>) {
     const form = (
-      <BaseAutoForm
-        {...(props as BaseAutoFormProps<T>)}
-        uiComponents={{ ...MantineUIComponents, ...uiComponents }}
-        formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
-      />
+      <FieldHookProvider value={useField}>
+        <BaseAutoForm
+          {...(props as BaseAutoFormProps<T>)}
+          uiComponents={{ ...MantineUIComponents, ...uiComponents }}
+          formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
+        />
+      </FieldHookProvider>
     );
     return theme ? <MantineProvider theme={theme}>{form}</MantineProvider> : form;
   };

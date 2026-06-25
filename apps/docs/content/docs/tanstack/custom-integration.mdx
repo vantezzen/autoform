@@ -156,24 +156,24 @@ export function AutoForm<T extends Record<string, any>>(
 }
 ```
 
-## Export both adapters
+## Export adapter entries
 
-If your integration supports both adapters, expose explicit subpaths:
+For a TanStack-only integration, export the TanStack entry directly:
 
 ```tsx
-// react-hook-form.tsx
-import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/react/react-hook-form";
-import { createAutoForm } from "./AutoForm";
-
-export const AutoForm = createAutoForm(ReactHookFormAutoForm);
+// tanstack-form.tsx
+export { AutoForm } from "./AutoForm";
 ```
+
+If your integration supports both React Hook Form and TanStack Form, keep shared wrapper UI components common, but provide adapter-specific field components or an internal adapter binding for each entry. TanStack field components use `useFieldContext`; React Hook Form field components should use `useController`.
 
 ```tsx
 // tanstack-form.tsx
 import { AutoForm as TanStackAutoForm } from "@acp-autoform/react/tanstack-form";
 import { createAutoForm } from "./AutoForm";
+import { TanStackFieldComponents } from "./components/tanstack";
 
-export const AutoForm = createAutoForm(TanStackAutoForm);
+export const AutoForm = createAutoForm(TanStackAutoForm, TanStackFieldComponents);
 ```
 
 </div>

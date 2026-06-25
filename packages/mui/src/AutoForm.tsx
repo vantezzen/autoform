@@ -4,9 +4,11 @@ import {
   AutoFormUIComponents,
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@acp-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AutoFormProps as MuiAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -40,11 +42,12 @@ export const MuiAutoFormFieldComponents = {
 export type FieldTypes = keyof typeof MuiAutoFormFieldComponents;
 
 /**
- * Factory that binds the MUI component registry to any BaseAutoForm.
- * Usage: const MuiAutoForm = createAutoForm(AutoForm) where AutoForm is
- * imported from "@acp-autoform/react/react-hook-form" or "@acp-autoform/react/tanstack-form".
+ * Factory that binds the MUI component registry to a specific form adapter.
  */
-export function createAutoForm(BaseAutoForm: AutoFormComponent) {
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
   return function MuiAutoForm<
     T extends Record<string, any> = Record<string, any>,
   >({
@@ -54,11 +57,13 @@ export function createAutoForm(BaseAutoForm: AutoFormComponent) {
     ...props
   }: MuiAutoFormProps<T>) {
     const form = (
-      <BaseAutoForm
-        {...(props as BaseAutoFormProps<T>)}
-        uiComponents={{ ...MuiUIComponents, ...uiComponents }}
-        formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
-      />
+      <FieldHookProvider value={useField}>
+        <BaseAutoForm
+          {...(props as BaseAutoFormProps<T>)}
+          uiComponents={{ ...MuiUIComponents, ...uiComponents }}
+          formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
+        />
+      </FieldHookProvider>
     );
     return theme ? <ThemeProvider theme={theme}>{form}</ThemeProvider> : form;
   };

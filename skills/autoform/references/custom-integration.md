@@ -144,17 +144,18 @@ const myUIComponents: AutoFormUIComponents = {
 
 These are the actual input controls. You must provide implementations for at least the basic scalar types (`string`, `number`, `boolean`, `date`). AutoForm maps schema fields to these components based on their type.
 
-Import the `useField` hook from `@acp-autoform/react` to connect your UI components to the active form adapter. It returns a normalized field binding (`value`, `onChange`, `onBlur`, `name`, and optional `ref`) and only subscribes when the field component calls it. This is the adapter boundary that lets the same UI components work with React Hook Form and TanStack Form without importing either engine directly.
+Connect your field components with the hook from the form library selected by your adapter. React Hook Form custom fields use `useController` from `react-hook-form`; TanStack custom fields use `useFieldContext` from `@acp-autoform/react/tanstack-form`. If your UI package supports both adapters, keep separate field component maps per adapter or inject an internal binding hook from the adapter entry.
 
 ```tsx
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
 
 const StringField: React.FC<AutoFormFieldProps> = ({
   id,
   inputProps,
   error,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
   return (
     <input
       id={id}
@@ -172,7 +173,7 @@ const NumberField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   error,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
   return (
     <input
       id={id}
@@ -190,7 +191,7 @@ const BooleanField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   label,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
   // Note: Boolean fields often need to render their own label next to the checkbox,
   // bypassing the standard FieldWrapper label placement. You might configure FieldWrapper
   // to hide the label for boolean types.
@@ -244,4 +245,4 @@ export function AutoForm<T extends Record<string, any>>({
 }
 ```
 
-Create one public entry with the React Hook Form base and another with the TanStack Form base. Both entries can reuse the same `myUIComponents`, `myFormComponents`, and `useField`-based field implementations.
+Create one public entry with the React Hook Form base or with the TanStack Form base. Reuse wrapper UI components across entries, provide adapter-specific field components or an internal binding hook.

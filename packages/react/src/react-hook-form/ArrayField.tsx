@@ -3,7 +3,7 @@ import { useFieldArray } from "react-hook-form";
 import { getLabel, ParsedField } from "@acp-autoform/core";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "../context";
-import { useRegister } from "./utils";
+import { useRegister } from "./hooks";
 import { getArrayItemDefaultValue } from "../utils";
 
 export const ArrayField: React.FC<{

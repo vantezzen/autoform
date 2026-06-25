@@ -16,7 +16,7 @@ AutoForm is a **four-layer** system. Understanding the layers prevents import er
     ↓
 @acp-autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
     ↓
-@acp-autoform/react          ← shared React contracts + adapter-agnostic useField
+@acp-autoform/react          ← shared React contracts + adapter implementations
     ├── /react-hook-form     ← React Hook Form implementation
     └── /tanstack-form       ← TanStack Form implementation
     ↓
@@ -25,7 +25,7 @@ AutoForm is a **four-layer** system. Understanding the layers prevents import er
 shadcn registry (copy-paste components via CLI)
 ```
 
-**Key rule**: Import `AutoForm` from the selected adapter subpath of the **UI package**, for example `@acp-autoform/mui/react-hook-form` or `@acp-autoform/mui/tanstack-form`. For shadcn, use `components/ui/autoform/react-hook-form` or `components/ui/autoform/tanstack-form`. Import `fieldConfig` and `SchemaProvider` from the **schema package** (for example `@acp-autoform/zod`). Import shared types like `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@acp-autoform/react`.
+**Key rule**: Import `AutoForm` from the selected adapter subpath of the **UI package**, for example `@acp-autoform/mui/react-hook-form` or `@acp-autoform/mui/tanstack-form`. For shadcn, use `components/ui/autoform/react-hook-form` or `components/ui/autoform/tanstack-form`. Import `fieldConfig` and `SchemaProvider` from the **schema package** (for example `@acp-autoform/zod`). Import shared types like `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@acp-autoform/react`. Custom fields should use the selected form library hook: `useController` for React Hook Form, or `useFieldContext` for TanStack Form.
 
 ---
 
