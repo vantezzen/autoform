@@ -21,10 +21,10 @@
 
 ```bash
 # React Hook Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json
 
 # TanStack Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 This copies all AutoForm components into `components/ui/autoform/` and installs registry dependencies (alert, button, calendar, card, checkbox, form, input, label, select, skeleton, switch, textarea, toggle).
@@ -143,7 +143,7 @@ These are pre-built example blocks you can install via the shadcn CLI. Each incl
 ### Real-time Validation Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/realtime-validation-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/realtime-validation-demo.json
 ```
 
 Shows real-time validation with disabled submit until all fields are valid. Uses `createFormControl({ mode: "all" })`.
@@ -151,7 +151,7 @@ Shows real-time validation with disabled submit until all fields are valid. Uses
 ### Dialog Submit Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/dialog-submit-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/dialog-submit-demo.json
 ```
 
 Submit and reset AutoForm from dialog buttons using `useFormContext` and `createFormControl`.
@@ -159,7 +159,7 @@ Submit and reset AutoForm from dialog buttons using `useFormContext` and `create
 ### Custom Fields Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/custom-fields-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/custom-fields-demo.json
 ```
 
 Custom field components for sliders, color pickers, radios, dates, and file uploads.
@@ -167,7 +167,7 @@ Custom field components for sliders, color pickers, radios, dates, and file uplo
 ### Ecommerce Checkout Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/ecommerce-checkout-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/ecommerce-checkout-demo.json
 ```
 
 Checkout form with cascading selects, conditional coupon/payment fields, and cross-field `superRefine` validation.
@@ -175,7 +175,7 @@ Checkout form with cascading selects, conditional coupon/payment fields, and cro
 ### Multi-step Form Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/multistep-form-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/multistep-form-demo.json
 ```
 
 Multi-step form with per-step validation, breadcrumb navigation, and collected submission.
@@ -183,7 +183,7 @@ Multi-step form with per-step validation, breadcrumb navigation, and collected s
 ### Nested AutoForm Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/nested-autoform-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/nested-autoform-demo.json
 ```
 
 Nested AutoForm inside a Dialog as a custom field component.
@@ -191,7 +191,7 @@ Nested AutoForm inside a Dialog as a custom field component.
 ### Interactive Schema Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/interactive-schema-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/interactive-schema-demo.json
 ```
 
 Dynamic form builder with Monaco Editor + AutoForm for real-time form generation from Zod schema strings. **Warning**: uses `eval()` — not for production.
