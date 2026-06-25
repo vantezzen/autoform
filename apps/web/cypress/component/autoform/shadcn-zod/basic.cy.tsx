@@ -62,7 +62,7 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       .should("be.visible")
       .contains("Hockey (Ice)")
       .click();
-    cy.get('input[name="birthdate"]').type("1990-01-01");
+    cy.get('input[name="birthdate"]').clear().type("1990-01-01");
     cy.get("button#isStudent").click();
 
     cy.get('button[type="submit"]').click();

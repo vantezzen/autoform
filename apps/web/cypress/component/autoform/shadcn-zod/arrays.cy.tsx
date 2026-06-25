@@ -17,6 +17,12 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
 
   const schemaProvider = new ZodProvider(arraySchema);
 
+  const getFieldName = (path: string) => {
+    if (name === "react-hook-form") return path;
+    // TanStack Form uses bracket notation for arrays: tags.0 -> tags[0]
+    return path.replace(/\.(\d+)/g, "[$1]");
+  };
+
   it("renders array fields correctly", () => {
     cy.mount(
       <TestWrapper>
@@ -45,17 +51,17 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
 
     // Add tags
     cy.get(".lucide-plus").eq(0).click();
-    cy.get('input[name="tags.0"]').type("tag1");
+    cy.get(`input[name="${getFieldName("tags.0")}"]`).type("tag1");
     cy.get(".lucide-plus").eq(0).click();
-    cy.get('input[name="tags.1"]').type("tag2");
+    cy.get(`input[name="${getFieldName("tags.1")}"]`).type("tag2");
 
     // Add friends
     cy.get(".lucide-plus").eq(1).click();
-    cy.get('input[name="friends.0.name"]').type("Alice");
-    cy.get('input[name="friends.0.age"]').type("25");
+    cy.get(`input[name="${getFieldName("friends.0.name")}"]`).type("Alice");
+    cy.get(`input[name="${getFieldName("friends.0.age")}"]`).type("25");
     cy.get(".lucide-plus").eq(1).click();
-    cy.get('input[name="friends.1.name"]').type("Bob");
-    cy.get('input[name="friends.1.age"]').type("30");
+    cy.get(`input[name="${getFieldName("friends.1.name")}"]`).type("Bob");
+    cy.get(`input[name="${getFieldName("friends.1.age")}"]`).type("30");
 
     // Remove a tag and a friend
     cy.get(".lucide-trash").eq(0).click();
@@ -93,11 +99,11 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
 
       cy.get(".lucide-plus").click();
 
-      cy.focused().should("have.attr", "name", "friends.0.name");
+      cy.focused().should("have.attr", "name", getFieldName("friends.0.name"));
       cy.get('button[type="submit"]').click();
-      cy.get('input[name="friends.0.name"]')
+      cy.get(`input[name="${getFieldName("friends.0.name")}"]`)
         .should("have.attr", "aria-invalid", "true");
-      cy.get('input[name="friends.0.profile.details.email"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`)
         .should("have.attr", "aria-invalid", "true");
     });
 
@@ -129,21 +135,21 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       cy.get(".lucide-plus").click();
       cy.get('button[type="submit"]').click();
 
-      cy.get('input[name="friends.0.name"]')
+      cy.get(`input[name="${getFieldName("friends.0.name")}"]`)
         .should("have.attr", "aria-invalid", "true");
-      cy.get('input[name="friends.0.profile.city"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.city")}"]`)
         .should("have.attr", "aria-invalid", "true");
-      cy.get('input[name="friends.0.profile.details.email"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`)
         .should("have.attr", "aria-invalid", "true");
       cy.get("@onSubmit").should("not.have.been.called");
 
-      cy.get('input[name="friends.0.profile.city"]').type("Paris");
+      cy.get(`input[name="${getFieldName("friends.0.profile.city")}"]`).type("Paris");
 
-      cy.get('input[name="friends.0.name"]')
+      cy.get(`input[name="${getFieldName("friends.0.name")}"]`)
         .should("have.attr", "aria-invalid", "true");
-      cy.get('input[name="friends.0.profile.city"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.city")}"]`)
         .should("not.have.attr", "aria-invalid");
-      cy.get('input[name="friends.0.profile.details.email"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`)
         .should("have.attr", "aria-invalid", "true");
     });
 
@@ -173,9 +179,9 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       );
 
       cy.get(".lucide-plus").click();
-      cy.get('input[name="friends.0.profile.details.email"]').type("{enter}");
+      cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`).type("{enter}");
 
-      cy.get('input[name="friends.0.profile.details.email"]')
+      cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`)
         .should("have.attr", "aria-invalid", "true");
       cy.get("@onSubmit").should("not.have.been.called");
       cy.get("@onFormInit").then((stub: any) => {

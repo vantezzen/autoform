@@ -25,6 +25,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
     <div className="flex items-center space-x-2">
       <Checkbox
         id={id}
+        name={field.name}
         {...inputProps}
         checked={field.state.value}
         onCheckedChange={(checked) => field.handleChange(!!checked)}

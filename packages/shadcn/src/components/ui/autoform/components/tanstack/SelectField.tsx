@@ -22,7 +22,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
     <Select
       onValueChange={(val) => field.handleChange(val)}
       value={field.state.value}
-      name={String(field.name).replace(/\[(\d+)\]/g, ".$1")}
+      name={field.name}
       {...restInputProps}
     >
       <SelectTrigger

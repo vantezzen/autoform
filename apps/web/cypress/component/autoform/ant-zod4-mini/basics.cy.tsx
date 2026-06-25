@@ -63,7 +63,7 @@ describe("AutoForm Basic Tests (ANT-ZOD-V4-MINI)", () => {
     cy.get('input[name="website"]').type("https://example.com");
     cy.get('input[id="sports"]').click();
     cy.get('.ant-select-item-option[title="Hockey (Ice)"]').click();
-    cy.get('input[name="birthdate"]').clear().type("1990-01-01");
+    cy.get('input[name="birthdate"]').clear().type("1990-01-01{enter}");
     cy.get('input[name="isStudent"]').check();
 
     cy.get('button[type="submit"]').click();

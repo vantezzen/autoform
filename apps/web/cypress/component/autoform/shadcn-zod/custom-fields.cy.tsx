@@ -2,7 +2,8 @@ import React from "react";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
 import type { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldRHF as useField } from "@acp-autoform/react/react-hook-form";
+import { useFieldRHF } from "@acp-autoform/react/react-hook-form";
+import { useFieldTanStack } from "@acp-autoform/react/tanstack-form";
 import { autoFormAdapters, TestWrapper } from "./utils";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
@@ -12,7 +13,10 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
     error,
     id,
   }) => {
-    const { field } = useField({ name: id });
+    const { field } =
+      name === "react-hook-form"
+        ? useFieldRHF({ name: id })
+        : useFieldTanStack({ name: id });
     return (
       <div>
         <input

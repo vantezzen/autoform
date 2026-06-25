@@ -18,7 +18,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
       value={field.state.value ?? ""}
       onChange={(e) => field.handleChange(e.target.value)}
       onBlur={field.handleBlur}
-      name={String(field.name).replace(/\[(\d+)\]/g, ".$1")}
+      name={field.name}
       {...inputProps}
     />
   );

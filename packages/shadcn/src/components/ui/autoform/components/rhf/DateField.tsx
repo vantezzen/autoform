@@ -9,13 +9,22 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   id,
 }) => {
   const { field } = useController({ name: id });
+  const { value, ...restField } = field;
+
+  const formattedValue = value instanceof Date
+    ? value.toISOString().split("T")[0]
+    : typeof value === "string" && !isNaN(Date.parse(value))
+      ? new Date(value).toISOString().split("T")[0]
+      : value ?? "";
+
   return (
     <Input
       id={id}
       type="date"
       className={error ? "border-destructive" : ""}
       {...inputProps}
-      {...field}
+      {...restField}
+      value={formattedValue}
     />
   );
 };

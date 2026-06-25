@@ -10,6 +10,14 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   label,
 }) => {
   const { ref, ...formFieldProps } = useField({ name: id }).field;
+  const { value, ...restProps } = formFieldProps;
+
+  const formattedValue = value instanceof Date
+    ? value.toISOString().split("T")[0]
+    : typeof value === "string" && !isNaN(Date.parse(value))
+      ? new Date(value).toISOString().split("T")[0]
+      : value ?? "";
+
   return (
     <TextField
       key={id}
@@ -19,7 +27,8 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
       label={label}
       slotProps={{ inputLabel: { shrink: true } }}
       {...inputProps}
-      {...formFieldProps}
+      {...restProps}
+      value={formattedValue}
       inputRef={ref}
     />
   );

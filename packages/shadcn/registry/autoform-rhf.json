@@ -79,7 +79,7 @@
     {
       "path": "autoform/components/rhf/DateField.tsx",
       "target": "components/ui/autoform/components/rhf/DateField.tsx",
-      "content": "import { Input } from \"@/components/ui/input\";\nimport type { AutoFormFieldProps } from \"@acp-autoform/react\";\nimport { useController } from \"react-hook-form\";\nimport React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { field } = useController({ name: id });\n  return (\n    <Input\n      id={id}\n      type=\"date\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...inputProps}\n      {...field}\n    />\n  );\n};\n",
+      "content": "import { Input } from \"@/components/ui/input\";\nimport type { AutoFormFieldProps } from \"@acp-autoform/react\";\nimport { useController } from \"react-hook-form\";\nimport React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { field } = useController({ name: id });\n  const { value, ...restField } = field;\n\n  const formattedValue = value instanceof Date\n    ? value.toISOString().split(\"T\")[0]\n    : typeof value === \"string\" && !isNaN(Date.parse(value))\n      ? new Date(value).toISOString().split(\"T\")[0]\n      : value ?? \"\";\n\n  return (\n    <Input\n      id={id}\n      type=\"date\"\n      className={error ? \"border-destructive\" : \"\"}\n      {...inputProps}\n      {...restField}\n      value={formattedValue}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
