@@ -10,14 +10,14 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "@acp-autoform/ant": "*",
-    "@acp-autoform/chakra": "*",
-    "@acp-autoform/joi": "*",
-    "@acp-autoform/mantine": "*",
-    "@acp-autoform/mui": "*",
-    "@acp-autoform/shadcn": "*",
-    "@acp-autoform/yup": "*",
-    "@acp-autoform/zod": "*",
+    "@acp-autoform/ant": "workspace:*",
+    "@acp-autoform/chakra": "workspace:*",
+    "@acp-autoform/joi": "workspace:*",
+    "@acp-autoform/mantine": "workspace:*",
+    "@acp-autoform/mui": "workspace:*",
+    "@acp-autoform/shadcn": "workspace:*",
+    "@acp-autoform/yup": "workspace:*",
+    "@acp-autoform/zod": "workspace:*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -35,20 +35,15 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
-    "@acp-autoform/eslint-config": "*",
-    "@acp-autoform/typescript-config": "*",
+    "@acp-autoform/eslint-config": "workspace:*",
+    "@acp-autoform/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.10",
-    "@types/node": "^20",
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10",
     "cypress": "^15.16.0",
-    "eslint": "^8",
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.4.47",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
-    "tailwindcss": "^4.1.10",
-    "typescript": "^5"
+    "tailwindcss": "^4.1.10"
   }
 }

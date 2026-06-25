@@ -5,35 +5,35 @@
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.tsx",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.tsx",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.tsx",
         "default": "./dist/index.cjs"
       }
     },
     "./react-hook-form": {
       "import": {
-        "types": "./dist/react-hook-form.d.ts",
+        "types": "./src/react-hook-form.tsx",
         "default": "./dist/react-hook-form.mjs"
       },
       "require": {
-        "types": "./dist/react-hook-form.d.cts",
+        "types": "./src/react-hook-form.tsx",
         "default": "./dist/react-hook-form.cjs"
       }
     },
     "./tanstack-form": {
       "import": {
-        "types": "./dist/tanstack-form.d.ts",
+        "types": "./src/tanstack-form.tsx",
         "default": "./dist/tanstack-form.mjs"
       },
       "require": {
-        "types": "./dist/tanstack-form.d.cts",
+        "types": "./src/tanstack-form.tsx",
         "default": "./dist/tanstack-form.cjs"
       }
     },
@@ -41,39 +41,33 @@
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --clean --config ../../tsup.config.ts",
-    "dev": "tsup src/index.tsx src/react-hook-form.tsx src/tanstack-form.tsx --format cjs,esm --dts --watch --config ../../tsup.config.ts"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@acp-autoform/core": "*",
-    "@acp-autoform/eslint-config": "*",
-    "@acp-autoform/typescript-config": "*",
+    "@acp-autoform/core": "workspace:*",
+    "@acp-autoform/eslint-config": "workspace:*",
+    "@acp-autoform/typescript-config": "workspace:*",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@mui/icons-material": "^6.1.3",
     "@mui/material": "^6.4.12",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^8.57.0",
-    "react": "^19.1.0",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3"
+    "react": "^19.2.6"
   },
   "peerDependencies": {
-    "@acp-autoform/react": "^7.0.0",
+    "@acp-autoform/react": "workspace:^",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^6.0.0",
     "react": "^17 || ^18 || ^19"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "sideEffects": false,
   "engines": {

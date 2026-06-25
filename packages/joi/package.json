@@ -5,15 +5,15 @@
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.ts",
         "default": "./dist/index.cjs"
       }
     },
@@ -25,28 +25,22 @@
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean --config ../../tsup.config.ts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --config ../../tsup.config.ts"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "devDependencies": {
-    "@acp-autoform/core": "*",
-    "@acp-autoform/eslint-config": "*",
-    "@acp-autoform/typescript-config": "*",
+    "@acp-autoform/core": "workspace:*",
+    "@acp-autoform/eslint-config": "workspace:*",
+    "@acp-autoform/typescript-config": "workspace:*",
     "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^8.57.0",
-    "joi": "^17.13.3",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3"
+    "joi": "^17.13.3"
   },
   "peerDependencies": {
     "joi": "^17.13.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "sideEffects": false,
   "engines": {
