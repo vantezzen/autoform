@@ -54,7 +54,11 @@ Read `references/installation.md` for the full installation matrix. The summary:
 (Make sure you have shadcn/ui and Tailwind initialized in your project, see `references\shadcn-tailwind-installation` for shadcn installation from scratch.)
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json
+# React Hook Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+
+# TanStack Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 Then install a schema provider:
@@ -358,8 +362,11 @@ Read `references/shadcn.md` for the complete shadcn-specific guide including:
 ### Quick shadcn registry commands
 
 ```bash
-# Install base AutoForm component
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json
+# Install AutoForm component (React Hook Form)
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+
+# Install AutoForm component (TanStack Form)
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
 
 # Install example blocks
 npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/realtime-validation-demo.json

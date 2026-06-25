@@ -1,4 +1,5 @@
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useField } from "../field-context";
 import { Select } from "antd";
 import React from "react";
 

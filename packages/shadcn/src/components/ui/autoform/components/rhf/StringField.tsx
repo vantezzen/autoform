@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
 import React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
@@ -7,7 +8,7 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   error,
   id,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
   const { value, ...rest } = field;
 
   return (

@@ -159,7 +159,7 @@
         "input",
         "label",
         "popover",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -191,7 +191,7 @@
         "label",
         "select",
         "textarea",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -222,7 +222,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -250,7 +250,7 @@
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -274,7 +274,7 @@
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -304,7 +304,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -329,7 +329,7 @@
         "@monaco-editor/react"
       ],
       "registryDependencies": [
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -352,7 +352,7 @@
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -378,7 +378,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -413,7 +413,7 @@
         "input",
         "label",
         "popover",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -443,7 +443,7 @@
         "label",
         "select",
         "textarea",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -472,7 +472,7 @@
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -501,7 +501,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -525,7 +525,7 @@
         "@monaco-editor/react"
       ],
       "registryDependencies": [
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {

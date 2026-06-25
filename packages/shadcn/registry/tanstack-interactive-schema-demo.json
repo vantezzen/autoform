@@ -12,7 +12,7 @@
     "@monaco-editor/react"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
   ],
   "files": [
     {

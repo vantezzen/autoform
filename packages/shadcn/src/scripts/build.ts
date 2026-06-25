@@ -15,51 +15,88 @@ async function getFiles(dir: string): Promise<string[]> {
   return files.flat() as string[];
 }
 
-const registry: z.infer<typeof registryEntrySchema> = {
-  name: "AutoForm",
-  type: "registry:ui",
-  registryDependencies: [
-    "alert",
-    "button",
-    "calendar",
-    "card",
-    "checkbox",
-    "form",
-    "input",
-    "label",
-    "select",
-    "skeleton",
-    "switch",
-    "textarea",
-    "toggle",
-  ],
-  dependencies: ["zod", "@acp-autoform/react"],
-  devDependencies: [],
-  tailwind: {
-    config: {},
-  },
-  cssVars: {},
-  files: [],
-};
+// Common shadcn UI component dependencies used by both adapters.
+const commonRegistryDeps = [
+  "alert",
+  "button",
+  "calendar",
+  "card",
+  "checkbox",
+  "form",
+  "input",
+  "label",
+  "select",
+  "skeleton",
+  "switch",
+  "textarea",
+  "toggle",
+];
 
-const files = await getFiles(`./src/components/ui/autoform`);
-for (const file of files) {
-  let content = await readFile(file, "utf-8");
-  // Normalize line endings to LF only (remove carriage returns)
-  content = content.replace(/\r\n/g, "\n");
-  // Normalize paths to use forward slashes for cross-platform compatibility
-  const normalizedPath = file
-    .replace(/\\/g, "/")
-    .replace("src/components/ui/", "");
-  const normalizedTarget = file.replace(/\\/g, "/").replace("src/", "");
-  registry.files!.push({
-    path: normalizedPath,
-    target: normalizedTarget,
-    content,
-    type: "registry:ui",
-  });
+// Paths (forward-slashed) that belong exclusively to one adapter.
+function isRHFOnly(path: string) {
+  return path.includes("components/tanstack/") || path.includes("tanstack-form.tsx");
+}
+function isTanStackOnly(path: string) {
+  return path.includes("components/rhf/") || path.includes("react-hook-form.tsx");
 }
 
-await writeFile("./registry/autoform.json", JSON.stringify(registry, null, 2));
+// Files that are removed in the split (bridging layer).
+function isRemoved(path: string) {
+  return path.includes("field-context.ts");
+}
+
+async function buildRegistryItem(
+  name: string,
+  dependencies: string[],
+  excludeFn: (path: string) => boolean,
+) {
+  const registry: z.infer<typeof registryEntrySchema> = {
+    name,
+    type: "registry:ui",
+    registryDependencies: commonRegistryDeps,
+    dependencies,
+    devDependencies: [],
+    tailwind: { config: {} },
+    cssVars: {},
+    files: [],
+  };
+
+  const files = await getFiles(`./src/components/ui/autoform`);
+  for (const file of files) {
+    const normalizedPath = file.replace(/\\/g, "/");
+
+    // Skip files that belong to the other adapter or are removed.
+    if (excludeFn(normalizedPath) || isRemoved(normalizedPath)) continue;
+
+    let content = await readFile(file, "utf-8");
+    content = content.replace(/\r\n/g, "\n");
+
+    const pathKey = normalizedPath.replace("src/components/ui/", "");
+    const targetKey = normalizedPath.replace("src/", "");
+
+    registry.files!.push({
+      path: pathKey,
+      target: targetKey,
+      content,
+      type: "registry:ui",
+    });
+  }
+
+  await writeFile(`./registry/${name}.json`, JSON.stringify(registry, null, 2));
+}
+
+// Build RHF registry: exclude TanStack-only files.
+await buildRegistryItem(
+  "autoform-rhf",
+  ["zod", "@acp-autoform/react", "react-hook-form", "@hookform/resolvers"],
+  isRHFOnly,
+);
+
+// Build TanStack registry: exclude RHF-only files.
+await buildRegistryItem(
+  "autoform-tanstack",
+  ["zod", "@acp-autoform/react", "@tanstack/react-form"],
+  isTanStackOnly,
+);
 
 console.log("Registry built!");

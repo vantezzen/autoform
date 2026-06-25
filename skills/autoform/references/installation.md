@@ -20,7 +20,11 @@ shadcn/ui uses the shadcn CLI to copy AutoForm components directly into your pro
 Make sure you have shadcn and and tailwind initialised in your project, see `references\shadcn-tailwind-installation` for shadcn installation
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json
+# React Hook Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+
+# TanStack Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 This installs the AutoForm component into `components/ui/autoform/`.
@@ -170,7 +174,7 @@ import { JoiProvider, fieldConfig } from "@acp-autoform/joi";
 npm install react-hook-form @hookform/resolvers
 
 # 2. Install AutoForm via shadcn CLI
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
 
 # 3. Install schema provider (zod already added by the registry, just add the autoform adapter)
 npm install @acp-autoform/zod

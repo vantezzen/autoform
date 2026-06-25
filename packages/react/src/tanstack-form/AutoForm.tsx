@@ -6,14 +6,13 @@ import {
   replaceEmptyValue,
 } from "@acp-autoform/core";
 import type { AutoFormProps } from "../types";
-import { AutoFormProvider } from "@acp-autoform/react";
+import { AutoFormProvider } from "../context";
 import { AutoFormField } from "./AutoFormField";
 import { focusFirstInvalidInput, preventPropagation } from "../utils";
 import { createSchemaValidator, getAppForm } from "./utils";
 import {
   useAppForm,
   useExternalFormOptions,
-  useFieldTanStack,
   useSyncValues,
 } from "./hooks";
 
@@ -80,7 +79,6 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
           schema: parsedSchema,
           uiComponents,
           formComponents,
-          useField: useFieldTanStack,
         }}
       >
         <uiComponents.Form

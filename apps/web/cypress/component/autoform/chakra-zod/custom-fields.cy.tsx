@@ -2,7 +2,8 @@ import { autoFormAdapters } from "./utils";
 import React from "react";
 import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldRHF as useField } from "@acp-autoform/react/react-hook-form";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
   describe(`AutoForm Custom Fields Tests (CHAKRA-ZOD), ${name}`, () => {

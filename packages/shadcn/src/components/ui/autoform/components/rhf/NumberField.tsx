@@ -1,17 +1,18 @@
 import { Input } from "@/components/ui/input";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useController } from "react-hook-form";
 import React from "react";
 
-export const DateField: React.FC<AutoFormFieldProps> = ({
+export const NumberField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   error,
   id,
 }) => {
-  const { field } = useField({ name: id });
+  const { field } = useController({ name: id });
   return (
     <Input
       id={id}
-      type="date"
+      type="number"
       className={error ? "border-destructive" : ""}
       {...inputProps}
       {...field}

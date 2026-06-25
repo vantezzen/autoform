@@ -5,7 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 import React from "react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
@@ -14,22 +15,21 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
   parsedField,
 }) => {
-  const { field } = useField({ name: id });
-  const { value, onChange, onBlur, name } = field;
+  const field = useFieldContext<string>();
   const { ref, "aria-invalid": ariaInvalid, ...restInputProps } = inputProps as any;
 
   return (
     <Select
-      onValueChange={onChange}
-      value={value}
-      name={name}
+      onValueChange={(val) => field.handleChange(val)}
+      value={field.state.value}
+      name={String(field.name).replace(/\[(\d+)\]/g, ".$1")}
       {...restInputProps}
     >
       <SelectTrigger
         id={id}
         ref={ref}
         aria-invalid={ariaInvalid}
-        onBlur={onBlur}
+        onBlur={field.handleBlur}
         className={error ? "border-destructive" : ""}
       >
         <SelectValue

@@ -20,7 +20,11 @@
 ### Step 1: Install the AutoForm registry component
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json
+# React Hook Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+
+# TanStack Form
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 This copies all AutoForm components into `components/ui/autoform/` and installs registry dependencies (alert, button, calendar, card, checkbox, form, input, label, select, skeleton, switch, textarea, toggle).

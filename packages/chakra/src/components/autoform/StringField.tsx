@@ -1,5 +1,6 @@
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useField } from "../../field-context";
 import { Input } from "@chakra-ui/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({

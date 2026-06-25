@@ -6,23 +6,13 @@ import {
   SubmitHandler,
   SubmitErrorHandler,
   DefaultValues,
-  useController,
 } from "react-hook-form";
 import { getDefaultValues, parseSchema } from "@acp-autoform/core";
-import type { AutoFormProps, UseFieldFn } from "../types";
-import { AutoFormProvider } from "@acp-autoform/react";
+import type { AutoFormProps } from "../types";
+import { AutoFormProvider } from "../context";
 import { AutoFormField } from "./AutoFormField";
 import { focusFirstInvalidInput, preventPropagation } from "../utils";
 import { createSchemaResolver } from "./utils";
-
-/**
- * RHF-backed useField implementation.
- * Normalizes useController return to the shared FieldBinding shape.
- */
-const useFieldRHF: UseFieldFn = ({ name }) => {
-  const { field } = useController({ name });
-  return { field };
-};
 
 export function AutoForm<T extends FieldValues = FieldValues>({
   formControl,
@@ -76,7 +66,6 @@ export function AutoForm<T extends FieldValues = FieldValues>({
           schema: parsedSchema,
           uiComponents,
           formComponents,
-          useField: useFieldRHF,
         }}
       >
         <uiComponents.Form

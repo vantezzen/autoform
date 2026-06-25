@@ -1,6 +1,7 @@
 import React from "react";
 import { DateInput } from "@mantine/dates";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useField } from "../field-context";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   id,

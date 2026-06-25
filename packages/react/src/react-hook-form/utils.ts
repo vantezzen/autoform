@@ -4,20 +4,7 @@ import {
   Resolver,
   ResolverOptions,
   ResolverResult,
-  useFormContext,
-  UseFormRegister,
 } from "react-hook-form";
-
-/**
- * This custom hook shares the same props and methods as register.
- * @returns Return value of `register`
- */
-export function useRegister<TFieldValues extends FieldValues = FieldValues>(
-  ...props: Parameters<UseFormRegister<TFieldValues>>
-) {
-  const { register } = useFormContext<TFieldValues>();
-  return register(...props);
-}
 
 /**
  * Retrieves the error of a field using given error object and field path.
@@ -38,9 +25,7 @@ export function getPathInObject(obj: any, path: string[]): any {
 
 /**
  * Creates a React Hook Form resolver for an AutoForm schema provider.
- *
  * @param schema - AutoForm schema provider with `schemaType` and `getSchema`.
- *
  * @returns A React Hook Form resolver that validates cleaned form values.
  */
 export function createSchemaResolver<T extends FieldValues>(
@@ -62,9 +47,7 @@ export function createSchemaResolver<T extends FieldValues>(
 
 /**
  * Gets the library-specific React Hook Form resolver for a schema provider.
- *
  * @param schema - AutoForm schema provider with resolver metadata.
- *
  * @returns The matching resolver.
  */
 async function getSchemaResolver<T extends FieldValues>(

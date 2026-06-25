@@ -14,7 +14,7 @@
   "registryDependencies": [
     "button",
     "dialog",
-    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform.json"
+    "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
   ],
   "files": [
     {

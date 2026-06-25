@@ -1,5 +1,6 @@
 import React from "react";
-import { AutoFormFieldProps, useField } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@acp-autoform/react";
+import { useFieldContext } from "@acp-autoform/react/tanstack-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
@@ -9,7 +10,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { field } = useField({ name: id });
+  const field = useFieldContext<boolean>();
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -25,9 +26,9 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       <Checkbox
         id={id}
         {...inputProps}
-        {...field}
-        checked={field.value}
-        onCheckedChange={field.onChange}
+        checked={field.state.value}
+        onCheckedChange={(checked) => field.handleChange(!!checked)}
+        onBlur={field.handleBlur}
         onKeyDown={handleKeyDown}
       />
       <Label htmlFor={id}>

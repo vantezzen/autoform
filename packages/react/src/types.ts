@@ -157,8 +157,6 @@ export interface AutoFormContextType {
   schema: ParsedSchema;
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
-  /** The useField implementation injected by the active form library adapter. */
-  useField: UseFieldFn;
 }
 
 // FieldConfig

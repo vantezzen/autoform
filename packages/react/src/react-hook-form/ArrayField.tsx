@@ -2,7 +2,7 @@ import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { getLabel, ParsedField } from "@acp-autoform/core";
 import { AutoFormField } from "./AutoFormField";
-import { useAutoForm } from "@acp-autoform/react";
+import { useAutoForm } from "../context";
 import { useRegister } from "./utils";
 import { getArrayItemDefaultValue } from "../utils";
 
