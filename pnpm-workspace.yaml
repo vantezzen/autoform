@@ -2,6 +2,15 @@ cleanupUnusedCatalogs: true
 linkWorkspacePackages: true
 preferWorkspacePackages: true
 blockExoticSubdeps: true
+trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  - "chokidar@4.0.3"
+  - "eslint-config-prettier@9.1.2"
+  - "eslint-import-resolver-typescript@3.10.1"
+  - "semver@6.3.1 || 5.7.2"
+  - "tailwind-merge@2.6.1"
+  - "undici-types@6.21.0"
+
 onlyBuiltDependencies:
   - core-js-pure
   - cypress
@@ -10,8 +19,8 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 packages:
-  - 'packages/*'
-  - 'apps/*'
+  - "packages/*"
+  - "apps/*"
 
 allowBuilds:
   core-js-pure: true
