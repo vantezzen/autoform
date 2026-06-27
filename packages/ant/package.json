@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/ant",
-  "version": "4.0.0",
+  "name": "@dual-autoform/ant",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -49,9 +49,9 @@
     "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@acp-autoform/core": "workspace:*",
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*",
+    "@dual-autoform/core": "workspace:*",
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*",
     "antd": "^5.22.7",
     "react": "^19.2.6"
   },
@@ -61,7 +61,7 @@
     "dayjs": "^1.11.13"
   },
   "peerDependencies": {
-    "@acp-autoform/react": "workspace:^",
+    "@dual-autoform/react": "workspace:^",
     "antd": "^5",
     "react": "^16.9.0 || ^17 || ^18 || ^19"
   },

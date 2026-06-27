@@ -1,4 +1,4 @@
-# @acp-autoform/typescript-config
+# @dual-autoform/typescript-config
 
 ## 2.0.0
 

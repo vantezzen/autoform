@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps } from "@acp-autoform/react";
+import type { ExtendableAutoFormProps } from "@dual-autoform/react";
 import { MantineProvider } from "@mantine/core";
 
 export interface AutoFormProps<

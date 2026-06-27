@@ -4,7 +4,7 @@ import {
   getDefaultValues,
   parseSchema,
   replaceEmptyValue,
-} from "@acp-autoform/core";
+} from "@dual-autoform/core";
 import type { AutoFormProps } from "../types";
 import { AutoFormProvider } from "../context";
 import { AutoFormField } from "./AutoFormField";

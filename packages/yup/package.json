@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/yup",
-  "version": "4.0.1",
+  "name": "@dual-autoform/yup",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -29,9 +29,9 @@
     "dev": "tsup --watch"
   },
   "devDependencies": {
-    "@acp-autoform/core": "workspace:*",
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*",
+    "@dual-autoform/core": "workspace:*",
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*",
     "yup": "^1.4.0"
   },
   "peerDependencies": {

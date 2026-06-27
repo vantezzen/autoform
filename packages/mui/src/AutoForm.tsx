@@ -5,7 +5,7 @@ import {
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
   UseFieldFn,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AutoFormProps as MuiAutoFormProps } from "./types";
 import { FieldHookProvider } from "./field-context";

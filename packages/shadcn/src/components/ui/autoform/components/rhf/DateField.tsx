@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useController } from "react-hook-form";
 import React from "react";
 

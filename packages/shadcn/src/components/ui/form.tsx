@@ -12,8 +12,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "@acp-autoform/shadcn/lib/utils";
-import { Label } from "@acp-autoform/shadcn/components/ui/label";
+import { cn } from "@dual-autoform/shadcn/lib/utils";
+import { Label } from "@dual-autoform/shadcn/components/ui/label";
 
 const Form = FormProvider;
 

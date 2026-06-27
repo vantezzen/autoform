@@ -9,14 +9,14 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/ant@2.0.0
-  - @acp-autoform/chakra@2.0.0
-  - @acp-autoform/joi@2.0.0
-  - @acp-autoform/mantine@3.0.0
-  - @acp-autoform/mui@3.0.0
-  - @acp-autoform/shadcn@4.0.0
-  - @acp-autoform/yup@3.0.0
-  - @acp-autoform/zod@4.0.0
+  - @dual-autoform/ant@2.0.0
+  - @dual-autoform/chakra@2.0.0
+  - @dual-autoform/joi@2.0.0
+  - @dual-autoform/mantine@3.0.0
+  - @dual-autoform/mui@3.0.0
+  - @dual-autoform/shadcn@4.0.0
+  - @dual-autoform/yup@3.0.0
+  - @dual-autoform/zod@4.0.0
 
 ## 2.1.0
 
@@ -27,14 +27,14 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/ant@1.3.0
-  - @acp-autoform/chakra@1.1.0
-  - @acp-autoform/joi@1.1.0
-  - @acp-autoform/mantine@2.4.0
-  - @acp-autoform/mui@2.3.0
-  - @acp-autoform/shadcn@3.1.0
-  - @acp-autoform/yup@2.2.0
-  - @acp-autoform/zod@2.2.0
+  - @dual-autoform/ant@1.3.0
+  - @dual-autoform/chakra@1.1.0
+  - @dual-autoform/joi@1.1.0
+  - @dual-autoform/mantine@2.4.0
+  - @dual-autoform/mui@2.3.0
+  - @dual-autoform/shadcn@3.1.0
+  - @dual-autoform/yup@2.2.0
+  - @dual-autoform/zod@2.2.0
 
 ## 2.0.0
 
@@ -45,7 +45,7 @@
 ### Patch Changes
 
 - Updated dependencies [b10ea83]
-  - @acp-autoform/ant@1.0.0
+  - @dual-autoform/ant@1.0.0
 
 ## 1.1.0
 
@@ -56,9 +56,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/mantine@2.1.0
-  - @acp-autoform/shadcn@2.1.0
-  - @acp-autoform/mui@2.1.0
+  - @dual-autoform/mantine@2.1.0
+  - @dual-autoform/shadcn@2.1.0
+  - @dual-autoform/mui@2.1.0
 
 ## 1.0.0
 
@@ -69,11 +69,11 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/shadcn@2.0.0
-  - @acp-autoform/mantine@2.0.0
-  - @acp-autoform/mui@2.0.0
-  - @acp-autoform/yup@2.0.0
-  - @acp-autoform/zod@2.0.0
+  - @dual-autoform/shadcn@2.0.0
+  - @dual-autoform/mantine@2.0.0
+  - @dual-autoform/mui@2.0.0
+  - @dual-autoform/yup@2.0.0
+  - @dual-autoform/zod@2.0.0
 
 ## 0.2.0
 
@@ -84,7 +84,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/mantine@1.2.0
-  - @acp-autoform/mui@1.2.0
-  - @acp-autoform/yup@1.1.0
-  - @acp-autoform/zod@1.2.0
+  - @dual-autoform/mantine@1.2.0
+  - @dual-autoform/mui@1.2.0
+  - @dual-autoform/yup@1.1.0
+  - @dual-autoform/zod@1.2.0

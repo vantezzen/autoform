@@ -1,4 +1,4 @@
-import { AutoForm } from "@acp-autoform/mui/tanstack-form";
+import { AutoForm } from "@dual-autoform/mui/tanstack-form";
 import { defineTanStackFormPropertiesTests } from "../shared/adapter-contracts";
 
 defineTanStackFormPropertiesTests({

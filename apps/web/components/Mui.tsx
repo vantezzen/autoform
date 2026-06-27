@@ -1,6 +1,6 @@
 "use client";
-import { AutoForm as MuiRHFAutoForm } from "@acp-autoform/mui/react-hook-form";
-import { AutoForm as MuiTanstackAutoForm } from "@acp-autoform/mui/tanstack-form";
+import { AutoForm as MuiRHFAutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm as MuiTanstackAutoForm } from "@dual-autoform/mui/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 
 export function MuiRHF() {

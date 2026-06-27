@@ -5,14 +5,14 @@ description: The customization of the components is done by providing a `fieldCo
 
 import { Accordion, Accordions } from "@/components/accordion";
 
-Import `fieldConfig` from your schema package [@acp-autoform/zod](/docs/schema-providers/zod#field-configuration), [@acp-autoform/yup](/docs/schema-providers/yup#field-configuration), [@acp-autoform/joi](/docs/schema-providers/joi#field-configuration)
+Import `fieldConfig` from your schema package [@dual-autoform/zod](/docs/schema-providers/zod#field-configuration), [@dual-autoform/yup](/docs/schema-providers/yup#field-configuration), [@dual-autoform/joi](/docs/schema-providers/joi#field-configuration)
 
 In the examples below, we use Zod.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@acp-autoform/zod";
-import { FieldTypes } from "@acp-autoform/mui"; // use your UI library
+import { fieldConfig } from "@dual-autoform/zod";
+import { FieldTypes } from "@dual-autoform/mui"; // use your UI library
 
 const schema = z.object({
   username: z.string().check(
@@ -117,7 +117,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@acp-autoform/react"; // adjust import based on your library
+import { FieldWrapperProps } from "@dual-autoform/react"; // adjust import based on your library
 
 export function CustomFieldWrapper({
   children,
@@ -161,7 +161,7 @@ import {
   ArrayElementWrapperProps,
   ArrayWrapperProps,
   ObjectWrapperProps,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 
 function CustomObjectWrapper({ label, children }: ObjectWrapperProps) {
   return (
@@ -232,7 +232,7 @@ For binding field components, use `useController` hook from `react-hook-form` an
 ```tsx
 // CustomInput.tsx
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@acp-autoform/react"; // or your UI package
+import { AutoFormFieldProps } from "@dual-autoform/react"; // or your UI package
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
@@ -493,7 +493,7 @@ In some cases, you may need customization that isn't supported by the package AP
 
 <ModeTab
   mode="cli"
-  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-react-rhf.json"
+  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-rhf.json"
 />
 
 The adapter files will be added to `lib/autoform/react/`. You can change them as needed.

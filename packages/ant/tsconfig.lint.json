@@ -1,5 +1,5 @@
 {
-  "extends": "@acp-autoform/typescript-config/react-library.json",
+  "extends": "@dual-autoform/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },

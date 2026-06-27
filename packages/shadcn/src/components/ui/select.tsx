@@ -4,7 +4,7 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
-import { cn } from "@acp-autoform/shadcn/lib/utils";
+import { cn } from "@dual-autoform/shadcn/lib/utils";
 
 const Select = SelectPrimitive.Root;
 

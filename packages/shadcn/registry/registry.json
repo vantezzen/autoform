@@ -7,9 +7,9 @@
       "name": "autoform-react-rhf",
       "type": "registry:lib",
       "title": "AutoForm React (React Hook Form)",
-      "description": "Core AutoForm renderer wired to React Hook Form. Installs the full @acp-autoform/react source for the RHF adapter so you can modify it freely.",
+      "description": "Core AutoForm renderer wired to React Hook Form. Installs the full @dual-autoform/react source for the RHF adapter so you can modify it freely.",
       "dependencies": [
-        "@acp-autoform/core",
+        "@dual-autoform/core",
         "react-hook-form",
         "@hookform/resolvers"
       ],
@@ -75,9 +75,9 @@
       "name": "autoform-react-tanstack",
       "type": "registry:lib",
       "title": "AutoForm React (TanStack Form)",
-      "description": "Core AutoForm renderer wired to TanStack Form. Installs the full @acp-autoform/react source for the TanStack adapter so you can modify it freely.",
+      "description": "Core AutoForm renderer wired to TanStack Form. Installs the full @dual-autoform/react source for the TanStack adapter so you can modify it freely.",
       "dependencies": [
-        "@acp-autoform/core",
+        "@dual-autoform/core",
         "@tanstack/react-form"
       ],
       "files": [
@@ -145,8 +145,8 @@
       "description": "Uses custom field components for sliders, color pickers, radios, dates, and file uploads.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "react-hook-form",
         "@hookform/resolvers",
         "@radix-ui/react-radio-group",
@@ -159,7 +159,7 @@
         "input",
         "label",
         "popover",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -181,8 +181,8 @@
       "description": "Checkout form demonstrating field dependencies: cascading country/state selects, conditional coupon and payment fields, and cross-field superRefine validation.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "react-hook-form",
         "@hookform/resolvers"
       ],
@@ -191,7 +191,7 @@
         "label",
         "select",
         "textarea",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -213,7 +213,7 @@
       "description": "Demonstrates submitting and resetting AutoForm from buttons inside a Dialog using useFormContext and createFormControl.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
+        "@dual-autoform/zod",
         "react-hook-form",
         "@hookform/resolvers",
         "lucide-react",
@@ -222,7 +222,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -244,13 +244,13 @@
       "description": "Shows real-time form validation with a disabled submit button until all fields are valid.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
+        "@dual-autoform/zod",
         "react-hook-form",
         "@hookform/resolvers"
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -267,14 +267,14 @@
       "description": "A multi-step form with per-step validation, breadcrumb navigation, and collected submission.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
+        "@dual-autoform/zod",
         "react-hook-form",
         "@hookform/resolvers",
         "lucide-react"
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -296,15 +296,15 @@
       "description": "Shows how to use a nested AutoForm inside a Dialog as a custom field component.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "react-hook-form",
         "@hookform/resolvers"
       ],
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -321,15 +321,15 @@
       "description": "A dynamic form builder combining Monaco Editor with AutoForm for interactive, real-time form generation from a Zod schema string.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/core",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/core",
+        "@dual-autoform/react",
         "react-hook-form",
         "@hookform/resolvers",
         "@monaco-editor/react"
       ],
       "registryDependencies": [
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
       ],
       "files": [
         {
@@ -346,13 +346,13 @@
       "description": "Shows real-time TanStack Form validation state with a disabled submit button until the form can submit.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form"
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -369,8 +369,8 @@
       "description": "Demonstrates submitting and resetting TanStack AutoForm from buttons inside a Dialog using useFormContext and an external formControl.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form",
         "lucide-react",
         "class-variance-authority"
@@ -378,7 +378,7 @@
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -400,8 +400,8 @@
       "description": "Uses TanStack custom field components for steppers, radio cards, dates, sliders, color pickers, and file uploads.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form",
         "@radix-ui/react-radio-group",
         "date-fns",
@@ -413,7 +413,7 @@
         "input",
         "label",
         "popover",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -435,15 +435,15 @@
       "description": "Checkout form demonstrating TanStack subscriptions for cascading selects, conditional coupon fields, gift messages, and payment fields.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form"
       ],
       "registryDependencies": [
         "label",
         "select",
         "textarea",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -465,14 +465,14 @@
       "description": "A TanStack multi-step form with per-step schemas, breadcrumb navigation, and collected submission.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form",
         "lucide-react"
       ],
       "registryDependencies": [
         "button",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -494,14 +494,14 @@
       "description": "Shows how to use a nested TanStack AutoForm inside a Dialog as a custom field component.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/react",
         "@tanstack/react-form"
       ],
       "registryDependencies": [
         "button",
         "dialog",
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {
@@ -518,14 +518,14 @@
       "description": "A dynamic TanStack form builder combining Monaco Editor with AutoForm for interactive, real-time form generation from a Zod schema string.",
       "dependencies": [
         "zod",
-        "@acp-autoform/zod",
-        "@acp-autoform/core",
-        "@acp-autoform/react",
+        "@dual-autoform/zod",
+        "@dual-autoform/core",
+        "@dual-autoform/react",
         "@tanstack/react-form",
         "@monaco-editor/react"
       ],
       "registryDependencies": [
-        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json"
+        "https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
       ],
       "files": [
         {

@@ -15,7 +15,7 @@ documentation, examples, and best practices.
 
 <ModeTab
   mode="cli"
-  command="skills add https://github.com/adityacodepublic/autoform/tree/acp-package/skills --skill autoform"
+  command="skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/skills --skill autoform"
 />
 
 ---
@@ -26,7 +26,7 @@ documentation, examples, and best practices.
 
 Install TanStack Form and the AutoForm React base package:
 
-<ModeTab command="@acp-autoform/react @tanstack/react-form" />
+<ModeTab command="@dual-autoform/react @tanstack/react-form" />
 
 ---
 
@@ -38,7 +38,7 @@ AutoForm integrates directly into your UI library to render fields. Choose one o
 
 <ModeTab
   mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json"
+  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
 />
 
 Use the generated TanStack adapter export:
@@ -67,10 +67,10 @@ import { AutoForm } from "@/components/ui/autoform/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/mui" />
+<ModeTab command="@dual-autoform/mui" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mui/tanstack-form";
+import { AutoForm } from "@dual-autoform/mui/tanstack-form";
 ```
 
 ---
@@ -91,10 +91,10 @@ import { AutoForm } from "@acp-autoform/mui/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/mantine" />
+<ModeTab command="@dual-autoform/mantine" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
+import { AutoForm } from "@dual-autoform/mantine/tanstack-form";
 ```
 
 ---
@@ -111,10 +111,10 @@ import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
   <ModeTab className=" border-0" command="antd@^5" />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/ant" />
+<ModeTab command="@dual-autoform/ant" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/ant/tanstack-form";
+import { AutoForm } from "@dual-autoform/ant/tanstack-form";
 ```
 
 ---
@@ -135,10 +135,10 @@ import { AutoForm } from "@acp-autoform/ant/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/chakra" />
+<ModeTab command="@dual-autoform/chakra" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/chakra/tanstack-form";
+import { AutoForm } from "@dual-autoform/chakra/tanstack-form";
 ```
 
 If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/tanstack/custom-integration).
@@ -147,7 +147,7 @@ If you want to integrate into another UI library and create a custom package, ch
 
 #### Zod
 
-<ModeTab command="@acp-autoform/zod" />
+<ModeTab command="@dual-autoform/zod" />
 
 <Callout>Requires zod version greater than 3.25.0 to be installed.</Callout>
 
@@ -155,13 +155,13 @@ If you want to integrate into another UI library and create a custom package, ch
 
 #### Yup
 
-<ModeTab command="@acp-autoform/yup" />
+<ModeTab command="@dual-autoform/yup" />
 
 ---
 
 #### Joi
 
-<ModeTab command="@acp-autoform/joi" />
+<ModeTab command="@dual-autoform/joi" />
 
 In the docs, we use Zod as the schema example. Replace the schema provider import with the one for your schema library.
 
@@ -171,8 +171,8 @@ In the docs, we use Zod as the schema example. Replace the schema provider impor
 "use client";
 
 import * as z from "zod";
-import { AutoForm } from "@acp-autoform/mui/tanstack-form";
-import { ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+import { ZodProvider } from "@dual-autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -229,7 +229,7 @@ See [form control](/docs/tanstack/form-control) for examples.
 
 ## Custom field components
 
-When creating custom field components for the TanStack adapter, use `useFieldContext` from `@acp-autoform/react/tanstack-form`. See [customization](/docs/tanstack/customization#connecting-custom-fields-to-tanstack-form).
+When creating custom field components for the TanStack adapter, use `useFieldContext` from `@dual-autoform/react/tanstack-form`. See [customization](/docs/tanstack/customization#connecting-custom-fields-to-tanstack-form).
 
 ## Next Steps
 

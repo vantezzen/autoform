@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps } from "@acp-autoform/react";
+import type { ExtendableAutoFormProps } from "@dual-autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
 
 export interface AutoFormProps<

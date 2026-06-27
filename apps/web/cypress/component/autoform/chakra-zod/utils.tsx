@@ -1,5 +1,5 @@
-import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/chakra/react-hook-form";
-import { AutoForm as TanStackAutoForm } from "@acp-autoform/chakra/tanstack-form";
+import { AutoForm as ReactHookFormAutoForm } from "@dual-autoform/chakra/react-hook-form";
+import { AutoForm as TanStackAutoForm } from "@dual-autoform/chakra/tanstack-form";
 
 export const autoFormAdapters = [
   {

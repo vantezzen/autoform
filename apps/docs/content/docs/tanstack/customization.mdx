@@ -5,14 +5,14 @@ description: The customization of the components is done by providing a `fieldCo
 
 import { Accordion, Accordions } from "@/components/accordion";
 
-Import `fieldConfig` from your schema package: [@acp-autoform/zod](/docs/schema-providers/zod#field-configuration), [@acp-autoform/yup](/docs/schema-providers/yup#field-configuration), or [@acp-autoform/joi](/docs/schema-providers/joi#field-configuration).
+Import `fieldConfig` from your schema package: [@dual-autoform/zod](/docs/schema-providers/zod#field-configuration), [@dual-autoform/yup](/docs/schema-providers/yup#field-configuration), or [@dual-autoform/joi](/docs/schema-providers/joi#field-configuration).
 
 In the examples below, we use Zod.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@acp-autoform/zod";
-import { FieldTypes } from "@acp-autoform/mui/tanstack-form";
+import { fieldConfig } from "@dual-autoform/zod";
+import { FieldTypes } from "@dual-autoform/mui/tanstack-form";
 
 const schema = z.object({
   username: z.string().check(
@@ -110,7 +110,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@acp-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react";
 
 export function CustomFieldWrapper({
   children,
@@ -156,12 +156,12 @@ You can also add your own custom field types. To do this, you need to extend the
 
 Keep form components focused on wiring the input. Most form components should not render the `label` or `error` directly because `FieldWrapper` already handles that. Still [`AutoFormFieldProps`](/docs/react/api#custom-fields) includes them for advanced UI integrations.
 
-For binding field components, use `useFieldContext` from `@acp-autoform/react/tanstack-form`.
+For binding field components, use `useFieldContext` from `@dual-autoform/react/tanstack-form`.
 
 ```tsx
 // CustomInput.tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+import { AutoFormFieldProps } from "@dual-autoform/react";
+import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();
@@ -202,8 +202,8 @@ const schema = z.object({
 You can also access field-specfic states etc.
 
 ```tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
+import { AutoFormFieldProps } from "@dual-autoform/react";
+import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<boolean>();
@@ -291,7 +291,7 @@ For components outside AutoForm, create a TanStack form with `useAppForm`, pass 
 
 ```tsx
 import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@acp-autoform/react/tanstack-form";
+import { useAppForm } from "@dual-autoform/react/tanstack-form";
 
 export default function MyForm() {
   const form = useAppForm(formOptions({ defaultValues: {} }));
@@ -363,14 +363,14 @@ Set `removeEmptyValue` to `false` inside `formProps` to disable this cleanup beh
   </Accordion>
 </Accordions>
 
-**Custom Validator**: To replace AutoForm's default validator, create an external form with `useAppForm` from "@acp-autoform/react/tanstack-form". Add your own validator and pass it to `formControl`:
+**Custom Validator**: To replace AutoForm's default validator, create an external form with `useAppForm` from "@dual-autoform/react/tanstack-form". Add your own validator and pass it to `formControl`:
 
 ```tsx
 // The custom validator receives the original form values.
 // It replaces AutoForm's default validator.
 
 import { formOptions, revalidateLogic } from "@tanstack/react-form";
-import { AutoForm, useAppForm } from "@acp-autoform/react/tanstack-form";
+import { AutoForm, useAppForm } from "@dual-autoform/react/tanstack-form";
 import { customValidator, schemaProvider } from "@/lib/schema";
 
 export default function MyForm() {
@@ -395,7 +395,7 @@ In some cases, you may need customization that isn't supported by the package AP
 
 <ModeTab
   mode="cli"
-  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-react-tanstack.json"
+  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-tanstack.json"
 />
 
 The adapter files will be added to `lib/autoform/react/`. You can change them as needed.

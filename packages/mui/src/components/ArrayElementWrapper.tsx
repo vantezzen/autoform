@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ArrayElementWrapperProps } from "@acp-autoform/react";
+import { ArrayElementWrapperProps } from "@dual-autoform/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,

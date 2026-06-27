@@ -1,4 +1,4 @@
-import { SchemaProvider, replaceEmptyValue } from "@acp-autoform/core";
+import { SchemaProvider, replaceEmptyValue } from "@dual-autoform/core";
 import {
   FieldValues,
   Resolver,

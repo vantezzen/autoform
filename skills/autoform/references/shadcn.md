@@ -21,10 +21,10 @@
 
 ```bash
 # React Hook Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
 
 # TanStack Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/autoform-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 This copies all AutoForm components into `components/ui/autoform/` and installs registry dependencies (alert, button, calendar, card, checkbox, form, input, label, select, skeleton, switch, textarea, toggle).
@@ -38,20 +38,20 @@ npm install react-hook-form @hookform/resolvers
 ### Step 3: Install a schema provider
 
 ```bash
-npm install @acp-autoform/zod
-# or: npm install @acp-autoform/yup
-# or: npm install @acp-autoform/joi
+npm install @dual-autoform/zod
+# or: npm install @dual-autoform/yup
+# or: npm install @dual-autoform/joi
 ```
 
-> The registry installs `zod` and `@acp-autoform/react` as npm dependencies automatically.
+> The registry installs `zod` and `@dual-autoform/react` as npm dependencies automatically.
 
 ---
 
 ## How It Works
 
-Unlike `@acp-autoform/mui` or other npm UI packages, the shadcn integration uses the **shadcn registry** pattern. The AutoForm components are copied into your project and you own the code — you can edit, extend, and customize them freely.
+Unlike `@dual-autoform/mui` or other npm UI packages, the shadcn integration uses the **shadcn registry** pattern. The AutoForm components are copied into your project and you own the code — you can edit, extend, and customize them freely.
 
-The shadcn integration provides separate React Hook Form and TanStack Form entries over the corresponding `@acp-autoform/react` adapter. Each installed entry contains the small shadcn UI component map and the adapter-specific field component map directly, so users can read and edit the installed code without a factory indirection.
+The shadcn integration provides separate React Hook Form and TanStack Form entries over the corresponding `@dual-autoform/react` adapter. Each installed entry contains the small shadcn UI component map and the adapter-specific field component map directly, so users can read and edit the installed code without a factory indirection.
 
 Import path:
 
@@ -90,12 +90,12 @@ autoform/
 ### react-hook-form.tsx internals
 
 ```tsx
-import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/react/react-hook-form";
+import { AutoForm as ReactHookFormAutoForm } from "@dual-autoform/react/react-hook-form";
 import type {
   AutoFormUIComponents,
   AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 
 const UIComponents: AutoFormUIComponents = {
   Form,
@@ -143,7 +143,7 @@ These are pre-built example blocks you can install via the shadcn CLI. Each incl
 ### Real-time Validation Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/realtime-validation-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/realtime-validation-demo.json
 ```
 
 Shows real-time validation with disabled submit until all fields are valid. Uses `createFormControl({ mode: "all" })`.
@@ -151,7 +151,7 @@ Shows real-time validation with disabled submit until all fields are valid. Uses
 ### Dialog Submit Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/dialog-submit-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/dialog-submit-demo.json
 ```
 
 Submit and reset AutoForm from dialog buttons using `useFormContext` and `createFormControl`.
@@ -159,7 +159,7 @@ Submit and reset AutoForm from dialog buttons using `useFormContext` and `create
 ### Custom Fields Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/custom-fields-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/custom-fields-demo.json
 ```
 
 Custom field components for sliders, color pickers, radios, dates, and file uploads.
@@ -167,7 +167,7 @@ Custom field components for sliders, color pickers, radios, dates, and file uplo
 ### Ecommerce Checkout Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/ecommerce-checkout-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/ecommerce-checkout-demo.json
 ```
 
 Checkout form with cascading selects, conditional coupon/payment fields, and cross-field `superRefine` validation.
@@ -175,7 +175,7 @@ Checkout form with cascading selects, conditional coupon/payment fields, and cro
 ### Multi-step Form Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/multistep-form-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/multistep-form-demo.json
 ```
 
 Multi-step form with per-step validation, breadcrumb navigation, and collected submission.
@@ -183,7 +183,7 @@ Multi-step form with per-step validation, breadcrumb navigation, and collected s
 ### Nested AutoForm Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/nested-autoform-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/nested-autoform-demo.json
 ```
 
 Nested AutoForm inside a Dialog as a custom field component.
@@ -191,7 +191,7 @@ Nested AutoForm inside a Dialog as a custom field component.
 ### Interactive Schema Demo
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/feat/tanstack-integration/packages/shadcn/registry/interactive-schema-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/interactive-schema-demo.json
 ```
 
 Dynamic form builder with Monaco Editor + AutoForm for real-time form generation from Zod schema strings. **Warning**: uses `eval()` — not for production.
@@ -212,7 +212,7 @@ Edit `components/ui/autoform/components/FieldWrapper.tsx` to change label placem
 
 ```tsx
 import { Textarea } from "@/components/ui/textarea";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { useController } from "react-hook-form";
 
 export const TextareaField: React.FC<AutoFormFieldProps> = ({
@@ -275,15 +275,15 @@ The shadcn registry defaults to Zod. To use Yup or Joi instead:
 1. Install the schema provider:
 
 ```bash
-npm install @acp-autoform/yup yup
+npm install @dual-autoform/yup yup
 # or
-npm install @acp-autoform/joi joi
+npm install @dual-autoform/joi joi
 ```
 
 2. In your form component, import from the correct schema package:
 
 ```tsx
-import { YupProvider, fieldConfig } from "@acp-autoform/yup";
+import { YupProvider, fieldConfig } from "@dual-autoform/yup";
 import { object, string, number } from "yup";
 
 const schema = object({ name: string().required(), age: number() });
@@ -299,7 +299,7 @@ const schemaProvider = new YupProvider(schema);
 ```tsx
 "use client";
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import type { FieldTypes } from "@/components/ui/autoform/react-hook-form";
 

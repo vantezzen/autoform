@@ -1,9 +1,9 @@
 import { useController } from "react-hook-form";
 import React from "react";
-import { AutoForm } from "@acp-autoform/shadcn/components/ui/autoform/react-hook-form";
-import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import { z } from "zod/v4";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { TestWrapper } from "./utils";
 
 describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {

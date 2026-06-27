@@ -1,4 +1,4 @@
-# @acp-autoform/core
+# @dual-autoform/core
 
 ## 4.0.1
 

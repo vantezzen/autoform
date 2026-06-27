@@ -46,18 +46,18 @@ for (const packageName of publishedPackages) {
 }
 
 for (const specifier of [
-  "@acp-autoform/core",
-  "@acp-autoform/zod",
-  "@acp-autoform/yup",
-  "@acp-autoform/joi",
+  "@dual-autoform/core",
+  "@dual-autoform/zod",
+  "@dual-autoform/yup",
+  "@dual-autoform/joi",
 ]) {
   require(specifier);
   await import(specifier);
 }
 
-const root = require("@acp-autoform/react");
-const rhf = require("@acp-autoform/react/react-hook-form");
-const tanstack = require("@acp-autoform/react/tanstack-form");
+const root = require("@dual-autoform/react");
+const rhf = require("@dual-autoform/react/react-hook-form");
+const tanstack = require("@dual-autoform/react/tanstack-form");
 
 assert.equal(root.AutoFormProvider, rhf.AutoFormProvider, "RHF CJS duplicated AutoFormContext");
 assert.equal(
@@ -67,9 +67,9 @@ assert.equal(
 );
 
 const [esmRoot, esmRhf, esmTanstack] = await Promise.all([
-  import("@acp-autoform/react"),
-  import("@acp-autoform/react/react-hook-form"),
-  import("@acp-autoform/react/tanstack-form"),
+  import("@dual-autoform/react"),
+  import("@dual-autoform/react/react-hook-form"),
+  import("@dual-autoform/react/tanstack-form"),
 ]);
 
 assert.equal(esmRoot.AutoFormProvider, esmRhf.AutoFormProvider, "RHF ESM duplicated AutoFormContext");
@@ -99,10 +99,10 @@ for (const packageName of ["ant", "chakra", "mantine", "mui"]) {
   const rhfTypes = readFileSync(resolve(dist, "react-hook-form.d.ts"), "utf8");
   const tanstackTypes = readFileSync(resolve(dist, "tanstack-form.d.ts"), "utf8");
 
-  assert.match(rhfUiEntry, /@acp-autoform\/react\/react-hook-form/);
-  assert.doesNotMatch(rhfUiEntry, /@acp-autoform\/react\/tanstack-form/);
-  assert.match(tanstackUiEntry, /@acp-autoform\/react\/tanstack-form/);
-  assert.doesNotMatch(tanstackUiEntry, /@acp-autoform\/react\/react-hook-form/);
+  assert.match(rhfUiEntry, /@dual-autoform\/react\/react-hook-form/);
+  assert.doesNotMatch(rhfUiEntry, /@dual-autoform\/react\/tanstack-form/);
+  assert.match(tanstackUiEntry, /@dual-autoform\/react\/tanstack-form/);
+  assert.doesNotMatch(tanstackUiEntry, /@dual-autoform\/react\/react-hook-form/);
   assert.match(rhfTypes, /<T extends Record<string, any>/);
   assert.match(tanstackTypes, /<T extends Record<string, any>/);
 }

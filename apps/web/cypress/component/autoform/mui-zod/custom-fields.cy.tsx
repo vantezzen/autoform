@@ -1,10 +1,10 @@
 import { autoFormAdapters } from "./utils";
 import React from "react";
-import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import { z } from "zod/v3";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldRHF } from "@acp-autoform/react/react-hook-form";
-import { useFieldTanStack } from "@acp-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
+import { useFieldRHF } from "@dual-autoform/react/react-hook-form";
+import { useFieldTanStack } from "@dual-autoform/react/tanstack-form";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
   describe(`AutoForm Custom Fields Tests (MUI-ZOD), ${name}`, () => {

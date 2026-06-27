@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/chakra",
-  "version": "4.0.0",
+  "name": "@dual-autoform/chakra",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -49,9 +49,9 @@
     "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@acp-autoform/core": "workspace:*",
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*",
+    "@dual-autoform/core": "workspace:*",
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "react": "^19.2.6",
@@ -61,7 +61,7 @@
     "next-themes": "^0.4.4"
   },
   "peerDependencies": {
-    "@acp-autoform/react": "workspace:^",
+    "@dual-autoform/react": "workspace:^",
     "@chakra-ui/react": "^3.8",
     "@emotion/react": "^11.14",
     "react": "^18 || ^19"

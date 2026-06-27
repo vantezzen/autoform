@@ -3,7 +3,7 @@ import {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,
-} from "@acp-autoform/core";
+} from "@dual-autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
 import { ZodObjectOrWrapped } from "./types";

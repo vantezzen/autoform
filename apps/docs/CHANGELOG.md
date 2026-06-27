@@ -11,7 +11,7 @@
 
 ### Patch Changes
 
-- Document `@hookform/resolvers` as a peer dependency of `@acp-autoform/react`.
+- Document `@hookform/resolvers` as a peer dependency of `@dual-autoform/react`.
 - Document `schemaType` and `getSchema()` requirements for custom schema providers used with resolver validation.
 
 ## 3.0.0
@@ -23,9 +23,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@3.0.0
-  - @acp-autoform/mui@3.0.0
-  - @acp-autoform/zod@4.0.0
+  - @dual-autoform/core@3.0.0
+  - @dual-autoform/mui@3.0.0
+  - @dual-autoform/zod@4.0.0
 
 ## 2.2.0
 
@@ -42,9 +42,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@2.2.0
-  - @acp-autoform/mui@2.3.0
-  - @acp-autoform/react@3.1.0
+  - @dual-autoform/core@2.2.0
+  - @dual-autoform/mui@2.3.0
+  - @dual-autoform/react@3.1.0
 
 ## 2.0.0
 
@@ -55,7 +55,7 @@
 ### Patch Changes
 
 - Updated dependencies [b10ea83]
-  - @acp-autoform/react@3.0.0
+  - @dual-autoform/react@3.0.0
 
 ## 1.1.0
 
@@ -66,8 +66,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/react@2.1.0
-  - @acp-autoform/mui@2.1.0
+  - @dual-autoform/react@2.1.0
+  - @dual-autoform/mui@2.1.0
 
 ## 1.0.0
 
@@ -78,9 +78,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@2.0.0
-  - @acp-autoform/mui@2.0.0
-  - @acp-autoform/react@2.0.0
+  - @dual-autoform/core@2.0.0
+  - @dual-autoform/mui@2.0.0
+  - @dual-autoform/react@2.0.0
 
 ## 0.1.0
 
@@ -91,6 +91,6 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/react@1.3.0
-  - @acp-autoform/core@1.2.0
-  - @acp-autoform/mui@1.2.0
+  - @dual-autoform/react@1.3.0
+  - @dual-autoform/core@1.2.0
+  - @dual-autoform/mui@1.2.0

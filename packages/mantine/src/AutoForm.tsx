@@ -5,7 +5,7 @@ import {
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
   UseFieldFn,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 import { MantineProvider } from "@mantine/core";
 import type { AutoFormProps as MantineAutoFormProps } from "./types";
 import { FieldHookProvider } from "./field-context";

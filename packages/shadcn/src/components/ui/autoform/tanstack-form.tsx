@@ -1,11 +1,11 @@
 "use client";
 
-import { AutoForm as TanStackAutoForm } from "@acp-autoform/react/tanstack-form";
+import { AutoForm as TanStackAutoForm } from "@dual-autoform/react/tanstack-form";
 import type {
   AutoFormUIComponents,
   AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";

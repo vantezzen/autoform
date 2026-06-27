@@ -28,7 +28,7 @@ This is ideal for adding custom buttons, displaying real-time validation state, 
 
 ```tsx
 import { useFormContext } from "react-hook-form";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 
 function FormActions() {
   const {
@@ -88,7 +88,7 @@ When you need to access form state or trigger actions from **outside** the `<Aut
 ```tsx
 import * as React from "react";
 import { createFormControl } from "react-hook-form";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 // ... import schemaProvider
 
 export default function MyForm() {

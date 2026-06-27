@@ -9,14 +9,14 @@ For complete source definitions, see [`packages/react/src/types.ts`](https://git
 
 <AutoFormPropsTable />
 
-UI integrations such as `@acp-autoform/mui`, `@acp-autoform/ant`, etc. provide default uiComponents and formComponents, while still allowing you to override them. They provide AutoForm with `ExtendableAutoFormProps` type, which is the same as `AutoFormProps`, except uiComponents and formComponents props are optional.
+UI integrations such as `@dual-autoform/mui`, `@dual-autoform/ant`, etc. provide default uiComponents and formComponents, while still allowing you to override them. They provide AutoForm with `ExtendableAutoFormProps` type, which is the same as `AutoFormProps`, except uiComponents and formComponents props are optional.
 
 ### `schema`
 
 `schema` must be a schema provider instance from one of the schema packages.
 
 ```tsx
-import { ZodProvider } from "@acp-autoform/zod";
+import { ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
 const schema = z.object({
@@ -96,7 +96,7 @@ Custom field components receive `AutoFormFieldProps` which contain useful data a
 
 ```tsx
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "@mantine/core";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useField } from "../field-context";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({

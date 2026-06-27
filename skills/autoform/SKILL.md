@@ -1,9 +1,9 @@
 ---
 name: autoform
-description: How to use the @acp-autoform/* packages with React Hook Form or TanStack Form to automatically generate React forms from Zod, Yup, or Joi schemas with any UI library (shadcn/ui, MUI, Mantine, Ant Design, Chakra UI). Use this skill whenever the user wants to create a form from a schema, select a form adapter, build forms with custom field components, set up fieldConfig for label/description/inputProps/fieldType, create multi-step forms, nest AutoForm instances, customize AutoForm UI components, or customize field/object/array wrappers. Trigger this skill even when the user just mentions "autoform", "auto form", "auto-form", "acp-autoform", "schema-driven form", or "generate form from schema".
+description: How to use the @dual-autoform/* packages with React Hook Form or TanStack Form to automatically generate React forms from Zod, Yup, or Joi schemas with any UI library (shadcn/ui, MUI, Mantine, Ant Design, Chakra UI). Use this skill whenever the user wants to create a form from a schema, select a form adapter, build forms with custom field components, set up fieldConfig for label/description/inputProps/fieldType, create multi-step forms, nest AutoForm instances, customize AutoForm UI components, or customize field/object/array wrappers. Trigger this skill even when the user just mentions "autoform", "auto form", "auto-form", "dual-autoform", "schema-driven form", or "generate form from schema".
 ---
 
-# @acp-autoform — Schema-Driven Form Generation
+# @dual-autoform — Schema-Driven Form Generation
 
 AutoForm automatically renders React forms from your existing Zod, Yup, or Joi schema. You pick the UI library, you pick the schema library, and AutoForm wires them together — no manual field binding.
 
@@ -12,20 +12,20 @@ AutoForm automatically renders React forms from your existing Zod, Yup, or Joi s
 AutoForm is a **four-layer** system. Understanding the layers prevents import errors:
 
 ```
-@acp-autoform/core          ← types & utilities (you rarely import from here)
+@dual-autoform/core          ← types & utilities (you rarely import from here)
     ↓
-@acp-autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
+@dual-autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
     ↓
-@acp-autoform/react          ← shared React contracts + adapter implementations
+@dual-autoform/react          ← shared React contracts + adapter implementations
     ├── /react-hook-form     ← React Hook Form implementation
     └── /tanstack-form       ← TanStack Form implementation
     ↓
-@acp-autoform/mui|mantine|ant|chakra  ← UI-library wrapper (pre-wired components)
+@dual-autoform/mui|mantine|ant|chakra  ← UI-library wrapper (pre-wired components)
         OR
 shadcn registry (copy-paste components via CLI)
 ```
 
-**Key rule**: Import `AutoForm` from the selected adapter subpath of the **UI package**, for example `@acp-autoform/mui/react-hook-form` or `@acp-autoform/mui/tanstack-form`. For shadcn, use `components/ui/autoform/react-hook-form` or `components/ui/autoform/tanstack-form`. Import `fieldConfig` and `SchemaProvider` from the **schema package** (for example `@acp-autoform/zod`). Import shared types like `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@acp-autoform/react`. Custom fields should use the selected form library hook: `useController` for React Hook Form, or `useFieldContext` for TanStack Form.
+**Key rule**: Import `AutoForm` from the selected adapter subpath of the **UI package**, for example `@dual-autoform/mui/react-hook-form` or `@dual-autoform/mui/tanstack-form`. For shadcn, use `components/ui/autoform/react-hook-form` or `components/ui/autoform/tanstack-form`. Import `fieldConfig` and `SchemaProvider` from the **schema package** (for example `@dual-autoform/zod`). Import shared types like `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@dual-autoform/react`. Custom fields should use the selected form library hook: `useController` for React Hook Form, or `useFieldContext` for TanStack Form.
 
 ---
 
@@ -55,16 +55,16 @@ Read `references/installation.md` for the full installation matrix. The summary:
 
 ```bash
 # React Hook Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
 
 # TanStack Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 Then install a schema provider:
 
 ```bash
-npm install @acp-autoform/zod   # or @acp-autoform/yup or @acp-autoform/joi
+npm install @dual-autoform/zod   # or @dual-autoform/yup or @dual-autoform/joi
 ```
 
 Import from local components:
@@ -78,16 +78,16 @@ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
 ```bash
 # MUI
-npm install @acp-autoform/mui @mui/material@^6 @emotion/react@^11 @emotion/styled@^11
+npm install @dual-autoform/mui @mui/material@^6 @emotion/react@^11 @emotion/styled@^11
 
 # Mantine
-npm install @acp-autoform/mantine @mantine/core@^7 @mantine/dates@^7
+npm install @dual-autoform/mantine @mantine/core@^7 @mantine/dates@^7
 
 # Ant Design
-npm install @acp-autoform/ant antd@^5
+npm install @dual-autoform/ant antd@^5
 
 # Chakra UI
-npm install @acp-autoform/chakra @chakra-ui/react@^3.8 @emotion/react@^11.14
+npm install @dual-autoform/chakra @chakra-ui/react@^3.8 @emotion/react@^11.14
 ```
 
 ---
@@ -97,9 +97,9 @@ npm install @acp-autoform/chakra @chakra-ui/react@^3.8 @emotion/react@^11.14
 ```tsx
 "use client"; // required in Next.js App Router
 import * as z from "zod";
-import { ZodProvider } from "@acp-autoform/zod";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
-// TanStack: @acp-autoform/mui/tanstack-form
+import { ZodProvider } from "@dual-autoform/zod";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+// TanStack: @dual-autoform/mui/tanstack-form
 
 const schema = z.object({
   name: z.string(),
@@ -167,8 +167,8 @@ Each schema library has its own provider class and its own `fieldConfig` attachm
 `fieldConfig` is how you customize labels, descriptions, input props, field types, wrappers, and per-field metadata **inside the schema**. Import it from your schema package.
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/zod";
-import { FieldTypes } from "@acp-autoform/mui"; // or your UI package
+import { fieldConfig } from "@dual-autoform/zod";
+import { FieldTypes } from "@dual-autoform/mui"; // or your UI package
 
 const schema = z.object({
   username: z
@@ -251,7 +251,7 @@ Custom field components can replace the editor for scalar, object, or array fiel
 ```tsx
 // 1. Create the component — use useController hook from react-hook-form for RHF binding
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 
 function SliderField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
@@ -356,26 +356,26 @@ Read `references/shadcn.md` for the complete shadcn-specific guide including:
 
 - Registry CLI installation
 - Available example blocks (with installation via `npx shadcn@latest add <url>`)
-- How the shadcn AutoForm wraps `@acp-autoform/react`
+- How the shadcn AutoForm wraps `@dual-autoform/react`
 - Customizing the shadcn field components
 
 ### Quick shadcn registry commands
 
 ```bash
 # Install AutoForm component (React Hook Form)
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
 
 # Install AutoForm component (TanStack Form)
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
 
 # Install example blocks
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/realtime-validation-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/dialog-submit-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/custom-fields-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/ecommerce-checkout-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/multistep-form-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/nested-autoform-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/interactive-schema-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/realtime-validation-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/dialog-submit-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/custom-fields-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/ecommerce-checkout-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/multistep-form-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/nested-autoform-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/interactive-schema-demo.json
 ```
 
 ---
@@ -417,7 +417,7 @@ Use `useWatch` + `useFormContext` inside custom field components or wrappers. Us
 5. **Using `.superRefine(fieldConfig(...))` with Zod v4** — use `.check(fieldConfig(...))` instead.
 6. **Arrays as root schema** — arrays must be fields inside an object schema.
 7. **Using wrappers to replace the value editor** — use `fieldType` + `formComponents` when the component must own the field value.
-8. **Forgetting Zod version ≥ 3.25.0** for `@acp-autoform/zod`.
+8. **Forgetting Zod version ≥ 3.25.0** for `@dual-autoform/zod`.
 
 ---
 

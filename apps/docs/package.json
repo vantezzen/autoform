@@ -16,11 +16,11 @@
   },
   "homepage": "https://github.com/adityacodepublic/autoform#readme",
   "dependencies": {
-    "@acp-autoform/core": "workspace:*",
-    "@acp-autoform/mui": "workspace:*",
-    "@acp-autoform/react": "workspace:^",
-    "@acp-autoform/shadcn": "workspace:^",
-    "@acp-autoform/zod": "workspace:*",
+    "@dual-autoform/core": "workspace:*",
+    "@dual-autoform/mui": "workspace:*",
+    "@dual-autoform/react": "workspace:^",
+    "@dual-autoform/shadcn": "workspace:^",
+    "@dual-autoform/zod": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@monaco-editor/react": "^4.7.0",
@@ -51,7 +51,7 @@
     "react-day-picker": "^10.0.1",
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.80.0",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^3.6.0",
     "zod": "^4.0.10"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-# @acp-autoform/joi
+# @dual-autoform/joi
 
 ## 3.0.1
 
@@ -33,4 +33,4 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@2.2.0
+  - @dual-autoform/core@2.2.0

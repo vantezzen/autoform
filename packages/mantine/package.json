@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/mantine",
-  "version": "5.0.0",
+  "name": "@dual-autoform/mantine",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -49,9 +49,9 @@
     "url": "git+https://github.com/adityacodepublic/autoform.git"
   },
   "devDependencies": {
-    "@acp-autoform/core": "workspace:*",
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*",
+    "@dual-autoform/core": "workspace:*",
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*",
     "@mantine/core": "^7.16.0",
     "@mantine/dates": "^7.16.0",
     "react": "^19.2.6"
@@ -60,7 +60,7 @@
     "@tabler/icons-react": "^3.0.0"
   },
   "peerDependencies": {
-    "@acp-autoform/react": "workspace:^",
+    "@dual-autoform/react": "workspace:^",
     "@mantine/core": "^7",
     "@mantine/dates": "^7",
     "react": "^18 || ^19"

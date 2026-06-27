@@ -2,8 +2,20 @@ cleanupUnusedCatalogs: true
 linkWorkspacePackages: true
 preferWorkspacePackages: true
 blockExoticSubdeps: true
-trustPolicy: 'no-downgrade'
+onlyBuiltDependencies:
+  - core-js-pure
+  - cypress
+  - esbuild
+  - sharp
+  - unrs-resolver
 
 packages:
   - 'packages/*'
   - 'apps/*'
+
+allowBuilds:
+  core-js-pure: true
+  cypress: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true

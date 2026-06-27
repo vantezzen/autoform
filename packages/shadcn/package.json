@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/shadcn",
-  "version": "5.0.0",
+  "name": "@dual-autoform/shadcn",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -24,8 +24,8 @@
     "./components/*": "./src/components/*.tsx"
   },
   "devDependencies": {
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*",
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.10",
     "autoprefixer": "^10",
     "glob": "^11.0.3",
@@ -33,7 +33,7 @@
     "postcss-load-config": "^6",
     "react": "^19.2.6",
     "react-hook-form": "^7",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "*",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.22.4",
@@ -52,7 +52,7 @@
     "lucide-react": "*"
   },
   "peerDependencies": {
-    "@acp-autoform/react": "workspace:*",
+    "@dual-autoform/react": "workspace:*",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "zod": "^3"
   }

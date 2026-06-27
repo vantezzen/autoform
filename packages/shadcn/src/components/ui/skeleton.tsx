@@ -1,4 +1,4 @@
-import { cn } from "@acp-autoform/shadcn/lib/utils";
+import { cn } from "@dual-autoform/shadcn/lib/utils";
 
 function Skeleton({
   className,

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { UseFieldFn, UseFieldReturn } from "@acp-autoform/react";
+import type { UseFieldFn, UseFieldReturn } from "@dual-autoform/react";
 
 const FieldHookContext = createContext<UseFieldFn | null>(null);
 

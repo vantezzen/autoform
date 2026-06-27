@@ -1,6 +1,6 @@
 "use client";
-import { AutoForm as ChakraRHFAutoForm } from "@acp-autoform/chakra/react-hook-form";
-import { AutoForm as ChakraTanstackAutoForm } from "@acp-autoform/chakra/tanstack-form";
+import { AutoForm as ChakraRHFAutoForm } from "@dual-autoform/chakra/react-hook-form";
+import { AutoForm as ChakraTanstackAutoForm } from "@dual-autoform/chakra/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 
 export function ChakraRHF() {

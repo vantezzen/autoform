@@ -1,5 +1,5 @@
 import React from "react";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useField } from "../../field-context";
 import {
   NumberInputField,

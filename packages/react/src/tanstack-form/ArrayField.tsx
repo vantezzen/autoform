@@ -1,6 +1,6 @@
 import React from "react";
-import { getLabel } from "@acp-autoform/core";
-import type { ParsedField } from "@acp-autoform/core";
+import { getLabel } from "@dual-autoform/core";
+import type { ParsedField } from "@dual-autoform/core";
 import { useAutoForm } from "../context";
 import { AutoFormField } from "./AutoFormField";
 import { useFieldContext } from "./hooks";

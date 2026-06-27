@@ -1,5 +1,5 @@
 {
-  "extends": "@acp-autoform/typescript-config/nextjs.json",
+  "extends": "@dual-autoform/typescript-config/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {

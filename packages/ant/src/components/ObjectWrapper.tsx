@@ -1,4 +1,4 @@
-import { ObjectWrapperProps } from "@acp-autoform/react";
+import { ObjectWrapperProps } from "@dual-autoform/react";
 import { Typography } from "antd";
 import React from "react";
 

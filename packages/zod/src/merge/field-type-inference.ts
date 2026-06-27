@@ -1,4 +1,4 @@
-import { FieldConfig } from "@acp-autoform/core";
+import { FieldConfig } from "@dual-autoform/core";
 import { isZodV4Schema, AnyZodSchema } from "../utils";
 import { inferFieldType as v3InferFieldType } from "../v3/field-type-inference";
 import { inferFieldType as v4InferFieldType } from "../v4/field-type-inference";

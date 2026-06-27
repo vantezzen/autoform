@@ -1,6 +1,6 @@
 import React, { ComponentType, useState } from "react";
 import { autoFormAdapters } from "./utils";
-import { ZodProvider } from "@acp-autoform/zod";
+import { ZodProvider } from "@dual-autoform/zod";
 import { z } from "zod/v3";
 
 const ControlledForm = ({ AutoForm }: { AutoForm: ComponentType<any> }) => {

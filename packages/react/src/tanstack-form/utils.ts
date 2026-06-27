@@ -1,6 +1,6 @@
 import React from "react";
-import { replaceEmptyValue } from "@acp-autoform/core";
-import type { SchemaProvider } from "@acp-autoform/core";
+import { replaceEmptyValue } from "@dual-autoform/core";
+import type { SchemaProvider } from "@dual-autoform/core";
 
 export function createSchemaValidator<T extends Record<string, any>>(
   schema: SchemaProvider<T>,
@@ -40,7 +40,7 @@ export function getAppForm(form: {
   if (!AppForm) {
     throw new Error(
       "TanStack AutoForm formControl must be created with useAppForm " +
-        "exported from @acp-autoform/react/tanstack-form.",
+        "exported from @dual-autoform/react/tanstack-form.",
     );
   }
   return AppForm;

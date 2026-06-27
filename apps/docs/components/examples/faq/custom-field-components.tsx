@@ -5,7 +5,7 @@ import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { CalendarIcon, CircleIcon, Minus, Plus } from "lucide-react";
 import { format } from "date-fns";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";

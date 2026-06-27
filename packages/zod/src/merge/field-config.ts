@@ -1,4 +1,4 @@
-import { FieldConfig } from "@acp-autoform/core";
+import { FieldConfig } from "@dual-autoform/core";
 import { getFieldConfigInZodStack as v3GetFieldConfig } from "../v3/field-config";
 import { getFieldConfigInZodStack as v4GetFieldConfig } from "../v4/field-config";
 import { isZodV4Schema, AnyZodSchema, ZOD_FIELD_CONFIG_SYMBOL } from "../utils";

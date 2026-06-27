@@ -2,21 +2,21 @@
 
 If you want to build an AutoForm integration for a UI library that isn't officially supported (or you want to build a deeply customized internal integration for your company's design system as a package), you can build a custom UI package.
 
-The `@acp-autoform/react` package exposes shared contracts and two base `<AutoForm>` implementations: `@acp-autoform/react/react-hook-form` and `@acp-autoform/react/tanstack-form`. Each implementation handles schema parsing, form-engine wiring, and recursive rendering. Your job is to provide the **UI Components** (wrappers) and **Form Components** (inputs) to style it.
+The `@dual-autoform/react` package exposes shared contracts and two base `<AutoForm>` implementations: `@dual-autoform/react/react-hook-form` and `@dual-autoform/react/tanstack-form`. Each implementation handles schema parsing, form-engine wiring, and recursive rendering. Your job is to provide the **UI Components** (wrappers) and **Form Components** (inputs) to style it.
 
 ## 1. Setup
 
-Create a file for your custom AutoForm component (for example, `MyAutoForm.tsx`). Import the selected base adapter from its subpath and import shared types from `@acp-autoform/react`.
+Create a file for your custom AutoForm component (for example, `MyAutoForm.tsx`). Import the selected base adapter from its subpath and import shared types from `@dual-autoform/react`.
 
 ```tsx
-import { AutoForm as BaseAutoForm } from "@acp-autoform/react/react-hook-form";
-// For a TanStack entry, import from @acp-autoform/react/tanstack-form instead.
+import { AutoForm as BaseAutoForm } from "@dual-autoform/react/react-hook-form";
+// For a TanStack entry, import from @dual-autoform/react/tanstack-form instead.
 import {
   AutoFormUIComponents,
   AutoFormFieldComponents,
   ExtendableAutoFormProps,
   FieldValues,
-} from "@acp-autoform/react";
+} from "@dual-autoform/react";
 import React from "react";
 ```
 
@@ -36,7 +36,7 @@ const Form: React.FC<{
 );
 
 // 2. The Field Wrapper (Label + Input + Description + Error)
-import { FieldWrapperProps } from "@acp-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react";
 const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
@@ -73,7 +73,7 @@ const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
 );
 
 // 5. Object Wrapper (groups nested objects)
-import { ObjectWrapperProps } from "@acp-autoform/react";
+import { ObjectWrapperProps } from "@dual-autoform/react";
 const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
   parsedField,
@@ -86,7 +86,7 @@ const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
 );
 
 // 6. Array Wrapper (Wraps the list of array items and the "Add" button)
-import { ArrayWrapperProps } from "@acp-autoform/react";
+import { ArrayWrapperProps } from "@dual-autoform/react";
 const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   error,
@@ -110,7 +110,7 @@ const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
 );
 
 // 7. Array Element Wrapper (Wraps a single array item and the "Remove" button)
-import { ArrayElementWrapperProps } from "@acp-autoform/react";
+import { ArrayElementWrapperProps } from "@dual-autoform/react";
 const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
   onRemove,
@@ -144,11 +144,11 @@ const myUIComponents: AutoFormUIComponents = {
 
 These are the actual input controls. You must provide implementations for at least the basic scalar types (`string`, `number`, `boolean`, `date`). AutoForm maps schema fields to these components based on their type.
 
-Connect your field components with the hook from the form library selected by your adapter. React Hook Form custom fields use `useController` from `react-hook-form`; TanStack custom fields use `useFieldContext` from `@acp-autoform/react/tanstack-form`. If your UI package supports both adapters, keep separate field component maps per adapter or inject an internal binding hook from the adapter entry.
+Connect your field components with the hook from the form library selected by your adapter. React Hook Form custom fields use `useController` from `react-hook-form`; TanStack custom fields use `useFieldContext` from `@dual-autoform/react/tanstack-form`. If your UI package supports both adapters, keep separate field component maps per adapter or inject an internal binding hook from the adapter entry.
 
 ```tsx
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 const StringField: React.FC<AutoFormFieldProps> = ({
   id,

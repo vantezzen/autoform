@@ -1,5 +1,5 @@
 import React from "react";
-import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { z } from "zod/v3";
 import { autoFormAdapters, TestWrapper } from "./utils";
 

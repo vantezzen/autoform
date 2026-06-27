@@ -88,14 +88,14 @@ async function buildRegistryItem(
 // Build RHF registry: exclude TanStack-only files.
 await buildRegistryItem(
   "autoform-rhf",
-  ["zod", "@acp-autoform/react", "react-hook-form", "@hookform/resolvers"],
+  ["zod", "@dual-autoform/react", "react-hook-form", "@hookform/resolvers"],
   isRHFOnly,
 );
 
 // Build TanStack registry: exclude RHF-only files.
 await buildRegistryItem(
   "autoform-tanstack",
-  ["zod", "@acp-autoform/react", "@tanstack/react-form"],
+  ["zod", "@dual-autoform/react", "@tanstack/react-form"],
   isTanStackOnly,
 );
 

@@ -15,5 +15,5 @@ export default defineConfig({
   dts: false,
   clean: true,
   sourcemap: true,
-  external: ["@acp-autoform/react"],
+  external: ["@dual-autoform/react"],
 });

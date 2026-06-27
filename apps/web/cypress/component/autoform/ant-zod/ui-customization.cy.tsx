@@ -1,9 +1,9 @@
 import React from "react";
 import { autoFormAdapters } from "./utils";
-import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
-import { FieldWrapperProps } from "@acp-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
   describe(`AutoForm UI Customization Tests (ANT-ZOD), ${name}`, () => {

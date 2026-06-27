@@ -10,7 +10,7 @@
 
 ## Zod
 
-Package: `@acp-autoform/zod` — supports Zod v3, v4, and Zod Mini.
+Package: `@dual-autoform/zod` — supports Zod v3, v4, and Zod Mini.
 
 > requires zod version greater than 3.25.0 to be installed ^3.25.0 || ^4
 
@@ -18,9 +18,9 @@ Package: `@acp-autoform/zod` — supports Zod v3, v4, and Zod Mini.
 
 ```tsx
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@acp-autoform/mui";
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import type { FieldTypes } from "@dual-autoform/mui";
 
 const nameId = {
   name1: "id1",
@@ -202,7 +202,7 @@ Depends on Zod version:
 **Zod v4 and Zod Mini** — use `.check()`:
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/zod";
+import { fieldConfig } from "@dual-autoform/zod";
 
 username: z.string().check(
   fieldConfig({ description: "You cannot change this later." })
@@ -212,14 +212,14 @@ username: z.string().check(
 **Zod Mini**
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/zod";
+import { fieldConfig } from "@dual-autoform/zod";
 import { z } from "zod/mini";
 ```
 
 **Zod v3** — use `.superRefine()`:
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/zod";
+import { fieldConfig } from "@dual-autoform/zod";
 
 username: z.string().superRefine(
   fieldConfig({ label: "Username", inputProps: { placeholder: "Enter..." } })
@@ -231,7 +231,7 @@ username: z.string().superRefine(
 Provide generic type parameters for full type safety:
 
 ```tsx
-import { FieldTypes } from "@acp-autoform/mui";
+import { FieldTypes } from "@dual-autoform/mui";
 
 z.string().check(
   fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
@@ -245,15 +245,15 @@ z.string().check(
 
 ## Yup
 
-Package: `@acp-autoform/yup`
+Package: `@dual-autoform/yup`
 
 ### Basic usage
 
 ```tsx
-import { YupProvider, fieldConfig } from "@acp-autoform/yup";
+import { YupProvider, fieldConfig } from "@dual-autoform/yup";
 import { object, string, number, date, array, mixed } from "yup";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@acp-autoform/mui";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import type { FieldTypes } from "@dual-autoform/mui";
 
 const yupSchema = object({
   name: string().required().label("Your Name").default("John Doe"),
@@ -305,7 +305,7 @@ guests: array().of(object({ name: string() })).label("Guests"),
 ### fieldConfig attachment — use `.transform()`:
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/yup";
+import { fieldConfig } from "@dual-autoform/yup";
 
 username: string().required().transform(
   fieldConfig({
@@ -320,15 +320,15 @@ username: string().required().transform(
 
 ## Joi
 
-Package: `@acp-autoform/joi`
+Package: `@dual-autoform/joi`
 
 ### Basic usage
 
 ```tsx
-import { JoiProvider, fieldConfig } from "@acp-autoform/joi";
+import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
 import Joi from "joi";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@acp-autoform/mui";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import type { FieldTypes } from "@dual-autoform/mui";
 
 const joiSchema = Joi.object({
   name: Joi.string().required().label("Your Name").default("John Doe"),
@@ -368,7 +368,7 @@ breadType: Joi.any().valid(...Object.values(BreadTypes)),
 ### fieldConfig attachment — use `.meta()`:
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/joi";
+import { fieldConfig } from "@dual-autoform/joi";
 
 username: Joi.string().required().meta(
   fieldConfig({

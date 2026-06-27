@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "@acp-autoform/shadcn/lib/utils";
+import { cn } from "@dual-autoform/shadcn/lib/utils";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 

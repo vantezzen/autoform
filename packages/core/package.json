@@ -1,6 +1,6 @@
 {
-  "name": "@acp-autoform/core",
-  "version": "4.0.1",
+  "name": "@dual-autoform/core",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -29,8 +29,8 @@
     "dev": "tsup --watch"
   },
   "devDependencies": {
-    "@acp-autoform/eslint-config": "workspace:*",
-    "@acp-autoform/typescript-config": "workspace:*"
+    "@dual-autoform/eslint-config": "workspace:*",
+    "@dual-autoform/typescript-config": "workspace:*"
   },
   "files": [
     "dist",

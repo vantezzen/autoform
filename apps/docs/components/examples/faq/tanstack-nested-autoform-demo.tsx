@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import type { AutoFormFieldProps } from "@acp-autoform/react";
-import { useFieldContext } from "@acp-autoform/react/tanstack-form";
-import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
+import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";

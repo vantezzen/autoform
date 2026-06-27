@@ -1,4 +1,4 @@
-# @acp-autoform/zod
+# @dual-autoform/zod
 
 ## 6.0.1
 
@@ -27,7 +27,7 @@
   - Unified `ZodProvider` and `fieldConfig` for Zod v3, v4, and zod/mini:
 
     ```ts
-    import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
+    import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
     ```
 
   - Field Configuration `fieldConfig`:
@@ -77,7 +77,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@2.2.0
+  - @dual-autoform/core@2.2.0
 
 ## 2.1.0
 
@@ -94,7 +94,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@2.0.0
+  - @dual-autoform/core@2.0.0
 
 ## 1.2.0
 
@@ -105,7 +105,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@1.2.0
+  - @dual-autoform/core@1.2.0
 
 ## 1.1.3
 
@@ -113,7 +113,7 @@
 
 - Add yup support
 - Updated dependencies
-  - @acp-autoform/core@1.1.3
+  - @dual-autoform/core@1.1.3
 
 ## 1.1.2
 
@@ -121,7 +121,7 @@
 
 - Clean build package
 - Updated dependencies
-  - @acp-autoform/core@1.1.2
+  - @dual-autoform/core@1.1.2
 
 ## 1.1.1
 
@@ -129,7 +129,7 @@
 
 - Fix build
 - Updated dependencies
-  - @acp-autoform/core@1.1.1
+  - @dual-autoform/core@1.1.1
 
 ## 1.1.0
 
@@ -140,4 +140,4 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @acp-autoform/core@1.1.0
+  - @dual-autoform/core@1.1.0

@@ -1,4 +1,4 @@
-import { AutoForm } from "@acp-autoform/mantine/tanstack-form";
+import { AutoForm } from "@dual-autoform/mantine/tanstack-form";
 import { defineTanStackFormPropertiesTests } from "../shared/adapter-contracts";
 import { TestWrapper } from "./utils";
 

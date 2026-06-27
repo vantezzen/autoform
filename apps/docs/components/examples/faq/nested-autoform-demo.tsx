@@ -9,8 +9,8 @@ import {
   ArrayWrapperProps,
   ExtendableAutoFormProps,
   FieldWrapperProps,
-} from "@acp-autoform/react";
-import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+} from "@dual-autoform/react";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";

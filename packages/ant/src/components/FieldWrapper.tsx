@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Typography } from "antd";
-import { FieldWrapperProps } from "@acp-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 

@@ -1,6 +1,6 @@
 "use client";
-import { AutoForm as AntRHFAutoForm } from "@acp-autoform/ant/react-hook-form";
-import { AutoForm as AntTanstackAutoForm } from "@acp-autoform/ant/tanstack-form";
+import { AutoForm as AntRHFAutoForm } from "@dual-autoform/ant/react-hook-form";
+import { AutoForm as AntTanstackAutoForm } from "@dual-autoform/ant/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 
 export function AntRHF() {

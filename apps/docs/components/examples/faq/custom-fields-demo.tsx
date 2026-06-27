@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { fieldConfig, ZodProvider } from "@acp-autoform/zod";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";

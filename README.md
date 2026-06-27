@@ -4,7 +4,7 @@
 
 ## Maintained fork
 
-This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@acp-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
+This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@dual-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
 
 Check out the [AutoForm documentation](https://autoform-acp-docs.vercel.app) for more information, examples, and API references.
 
@@ -15,7 +15,7 @@ Check out the [AutoForm documentation](https://autoform-acp-docs.vercel.app) for
 If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot), you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific documentation, examples, and best practices.
 
 ```bash
-npx skills add https://github.com/adityacodepublic/autoform/tree/acp-package/skills --skill autoform
+npx skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/skills --skill autoform
 ```
 
 ---
@@ -24,7 +24,7 @@ What is AutoForm? Let's say you have a zod schema that you already use for your 
 
 ```ts
 import { z } from "zod";
-import { ZodProvider } from "@acp-autoform/zod";
+import { ZodProvider } from "@dual-autoform/zod";
 
 const userSchema = z.object({
   name: z.string(),

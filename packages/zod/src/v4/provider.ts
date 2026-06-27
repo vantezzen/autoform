@@ -5,7 +5,7 @@ import {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,
-} from "@acp-autoform/core";
+} from "@dual-autoform/core";
 
 export class ZodProvider<T extends z.$ZodObject> implements SchemaProvider<
   z.infer<T>

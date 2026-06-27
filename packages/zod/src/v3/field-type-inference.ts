@@ -1,4 +1,4 @@
-import { FieldConfig } from "@acp-autoform/core";
+import { FieldConfig } from "@dual-autoform/core";
 import { z } from "zod/v3";
 
 export function inferFieldType(

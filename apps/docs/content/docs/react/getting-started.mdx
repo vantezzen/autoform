@@ -13,7 +13,7 @@ documentation, examples, and best practices.
 
 <ModeTab
   mode="cli"
-  command="skills add https://github.com/adityacodepublic/autoform/tree/acp-package/skills --skill autoform"
+  command="skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/skills --skill autoform"
 />
 
 ---
@@ -26,7 +26,7 @@ AutoForm integrates directly into your UI library to render forms. You can choos
 
 Before installing an AutoForm UI package, install the React base package and React Hook Form dependencies directly in your app:
 
-<ModeTab command="@acp-autoform/react react-hook-form @hookform/resolvers" />
+<ModeTab command="@dual-autoform/react react-hook-form @hookform/resolvers" />
 
 ---
 
@@ -34,7 +34,7 @@ Before installing an AutoForm UI package, install the React base package and Rea
 
 <ModeTab
   mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/acp-package/packages/shadcn/registry/autoform-rhf.json"
+  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
 />
 
 ```tsx
@@ -63,10 +63,10 @@ By default, the registry will use the zod integration. If you want to use anothe
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/mui" />
+<ModeTab command="@dual-autoform/mui" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 ```
 
 ---
@@ -87,10 +87,10 @@ import { AutoForm } from "@acp-autoform/mui/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/mantine" />
+<ModeTab command="@dual-autoform/mantine" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/mantine/react-hook-form";
+import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
 ```
 
 ---
@@ -110,10 +110,10 @@ import { AutoForm } from "@acp-autoform/mantine/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/ant" />
+<ModeTab command="@dual-autoform/ant" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/ant/react-hook-form";
+import { AutoForm } from "@dual-autoform/ant/react-hook-form";
 ```
 
 ---
@@ -134,10 +134,10 @@ import { AutoForm } from "@acp-autoform/ant/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@acp-autoform/chakra" />
+<ModeTab command="@dual-autoform/chakra" />
 
 ```tsx
-import { AutoForm } from "@acp-autoform/chakra/react-hook-form";
+import { AutoForm } from "@dual-autoform/chakra/react-hook-form";
 ```
 
 If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/react/custom-integration).
@@ -148,7 +148,7 @@ In the docs, we will use mui as an example but simply replace the imports with t
 
 #### Zod
 
-<ModeTab command="@acp-autoform/zod" />
+<ModeTab command="@dual-autoform/zod" />
 
 <Callout> requires zod version greater than 3.25.0 to be installed</Callout>
 
@@ -156,13 +156,13 @@ In the docs, we will use mui as an example but simply replace the imports with t
 
 #### Yup
 
-<ModeTab command="@acp-autoform/yup" />
+<ModeTab command="@dual-autoform/yup" />
 
 ---
 
 #### Joi
 
-<ModeTab command="@acp-autoform/joi" />
+<ModeTab command="@dual-autoform/joi" />
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
@@ -170,8 +170,8 @@ In the docs, we will use Zod as an example but simply replace the imports with t
 
 ```tsx
 import * as z from "zod";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
-import { ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { ZodProvider } from "@dual-autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -212,7 +212,7 @@ export default function MyPage() {
 
 // MyForm.tsx
 "use client";
-import { AutoForm } from "@acp-autoform/mui/react-hook-form";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 export default function MyForm() {
   return <AutoForm ... />;
 }

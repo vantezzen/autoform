@@ -55,10 +55,10 @@ for (const item of localReactItems) {
       ) {
         content = content
           .replace(
-            'export * from "@acp-autoform/react";',
+            'export * from "@dual-autoform/react";',
             'export * from "../types";\nexport * from "../context";',
           )
-          .replaceAll('from "@acp-autoform/react"', 'from "../context"');
+          .replaceAll('from "@dual-autoform/react"', 'from "../context"');
       }
 
       return {

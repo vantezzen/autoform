@@ -1,5 +1,5 @@
-import { AutoForm as ReactHookFormAutoForm } from "@acp-autoform/mui/react-hook-form";
-import { AutoForm as TanStackAutoForm } from "@acp-autoform/mui/tanstack-form";
+import { AutoForm as ReactHookFormAutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm as TanStackAutoForm } from "@dual-autoform/mui/tanstack-form";
 
 export const autoFormAdapters = [
   {

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { ZodProvider } from "@acp-autoform/zod";
+import { ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";

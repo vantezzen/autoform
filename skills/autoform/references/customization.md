@@ -4,11 +4,11 @@ AutoForm is highly customizable. You can override everything from the structural
 
 ## 1. Schema-Level Customization (`fieldConfig`)
 
-The primary way to customize individual fields is by attaching `fieldConfig` to your schema. Import `fieldConfig` from your schema package (e.g., `@acp-autoform/zod`).
+The primary way to customize individual fields is by attaching `fieldConfig` to your schema. Import `fieldConfig` from your schema package (e.g., `@dual-autoform/zod`).
 
 ```tsx
-import { fieldConfig } from "@acp-autoform/zod";
-import { FieldTypes } from "@acp-autoform/mui"; // Optional: Import FieldTypes from your UI package for TS
+import { fieldConfig } from "@dual-autoform/zod";
+import { FieldTypes } from "@dual-autoform/mui"; // Optional: Import FieldTypes from your UI package for TS
 
 const schema = z.object({
   password: z.string().check(
@@ -53,7 +53,7 @@ Use `fieldType` + `formComponents` when replacing how a value is edited. Use wra
 Pass the `uiComponents` prop to `<AutoForm>` to replace structural elements globally.
 
 ```tsx
-import { FieldWrapperProps } from "@acp-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react";
 
 function CustomFieldWrapper({
   id,
@@ -105,7 +105,7 @@ If you need a custom input or value editor (like a slider, color picker, rich te
 **Important Rule**: Most custom form components should only render the input itself. Do not render the label or error message because `FieldWrapper` handles that automatically. If a custom component replaces an entire object or array editor, it may own more UI, but it still must stay connected to React Hook Form and write schema-compatible values in the onChange callback of that field.
 
 ```tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { useController } from "react-hook-form";
 
 // 1. Create the custom component
@@ -147,7 +147,7 @@ const schema = z.object({
 To connect your custom components to the form state, use the `useController` hook exported from `react-hook-form`.
 
 ```tsx
-import { AutoFormFieldProps } from "@acp-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { useController } from "react-hook-form";
 
 export function ComplexField({ id, inputProps }: AutoFormFieldProps) {

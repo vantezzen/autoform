@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm } from "@acp-autoform/ant/react-hook-form";
-import { ZodProvider } from "@acp-autoform/zod";
+import { AutoForm } from "@dual-autoform/ant/react-hook-form";
+import { ZodProvider } from "@dual-autoform/zod";
 import { z } from "zod/mini";
 
 describe("AutoForm Validation Tests (ANT-ZOD-V4-MINI)", () => {

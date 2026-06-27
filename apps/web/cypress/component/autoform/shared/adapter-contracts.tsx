@@ -5,9 +5,9 @@ import {
   useAppForm,
   useFieldContext,
   useFormContext,
-} from "@acp-autoform/react/tanstack-form";
-import { ZodProvider, fieldConfig } from "@acp-autoform/zod";
-import { AutoFormFieldProps } from "@acp-autoform/react";
+} from "@dual-autoform/react/tanstack-form";
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { z } from "zod/v3";
 
 const FragmentWrapper = ({ children }: { children: React.ReactNode }) => (
