@@ -5,7 +5,7 @@ description: How to use the @dual-autoform/* packages with React Hook Form or Ta
 
 # @dual-autoform — Schema-Driven Form Generation
 
-AutoForm automatically renders React forms from your existing Zod, Yup, or Joi schema. You pick the UI library, you pick the schema library, and AutoForm wires them together — no manual field binding.
+AutoForm automatically renders React forms from your existing Zod, Yup, or Joi schema. You pick the UI library, you pick the schema library, and AutoForm wires them together, no manual field binding.
 
 ## Architecture (read this first)
 
