@@ -64,7 +64,7 @@ npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autofor
 Then install a schema provider:
 
 ```bash
-npm install @dual-autoform/zod   # or @dual-autoform/yup or @dual-autoform/joi
+npm install @dual-autoform/zod    # or @dual-autoform/yup or @dual-autoform/joi
 ```
 
 Import from local components:
