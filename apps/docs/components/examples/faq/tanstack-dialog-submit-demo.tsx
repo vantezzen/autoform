@@ -71,7 +71,7 @@ export default function TanStackDialogSubmitDemo() {
               setSubmitted(data);
               form.reset();
             }}
-            defaultValues={{ username: "", action: undefined }}
+            defaultValues={{ username: "", action: "" }}
           >
             <Button type="submit" className="w-full gap-2">
               <CheckCircle className="h-4 w-4" />

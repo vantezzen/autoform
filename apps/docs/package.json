@@ -58,6 +58,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "@types/mdx": "^2.0.13",
     "postcss": "^8.5.5",
+    "react-medium-image-zoom": "^5.4.8",
     "tailwindcss": "^4.1.10"
   }
 }

@@ -8,4 +8,4 @@ This package allows using your Joi schema with AutoForm.
 npm install @dual-autoform/joi
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform-acp-docs.vercel.app/docs/schema-providers/joi).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform-dual.vercel.app/docs/schema-providers/joi).
