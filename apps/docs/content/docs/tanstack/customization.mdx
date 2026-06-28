@@ -290,15 +290,25 @@ External submit button, using HTML `form` attribute
 For components outside AutoForm, create a TanStack form with `useAppForm`, pass it to `formControl`, and call methods on that form instance:
 
 ```tsx
+import * as React from "react";
 import { formOptions } from "@tanstack/react-form";
 import { useAppForm } from "@dual-autoform/react/tanstack-form";
 
+// Keep formOptions stable.
+// Memoize dynamic options or define static ones outside.
+// const options = formOptions();
+
 export default function MyForm() {
-  const form = useAppForm(formOptions({ defaultValues: {} }));
+  const options = React.useMemo(() => formOptions({}), []);
+  const form = useAppForm(options);
 
   return (
     <div>
-      <AutoForm formControl={form} schema={schemaProvider} />
+      <AutoForm
+        formControl={form}
+        schema={schemaProvider}
+        defaultValues={{ username: "" }}
+      />
 
       <button type="button" onClick={() => form.handleSubmit()}>
         Submit
@@ -310,6 +320,8 @@ export default function MyForm() {
   );
 }
 ```
+
+When options depend on props or local values, memoize them with `useMemo` before passing them to `useAppForm`, or define them at module scope when they are static.
 
 ## Custom Validator & Value Cleanup
 
@@ -372,16 +384,24 @@ Set `removeEmptyValue` to `false` inside `formProps` to disable this cleanup beh
 import { formOptions, revalidateLogic } from "@tanstack/react-form";
 import { AutoForm, useAppForm } from "@dual-autoform/react/tanstack-form";
 import { customValidator, schemaProvider } from "@/lib/schema";
+import * as React from "react";
+
+// Keep formOptions stable
+// memoize dynamic options or define static ones outside.
+// const options = formOptions();
 
 export default function MyForm() {
-  const form = useAppForm(
-    formOptions({
-      validators: {
-        onDynamic: customValidator,
-      },
-      validationLogic: revalidateLogic(),
-    }),
+  const options = React.useMemo(
+    () =>
+      formOptions({
+        validators: {
+          onDynamic: customValidator,
+        },
+        validationLogic: revalidateLogic(),
+      }),
+    [],
   );
+  const form = useAppForm(options);
 
   return <AutoForm formControl={form} schema={schemaProvider} />;
 }

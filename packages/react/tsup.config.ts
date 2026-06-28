@@ -10,9 +10,7 @@ export default defineConfig({
   outExtension({ format }) {
     return { js: format === "esm" ? ".mjs" : ".cjs" };
   },
-  // Types are served directly from source .ts files (resolvers pattern).
-  // This removes the slowest part of the build and keeps types always in sync.
-  dts: false,
+  dts: true,
   clean: true,
   sourcemap: true,
   external: ["@dual-autoform/react"],

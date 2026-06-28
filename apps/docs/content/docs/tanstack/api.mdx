@@ -50,8 +50,10 @@ Use `formControl` when a parent component needs direct access to TanStack Form m
 import { formOptions } from "@tanstack/react-form";
 import { useAppForm } from "@dual-autoform/react/tanstack-form";
 
+const options = formOptions();
+
 function MyForm() {
-  const form = useAppForm(formOptions());
+  const form = useAppForm(options);
 
   return (
     <>
@@ -63,6 +65,8 @@ function MyForm() {
 ```
 
 You can add options to `useAppForm`, like `validationLogic`, listeners, transforms, async settings, and validators. AutoForm adds its schema validator, default revalidation logic, and invalid-field focus behavior only where the external form did not provide an equivalent option.
+
+When options depend on props or local values, memoize them with `useMemo` before passing them to `useAppForm`, or define them at module scope when they are static.
 
 ### `formComponents`
 

@@ -46,7 +46,7 @@ By default, the shadcn registry installs a `utils.ts` that uses Zod. To switch s
 Peer dependencies:
 
 ```bash
-npm install @mui/material@^6 @emotion/react@^11 @emotion/styled@^11
+npm install @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11
 ```
 
 AutoForm package:
@@ -184,6 +184,6 @@ npm install @dual-autoform/zod
 
 ```bash
 npm install react-hook-form @hookform/resolvers
-npm install @dual-autoform/mui @mui/material@^6 @emotion/react@^11 @emotion/styled@^11
+npm install @dual-autoform/mui @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11
 npm install @dual-autoform/zod zod
 ```

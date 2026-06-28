@@ -7,7 +7,6 @@
     "calendar",
     "card",
     "checkbox",
-    "form",
     "input",
     "label",
     "select",
@@ -102,7 +101,7 @@
     {
       "path": "autoform/index.ts",
       "target": "components/ui/autoform/index.ts",
-      "content": "\"use client\";\n\nexport * from \"./types\";\n",
+      "content": "\"use client\";\n\nexport { AutoForm } from \"./tanstack-form\";\nexport type { FieldTypes } from \"./tanstack-form\";\nexport * from \"./types\";\n",
       "type": "registry:ui"
     },
     {

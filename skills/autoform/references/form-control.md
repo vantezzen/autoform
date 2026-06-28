@@ -1,6 +1,6 @@
-# React Hook Form Control Reference
+# Form Control Reference
 
-AutoForm provides several ways to access form data, check validation state, and trigger form actions (like submit and reset). Because AutoForm uses `react-hook-form` under the hood, all these methods interact with the RHF instance.
+AutoForm provides several ways to access form data, check validation state, and trigger form actions (like submit and reset). Use the control API for the adapter you selected: React Hook Form for `/react-hook-form`, or TanStack Form for `/tanstack-form`.
 
 ## 1. onSubmit (The Simplest Way)
 
@@ -161,6 +161,39 @@ const [user, setUser] = useState({ email: "user@example.com" });
 // If `user` state changes later, the form updates automatically
 <AutoForm schema={schemaProvider} values={user} />;
 ```
+
+## 5. TanStack Form adapter
+
+For TanStack Form, import control hooks from `@dual-autoform/react/tanstack-form`:
+
+```tsx
+import { formOptions } from "@tanstack/react-form";
+import {
+  useAppForm,
+  useFieldContext,
+  useFormContext,
+} from "@dual-autoform/react/tanstack-form";
+```
+
+Use `useFormContext()` inside AutoForm children to read or submit the current TanStack form. Use `useFieldContext()` inside custom field components to bind the current field value.
+
+For controls outside AutoForm, create the form once and pass it through `formControl`:
+
+```tsx
+const options = React.useMemo(() => formOptions(), []);
+const form = useAppForm(options);
+
+<AutoForm
+  schema={schemaProvider}
+  formControl={form}
+  defaultValues={{ username: "" }}
+/>;
+<button type="button" onClick={() => void form.handleSubmit()}>
+  Submit
+</button>;
+```
+
+Keep `formOptions(...)` stable. Define static options at module scope, or memoize prop-based options with `React.useMemo`, so the form instance is not recreated on every render.
 
 ## Deprecated Methods
 

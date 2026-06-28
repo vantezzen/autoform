@@ -1,5 +1,11 @@
 # @dual-autoform/zod
 
+## 1.0.1
+
+### Patch Changes
+
+- Build package declarations into `dist` and point package exports at the published declaration files.
+
 ## 6.0.1
 
 ### Patch Changes

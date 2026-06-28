@@ -1,19 +1,19 @@
 {
   "name": "@dual-autoform/zod",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./src/index.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./src/index.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
     },

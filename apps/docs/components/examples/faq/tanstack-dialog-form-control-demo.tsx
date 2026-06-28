@@ -20,7 +20,7 @@ import {
 
 const dialogSchema = z.object({
   username: z.string().min(2, "Enter at least 2 characters"),
-  action: z.enum(["create", "read", "update", "delete"]).superRefine(
+  action: z.enum(["create", "read", "update", "delete"]).check(
     fieldConfig({
       label: "Action",
       inputProps: {
@@ -37,7 +37,8 @@ const defaultValues: DialogValues = { username: "", action: "create" };
 
 export function TanStackDialogFormControlDemo() {
   const [submitted, setSubmitted] = React.useState<DialogValues | null>(null);
-  const form = useAppForm(formOptions({ defaultValues }));
+  const options = React.useMemo(() => formOptions({}), []);
+  const form = useAppForm(options);
 
   return (
     <div className="flex min-h-72 items-center justify-center rounded-lg border bg-background p-6">
@@ -55,6 +56,7 @@ export function TanStackDialogFormControlDemo() {
           <AutoForm
             schema={schemaProvider}
             formControl={form}
+            defaultValues={defaultValues}
             formProps={{ id: "tanstack-external-dialog-form-control" }}
             onSubmit={(data, formApi) => {
               setSubmitted(data);

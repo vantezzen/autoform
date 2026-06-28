@@ -20,7 +20,7 @@ import type { VariantProps } from "class-variance-authority";
 
 const dialogSchema = z.object({
   username: z.string().min(2, "Enter at least 2 characters"),
-  action: z.enum(["create", "read", "update", "delete"]).superRefine(
+  action: z.enum(["create", "read", "update", "delete"]).check(
     fieldConfig({
       label: "Action",
       inputProps: {

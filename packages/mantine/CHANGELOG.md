@@ -1,5 +1,13 @@
 # @dual-autoform/mantine
 
+## 1.0.1
+
+### Patch Changes
+
+- Build package declarations into `dist` and point package exports at the published declaration files.
+- Updated dependencies
+  - @dual-autoform/react@1.0.1
+
 ## 5.0.0
 
 ### Major Changes

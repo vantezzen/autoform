@@ -1,7 +1,26 @@
 import { SchemaProvider } from "./schema-provider";
 import { ParsedField, ParsedSchema } from "./types";
 
+function assertSchemaProvider(
+  schemaProvider: SchemaProvider | undefined,
+): asserts schemaProvider is SchemaProvider {
+  if (!schemaProvider) {
+    throw new Error("AutoForm requires a schema prop. Provide a schema.");
+  }
+
+  if (
+    typeof schemaProvider.parseSchema !== "function" ||
+    typeof schemaProvider.validateSchema !== "function" ||
+    typeof schemaProvider.getDefaultValues !== "function"
+  ) {
+    throw new Error(
+      'AutoForm schema must be a schema provider. For Zod, import { ZodProvider } from "@dual-autoform/zod" and pass schema={new ZodProvider(schema)}.',
+    );
+  }
+}
+
 export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
+  assertSchemaProvider(schemaProvider);
   const schema = schemaProvider.parseSchema();
   return {
     ...schema,
@@ -10,12 +29,14 @@ export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
 }
 
 export function validateSchema(schemaProvider: SchemaProvider, values: any) {
+  assertSchemaProvider(schemaProvider);
   return schemaProvider.validateSchema(values);
 }
 
 export function getDefaultValues(
   schemaProvider: SchemaProvider,
 ): Record<string, any> {
+  assertSchemaProvider(schemaProvider);
   return schemaProvider.getDefaultValues();
 }
 

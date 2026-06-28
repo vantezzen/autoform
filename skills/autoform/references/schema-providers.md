@@ -99,6 +99,7 @@ const formSchema = z.object({
         },
       }),
     ),
+  // For defaultValues, pass a Date object for date schemas.
   birthday: z.date().optional(),
 
   nameId: z

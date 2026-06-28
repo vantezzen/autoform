@@ -78,7 +78,7 @@ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
 ```bash
 # MUI
-npm install @dual-autoform/mui @mui/material@^6 @emotion/react@^11 @emotion/styled@^11
+npm install @dual-autoform/mui @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11
 
 # Mantine
 npm install @dual-autoform/mantine @mantine/core@^7 @mantine/dates@^7
@@ -346,6 +346,18 @@ const { formControl, handleSubmit, reset } = React.useMemo(
 <AutoForm formControl={formControl} schema={sp} />
 <button onClick={handleSubmit((data) => console.log(data))}>Submit</button>
 <button onClick={() => reset()}>Reset</button>
+```
+
+For TanStack Form, use `useAppForm` from `@dual-autoform/react/tanstack-form` and keep `formOptions(...)` stable:
+
+```tsx
+import { formOptions } from "@tanstack/react-form";
+import { useAppForm } from "@dual-autoform/react/tanstack-form";
+
+const options = React.useMemo(() => formOptions(), []);
+const form = useAppForm(options);
+
+<AutoForm formControl={form} schema={sp} defaultValues={{ username: "" }} />;
 ```
 
 ---

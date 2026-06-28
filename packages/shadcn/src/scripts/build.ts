@@ -22,7 +22,6 @@ const commonRegistryDeps = [
   "calendar",
   "card",
   "checkbox",
-  "form",
   "input",
   "label",
   "select",
@@ -73,6 +72,12 @@ async function buildRegistryItem(
 
     const pathKey = normalizedPath.replace("src/components/ui/", "");
     const targetKey = normalizedPath.replace("src/", "");
+
+    if (targetKey === "components/ui/autoform/index.ts") {
+      const adapter =
+        name === "autoform-rhf" ? "react-hook-form" : "tanstack-form";
+      content = `"use client";\n\nexport { AutoForm } from "./${adapter}";\nexport type { FieldTypes } from "./${adapter}";\nexport * from "./types";\n`;
+    }
 
     registry.files!.push({
       path: pathKey,

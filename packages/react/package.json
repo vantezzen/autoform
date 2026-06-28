@@ -1,39 +1,39 @@
 {
   "name": "@dual-autoform/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./src/index.tsx",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./src/index.tsx",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./src/index.tsx",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
     },
     "./react-hook-form": {
       "import": {
-        "types": "./src/react-hook-form/index.ts",
+        "types": "./dist/react-hook-form/index.d.ts",
         "default": "./dist/react-hook-form/index.mjs"
       },
       "require": {
-        "types": "./src/react-hook-form/index.ts",
+        "types": "./dist/react-hook-form/index.d.ts",
         "default": "./dist/react-hook-form/index.cjs"
       }
     },
     "./tanstack-form": {
       "import": {
-        "types": "./src/tanstack-form/index.ts",
+        "types": "./dist/tanstack-form/index.d.ts",
         "default": "./dist/tanstack-form/index.mjs"
       },
       "require": {
-        "types": "./src/tanstack-form/index.ts",
+        "types": "./dist/tanstack-form/index.d.ts",
         "default": "./dist/tanstack-form/index.cjs"
       }
     },

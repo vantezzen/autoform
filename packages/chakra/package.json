@@ -1,39 +1,39 @@
 {
   "name": "@dual-autoform/chakra",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./src/index.tsx",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./src/index.tsx",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./src/index.tsx",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
     },
     "./react-hook-form": {
       "import": {
-        "types": "./src/react-hook-form.tsx",
+        "types": "./dist/react-hook-form.d.ts",
         "default": "./dist/react-hook-form.mjs"
       },
       "require": {
-        "types": "./src/react-hook-form.tsx",
+        "types": "./dist/react-hook-form.d.ts",
         "default": "./dist/react-hook-form.cjs"
       }
     },
     "./tanstack-form": {
       "import": {
-        "types": "./src/tanstack-form.tsx",
+        "types": "./dist/tanstack-form.d.ts",
         "default": "./dist/tanstack-form.mjs"
       },
       "require": {
-        "types": "./src/tanstack-form.tsx",
+        "types": "./dist/tanstack-form.d.ts",
         "default": "./dist/tanstack-form.cjs"
       }
     },

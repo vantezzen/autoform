@@ -1,5 +1,11 @@
 # @dual-autoform/yup
 
+## 1.0.1
+
+### Patch Changes
+
+- Build package declarations into `dist` and point package exports at the published declaration files.
+
 ## 4.0.1
 
 ### Patch Changes

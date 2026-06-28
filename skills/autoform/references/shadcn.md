@@ -27,7 +27,7 @@ npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autofor
 npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
 ```
 
-This copies all AutoForm components into `components/ui/autoform/` and installs registry dependencies (alert, button, calendar, card, checkbox, form, input, label, select, skeleton, switch, textarea, toggle).
+This copies all AutoForm components into `components/ui/autoform/` and installs registry dependencies (alert, button, calendar, card, checkbox, input, label, select, skeleton, switch, textarea, toggle).
 
 ### Step 2: Install peer dependencies
 
