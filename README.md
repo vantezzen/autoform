@@ -62,17 +62,9 @@ AutoForm itself is agnostic to the schema library, rendering library and UI libr
 
 AutoForm is mostly meant as a drop-in form builder for your internal and low-priority forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
 
-Instead of manually binding each component to the form, handling field registration, and verifying every connection is set up correctly, AutoForm handles that mapping for you. It looks at your schema and automatically stitches each pre-built component into the right place, so you're not writing the binding boilerplate and setup for every field.
+Rather than manually wiring up fields and writing binding boilerplate, AutoForm uses your schema to automatically map each field to the appropriate component. so you're not writing the binding boilerplate and setup for every field.
 
-**AutoForm works best when:**
-
-- Your input components are already created
-- Your validation schema is ready
-- You want to skip the repetitive work of connecting each component to the form correctly
-
-Build your components and schema, AutoForm brings them together.
-
-As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](/docs/react/customization) option) and gives you escape hatches to customize the form even further.
+As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](https://autoform-dual.vercel.app/docs/react/customization) option) and gives you escape hatches to customize the form even further.
 
 However, AutoForm does not aim to be a full-featured form builder and support every edge case in your schema. If you need more customization, feel free to customize AutoForm's renderer in your project. For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
 
