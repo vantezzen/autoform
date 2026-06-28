@@ -6,6 +6,8 @@
 
 This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@dual-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
 
+This project includes integration support for React Hook Form and TanStack Form.
+
 Check out the [AutoForm documentation](https://autoform-dual.vercel.app) for more information, examples, and API references.
 
 ---
