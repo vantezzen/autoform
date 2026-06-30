@@ -14,7 +14,7 @@
 
 - Split React Hook Form and TanStack Form into explicit package subpaths while keeping shared React contracts at the package root.
 
-  UI integrations now expose `/react-hook-form` and `/tanstack-form` convenience entries plus a root `createAutoForm` factory. Packages are ESM-first with `"type": "module"` while retaining explicit `.cjs`/`.d.cts` CommonJS exports. Custom fields use the selected form library hook (`useController` for React Hook Form, `useFieldContext` for TanStack Form), preserve generic schema inference, and install only the selected optional form-engine peer.
+  UI integrations now expose adapter-specific `/react-hook-form` and `/tanstack-form` entries. Packages are ESM-only with `"type": "module"` and `.mjs`/`.d.mts` build artifacts. Custom fields use the selected form library hook (`useController` for React Hook Form, `useFieldContext` for TanStack Form), preserve generic schema inference, and install only the selected optional form-engine peer.
 
 - Preserve user-owned options on external TanStack form controls. AutoForm owns `defaultValues` and `onSubmit`, while external `validationLogic`, validators, listeners, transforms, async settings, and `onSubmitInvalid` remain authoritative.
 

@@ -10,7 +10,7 @@
 
 ### Patch Changes
 
-- Publish ESM-first package metadata with explicit CommonJS fallbacks, conditional type declarations, package export maps, and clean dual-format builds.
+- Publish ESM package metadata with conditional type declarations, package export maps, and clean builds.
 
 ## 4.0.0
 

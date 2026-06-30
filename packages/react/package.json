@@ -3,46 +3,31 @@
   "version": "1.0.1",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "dev-source": "./src/index.tsx",
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./react-hook-form": {
-      "import": {
-        "types": "./dist/react-hook-form.d.ts",
-        "default": "./dist/react-hook-form.mjs"
-      },
-      "require": {
-        "types": "./dist/react-hook-form.d.cts",
-        "default": "./dist/react-hook-form.cjs"
-      }
+      "dev-source": "./src/react-hook-form/index.ts",
+      "types": "./dist/react-hook-form/index.d.mts",
+      "default": "./dist/react-hook-form/index.mjs"
     },
     "./tanstack-form": {
-      "import": {
-        "types": "./dist/tanstack-form.d.ts",
-        "default": "./dist/tanstack-form.mjs"
-      },
-      "require": {
-        "types": "./dist/tanstack-form.d.cts",
-        "default": "./dist/tanstack-form.cjs"
-      }
+      "dev-source": "./src/tanstack-form/index.ts",
+      "types": "./dist/tanstack-form/index.d.mts",
+      "default": "./dist/tanstack-form/index.mjs"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "tsdown",
+    "dev": "tsdown --watch"
   },
   "repository": {
     "type": "git",

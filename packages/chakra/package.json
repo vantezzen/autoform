@@ -5,31 +5,21 @@
   "type": "module",
   "exports": {
     "./react-hook-form": {
-      "import": {
-        "types": "./dist/react-hook-form.d.ts",
-        "default": "./dist/react-hook-form.mjs"
-      },
-      "require": {
-        "types": "./dist/react-hook-form.d.cts",
-        "default": "./dist/react-hook-form.cjs"
-      }
+      "dev-source": "./src/react-hook-form.tsx",
+      "types": "./dist/react-hook-form.d.mts",
+      "default": "./dist/react-hook-form.mjs"
     },
     "./tanstack-form": {
-      "import": {
-        "types": "./dist/tanstack-form.d.ts",
-        "default": "./dist/tanstack-form.mjs"
-      },
-      "require": {
-        "types": "./dist/tanstack-form.d.cts",
-        "default": "./dist/tanstack-form.cjs"
-      }
+      "dev-source": "./src/tanstack-form.tsx",
+      "types": "./dist/tanstack-form.d.mts",
+      "default": "./dist/tanstack-form.mjs"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "tsdown",
+    "dev": "tsdown --watch"
   },
   "repository": {
     "type": "git",
@@ -41,11 +31,11 @@
     "@dual-autoform/typescript-config": "workspace:*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
-    "react": "^19.2.6",
-    "react-icons": "^5.4.0"
+    "react": "^19.2.6"
   },
   "dependencies": {
-    "next-themes": "^0.4.4"
+    "next-themes": "^0.4.4",
+    "react-icons": "^5.4.0"
   },
   "peerDependencies": {
     "@dual-autoform/react": "workspace:^",
