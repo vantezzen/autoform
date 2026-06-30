@@ -62,11 +62,6 @@ export interface AutoFormProps<T extends Record<string, any> = Record<string, an
    */
   withSubmit?: boolean;
   /**
-   * Legacy hook to access the form instance after init.
-   * @deprecated Prefer passing an external form control via `formControl`.
-   */
-  onFormInit?: (form: any) => void;
-  /**
    * Props forwarded to the underlying <form> element.
    * @default {}
    */

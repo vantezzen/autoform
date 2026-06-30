@@ -115,26 +115,6 @@ function MyForm() {
 }
 ```
 
-`onFormInit` is still supported for backwards compatibility, but it is deprecated for new code.
-
-```tsx
-const [values, setValues] = useState({});
-
-<AutoForm
-  onFormInit={(form) => {
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
-    // https://www.react-hook-form.com/api/useform/
-    form.watch((data) => {
-      setValues(data);
-    });
-
-    // You can freely save the form instance to a state or context and use it later to access the form state
-    form.formState.isDirty; // => true
-  }}
-  values={values}
-/>;
-```
-
 ## Update custom components
 
 If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config. Object, array, and array element wrappers can also be customized per field with `objectWrapper`, `arrayWrapper`, and `arrayElementWrapper`.

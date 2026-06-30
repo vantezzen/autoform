@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { formOptions, revalidateLogic } from "@tanstack/react-form";
 import {
   getDefaultValues,
@@ -26,7 +26,6 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
   uiComponents,
   formComponents,
   withSubmit = false,
-  onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
   const parsedSchema = useMemo(() => parseSchema(schema), [schema]);
@@ -65,10 +64,6 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
 
   useSyncValues(form, values);
   useExternalFormOptions(formControl, options);
-
-  useEffect(() => {
-    onFormInit?.(form);
-  }, [form, onFormInit]);
 
   const AppForm = getAppForm(form);
 

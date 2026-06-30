@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import {
   useForm,
   FieldValues,
@@ -24,7 +24,6 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   uiComponents,
   formComponents,
   withSubmit = false,
-  onFormInit,
   formProps = {},
 }: AutoFormProps<T>) {
   const shouldFocusError = useRef(
@@ -44,10 +43,6 @@ export function AutoForm<T extends FieldValues = FieldValues>({
     formControl,
     shouldFocusError: false,
   });
-
-  useEffect(() => {
-    onFormInit?.(methods);
-  }, [methods, onFormInit]);
 
   const handleSubmit: SubmitHandler<T> = async (data: T, e) => {
     await onSubmit(data, methods, e);

@@ -3,7 +3,6 @@ title: Form control
 description: Accessing form data, states and methods.
 ---
 
-import { Accordion, Accordions } from "@/components/accordion";
 import { FormControlReferenceTable } from "@/components/form-control-reference-table";
 
 The form data, states and methods are managed by react-hook-form. There are a few ways to access them:
@@ -121,7 +120,7 @@ export default function MyForm() {
 Custom field components can use `useController` from `react-hook-form` to access the field API (which exposes the field's value, bindings, and state such as `error` and `isDirty`):
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
 import { useController } from "react-hook-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
@@ -144,31 +143,3 @@ export function StringField({ id, inputProps }: AutoFormFieldProps) {
   );
 }
 ```
-
-## 5. `Deprecated`: Using onFormInit
-
-`onFormInit` is deprecated and supported for backwards compatibility, the preferred way
-is to use `formControl` from `createFormControl` when available.
-
-<Accordions type="single">
-  <Accordion title="How to use onFormInit">
-    You can use `onFormInit` and `values` to access the form instance and
-    control data:
-
-    ```tsx
-    const [values, setValues] = useState({});
-
-    <AutoForm
-      onFormInit={(form) => {
-        form.watch((data) => {
-          setValues(data);
-        });
-        form.formState.isDirty; // => true
-      }}
-      values={values}
-    />;
-
-    ```
-
-  </Accordion>
-</Accordions>
