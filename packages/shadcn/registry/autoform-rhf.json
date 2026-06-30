@@ -100,21 +100,15 @@
       "type": "registry:ui"
     },
     {
-      "path": "autoform/index.ts",
-      "target": "components/ui/autoform/index.ts",
-      "content": "\"use client\";\n\nexport { AutoForm } from \"./react-hook-form\";\nexport type { FieldTypes } from \"./react-hook-form\";\nexport * from \"./types\";\n",
-      "type": "registry:ui"
-    },
-    {
       "path": "autoform/react-hook-form.tsx",
       "target": "components/ui/autoform/react-hook-form.tsx",
-      "content": "\"use client\";\n\nimport { AutoForm as ReactHookFormAutoForm } from \"@dual-autoform/react/react-hook-form\";\nimport type {\n  AutoFormUIComponents,\n  AutoFormProps as BaseAutoFormProps,\n  ExtendableAutoFormProps,\n} from \"@dual-autoform/react\";\n\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\nimport { StringField } from \"./components/rhf/StringField\";\nimport { NumberField } from \"./components/rhf/NumberField\";\nimport { BooleanField } from \"./components/rhf/BooleanField\";\nimport { DateField } from \"./components/rhf/DateField\";\nimport { SelectField } from \"./components/rhf/SelectField\";\n\nexport type FieldTypes = \"string\" | \"number\" | \"boolean\" | \"date\" | \"select\";\nexport type * from \"./types\";\n\nconst UIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nconst RHFFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\n\nexport function AutoForm<T extends Record<string, any> = Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: ExtendableAutoFormProps<T>) {\n  return (\n    <ReactHookFormAutoForm\n      {...(props as BaseAutoFormProps<T>)}\n      uiComponents={{ ...UIComponents, ...uiComponents }}\n      formComponents={{ ...RHFFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
+      "content": "\"use client\";\n\nimport { AutoForm as ReactHookFormAutoForm } from \"@dual-autoform/react/react-hook-form\";\nimport type {\n  AutoFormUIComponents,\n  AutoFormProps as BaseAutoFormProps,\n  ExtendableAutoFormProps,\n} from \"@dual-autoform/react\";\n\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\nimport { StringField } from \"./components/rhf/StringField\";\nimport { NumberField } from \"./components/rhf/NumberField\";\nimport { BooleanField } from \"./components/rhf/BooleanField\";\nimport { DateField } from \"./components/rhf/DateField\";\nimport { SelectField } from \"./components/rhf/SelectField\";\n\nexport type FieldTypes = \"string\" | \"number\" | \"boolean\" | \"date\" | \"select\";\nexport type { ExtendableAutoFormProps as AutoFormProps } from \"@dual-autoform/react\";\n\nconst UIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nconst RHFFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\n\nexport function AutoForm<T extends Record<string, any> = Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: ExtendableAutoFormProps<T>) {\n  return (\n    <ReactHookFormAutoForm\n      {...(props as BaseAutoFormProps<T>)}\n      uiComponents={{ ...UIComponents, ...uiComponents }}\n      formComponents={{ ...RHFFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "autoform/types.ts",
-      "target": "components/ui/autoform/types.ts",
-      "content": "import type { ExtendableAutoFormProps } from \"@dual-autoform/react\";\n\nexport type AutoFormProps<T extends Record<string, any>> =\n  ExtendableAutoFormProps<T>;\n",
+      "path": "autoform/index.ts",
+      "target": "components/ui/autoform/index.ts",
+      "content": "\"use client\";\n\nexport { AutoForm } from \"./react-hook-form\";\nexport type { AutoFormProps, FieldTypes } from \"./react-hook-form\";\n",
       "type": "registry:ui"
     }
   ]

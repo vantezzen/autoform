@@ -49,6 +49,8 @@ async function buildRegistryItem(
   dependencies: string[],
   excludeFn: (path: string) => boolean,
 ) {
+  const adapter =
+    name === "autoform-rhf" ? "react-hook-form" : "tanstack-form";
   const registry: z.infer<typeof registryEntrySchema> = {
     name,
     type: "registry:ui",
@@ -73,12 +75,6 @@ async function buildRegistryItem(
     const pathKey = normalizedPath.replace("src/components/ui/", "");
     const targetKey = normalizedPath.replace("src/", "");
 
-    if (targetKey === "components/ui/autoform/index.ts") {
-      const adapter =
-        name === "autoform-rhf" ? "react-hook-form" : "tanstack-form";
-      content = `"use client";\n\nexport { AutoForm } from "./${adapter}";\nexport type { FieldTypes } from "./${adapter}";\nexport * from "./types";\n`;
-    }
-
     registry.files!.push({
       path: pathKey,
       target: targetKey,
@@ -86,6 +82,13 @@ async function buildRegistryItem(
       type: "registry:ui",
     });
   }
+
+  registry.files!.push({
+    path: "autoform/index.ts",
+    target: "components/ui/autoform/index.ts",
+    content: `"use client";\n\nexport { AutoForm } from "./${adapter}";\nexport type { AutoFormProps, FieldTypes } from "./${adapter}";\n`,
+    type: "registry:ui",
+  });
 
   await writeFile(`./registry/${name}.json`, JSON.stringify(registry, null, 2));
 }

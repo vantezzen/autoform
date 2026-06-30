@@ -4,7 +4,7 @@
   "homepage": "https://autoform.acp.dev",
   "items": [
     {
-      "name": "autoform-react-rhf",
+      "name": "autoform-react-source-rhf",
       "type": "registry:lib",
       "title": "AutoForm React (React Hook Form)",
       "description": "Core AutoForm renderer wired to React Hook Form. Installs the full @dual-autoform/react source for the RHF adapter so you can modify it freely.",
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "name": "autoform-react-tanstack",
+      "name": "autoform-react-source-tanstack",
       "type": "registry:lib",
       "title": "AutoForm React (TanStack Form)",
       "description": "Core AutoForm renderer wired to TanStack Form. Installs the full @dual-autoform/react source for the TanStack adapter so you can modify it freely.",

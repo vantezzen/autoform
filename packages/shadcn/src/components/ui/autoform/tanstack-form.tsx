@@ -21,7 +21,7 @@ import { DateField } from "./components/tanstack/DateField";
 import { SelectField } from "./components/tanstack/SelectField";
 
 export type FieldTypes = "string" | "number" | "boolean" | "date" | "select";
-export type * from "./types";
+export type { ExtendableAutoFormProps as AutoFormProps } from "@dual-autoform/react";
 
 const UIComponents: AutoFormUIComponents = {
   Form,

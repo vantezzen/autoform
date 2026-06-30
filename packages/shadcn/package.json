@@ -9,7 +9,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsx src/scripts/build.ts && cd ../.. && npx --yes shadcn@latest build registry.json --output packages/shadcn/registry && cd packages/shadcn && tsx src/scripts/build-local-react-registry.ts"
+    "build": "tsx src/scripts/build.ts && cd ../.. && npx --yes shadcn@latest build registry.json --output packages/shadcn/registry && cd packages/shadcn && tsx src/scripts/build-react-source-registry.ts"
   },
   "repository": {
     "type": "git",

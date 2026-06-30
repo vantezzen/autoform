@@ -99,21 +99,15 @@
       "type": "registry:ui"
     },
     {
-      "path": "autoform/index.ts",
-      "target": "components/ui/autoform/index.ts",
-      "content": "\"use client\";\n\nexport { AutoForm } from \"./tanstack-form\";\nexport type { FieldTypes } from \"./tanstack-form\";\nexport * from \"./types\";\n",
-      "type": "registry:ui"
-    },
-    {
       "path": "autoform/tanstack-form.tsx",
       "target": "components/ui/autoform/tanstack-form.tsx",
-      "content": "\"use client\";\n\nimport { AutoForm as TanStackAutoForm } from \"@dual-autoform/react/tanstack-form\";\nimport type {\n  AutoFormUIComponents,\n  AutoFormProps as BaseAutoFormProps,\n  ExtendableAutoFormProps,\n} from \"@dual-autoform/react\";\n\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\nimport { StringField } from \"./components/tanstack/StringField\";\nimport { NumberField } from \"./components/tanstack/NumberField\";\nimport { BooleanField } from \"./components/tanstack/BooleanField\";\nimport { DateField } from \"./components/tanstack/DateField\";\nimport { SelectField } from \"./components/tanstack/SelectField\";\n\nexport type FieldTypes = \"string\" | \"number\" | \"boolean\" | \"date\" | \"select\";\nexport type * from \"./types\";\n\nconst UIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nconst TanStackFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\n\nexport function AutoForm<T extends Record<string, any> = Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: ExtendableAutoFormProps<T>) {\n  return (\n    <TanStackAutoForm\n      {...(props as BaseAutoFormProps<T>)}\n      uiComponents={{ ...UIComponents, ...uiComponents }}\n      formComponents={{ ...TanStackFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
+      "content": "\"use client\";\n\nimport { AutoForm as TanStackAutoForm } from \"@dual-autoform/react/tanstack-form\";\nimport type {\n  AutoFormUIComponents,\n  AutoFormProps as BaseAutoFormProps,\n  ExtendableAutoFormProps,\n} from \"@dual-autoform/react\";\n\nimport { Form } from \"./components/Form\";\nimport { FieldWrapper } from \"./components/FieldWrapper\";\nimport { ErrorMessage } from \"./components/ErrorMessage\";\nimport { SubmitButton } from \"./components/SubmitButton\";\nimport { ObjectWrapper } from \"./components/ObjectWrapper\";\nimport { ArrayWrapper } from \"./components/ArrayWrapper\";\nimport { ArrayElementWrapper } from \"./components/ArrayElementWrapper\";\nimport { StringField } from \"./components/tanstack/StringField\";\nimport { NumberField } from \"./components/tanstack/NumberField\";\nimport { BooleanField } from \"./components/tanstack/BooleanField\";\nimport { DateField } from \"./components/tanstack/DateField\";\nimport { SelectField } from \"./components/tanstack/SelectField\";\n\nexport type FieldTypes = \"string\" | \"number\" | \"boolean\" | \"date\" | \"select\";\nexport type { ExtendableAutoFormProps as AutoFormProps } from \"@dual-autoform/react\";\n\nconst UIComponents: AutoFormUIComponents = {\n  Form,\n  FieldWrapper,\n  ErrorMessage,\n  SubmitButton,\n  ObjectWrapper,\n  ArrayWrapper,\n  ArrayElementWrapper,\n};\n\nconst TanStackFieldComponents = {\n  string: StringField,\n  number: NumberField,\n  boolean: BooleanField,\n  date: DateField,\n  select: SelectField,\n} as const;\n\nexport function AutoForm<T extends Record<string, any> = Record<string, any>>({\n  uiComponents,\n  formComponents,\n  ...props\n}: ExtendableAutoFormProps<T>) {\n  return (\n    <TanStackAutoForm\n      {...(props as BaseAutoFormProps<T>)}\n      uiComponents={{ ...UIComponents, ...uiComponents }}\n      formComponents={{ ...TanStackFieldComponents, ...formComponents }}\n    />\n  );\n}\n",
       "type": "registry:ui"
     },
     {
-      "path": "autoform/types.ts",
-      "target": "components/ui/autoform/types.ts",
-      "content": "import type { ExtendableAutoFormProps } from \"@dual-autoform/react\";\n\nexport type AutoFormProps<T extends Record<string, any>> =\n  ExtendableAutoFormProps<T>;\n",
+      "path": "autoform/index.ts",
+      "target": "components/ui/autoform/index.ts",
+      "content": "\"use client\";\n\nexport { AutoForm } from \"./tanstack-form\";\nexport type { AutoFormProps, FieldTypes } from \"./tanstack-form\";\n",
       "type": "registry:ui"
     }
   ]

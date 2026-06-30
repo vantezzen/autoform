@@ -39,12 +39,13 @@ const generatedRegistry = JSON.parse(
   await readFile(outputRegistryPath, "utf8"),
 ) as Registry;
 
-const localReactItems = registry.items.filter(
+const reactSourceItems = registry.items.filter(
   (item) =>
-    item.type === "registry:lib" && item.name.startsWith("autoform-react-"),
+    item.type === "registry:lib" &&
+    item.name.startsWith("autoform-react-source-"),
 );
 
-for (const item of localReactItems) {
+for (const item of reactSourceItems) {
   const files = await Promise.all(
     (item.files ?? []).map(async (file) => {
       let content = await readFile(join(root, file.path), "utf8");
@@ -83,7 +84,7 @@ for (const item of localReactItems) {
 const generatedNames = new Set(
   generatedRegistry.items.map((item) => item.name),
 );
-const missingItems = localReactItems.filter(
+const missingItems = reactSourceItems.filter(
   (item) => !generatedNames.has(item.name),
 );
 
@@ -96,5 +97,5 @@ if (missingItems.length > 0) {
 }
 
 console.log(
-  `Built ${localReactItems.length} local React adapter registry item(s).`,
+  `Built ${reactSourceItems.length} editable React source registry item(s).`,
 );
