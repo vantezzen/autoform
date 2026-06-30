@@ -1,4 +1,4 @@
-# Schema Providers Reference
+# Schema Reference
 
 ## Table of Contents
 
@@ -10,17 +10,18 @@
 
 ## Zod
 
-Package: `@dual-autoform/zod` — supports Zod v3, v4, and Zod Mini.
+Package: `@dual-autoform/zod`; supports Zod v3, Zod v4, and Zod Mini.
 
-> requires zod version greater than 3.25.0 to be installed ^3.25.0 || ^4
+Requires `zod ^3.25.0 || ^4`.
 
-### Basic usage
+Attach `fieldConfig` with `.check(...)` in Zod v4 / Zod Mini, or `.superRefine(...)` in Zod v3.
 
 ```tsx
 import * as z from "zod";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 import type { FieldTypes } from "@dual-autoform/mui";
+import type { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
 
 const nameId = {
   name1: "id1",
@@ -28,6 +29,7 @@ const nameId = {
 } as const;
 
 const formSchema = z.object({
+  // Field name becomes the label automatically: `username` -> "Username".
   username: z
     .string({
       error: "Username is required.",
@@ -35,12 +37,16 @@ const formSchema = z.object({
     .min(2, {
       message: "Username must be at least 2 characters.",
     })
+    // `.default()` is a validation fallback. — if the field is empty, the .default replaces it in the output. For pre-filled values the user can clear, use `<AutoForm defaultValues={...} />`.
     .default("Default username !!")
+    // Zod v4 and Zod Mini attach `fieldConfig` with `.check()`.
+    // Zod v3 uses `.superRefine(fieldConfig({...}))` instead.
     .check(
       fieldConfig({
         description: "You cannot change this later.",
       }),
     ),
+
   password: z
     .string({
       error: "Password is required.",
@@ -48,20 +54,27 @@ const formSchema = z.object({
     .min(8, {
       message: "Password must be at least 8 characters.",
     })
-    .default("this ia s good pass")
+    .default("this is a good pass")
+    // `.describe()` sets the field label. Without it, the field name is un-camel-cased automatically.
     .describe("Your secure password")
     .check(
-      fieldConfig({
+      // Provide generic type parameters for full type safety
+      fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
+        // `description` can be text or a React node.
         description: (
           <>
             Always use a <b>secure password</b>!
           </>
         ),
+        // `inputProps` are passed to the rendered input.
         inputProps: {
           type: "password",
         },
+        customData: { isImportant: true },
       }),
     ),
+
+  // HTML inputs return strings, so use coercion for number fields.
   favouriteNumber: z.coerce
     .number({
       error: "Favourite number must be a number.",
@@ -74,6 +87,8 @@ const formSchema = z.object({
     })
     .default(9)
     .optional(),
+
+  // Booleans render as checkbox-style controls.
   acceptTerms: z
     .boolean()
     .describe("Accept terms and conditions.")
@@ -81,12 +96,14 @@ const formSchema = z.object({
     .refine((value) => value, {
       message: "You must accept the terms and conditions.",
     }),
+
   sendMeMails: z
     .boolean()
     .optional()
     .default(false)
     .check(
       fieldConfig({
+        // Field-level wrappers affect only this field.
         fieldWrapper: (props: FieldWrapperProps) => {
           return (
             <>
@@ -99,148 +116,42 @@ const formSchema = z.object({
         },
       }),
     ),
+
   // For defaultValues, pass a Date object for date schemas.
   birthday: z.date().optional(),
 
+  // Transform an enum label to a different submitted value.
   nameId: z
     .enum(Object.keys(nameId) as [string, ...string[]], {
       message: "Invalid name",
     })
     .transform((name) => nameId[name as keyof typeof nameId])
     .optional(),
-  // get id as output and name as label
 
+  // Enums render as select/radio-style choices depending on the UI package.
   color: z.enum(["red", "green", "blue"]).default("red").optional(),
 
+  // Arrays are supported as fields, but not as the root schema.
   guests: z.array(
+    // Sub-objects render as nested object groups.
     z.object({
       name: z.string(),
       age: z.coerce.number().optional(),
     }),
   ),
+  // Sub-objcts
+  yourDetails: z.object({
+    name: z.string(),
+    age: z.coerce.number(),
+  }),
 });
 
 const schemaProvider = new ZodProvider(formSchema);
 ```
 
-### Labels
+For Zod Mini, import `z` from `zod/mini` and keep using `fieldConfig` from `@dual-autoform/zod`.
 
-Use `.describe()` to set a label. Without it, the field name is un-camel-cased automatically.
-
-```tsx
-username: z.string().describe("Your username"),
-someValue: z.string(), // → "Some Value"
-```
-
-### Coercion
-
-HTML inputs return strings. Use `z.coerce.number()` for number fields:
-
-```tsx
-favouriteNumber: z.coerce.number(),
-```
-
-### Optional fields
-
-```tsx
-username: z.string().optional(),
-```
-
-### Default values
-
-`.default()` is a validation fallback — if the field is empty, the default replaces it in the output. For pre-filled values the user can clear, use the `defaultValues` prop on AutoForm.
-
-```tsx
-favouriteNumber: z.number().default(5),
-```
-
-### Select/Enums
-
-```tsx
-color: z.enum(["red", "green", "blue"]),
-
-// TypeScript enum
-enum BreadTypes {
-  White = "White bread",
-  Brown = "Brown bread",
-}
-bread: z.nativeEnum(BreadTypes),
-```
-
-To map display labels to different values:
-
-```tsx
-const nameId = { name1: "id1", name2: "id2" } as const;
-nameId: z.enum(Object.keys(nameId) as [string, ...string[]])
-  .transform((name) => nameId[name as keyof typeof nameId]),
-```
-
-### Arrays
-
-```tsx
-invitedGuests: z.array(z.object({
-  name: z.string(),
-  age: z.coerce.number(),
-})).describe("Guests"),
-hobbies: z.array(z.string()),
-```
-
-Arrays are NOT supported as the root schema — they must be inside an object.
-
-### Sub-objects
-
-```tsx
-guestDetails: z.object({
-  name: z.string(),
-  age: z.coerce.number(),
-}),
-```
-
-### fieldConfig attachment
-
-Depends on Zod version:
-
-**Zod v4 and Zod Mini** — use `.check()`:
-
-```tsx
-import { fieldConfig } from "@dual-autoform/zod";
-
-username: z.string().check(
-  fieldConfig({ description: "You cannot change this later." })
-),
-```
-
-**Zod Mini**
-
-```tsx
-import { fieldConfig } from "@dual-autoform/zod";
-import { z } from "zod/mini";
-```
-
-**Zod v3** — use `.superRefine()`:
-
-```tsx
-import { fieldConfig } from "@dual-autoform/zod";
-
-username: z.string().superRefine(
-  fieldConfig({ label: "Username", inputProps: { placeholder: "Enter..." } })
-),
-```
-
-### TypeScript support
-
-Provide generic type parameters for full type safety:
-
-```tsx
-import { FieldTypes } from "@dual-autoform/mui";
-
-z.string().check(
-  fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
-    inputProps: { type: "password" },
-    customData: { isImportant: true },
-  }),
-);
-```
+For more `fieldConfig` details, see `references/customization.md` lines 5-70.
 
 ---
 
@@ -248,74 +159,40 @@ z.string().check(
 
 Package: `@dual-autoform/yup`
 
-### Basic usage
+Attach `fieldConfig` with `.transform(...)`.
 
 ```tsx
 import { YupProvider, fieldConfig } from "@dual-autoform/yup";
-import { object, string, number, date, array, mixed } from "yup";
+import { object, string, number, array, mixed } from "yup";
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 import type { FieldTypes } from "@dual-autoform/mui";
 
 const yupSchema = object({
+  // `.label()` sets the field label. Yup fields are optional unless `.required()` is used.
   name: string().required().label("Your Name").default("John Doe"),
   age: number().required("We need your age").positive().integer(),
   email: string()
     .email()
+    // Yup attaches `fieldConfig` with `.transform()`.
     .transform(
       fieldConfig<React.ReactNode, FieldTypes>({
         inputProps: { type: "email" },
       }),
     ),
   website: string().url().nullable(),
+
+  // Arrays and sub-objects are supported as fields.
   guests: array().of(object({ name: string().required() })),
   hobbies: array().of(string()),
-  sport: mixed().oneOf(Object.values(Sports)),
+
+  // Enums use `mixed().oneOf(...)`.
+  sport: mixed().oneOf(["football", "basketball", "tennis"]),
 });
 
 const schemaProvider = new YupProvider(yupSchema);
 ```
 
-### Labels
-
-```tsx
-username: string().label("Your username"),
-```
-
-### Optional / Required
-
-Yup fields are optional by default. Use `.required()` to make them required.
-
-### Default values
-
-```tsx
-favouriteNumber: number().default(5),
-```
-
-### Enums
-
-```tsx
-color: mixed().oneOf(["red", "green", "blue"]),
-```
-
-### Arrays
-
-```tsx
-guests: array().of(object({ name: string() })).label("Guests"),
-```
-
-### fieldConfig attachment — use `.transform()`:
-
-```tsx
-import { fieldConfig } from "@dual-autoform/yup";
-
-username: string().required().transform(
-  fieldConfig({
-    label: "Username",
-    description: "Choose a unique username.",
-    inputProps: { placeholder: "Enter your username" },
-  })
-),
-```
+For more `fieldConfig` details, see `references/customization.md` lines 5-70.
 
 ---
 
@@ -323,7 +200,7 @@ username: string().required().transform(
 
 Package: `@dual-autoform/joi`
 
-### Basic usage
+Attach `fieldConfig` with `.meta(...)`.
 
 ```tsx
 import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
@@ -332,49 +209,27 @@ import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 import type { FieldTypes } from "@dual-autoform/mui";
 
 const joiSchema = Joi.object({
+  // `.label()` sets the field label. Joi fields are optional unless `.required()` is used.
   name: Joi.string().required().label("Your Name").default("John Doe"),
   age: Joi.number().required().positive().integer(),
   email: Joi.string()
     .email({ tlds: { allow: false } })
+    // Joi attaches `fieldConfig` with `.meta()`.
     .meta(
       fieldConfig<React.ReactNode, FieldTypes>({
         inputProps: { type: "email" },
       }),
     ),
   birthday: Joi.date().optional(),
+
+  // Arrays and sub-objects are supported as fields.
   guests: Joi.array().items(Joi.object({ name: Joi.string().required() })),
+
+  // Enums use `Joi.any().valid(...)`.
   color: Joi.any().valid("red", "green", "blue"),
 });
 
 const schemaProvider = new JoiProvider(joiSchema);
 ```
 
-### Labels
-
-```tsx
-username: Joi.string().label("Your username"),
-```
-
-### Optional / Required
-
-Joi fields are optional by default. Use `.required()` for required.
-
-### Enums
-
-```tsx
-color: Joi.any().valid("red", "green", "blue"),
-breadType: Joi.any().valid(...Object.values(BreadTypes)),
-```
-
-### fieldConfig attachment — use `.meta()`:
-
-```tsx
-import { fieldConfig } from "@dual-autoform/joi";
-
-username: Joi.string().required().meta(
-  fieldConfig({
-    label: "Username",
-    inputProps: { placeholder: "Enter your username" },
-  })
-),
-```
+For more `fieldConfig` details, see `references/customization.md` lines 5-70.

@@ -26,31 +26,69 @@ const schema = z.object({
 });
 ```
 
+Autoform renders default input components for common schema types see `references/schema.md` lines `11-155 for Zod`, `158-196 for Yup`, `199-235 for Joi` to learn more.
+
 ### fieldConfig Properties
 
-- `label`: Override the auto-generated label.
-- `description`: Add helper text below the input. Can be a string or a React node.
-- `inputProps`: Props spread directly onto the input component (e.g., `type`, `placeholder`, `disabled`, `className`).
-- `order`: Controls rendering order. Lower numbers render first. Default is 0. Negative numbers render before un-ordered fields.
-- `fieldType`: Override the default component mapped to this schema type. Used to route to custom components registered in `formComponents` (see below).
-- `fieldWrapper`: Override the wrapper around this specific field.
-- `objectWrapper`: Override the wrapper around this specific object field.
-- `arrayWrapper`: Override the wrapper around this specific array field.
-- `arrayElementWrapper`: Override the wrapper around each item in this specific array field.
-- `customData`: Pass arbitrary data to your custom field components.
+| Option                | Type        | Purpose                                        |
+| --------------------- | ----------- | ---------------------------------------------- |
+| `label`               | `string`    | Override the auto-generated label              |
+| `description`         | `ReactNode` | Helper text below the field                    |
+| `inputProps`          | `object`    | Props spread onto the input element            |
+| `fieldType`           | `string`    | Route to a custom `formComponents` entry       |
+| `order`               | `number`    | Display order (lower = earlier, default 0)     |
+| `fieldWrapper`        | `Component` | Per-field wrapper override                     |
+| `objectWrapper`       | `Component` | Per-object-field wrapper override              |
+| `arrayWrapper`        | `Component` | Per-array-field wrapper override               |
+| `arrayElementWrapper` | `Component` | Per-array-item wrapper override                |
+| `customData`          | `object`    | Arbitrary data accessible in custom components |
+
+### Customization routing
+
+- `inputProps`: same input, different props such as placeholder, disabled, rows, min/max, className, or aria props.
+- `fieldType` + `formComponents`: replace the actual value editor for any field type, including object and array fields. Use this for picker modals, search selectors, uploads, rich editors, map pickers, or multi-card selectors.
+- `fieldWrapper`: keep the field component, change the shell around one field, such as label/error layout, conditional visibility, badges, help text, or spacing.
+- `objectWrapper`: keep generated child fields, change the shell around an object group, such as fieldset, card, accordion, section heading, or grouped layout.
+- `arrayWrapper`: keep generated array item fields, change the shell around the whole array, such as add button, empty state, toolbar, array-level label/error, or list layout.
+- `arrayElementWrapper`: keep generated item fields, change the shell around each array item, such as remove button, item card, numbering, accordion item, or item actions.
+- `uiComponents`: apply structural UI overrides globally.
+- `fieldConfig`: apply wrapper, input, field type, or metadata overrides to one schema field. Field config overrides win over `uiComponents` passed to AutoForm.
+
+Rule of thumb: use `fieldType` and custom components via `formComponents` when you want to replace how a value is edited; use wrappers when AutoForm should keep editing the value but you want to change the surrounding UI.
 
 ## 2. Component-Level Customization
 
 AutoForm divides its components into two categories:
 
-1. **UI Components (`uiComponents`)**: Structural elements like wrappers, labels, errors, and the form element itself.
-2. **Form Components (`formComponents`)**: The actual input controls (e.g., the `<input>` or `<select>` element).
+1. **UI Components (`uiComponents`)**: Structural form elements.
+   - `Form`: The outer `<form>` element.
+   - `FieldWrapper`: Wraps every field, rendering the label and error.
+   - `ObjectWrapper`: Wraps nested objects (e.g., rendering a fieldset or accordion).
+   - `ArrayWrapper`: Wraps an array field and its "Add Item" button.
+   - `ArrayElementWrapper`: Wraps an individual item within an array, including the "Remove" button.
+   - `SubmitButton`: The default submit button (rendered if `withSubmit` is true).
+   - `ErrorMessage`: Renders the error message when a field is not found for mapping.
 
-Use `fieldType` + `formComponents` when replacing how a value is edited. Use wrappers when AutoForm should still generate the field contents but you want to change the surrounding UI. Field-level wrappers from `fieldConfig` win over global `uiComponents`.
+2. **Form Components (`formComponents`)**: The actual input elements (e.g; input, select, checkbox).
 
 ### Overriding UI Components
 
-Pass the `uiComponents` prop to `<AutoForm>` to replace structural elements globally.
+Override these globally with `uiComponents` prop to `<AutoForm>`,
+Or override `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` per field with `fieldConfig`.
+
+Import custom component and wrapper types from your adapter path:
+
+```tsx
+import type {
+  AutoFormFieldProps,
+  FieldWrapperProps,
+  ObjectWrapperProps,
+  ArrayWrapperProps,
+  ArrayElementWrapperProps,
+  AutoFormUIComponents,
+} from "@dual-autoform/react/react-hook-form";
+// Or: @dual-autoform/react/tanstack-form
+```
 
 ```tsx
 import { FieldWrapperProps } from "@dual-autoform/react";
@@ -86,82 +124,27 @@ function CustomFieldWrapper({
 />;
 ```
 
-**Available UI Components to Override:**
+### Form Components: Creating Custom Inputs
 
-- `Form`: The outer `<form>` element.
-- `FieldWrapper`: Wraps every field, rendering the label and error.
-- `ErrorMessage`: Renders the error message (often used if you want errors displayed differently than in the FieldWrapper).
-- `SubmitButton`: The default submit button (rendered if `withSubmit` is true).
-- `ObjectWrapper`: Wraps nested objects (e.g., rendering a fieldset or accordion).
-- `ArrayWrapper`: Wraps an array field and its "Add Item" button.
-- `ArrayElementWrapper`: Wraps an individual item within an array, including the "Remove" button.
+To create a custom input or value editor (like a slider, color picker, rich text editor, modal selector, async search picker, upload field, or multi-card selector), create a component that receives `AutoFormFieldProps` and register it in `formComponents`.
+Custom components can replace scalar, object, or array field editors, but they must write values in the `onChange` handler that satisfy the field schema.
 
-Override these globally with `uiComponents`, or override `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` for one field with `fieldConfig`.
+**Important Rule**: Most custom form components should only render the input itself. Do not render the label or error message because `FieldWrapper` handles that automatically. If a custom component replaces an entire object or array editor, it owns more UI, but it still must write schema-compatible values in the `onChange` handler.
 
-### Creating and Adding Custom Form Components (Inputs)
-
-If you need a custom input or value editor (like a slider, color picker, rich text editor, modal selector, upload field, or multi-card selector), create a component that receives `AutoFormFieldProps` and register it in `formComponents`. Custom components can replace scalar, object, or array field editors, but they must write values in the onChange that satisfy the schema.
-
-**Important Rule**: Most custom form components should only render the input itself. Do not render the label or error message because `FieldWrapper` handles that automatically. If a custom component replaces an entire object or array editor, it may own more UI, but it still must stay connected to React Hook Form and write schema-compatible values in the onChange callback of that field.
+The registration and schema routing are adapter-independent:
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
-import { useController } from "react-hook-form";
-
-// 1. Create the custom component
-export function SliderField({ id, inputProps }: AutoFormFieldProps) {
-  // Call useController hook to connect to react-hook-form
-  const { field } = useController({ name: id });
-
-  return (
-    <div className="flex items-center gap-4">
-      <input
-        id={id}
-        type="range"
-        min={inputProps?.min || 0}
-        max={inputProps?.max || 100}
-        {...inputProps}
-        {...field} // Spreads value, onChange, onBlur, name, ref
-        value={field.value ?? 0}
-      />
-      <span>{field.value ?? 0}</span>
-    </div>
-  );
-}
-
-// 2. Register it and route a schema field to it
 const schema = z.object({
-  volume: z.coerce.number().check(
-    fieldConfig({ fieldType: "slider" }), // Route this field to "slider"
-  ),
+  volume: z.coerce.number().check(fieldConfig({ fieldType: "slider" })),
 });
 
-<AutoForm
-  schema={schemaProvider}
-  formComponents={{ slider: SliderField }} // Register the component key
-/>;
+<AutoForm schema={schemaProvider} formComponents={{ slider: SliderField }} />;
 ```
 
-### `useController` in Custom Components
+Read the selected adapter reference to learn, how to write custom components:
 
-To connect your custom components to the form state, use the `useController` hook exported from `react-hook-form`.
-
-```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
-import { useController } from "react-hook-form";
-
-export function ComplexField({ id, inputProps }: AutoFormFieldProps) {
-  const { field, fieldState } = useController({ name: id });
-
-  return (
-    <input
-      {...field}
-      aria-invalid={fieldState.invalid}
-      className={fieldState.invalid ? "border-red-500" : "border-gray-200"}
-    />
-  );
-}
-```
+- React Hook Form: `references/react-hook-form.md`
+- TanStack Form: `references/tanstack-form.md`
 
 ## 3. Form Element Customization
 
@@ -184,3 +167,36 @@ To pass props directly to the underlying `<form>` HTML element (like classes, id
   }}
 />
 ```
+
+## 4. Submit Button
+
+Use `withSubmit` to render AutoForm's default submit button:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit} withSubmit />
+```
+
+Render a custom submit button as a child when you need custom markup:
+
+```tsx
+<AutoForm schema={schemaProvider} onSubmit={handleSubmit}>
+  <button type="submit">Create Account</button>
+</AutoForm>
+```
+
+Use `formProps.id` with the HTML `form` attribute when the submit button is outside the form element:
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={handleSubmit}
+  formProps={{ id: "my-form" }}
+/>
+<button type="submit" form="my-form">
+  Submit
+</button>
+```
+
+For external submit/reset through form APIs, read the selected adapter reference.
+
+> AutoForm replaces empty values such as `""` and `null` with `undefined` before validation. This keeps optional schema fields from failing just because an empty input submitted `""`. Disable this cleanup with <AutoForm schema={schemaProvider} formProps={{ removeEmptyValue: false }} />

@@ -2,14 +2,60 @@
 
 ## Form Engine Peer Dependency
 
-Choose one form engine:
+Choose one form adapter.
+
+### React Hook Form adapter
 
 ```bash
-# React Hook Form
-npm install react-hook-form @hookform/resolvers
+npm install @dual-autoform/react react-hook-form @hookform/resolvers
+```
 
-# TanStack Form
-npm install @tanstack/react-form
+Import `AutoForm` from the React Hook Form subpath of your UI package:
+
+```tsx
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+```
+
+For shadcn/ui, import from the copied React Hook Form component path:
+
+```tsx
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
+```
+
+Import shared AutoForm types from the React Hook Form adapter path.
+
+```tsx
+import type {
+  AutoFormFieldProps,
+  FieldWrapperProps,
+} from "@dual-autoform/react/react-hook-form";
+```
+
+### TanStack Form adapter
+
+```bash
+npm install @dual-autoform/react @tanstack/react-form
+```
+
+Import `AutoForm` from the TanStack Form subpath of your UI package:
+
+```tsx
+import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+```
+
+For shadcn/ui, import from the copied TanStack Form component path:
+
+```tsx
+import { AutoForm } from "@/components/ui/autoform/tanstack-form";
+```
+
+Import shared AutoForm types from the TanStack Form adapter path.
+
+```tsx
+import type {
+  AutoFormFieldProps,
+  FieldWrapperProps,
+} from "@dual-autoform/react/tanstack-form";
 ```
 
 ## UI Library Installation
@@ -17,7 +63,7 @@ npm install @tanstack/react-form
 ### shadcn/ui (registry — no npm package)
 
 shadcn/ui uses the shadcn CLI to copy AutoForm components directly into your project. No `@dual-autoform/shadcn` npm package is installed.
-Make sure you have shadcn and and tailwind initialised in your project, see `references\shadcn-tailwind-installation` for shadcn installation
+Make sure you have shadcn and tailwind initialised in your project, see `references/utils/shadcn-tailwind-installation.md` for shadcn installation.
 
 ```bash
 # React Hook Form
@@ -29,8 +75,6 @@ npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autofor
 
 This installs the AutoForm component into `components/ui/autoform/`.
 
-npm dependencies installed by the registry: `zod`, `@dual-autoform/react`.
-
 Import path after installation:
 
 ```tsx
@@ -38,8 +82,6 @@ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 // Or: @/components/ui/autoform/tanstack-form
 import type { FieldTypes } from "@/components/ui/autoform";
 ```
-
-By default, the shadcn registry installs a `utils.ts` that uses Zod. To switch schema provider, edit `components/ui/autoform/utils.ts`.
 
 ### Material UI (MUI)
 
@@ -163,27 +205,4 @@ npm install @dual-autoform/joi joi
 
 ```tsx
 import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
-```
-
----
-
-## Full Installation Example (shadcn + Zod)
-
-```bash
-# 1. Install peer deps
-npm install react-hook-form @hookform/resolvers
-
-# 2. Install AutoForm via shadcn CLI
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
-
-# 3. Install schema provider (zod already added by the registry, just add the autoform adapter)
-npm install @dual-autoform/zod
-```
-
-## Full Installation Example (MUI + Zod)
-
-```bash
-npm install react-hook-form @hookform/resolvers
-npm install @dual-autoform/mui @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11
-npm install @dual-autoform/zod zod
 ```

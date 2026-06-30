@@ -16,7 +16,7 @@ AutoForm is a **four-layer** system. Understanding the layers prevents import er
     ↓
 @dual-autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
     ↓
-@dual-autoform/react          ← shared React contracts + adapter implementations
+@dual-autoform/react         ← shared React contracts + adapter implementations
     ├── /react-hook-form     ← React Hook Form implementation
     └── /tanstack-form       ← TanStack Form implementation
     ↓
@@ -25,74 +25,42 @@ AutoForm is a **four-layer** system. Understanding the layers prevents import er
 shadcn registry (copy-paste components via CLI)
 ```
 
-**Key rule**: Import `AutoForm` from the selected adapter subpath of the **UI package**, for example `@dual-autoform/mui/react-hook-form` or `@dual-autoform/mui/tanstack-form`. For shadcn, use `components/ui/autoform/react-hook-form` or `components/ui/autoform/tanstack-form`. Import `fieldConfig` and `SchemaProvider` from the **schema package** (for example `@dual-autoform/zod`). Import shared types like `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@dual-autoform/react`. Custom fields should use the selected form library hook: `useController` for React Hook Form, or `useFieldContext` for TanStack Form.
+---
+
+## Installation
+
+Pick one option from each domain and read only the relevant lines given:
+
+### Form library
+
+| Option          | More to know                             |
+| --------------- | ---------------------------------------- |
+| React Hook Form | `references/installation.md` lines 7-32  |
+| TanStack Form   | `references/installation.md` lines 34-59 |
+
+### Schema library
+
+| Option | More to know                               |
+| ------ | ------------------------------------------ |
+| Zod    | `references/installation.md` lines 178-188 |
+| Yup    | `references/installation.md` lines 190-198 |
+| Joi    | `references/installation.md` lines 200-208 |
+
+### UI library
+
+| Option            | More to know                               |
+| ----------------- | ------------------------------------------ |
+| shadcn/ui         | `references/installation.md` lines 63-84   |
+| Material UI (MUI) | `references/installation.md` lines 86-106  |
+| Mantine           | `references/installation.md` lines 108-128 |
+| Ant Design        | `references/installation.md` lines 130-150 |
+| Chakra UI         | `references/installation.md` lines 152-172 |
 
 ---
 
 ## Quick Start (minimal working form)
 
-### 1. Install dependencies
-
-Choose one form engine. The examples in this skill use React Hook Form unless they explicitly say TanStack Form.
-
-```bash
-# React Hook Form
-npm install react-hook-form @hookform/resolvers
-
-# TanStack Form
-npm install @tanstack/react-form
-```
-
-Then install one **UI package** and one **schema package**. See the installation section below for your specific combination.
-
-## Installation by UI Library
-
-Read `references/installation.md` for the full installation matrix. The summary:
-
-### shadcn/ui (registry-based, no npm package)
-
-(Make sure you have shadcn/ui and Tailwind initialized in your project, see `references\shadcn-tailwind-installation` for shadcn installation from scratch.)
-
-```bash
-# React Hook Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
-
-# TanStack Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
-```
-
-Then install a schema provider:
-
-```bash
-npm install @dual-autoform/zod    # or @dual-autoform/yup or @dual-autoform/joi
-```
-
-Import from local components:
-
-```tsx
-import { AutoForm } from "@/components/ui/autoform/react-hook-form";
-// TanStack: @/components/ui/autoform/tanstack-form
-```
-
-### npm-based UI packages (MUI, Mantine, Ant, Chakra)
-
-```bash
-# MUI
-npm install @dual-autoform/mui @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11
-
-# Mantine
-npm install @dual-autoform/mantine @mantine/core@^7 @mantine/dates@^7
-
-# Ant Design
-npm install @dual-autoform/ant antd@^5
-
-# Chakra UI
-npm install @dual-autoform/chakra @chakra-ui/react@^3.8 @emotion/react@^11.14
-```
-
----
-
-### 2. Create schema + render form
+Create schema + render form
 
 ```tsx
 "use client"; // required in Next.js App Router
@@ -122,17 +90,69 @@ export default function MyForm() {
 
 > **Next.js / RSC**: AutoForm must be in a `"use client"` component due to schema serialization.
 
-## AutoForm Props Reference
+---
+
+## Architecture Flow
+
+Use this mental model when wiring custom components or wrappers.
+
+```text
+[SchemaProvider: Zod/Yup/Joi]
+        |
+        v
+[AutoForm: initializes form, validation]
+        |
+        v
+[AutoFormField: internal field router]
+        |
+        v
+[FieldWrapper: label + description + errors]
+        |
+        v
+     [Field]
+        |
+        +--> [input field]  -> default / custom "form component"
+        +--> [object field] -> [ObjectWrapper]
+        +--> [array field]  -> [ArrayWrapper] -> [ArrayElementWrapper]
+```
+
+following sections cover each of these layers.
+
+---
+
+## Schema Providers
+
+| Library                  | Provider                  | Requires      |
+| ------------------------ | ------------------------- | ------------- |
+| **Zod v4**, **Zod Mini** | `new ZodProvider(schema)` | `zod ^4`      |
+| **Zod v3**               | `new ZodProvider(schema)` | `zod ^3.25.0` |
+| **Yup**                  | `new YupProvider(schema)` | `yup`         |
+| **Joi**                  | `new JoiProvider(schema)` | `joi`         |
+
+Autoform renders default input components for common schema types see `references/schema.md` lines `11-154 for Zod`, `158-195 for Yup`, `199-235 for Joi` to learn more.
+
+### Critical schema rules
+
+- **Numbers**: Always use `z.coerce.number()` (Zod), not `z.number()` — HTML inputs return strings.
+- **Dates**: Use `z.date()` for Zod date fields.
+- **Enums/Select**: Use `z.enum([...])` or `z.nativeEnum(...)` for Zod, `mixed().oneOf(...)` for Yup, `Joi.any().valid(...)` for Joi.
+- **Arrays**: Supported and valid as fields (array cannot be a root schema).
+- **Optional**: Use `.optional()` for Zod. Skip `.required()` for Yup/Joi.
+- **Default**: `.default(value)` is a validation fallback. If user clears the field, still the .default() value will be returned in form output data.
+- **Important default rule**: For pre-filled values the user can change or clear, pass default values to `<AutoForm defaultValues={...} />`.
+
+---
+
+## AutoForm: props
 
 | Prop             | Type                          | Description                                                               |
 | ---------------- | ----------------------------- | ------------------------------------------------------------------------- |
 | `schema`         | `SchemaProvider`              | **Required.** A provider instance (ZodProvider, YupProvider, JoiProvider) |
 | `onSubmit`       | `(data, form, event) => void` | Called with validated data on successful submission                       |
-| `withSubmit`     | `boolean`                     | Adds a default submit button                                              |
-| `defaultValues`  | `object`                      | Initial form values (user can clear them)                                 |
+| `withSubmit`     | `boolean`                     | Add a default submit button                                               |
+| `defaultValues`  | `object`                      | Initial form values (user can edit/clear them)                            |
 | `values`         | `object`                      | Controlled values — form reacts to external state changes                 |
-| `formControl`    | `FormControl`                 | External form control from `createFormControl()`                          |
-| `onFormInit`     | `(form) => void`              | **Deprecated.** Use `formControl` instead                                 |
+| `formControl`    | adapter form control          | External form control from the selected adapter (see form adapters)       |
 | `formComponents` | `Record<string, Component>`   | Map field types to custom input components                                |
 | `uiComponents`   | `object`                      | Override structural UI pieces (Form, FieldWrapper, ObjectWrapper, etc.)   |
 | `formProps`      | `object`                      | Extra props for the `<form>` element                                      |
@@ -140,283 +160,80 @@ export default function MyForm() {
 
 ---
 
-## Schema Providers — How to Define Your Schema
+## Customization
 
-Each schema library has its own provider class and its own `fieldConfig` attachment method. Read `references/schema-providers.md` for full details. Summary:
+There are four ways to customize AutoForm:
 
-| Library                  | Provider                  | fieldConfig attachment             | Requires              |
-| ------------------------ | ------------------------- | ---------------------------------- | --------------------- |
-| **Zod v4**, **Zod Mini** | `new ZodProvider(schema)` | `.check(fieldConfig({...}))`       | `zod ^3.25.0 \|\| ^4` |
-| **Zod v3**               | `new ZodProvider(schema)` | `.superRefine(fieldConfig({...}))` | `zod ^3.25.0`         |
-| **Yup**                  | `new YupProvider(schema)` | `.transform(fieldConfig({...}))`   | `yup`                 |
-| **Joi**                  | `new JoiProvider(schema)` | `.meta(fieldConfig({...}))`        | `joi`                 |
+1. Use `fieldConfig` on schema fields
+   - To set labels, descriptions, field order, customData, field types and pass inputProps to the input component like placeholder etc.
+   - To customize field level UI wrappers
+   - See `references/schema.md` and `references/customization.md` (lines 5-70) to understand fieldConfig in detail.
 
-### Critical schema rules
+2. Override UI wrappers:
+   - Use `uiComponents` on `<AutoForm />` to override UI components globally.
+     Use case: replace global structure such as `Form`, `FieldWrapper`, `ErrorMessage`, `SubmitButton`, `ObjectWrapper`, `ArrayWrapper`, or `ArrayElementWrapper`.
+   - Use `fieldConfig` on a schema field to override UI wrappers for that field only.
+     Use case: change one field shell, object group, array list, or array item without changing the whole form.
 
-- **Numbers**: Always use `z.coerce.number()` (Zod), not `z.number()` — HTML inputs return strings.
-- **Dates**: Use `z.date()` for Zod date fields.
-- **Enums/Select**: Use `z.enum([...])` or `z.nativeEnum(...)` for Zod, `mixed().oneOf(...)` for Yup, `Joi.any().valid(...)` for Joi.
-- **Arrays**: Supported as fields (array cannot be a root schema).
-- **Optional**: Use `.optional()` for Zod. Skip `.required()` for Yup/Joi.
-- **Default**: `.default(value)` is a validation fallback. For pre-filled values the user can clear, use the `defaultValues` prop instead.
+3. Use `formComponents` on `<AutoForm />` and select them with `fieldConfig({ fieldType: "..." })` to add custom inputs.
+   Use case: replace the value editor with a slider, color picker, rich text editor, modal selector, async search picker, upload field, multi-card selector, anything you need.
+
+4. Use `formProps` to pass extra props to `<AutoForm />` to customize the `<form>` element.
+   Use case: add classes, ids, data attributes, className,styles or native form event handlers.
+
+Read `references/customization.md` for a complete guide to all the above options.
+Read the selected adapter reference for writing custom field binding code: React Hook Form custom fields use `useController`; TanStack custom fields use `useFieldContext`.
 
 ---
 
-## fieldConfig — Customizing Fields
+## Form Control - Accessing form and field level data, states and methods.
 
-`fieldConfig` is how you customize labels, descriptions, input props, field types, wrappers, and per-field metadata **inside the schema**. Import it from your schema package.
+Read the reference for your selected adapter:
+
+- React Hook Form: `references/react-hook-form.md`
+- TanStack Form: `references/tanstack-form.md`
+
+Do not mix RHF hooks with TanStack hooks in the same implementation.
+`references/react-hook-form.md` and `references/tanstack-form.md` are adapter-specific. The other references apply to both form libraries unless they explicitly say otherwise.
+
+---
+
+## shadcn/ui Integration
+
+Unlike other npm UI packages, the shadcn installation copies the AutoForm components into your project so you can edit and customize them.
+Use the AutoForm exported by the adapter installed in your project:
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/zod";
-import { FieldTypes } from "@dual-autoform/mui"; // or your UI package
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
-const schema = z.object({
-  username: z
-    .string({
-      error: "Username is required.",
-    })
-    // You can use zod's built-in validation as normal
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
-  password: z
-    .string({
-      error: "Password is required.",
-    })
-    // Use the "describe" method to set the label
-    // If no label is set, the field name will be used
-    // and un-camel-cased
-    .describe("Your secure password")
-    .check(
-      fieldConfig({
-        description: "Use a strong password.",
-        inputProps: { type: "password", placeholder: "••••••••" },
-      }),
-    ),
-  bio: z.string().check(
-    fieldConfig<React.ReactNode, FieldTypes>({
-      fieldType: "textarea", // route to a custom form component
-    }),
-  ),
-  priority: z.string().check(
-    fieldConfig({
-      order: -1, // negative = show first
-    }),
-  ),
-  color: z.enum(["red", "green", "blue"]),
-  // You can use sub-objects that will be rendered with their own title
-  guestDetails: z.object({
-    name: z.string(),
-    age: z.coerce.number(),
-  }),
-});
+// or
+import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 ```
 
-### Customization routing
+- Change the core components only when you want that customization available to every AutoForm in the project. For example, edit `components/ui/autoform/components/FieldWrapper.tsx` for project-wide wrapper layout changes, or edit the installed adapter entry, `components/ui/autoform/react-hook-form.tsx` or `components/ui/autoform/tanstack-form.tsx`, to register project-wide field components.
 
-- `inputProps`: same input, different props such as placeholder, disabled, rows, min/max, className, or aria props.
-- `fieldType` + `formComponents`: replace the actual value editor for any field type, including object and array fields. Use this for picker modals, search selectors, uploads, rich editors, map pickers, or multi-card selectors. The custom component can render anything, but it must write a value shape that matches the schema.
-- `fieldWrapper`: keep the field component, change the shell around one field, such as label/error layout, conditional visibility, badges, help text, or spacing.
-- `objectWrapper`: keep generated child fields, change the shell around an object group, such as fieldset, card, accordion, section heading, or grouped layout.
-- `arrayWrapper`: keep generated array item fields, change the shell around the whole array, such as add button, empty state, toolbar, array-level label/error, or list layout.
-- `arrayElementWrapper`: keep generated item fields, change the shell around each array item, such as remove button, item card, numbering, accordion item, or item actions.
-- `uiComponents`: apply structural UI overrides globally.
-- `fieldConfig`: apply wrapper, input, field type, or metadata overrides to one schema field. Field config overrides win over `uiComponents` passed to AutoForm.
-
-Rule of thumb: use `fieldType` and custom components when you want to replace how a value is edited; use wrappers when AutoForm should keep editing the value but you want to change the surrounding UI.
-
-### Available fieldConfig options
-
-| Option                | Type        | Purpose                                        |
-| --------------------- | ----------- | ---------------------------------------------- |
-| `label`               | `string`    | Override the auto-generated label              |
-| `description`         | `ReactNode` | Helper text below the field                    |
-| `inputProps`          | `object`    | Props spread onto the input element            |
-| `fieldType`           | `string`    | Route to a custom `formComponents` entry       |
-| `order`               | `number`    | Display order (lower = earlier, default 0)     |
-| `fieldWrapper`        | `Component` | Per-field wrapper override                     |
-| `objectWrapper`       | `Component` | Per-object-field wrapper override              |
-| `arrayWrapper`        | `Component` | Per-array-field wrapper override               |
-| `arrayElementWrapper` | `Component` | Per-array-item wrapper override                |
-| `customData`          | `object`    | Arbitrary data accessible in custom components |
-
----
-
-## Custom Field Components
-
-Register custom value editors via `formComponents` and route fields to them with `fieldConfig({ fieldType: "..." })`.
-
-Custom field components can replace the editor for scalar, object, or array fields. This is the right choice when wrappers are not enough, for example a modal selector, async search picker, file uploader, or multi-card selector for an array field. The component can render anything internally, but it must write the exact value shape expected by the schema in the onChange handler.
-
-```tsx
-// 1. Create the component — use useController hook from react-hook-form for RHF binding
-import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@dual-autoform/react";
-
-function SliderField({ id, inputProps }: AutoFormFieldProps) {
-  const { field } = useController({ name: id });
-  return (
-    <input id={id} type="range" min={0} max={100} {...inputProps} {...field} />
-  );
-}
-
-// 2. Register it on AutoForm
-<AutoForm schema={schemaProvider} formComponents={{ slider: SliderField }} />;
-
-// 3. Route a schema field to it
-const schema = z.object({
-  volume: z.coerce.number().check(
-    fieldConfig<React.ReactNode, FieldTypes | "slider">({
-      fieldType: "slider",
-    }),
-  ),
-});
-```
-
-**Important**:
-
-- Most form components should not render labels or errors because `FieldWrapper` handles those. If you dont want FieldWrapper you can override it with a wrapper that only returns `children` .
-- If a custom component replaces an entire object or array editor, it may own more UI, but it still must write schema-compatible values through React Hook Form.
-
----
-
-## Overriding UI Components
-
-The full set of overridable UI components:
-
-- `Form` — the `<form>` element
-- `FieldWrapper` — wraps each field with label + error
-- `ErrorMessage` — renders validation errors
-- `SubmitButton` — the submit button
-- `ObjectWrapper` — wraps sub-object field groups
-- `ArrayWrapper` — wraps array fields with add-item button
-- `ArrayElementWrapper` — wraps each array item with remove button
-
-Override structural components globally via `uiComponents`. Override `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` per field via `fieldConfig`. Use wrappers only when AutoForm should still render the field contents; use `fieldType` when replacing the value editor itself.
+- For a custom field used by one form, pass it to `AutoForm` with `formComponents`:
 
 ```tsx
 <AutoForm
-  uiComponents={{
-    FieldWrapper: CustomFieldWrapper,
-    ErrorMessage: ({ error }) => <span className="text-red-500">{error}</span>,
-    SubmitButton: ({ children }) => <button className="btn">{children}</button>,
-  }}
+  formComponents={{ textarea: TextareaField }}
+  schema={schemaProvider}
 />
-```
-
----
-
-## Form Control — Accessing Form State
-
-Read `references/form-control.md` for detailed patterns. Summary:
-
-### Inside AutoForm (children)
-
-```tsx
-import { useFormContext } from "react-hook-form";
-
-function CustomSubmitButton() {
-  const {
-    watch,
-    setValue,
-    reset,
-    formState: { isValid },
-  } = useFormContext();
-  return (
-    <button type="submit" disabled={!isValid}>
-      Submit
-    </button>
-  );
-}
-
-<AutoForm schema={sp}>
-  <CustomSubmitButton />
-</AutoForm>;
-```
-
-### Outside AutoForm (external control)
-
-```tsx
-import { createFormControl } from "react-hook-form"; // requires RHF >= 7.55.0
-
-const { formControl, handleSubmit, reset } = React.useMemo(
-  () => createFormControl(), []
-);
-
-<AutoForm formControl={formControl} schema={sp} />
-<button onClick={handleSubmit((data) => console.log(data))}>Submit</button>
-<button onClick={() => reset()}>Reset</button>
-```
-
-For TanStack Form, use `useAppForm` from `@dual-autoform/react/tanstack-form` and keep `formOptions(...)` stable:
-
-```tsx
-import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@dual-autoform/react/tanstack-form";
-
-const options = React.useMemo(() => formOptions(), []);
-const form = useAppForm(options);
-
-<AutoForm formControl={form} schema={sp} defaultValues={{ username: "" }} />;
-```
-
----
-
-## shadcn/ui Integration — Detailed Guide
-
-Read `references/shadcn.md` for the complete shadcn-specific guide including:
-
-- Registry CLI installation
-- Available example blocks (with installation via `npx shadcn@latest add <url>`)
-- How the shadcn AutoForm wraps `@dual-autoform/react`
-- Customizing the shadcn field components
-
-### Quick shadcn registry commands
-
-```bash
-# Install AutoForm component (React Hook Form)
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
-
-# Install AutoForm component (TanStack Form)
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
-
-# Install example blocks
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/realtime-validation-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/dialog-submit-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/custom-fields-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/ecommerce-checkout-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/multistep-form-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/nested-autoform-demo.json
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/interactive-schema-demo.json
 ```
 
 ---
 
 ## Common Patterns
 
-### Multi-step form
+Read your adapter-specific examples file for the following patterns and use cases: `references/utils/examples-react-hook-form.md` or `references/utils/examples-tanstack-form.md`.
 
-Use a separate schema per step, validate with `trigger()`, collect values with `getValues()`.
-
-### Nested AutoForm
-
-Create a custom field component that renders a second `<AutoForm>`. On inner submit, pass the value back via `onChange`.
-
-### Custom object/array editor
-
-When customization to object or array wrapper is not enough for your usecase eg: custom value editor, such as a modal picker or async multi-select. Then use `fieldType` + `formComponents`. The custom component must write the exact object/array shape expected by the schema.
-
-### Real-time validation
-
-Pass `createFormControl({ mode: "all" })` and check `isValid` from `useFormContext`.
-
-### External submit/reset (e.g. Dialog buttons)
-
-Either use `useFormContext` inside AutoForm children, or `createFormControl` outside.
-
-### Dependent/conditional fields
-
-Use `useWatch` + `useFormContext` inside custom field components or wrappers. Use `superRefine` for cross-field validation.
+- Real-time validation: disabled submit, can submit, live errors, valid form state, enable submit only when form state is valid
+- Dialog submit/reset: dialog buttons, external submit, external reset, submit outside form, submit/reset AutoForm from buttons outside or around the form
+- Custom fields: custom field, slider, color picker, date picker, file upload, radio cards, value editor, replace the field value editor with `fieldConfig({ fieldType })` + `formComponents`
+- Dependent/conditional fields: cascading select, coupon, payment section, gift message, watch other fields, show/disable/reset/replace UI based on form values
+- Multi-step form: wizard, multiple schemas, step validation, collect step data, split a flow into multiple schemas/forms and advance after valid step submission
+- Nested AutoForm: subform in dialog, object editor, array/object custom value, render a second AutoForm inside a custom field and write its submitted value to the outer field
+- Dynamic schema playground: schema text, generated form, Monaco, interactive schema, parse a schema string and render AutoForm dynamically
 
 ---
 
@@ -438,9 +255,12 @@ Use `useWatch` + `useFormContext` inside custom field components or wrappers. Us
 For deeper details, read these reference files in the `references/` directory:
 
 - `references/installation.md` — Full installation matrix for every UI + schema combination
-- `references/schema-providers.md` — Complete Zod, Yup, and Joi schema configuration (labels, enums, arrays, sub-objects, fieldConfig)
-- `references/shadcn.md` — shadcn/ui registry integration, CLI commands, component anatomy, and all available example blocks
-- `references/shadcn-tailwind-installation.md` — shadcn/ui and tailwind installation from scratch
-- `references/form-control.md` — All patterns for accessing form data (onSubmit, useFormContext, createFormControl)
-- `references/custom-integration.md` — Building a custom UI integration from scratch
 - `references/customization.md` — fieldConfig, custom fields, UI component overrides, form element customization
+- `references/react-hook-form.md` - React Hook Form imports, custom fields, form control, defaults, and common mistakes
+- `references/tanstack-form.md` - TanStack Form imports, custom fields, form control, defaults, and common mistakes
+- `references/schema.md` — Complete Zod, Yup, and Joi schema configuration (labels, enums, arrays, sub-objects, fieldConfig)
+- `references/utils/shadcn-tailwind-installation.md` — shadcn/ui and tailwind installation from scratch
+- `references/utils/examples-react-hook-form.md` - React Hook Form shadcn example blocks with install commands, source links, and API-specific descriptions
+- `references/utils/examples-tanstack-form.md` - TanStack Form shadcn example blocks with install commands, source links, and API-specific descriptions
+- `references/utils/custom-ui-package-integration.md` — Building a custom UI package integration from scratch
+- `references/utils/customizing-react-package.md` — If the public React package API does not cover your use case, then copy and customize the React adapter source in your project.

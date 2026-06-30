@@ -30,7 +30,7 @@ npx shadcn@latest init
 # 2. Existing Project
 
 If you already have an application:
-Follow the framework specfic steps.
+Follow the framework-specific steps.
 
 ---
 
