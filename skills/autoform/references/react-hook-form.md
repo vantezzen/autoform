@@ -18,7 +18,7 @@ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react/react-hook-form";
+} from "@dual-autoform/react";
 ```
 
 > AutoForm wraps the form with React Hook Form's `FormProvider` so `no need` to pass the control object that various hooks need.
@@ -29,7 +29,7 @@ RHF custom fields use [`useController`](https://react-hook-form.com/docs/usecont
 
 ```tsx
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 function SliderField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });

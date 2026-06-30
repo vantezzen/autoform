@@ -8,7 +8,7 @@ import {
   ArrayWrapperProps,
   FieldWrapperProps,
   ObjectWrapperProps,
-} from "@dual-autoform/react";
+} from "@dual-autoform/react/react-hook-form";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
   describe(`AutoForm UI Customization Tests (SHADCN-ZOD, ${name})`, () => {

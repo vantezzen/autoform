@@ -8,7 +8,7 @@ The primary way to customize individual fields is by attaching `fieldConfig` to 
 
 ```tsx
 import { fieldConfig } from "@dual-autoform/zod";
-import { FieldTypes } from "@dual-autoform/mui"; // Optional: Import FieldTypes from your UI package for TS
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form"; // Optional: import from your UI adapter for TS
 
 const schema = z.object({
   password: z.string().check(
@@ -76,7 +76,7 @@ AutoForm divides its components into two categories:
 Override these globally with `uiComponents` prop to `<AutoForm>`,
 Or override `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` per field with `fieldConfig`.
 
-Import custom component and wrapper types from your adapter path:
+Import shared custom component and wrapper types from the React root:
 
 ```tsx
 import type {
@@ -86,8 +86,7 @@ import type {
   ArrayWrapperProps,
   ArrayElementWrapperProps,
   AutoFormUIComponents,
-} from "@dual-autoform/react/react-hook-form";
-// Or: @dual-autoform/react/tanstack-form
+} from "@dual-autoform/react";
 ```
 
 ```tsx

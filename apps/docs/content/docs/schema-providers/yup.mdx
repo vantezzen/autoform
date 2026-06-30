@@ -247,7 +247,7 @@ const formSchema = object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import { FieldTypes } from "@dual-autoform/mui";
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 string().transform(
   fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({

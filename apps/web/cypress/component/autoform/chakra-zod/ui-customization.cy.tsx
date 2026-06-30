@@ -3,7 +3,7 @@ import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
-import { FieldWrapperProps } from "@dual-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {
   describe(`AutoForm UI Customization Tests (CHAKRA-ZOD), ${name}`, () => {

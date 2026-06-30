@@ -20,8 +20,8 @@ Attach `fieldConfig` with `.check(...)` in Zod v4 / Zod Mini, or `.superRefine(.
 import * as z from "zod";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui";
-import type { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 const nameId = {
   name1: "id1",
@@ -165,7 +165,7 @@ Attach `fieldConfig` with `.transform(...)`.
 import { YupProvider, fieldConfig } from "@dual-autoform/yup";
 import { object, string, number, array, mixed } from "yup";
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui";
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 const yupSchema = object({
   // `.label()` sets the field label. Yup fields are optional unless `.required()` is used.
@@ -206,7 +206,7 @@ Attach `fieldConfig` with `.meta(...)`.
 import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
 import Joi from "joi";
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui";
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 const joiSchema = Joi.object({
   // `.label()` sets the field label. Joi fields are optional unless `.required()` is used.

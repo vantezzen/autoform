@@ -22,13 +22,13 @@ For shadcn/ui, import from the copied React Hook Form component path:
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 ```
 
-Import shared AutoForm types from the React Hook Form adapter path.
+Import shared AutoForm renderer types from the React root.
 
 ```tsx
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react/react-hook-form";
+} from "@dual-autoform/react";
 ```
 
 ### TanStack Form adapter
@@ -49,13 +49,13 @@ For shadcn/ui, import from the copied TanStack Form component path:
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 ```
 
-Import shared AutoForm types from the TanStack Form adapter path.
+Import shared AutoForm renderer types from the React root.
 
 ```tsx
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react/tanstack-form";
+} from "@dual-autoform/react";
 ```
 
 ## UI Library Installation
@@ -102,7 +102,7 @@ Import:
 ```tsx
 import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 // Or: @dual-autoform/mui/tanstack-form
-import type { FieldTypes } from "@dual-autoform/mui";
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 ```
 
 ### Mantine
@@ -124,7 +124,7 @@ Import:
 ```tsx
 import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
 // Or: @dual-autoform/mantine/tanstack-form
-import type { FieldTypes } from "@dual-autoform/mantine";
+import type { FieldTypes } from "@dual-autoform/mantine/react-hook-form";
 ```
 
 ### Ant Design
@@ -146,7 +146,7 @@ Import:
 ```tsx
 import { AutoForm } from "@dual-autoform/ant/react-hook-form";
 // Or: @dual-autoform/ant/tanstack-form
-import type { FieldTypes } from "@dual-autoform/ant";
+import type { FieldTypes } from "@dual-autoform/ant/react-hook-form";
 ```
 
 ### Chakra UI
@@ -168,7 +168,7 @@ Import:
 ```tsx
 import { AutoForm } from "@dual-autoform/chakra/react-hook-form";
 // Or: @dual-autoform/chakra/tanstack-form
-import type { FieldTypes } from "@dual-autoform/chakra";
+import type { FieldTypes } from "@dual-autoform/chakra/react-hook-form";
 ```
 
 ---

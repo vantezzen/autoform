@@ -103,7 +103,7 @@ Key features:
 
 ## 4. UI-specific libraries (e.g., @dual-autoform/mui)
 
-These packages implement UI components for specific design systems or component libraries. They use the core functionality from @dual-autoform/react and provide styled form elements.
+These packages implement UI components for specific design systems or component libraries. They wrap the selected @dual-autoform/react adapter path and provide styled form elements.
 
 Key features:
 
@@ -180,7 +180,7 @@ export function AutoForm<T extends Record<string, any>>({
 1. A user defines their form schema using a supported schema library (e.g., Zod).
 2. The schema is passed to the appropriate schema provider (e.g., @dual-autoform/zod).
 3. The `AutoForm` component from a UI-specific library (e.g., @dual-autoform/mui) is used in the React application.
-4. This `AutoForm` component wraps the core `AutoForm` from @dual-autoform/react, providing UI-specific components.
+4. This `AutoForm` component wraps the selected core `AutoForm` adapter path, providing UI-specific components.
 5. The core `AutoForm` uses the schema provider to parse the schema, generate form fields, and create resolver-backed validation.
 6. UI-specific components render the form fields and handle user input.
 7. On form submission, resolver-validated data is passed to the `onSubmit` handler.

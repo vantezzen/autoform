@@ -1,48 +1,75 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-const require = createRequire(import.meta.url);
-const publishedPackages = [
-  "core",
-  "zod",
-  "yup",
-  "joi",
-  "react",
-  "ant",
-  "chakra",
-  "mantine",
-  "mui",
-];
+const rootPackages = ["core", "zod", "yup", "joi", "react"];
+const uiPackages = ["ant", "chakra", "mantine", "mui"];
 
-for (const packageName of publishedPackages) {
+function readPackageJson(packageName) {
   const packageDir = resolve(`packages/${packageName}`);
   const packageJson = JSON.parse(
     readFileSync(resolve(packageDir, "package.json"), "utf8"),
   );
-  const rootExport = packageJson.exports["."];
+  return { packageDir, packageJson };
+}
+
+function assertExportTarget(packageDir, packageName, target) {
+  assert.equal(
+    existsSync(resolve(packageDir, target)),
+    true,
+    `${packageName} export target is missing: ${target}`,
+  );
+}
+
+function assertSimpleExport(packageDir, packageName, exportPath, exportTarget) {
+  assert.match(exportTarget.import.types, /\.d\.ts$/);
+  assert.match(exportTarget.import.default, /\.mjs$/);
+  assert.match(exportTarget.require.types, /\.d\.cts$/);
+  assert.match(exportTarget.require.default, /\.cjs$/);
+
+  for (const target of [
+    exportTarget.import.types,
+    exportTarget.import.default,
+    exportTarget.require.types,
+    exportTarget.require.default,
+  ]) {
+    assertExportTarget(packageDir, `${packageName}${exportPath}`, target);
+  }
+}
+
+for (const packageName of rootPackages) {
+  const { packageDir, packageJson } = readPackageJson(packageName);
 
   assert.equal(packageJson.type, "module", `${packageJson.name} is not ESM-first`);
   assert.match(packageJson.main, /\.cjs$/);
   assert.match(packageJson.module, /\.mjs$/);
-  assert.match(rootExport.import.types, /\.d\.ts$/);
-  assert.match(rootExport.import.default, /\.mjs$/);
-  assert.match(rootExport.require.types, /\.d\.cts$/);
-  assert.match(rootExport.require.default, /\.cjs$/);
+  assert.match(packageJson.types, /\.d\.ts$/);
+  assertSimpleExport(packageDir, packageJson.name, "", packageJson.exports["."]);
+}
 
-  for (const target of [
-    packageJson.main,
-    packageJson.module,
-    rootExport.import.types,
-    rootExport.require.types,
-  ]) {
-    assert.equal(
-      existsSync(resolve(packageDir, target)),
-      true,
-      `${packageJson.name} export target is missing: ${target}`,
-    );
-  }
+for (const packageName of uiPackages) {
+  const { packageDir, packageJson } = readPackageJson(packageName);
+
+  assert.equal(packageJson.type, "module", `${packageJson.name} is not ESM-first`);
+  assert.equal(
+    packageJson.exports["."],
+    undefined,
+    `${packageJson.name} should not expose a root AutoForm export`,
+  );
+  assertSimpleExport(
+    packageDir,
+    packageJson.name,
+    "/react-hook-form",
+    packageJson.exports["./react-hook-form"],
+  );
+  assertSimpleExport(
+    packageDir,
+    packageJson.name,
+    "/tanstack-form",
+    packageJson.exports["./tanstack-form"],
+  );
 }
 
 for (const specifier of [
@@ -50,49 +77,33 @@ for (const specifier of [
   "@dual-autoform/zod",
   "@dual-autoform/yup",
   "@dual-autoform/joi",
+  "@dual-autoform/react",
+  "@dual-autoform/react/react-hook-form",
+  "@dual-autoform/react/tanstack-form",
 ]) {
-  require(specifier);
-  await import(specifier);
+  const packageName = specifier.split("/")[1];
+  const packageRequire = createRequire(
+    resolve(`packages/${packageName}/package.json`),
+  );
+  packageRequire(specifier);
+  await import(pathToFileURL(packageRequire.resolve(specifier)).href);
 }
 
-const root = require("@dual-autoform/react");
-const rhf = require("@dual-autoform/react/react-hook-form");
-const tanstack = require("@dual-autoform/react/tanstack-form");
-
-assert.equal(root.AutoFormProvider, rhf.AutoFormProvider, "RHF CJS duplicated AutoFormContext");
-assert.equal(
-  root.AutoFormProvider,
-  tanstack.AutoFormProvider,
-  "TanStack CJS duplicated AutoFormContext",
-);
-
-const [esmRoot, esmRhf, esmTanstack] = await Promise.all([
-  import("@dual-autoform/react"),
-  import("@dual-autoform/react/react-hook-form"),
-  import("@dual-autoform/react/tanstack-form"),
-]);
-
-assert.equal(esmRoot.AutoFormProvider, esmRhf.AutoFormProvider, "RHF ESM duplicated AutoFormContext");
-assert.equal(
-  esmRoot.AutoFormProvider,
-  esmTanstack.AutoFormProvider,
-  "TanStack ESM duplicated AutoFormContext",
-);
-
 const reactDist = resolve("packages/react/dist");
-const legacyRhfDist = resolve(reactDist, "rhf");
-assert.equal(
-  existsSync(legacyRhfDist) && readdirSync(legacyRhfDist).length > 0,
-  false,
-  "stale dist/rhf files were packed",
-);
+for (const staleDir of ["react-hook-form", "tanstack-form"]) {
+  assert.equal(
+    existsSync(resolve(reactDist, staleDir)),
+    false,
+    `stale packages/react/dist/${staleDir} directory was packed`,
+  );
+}
 
-const rhfEntry = readFileSync(resolve(reactDist, "react-hook-form/index.mjs"), "utf8");
-const tanstackEntry = readFileSync(resolve(reactDist, "tanstack-form/index.mjs"), "utf8");
+const rhfEntry = readFileSync(resolve(reactDist, "react-hook-form.mjs"), "utf8");
+const tanstackEntry = readFileSync(resolve(reactDist, "tanstack-form.mjs"), "utf8");
 assert.equal(rhfEntry.includes("@tanstack/react-form"), false, "RHF entry imports TanStack Form");
 assert.equal(tanstackEntry.includes('from "react-hook-form"'), false, "TanStack entry imports RHF");
 
-for (const packageName of ["ant", "chakra", "mantine", "mui"]) {
+for (const packageName of uiPackages) {
   const dist = resolve(`packages/${packageName}/dist`);
   const rhfUiEntry = readFileSync(resolve(dist, "react-hook-form.mjs"), "utf8");
   const tanstackUiEntry = readFileSync(resolve(dist, "tanstack-form.mjs"), "utf8");

@@ -120,7 +120,7 @@ export default function MyForm() {
 Custom field components can use `useController` from `react-hook-form` to access the field API (which exposes the field's value, bindings, and state such as `error` and `isDirty`):
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
+import { AutoFormFieldProps } from "@dual-autoform/react";
 import { useController } from "react-hook-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {

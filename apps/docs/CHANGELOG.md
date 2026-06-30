@@ -6,7 +6,7 @@
 
 - Document resolver-backed validation through `@hookform/resolvers`.
 - Document the new `formControl` prop for external react-hook-form controls.
-- Mark `onFormInit` as deprecated for new code.
+- Remove the legacy `onFormInit` prop from AutoForm.
 - Update custom field documentation to use `useField()`.
 
 ### Patch Changes

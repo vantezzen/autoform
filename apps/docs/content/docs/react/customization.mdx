@@ -12,7 +12,7 @@ In the examples below, we use Zod.
 ```tsx
 import * as z from "zod";
 import { fieldConfig } from "@dual-autoform/zod";
-import { FieldTypes } from "@dual-autoform/mui"; // use your UI library
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form"; // use your UI adapter
 
 const schema = z.object({
   username: z.string().check(
@@ -117,7 +117,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@dual-autoform/react"; // adjust import based on your library
+import { FieldWrapperProps } from "@dual-autoform/react";
 
 export function CustomFieldWrapper({
   children,
@@ -232,7 +232,7 @@ For binding field components, use `useController` hook from `react-hook-form` an
 ```tsx
 // CustomInput.tsx
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@dual-autoform/react"; // or your UI package
+import { AutoFormFieldProps } from "@dual-autoform/react";
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
@@ -493,7 +493,7 @@ In some cases, you may need customization that isn't supported by the package AP
 
 <ModeTab
   mode="cli"
-  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-rhf.json"
+  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-source-rhf.json"
 />
 
 The adapter files will be added to `lib/autoform/react/`. You can change them as needed.

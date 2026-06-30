@@ -154,7 +154,6 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
     });
 
     it("keeps nested array errors visible when Enter submits", () => {
-      const onFormInit = cy.stub().as("onFormInit");
       const nestedArraySchema = z.object({
         friends: z.array(
           z.object({
@@ -172,7 +171,6 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
           <AutoForm
             schema={new ZodProvider(nestedArraySchema)}
             onSubmit={cy.stub().as("onSubmit")}
-            onFormInit={onFormInit}
             withSubmit
           />
         </TestWrapper>,
@@ -184,9 +182,6 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
       cy.get(`input[name="${getFieldName("friends.0.profile.details.email")}"]`)
         .should("have.attr", "aria-invalid", "true");
       cy.get("@onSubmit").should("not.have.been.called");
-      cy.get("@onFormInit").then((stub: any) => {
-        expect(stub.firstCall.args[0].state.submissionAttempts).to.equal(1);
-      });
     });
   }
 });

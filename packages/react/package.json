@@ -13,28 +13,28 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
     },
     "./react-hook-form": {
       "import": {
-        "types": "./dist/react-hook-form/index.d.ts",
-        "default": "./dist/react-hook-form/index.mjs"
+        "types": "./dist/react-hook-form.d.ts",
+        "default": "./dist/react-hook-form.mjs"
       },
       "require": {
-        "types": "./dist/react-hook-form/index.d.ts",
-        "default": "./dist/react-hook-form/index.cjs"
+        "types": "./dist/react-hook-form.d.cts",
+        "default": "./dist/react-hook-form.cjs"
       }
     },
     "./tanstack-form": {
       "import": {
-        "types": "./dist/tanstack-form/index.d.ts",
-        "default": "./dist/tanstack-form/index.mjs"
+        "types": "./dist/tanstack-form.d.ts",
+        "default": "./dist/tanstack-form.mjs"
       },
       "require": {
-        "types": "./dist/tanstack-form/index.d.ts",
-        "default": "./dist/tanstack-form/index.cjs"
+        "types": "./dist/tanstack-form.d.cts",
+        "default": "./dist/tanstack-form.cjs"
       }
     },
     "./package.json": "./package.json"

@@ -28,7 +28,7 @@ import {
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react/tanstack-form";
+} from "@dual-autoform/react";
 ```
 
 > AutoForm wraps the form with Tanstack Form's `form.AppForm` and every field with `<form.AppField name=".." ... />`. So you can use `useFieldContext`, `useFormContext` anywhere inside autoform.

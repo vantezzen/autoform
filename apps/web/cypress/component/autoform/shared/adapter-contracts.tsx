@@ -7,7 +7,7 @@ import {
   useFormContext,
 } from "@dual-autoform/react/tanstack-form";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
 import { z } from "zod/v3";
 
 const FragmentWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -142,7 +142,7 @@ export function defineTanStackFormPropertiesTests({
             setResult((prev) => ({
               ...prev,
               fieldContext: String(
-                String(field.name) === "probe" &&
+                field.name === "probe" &&
                   form.state.values.probe === "field context value",
               ),
             }));

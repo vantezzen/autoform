@@ -137,7 +137,7 @@ export function StringField({ id, inputProps }: AutoFormFieldProps) {
   return (
     <input
       id={id}
-      name={String(field.name)}
+      name={field.name}
       value={field.state.value ?? ""}
       onBlur={field.handleBlur}
       onChange={(event) => field.handleChange(event.target.value)}

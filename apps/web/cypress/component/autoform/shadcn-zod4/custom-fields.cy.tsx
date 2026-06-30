@@ -3,7 +3,7 @@ import React from "react";
 import { AutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
 import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import { z } from "zod/v4";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
 import { TestWrapper } from "./utils";
 
 describe("AutoForm Custom Fields Tests (SHADCN-ZOD-V4)", () => {

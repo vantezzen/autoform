@@ -71,7 +71,10 @@ export function createAutoForm(
           <BaseAutoForm
             {...(props as BaseAutoFormProps<T>)}
             uiComponents={{ ...ChakraUIComponents, ...uiComponents }}
-            formComponents={{ ...ChakraAutoFormFieldComponents, ...formComponents }}
+            formComponents={{
+              ...ChakraAutoFormFieldComponents,
+              ...formComponents,
+            }}
           />
         </FieldHookProvider>
       </Provider>

@@ -170,7 +170,7 @@ export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
     <input
       id={id}
       type="text"
-      name={String(field.name)}
+      name={field.name}
       value={field.state.value ?? ""}
       onBlur={field.handleBlur}
       onChange={(event) => field.handleChange(event.target.value)}
@@ -213,7 +213,7 @@ export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {
     <div>
       <input
         id={id}
-        name={String(field.name)}
+        name={field.name}
         type="checkbox"
         checked={!!field.state.value}
         onBlur={field.handleBlur}
@@ -415,7 +415,7 @@ In some cases, you may need customization that isn't supported by the package AP
 
 <ModeTab
   mode="cli"
-  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-tanstack.json"
+  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-source-tanstack.json"
 />
 
 The adapter files will be added to `lib/autoform/react/`. You can change them as needed.

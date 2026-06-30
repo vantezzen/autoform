@@ -1,4 +1,4 @@
-import { FieldWrapperProps } from "@dual-autoform/react";
+import { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
 import Joi from "joi";
 import * as z from "zod/v3";
 import * as z4 from "zod/v4";
