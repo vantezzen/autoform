@@ -2,19 +2,21 @@ import { SchemaProvider } from "./schema-provider";
 import { ParsedField, ParsedSchema } from "./types";
 
 function assertSchemaProvider(
-  schemaProvider: SchemaProvider | undefined,
+  schemaProvider: unknown,
 ): asserts schemaProvider is SchemaProvider {
   if (!schemaProvider) {
     throw new Error("AutoForm requires a schema prop. Provide a schema.");
   }
 
+  const provider = schemaProvider as Record<string, unknown>;
   if (
-    typeof schemaProvider.parseSchema !== "function" ||
-    typeof schemaProvider.validateSchema !== "function" ||
-    typeof schemaProvider.getDefaultValues !== "function"
+    typeof schemaProvider !== "object" ||
+    typeof provider?.parseSchema !== "function" ||
+    typeof provider?.validateSchema !== "function" ||
+    typeof provider?.getDefaultValues !== "function"
   ) {
     throw new Error(
-      'AutoForm schema must be a schema provider. For Zod, import { ZodProvider } from "@dual-autoform/zod" and pass schema={new ZodProvider(schema)}.',
+      "AutoForm schema must be a schema provider. For Zod, const schemaProvider = new ZodProvider(schema);",
     );
   }
 }
