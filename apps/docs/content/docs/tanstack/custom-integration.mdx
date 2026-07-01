@@ -43,7 +43,7 @@ Implement the required UI components:
 
 ```tsx
 import React from "react";
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
@@ -67,7 +67,7 @@ For TanStack field components, use `useFieldContext` from `@dual-autoform/react/
 
 ```tsx
 import React from "react";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
@@ -93,7 +93,7 @@ The same context gives access to TanStack-specific APIs:
 
 ```tsx
 import React from "react";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({

@@ -8,7 +8,8 @@ Basic usage:
 "use client";
 import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
 import Joi from "joi";
-import { AutoForm, FieldTypes } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import { AutoForm } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 // Define your form schema using Joi
 const joiFormSchema = Joi.object({

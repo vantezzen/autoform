@@ -36,7 +36,7 @@ const Form: React.FC<{
 );
 
 // 2. The Field Wrapper (Label + Input + Description + Error)
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
   error,
@@ -73,7 +73,7 @@ const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
 );
 
 // 5. Object Wrapper (groups nested objects)
-import { ObjectWrapperProps } from "@dual-autoform/react";
+import type { ObjectWrapperProps } from "@dual-autoform/react";
 const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
   parsedField,
@@ -86,7 +86,7 @@ const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
 );
 
 // 6. Array Wrapper (Wraps the list of array items and the "Add" button)
-import { ArrayWrapperProps } from "@dual-autoform/react";
+import type { ArrayWrapperProps } from "@dual-autoform/react";
 const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
   error,
@@ -110,7 +110,7 @@ const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
 );
 
 // 7. Array Element Wrapper (Wraps a single array item and the "Remove" button)
-import { ArrayElementWrapperProps } from "@dual-autoform/react";
+import type { ArrayElementWrapperProps } from "@dual-autoform/react";
 const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
   onRemove,

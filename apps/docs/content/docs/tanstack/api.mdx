@@ -103,7 +103,7 @@ When options depend on props or local values, memoize them with `useMemo` before
 Custom field components receive `AutoFormFieldProps`. Use `useFieldContext` from `@dual-autoform/react/tanstack-form` to connect custom inputs to the TanStack field API.
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {

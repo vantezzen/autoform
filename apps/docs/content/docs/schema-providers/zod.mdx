@@ -10,7 +10,8 @@ Basic usage:
 "use client";
 import * as z from "zod";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
-import { AutoForm, FieldTypes } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import { AutoForm } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 // Define your form schema using zod
 const formSchema = z.object({

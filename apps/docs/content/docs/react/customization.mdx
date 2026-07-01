@@ -117,7 +117,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 export function CustomFieldWrapper({
   children,
@@ -232,7 +232,7 @@ For binding field components, use `useController` hook from `react-hook-form` an
 ```tsx
 // CustomInput.tsx
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });

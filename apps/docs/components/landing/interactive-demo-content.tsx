@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import { z } from "zod";
 import { SchemaProvider } from "@dual-autoform/core";
 import { ZodProvider } from "@dual-autoform/zod";
-import { AutoForm } from "@/components/ui/autoform";
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
 const defaultCode = `z.object({
   name: z.string(),

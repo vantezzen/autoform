@@ -96,7 +96,7 @@ Custom field components receive `AutoFormFieldProps` which contain useful data a
 
 ```tsx
 import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });

@@ -87,7 +87,7 @@ export const Form: React.FC<{
 ```tsx
 // src/components/FieldWrapper.tsx
 import React from "react";
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
@@ -127,7 +127,7 @@ export const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
 ```tsx
 // src/components/ObjectWrapper.tsx
 import React from "react";
-import { ObjectWrapperProps } from "@dual-autoform/react";
+import type { ObjectWrapperProps } from "@dual-autoform/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
@@ -150,7 +150,7 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
 ```tsx
 // src/components/ArrayWrapper.tsx
 import React from "react";
-import { ArrayWrapperProps } from "@dual-autoform/react";
+import type { ArrayWrapperProps } from "@dual-autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
@@ -177,7 +177,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
 ```tsx
 // src/components/ArrayElementWrapper.tsx
 import React from "react";
-import { ArrayElementWrapperProps } from "@dual-autoform/react";
+import type { ArrayElementWrapperProps } from "@dual-autoform/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
@@ -422,7 +422,7 @@ npm install @dual-autoform/react @dual-autoform/custom-ui
 Then, in your React component:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/custom-ui";
+import { AutoForm } from "@dual-autoform/custom-ui/react-hook-form";
 import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
 
 const mySchema = z.object({

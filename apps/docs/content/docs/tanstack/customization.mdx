@@ -12,7 +12,7 @@ In the examples below, we use Zod.
 ```tsx
 import * as z from "zod";
 import { fieldConfig } from "@dual-autoform/zod";
-import { FieldTypes } from "@dual-autoform/mui/tanstack-form";
+import type { FieldTypes } from "@dual-autoform/mui/tanstack-form";
 
 const schema = z.object({
   username: z.string().check(
@@ -110,7 +110,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 export function CustomFieldWrapper({
   children,
@@ -160,7 +160,7 @@ For binding field components, use `useFieldContext` from `@dual-autoform/react/t
 
 ```tsx
 // CustomInput.tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
@@ -202,7 +202,7 @@ const schema = z.object({
 You can also access field-specfic states etc.
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {

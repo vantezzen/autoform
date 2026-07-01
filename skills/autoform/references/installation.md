@@ -80,7 +80,8 @@ Import path after installation:
 ```tsx
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 // Or: @/components/ui/autoform/tanstack-form
-import type { FieldTypes } from "@/components/ui/autoform";
+import type { FieldTypes } from "@/components/ui/autoform/react-hook-form";
+// Or: @/components/ui/autoform/tanstack-form
 ```
 
 ### Material UI (MUI)

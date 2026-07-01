@@ -128,7 +128,7 @@ export default function MyForm() {
 Custom field components can use `useFieldContext` to access the TanStack field API (which exposes the field's value, name, bindings, and state such as `state.meta.errors`):
 
 ```tsx
-import { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@dual-autoform/react";
 import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();

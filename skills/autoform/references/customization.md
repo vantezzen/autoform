@@ -90,7 +90,7 @@ import type {
 ```
 
 ```tsx
-import { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@dual-autoform/react";
 
 function CustomFieldWrapper({
   id,

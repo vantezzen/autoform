@@ -8,7 +8,8 @@ Basic usage:
 "use client";
 import { YupProvider, fieldConfig } from "@dual-autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
-import { AutoForm, FieldTypes } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import { AutoForm } from "@dual-autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
 
 // Define your form schema using yup
 const yupFormSchema = object({
