@@ -37,7 +37,7 @@ function MyForm() {
 }
 ```
 
-AutoForm itself is agnostic to the schema library, rendering library and UI library you use, but it comes with a set of official packages that make it easy to use with popular UI libraries like Material UI, Shadcn ui, Mantine, Ant, Chakra and integrate with validation libraries like Zod, Yup, Joi etc.
+AutoForm itself is agnostic to the schema, rendering and UI library you use. It also comes with official packages for popular UI libraries like Material UI, shadcn/ui, Mantine, Ant Design, Chakra and validation libraries like Zod, Yup, Joi.
 
 This code produces a form that looks like this (try it out!):
 
@@ -47,17 +47,21 @@ import InteractiveDemo from "@/components/landing/interactive-demo";
 
 ## When to use AutoForm?
 
-AutoForm is mostly meant as a drop-in form builder for your internal and low-priority forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
+AutoForm is a drop-in form builder for your internal tools and simple forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
 
-Rather than manually wiring up fields and writing binding boilerplate, AutoForm uses your schema to automatically map each field to the appropriate component. so you're not writing the binding boilerplate and setup for every field.
+AutoForm does not change how you write custom input components or use your form library. You still access data, state, and methods as you usually would, including hooks like `useController`.
 
-As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](/docs/react/customization) option) and gives you escape hatches to customize the form even further.
+Instead, AutoForm maps your schema fields to the right input components, connects them to your form library in the recommended way, and sets up validation so you get schema-valid data.
 
-However, AutoForm does not aim to be a full-featured form builder or support every edge case in your schema. If you need more customization, feel free to customize AutoForm's [renderer in your project.](/docs/react/customization#customizing-the-react-package) For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](/docs/react/customization) option) and escape hatches to customize even further.
+
+However, AutoForm does not aim to be a full-featured form builder or support every edge case in your schema. If you need more customization, feel free to customize AutoForm's [renderer](/docs/react/customization#customizing-the-react-package) in your project. For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+
+### How AutoForm works
 
 <div className="my-6 rounded-lg overflow-hidden border border-border block dark:hidden">
 
-![AutoForm Architecture](/architecture-light.jpg)
+![How AutoForm works](/architecture-light.jpg)
 
 </div>
 <div className="my-6 rounded-lg overflow-hidden border border-border hidden dark:block">
@@ -72,7 +76,7 @@ AutoForm evolved from a [shadcn/ui component](https://github.com/vantezzen/auto-
 
 ## Pick your form library
 
-Learn how to build forms with Autoform and the form library of your choice.
+Learn how to build forms with AutoForm and the form library of your choice.
 
 - [React Hook Form guide](/docs/react/getting-started)
 - [TanStack Form guide](/docs/tanstack/getting-started)

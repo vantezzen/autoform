@@ -1,4 +1,4 @@
-# ANT integration for AutoForm
+# Ant Design integration for AutoForm
 
 This package provides an Ant Design integration for AutoForm.
 

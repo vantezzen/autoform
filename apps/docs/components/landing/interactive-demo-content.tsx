@@ -88,7 +88,7 @@ function InteractiveDemoContent() {
         />
       </div>
 
-      <div className="p-6 pb-20 md:pb-24">
+      <div className="p-4 pb-20 sm:p-6 md:pb-24">
         <AutoForm
           key={formKey}
           schema={schemaProvider}

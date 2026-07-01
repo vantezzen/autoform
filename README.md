@@ -4,11 +4,11 @@
 
 ## Maintained fork
 
-This package set is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform). The fork is published under the `@dual-autoform/*` npm scope so development and releases can continue while the original project appears inactive. Credit for the original project, architecture, and prior releases belongs to the original AutoForm maintainers and contributors.
+This is a maintained fork of [vantezzen/autoform](https://github.com/vantezzen/autoform), published under the `@dual-autoform/*` npm scope so development can continue while the original project appears inactive. All credit for the original project, architecture, and prior releases goes to the original AutoForm maintainers and contributors.
 
 **This fork includes integration support for React Hook Form and TanStack Form.**
 
-Check out the [AutoForm documentation](https://autoform-dual.vercel.app) for more information, examples, and API references.
+Check out the [AutoForm documentation](https://autoform-dual.vercel.app) for more info, examples, and API references.
 
 ---
 
@@ -40,7 +40,8 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@/components/ui/autoform/react-hook-form";
+import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+// shadcn CLI install: "@/components/ui/autoform/react-hook-form"
 import { schemaProvider } from "./schema";
 
 function MyForm() {
@@ -56,25 +57,34 @@ function MyForm() {
 }
 ```
 
-AutoForm itself is agnostic to the schema library, rendering library and UI library you use, but it comes with a set of official packages that make it easy to use with popular libraries like Zod, React, shadcn, Material UI etc.
+AutoForm itself is agnostic to the schema, rendering, and UI library you use. It also comes with official packages for popular UI libraries like Material UI, shadcn/ui, Mantine, Ant Design, Chakra UI, and validation libraries like Zod, Yup, and Joi.
 
 ## When to use AutoForm?
 
-AutoForm is mostly meant as a drop-in form builder for your internal and low-priority forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
+AutoForm is mostly meant as a drop-in form builder for your internal tools and simple forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
 
-Rather than manually wiring up fields and writing binding boilerplate, AutoForm uses your schema to automatically map each field to the appropriate component. so you're not writing the binding boilerplate and setup for every field.
+AutoForm does not change how you write custom input components or use your form library. You still access data, state, and methods as you usually would, including hooks like `useController`.
 
-As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](https://autoform-dual.vercel.app/docs/react/customization) option) and gives you escape hatches to customize the form even further.
+Rather than manually wiring up fields and writing binding boilerplate, AutoForm maps each schema field to the appropriate component automatically.
 
-However, AutoForm does not aim to be a full-featured form builder and support every edge case in your schema. If you need more customization, feel free to customize AutoForm's renderer in your project. For an example on how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](https://autoform-dual.vercel.app/docs/react/customization) option) and escape hatches to customize the form even further.
+
+However, AutoForm does not aim to be a full-featured form builder or support every edge case in your schema. If you need more customization, feel free to customize AutoForm's [renderer](https://autoform-dual.vercel.app/docs/react/customization#customizing-the-react-package) in your project. For an example of how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+
+## Pick your form library
+
+Ready to get started? Follow the guide for the form library you use:
+
+- [React Hook Form guide](https://autoform-dual.vercel.app/docs/react/getting-started)
+- [TanStack Form guide](https://autoform-dual.vercel.app/docs/tanstack/getting-started)
 
 ## Development
 
 AutoForm uses a TurboRepo monorepo setup. To get started, run:
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 This will start the development server for the documentation website and the AutoForm package itself.
@@ -82,16 +92,9 @@ This will start the development server for the documentation website and the Aut
 For releases, AutoForm uses changesets. To create a new release, run:
 
 ```bash
-npm run build
-npm run cypress # Run the component tests
-npx changeset
-```
-
-This will guide you through creating a new changeset. To publish the changeset, run:
-
-```bash
-npx changeset version
-npx changeset publish
+pnpm build
+pnpm cypress # Run the component tests
+pnpm dlx changeset
 ```
 
 ## License
