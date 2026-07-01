@@ -25,6 +25,14 @@ AutoForm is a **four-layer** system. Understanding the layers prevents import er
 shadcn registry (copy-paste components via CLI)
 ```
 
+> **Import rule**
+>
+> - `AutoForm`: import from the selected UI adapter path, such as `@dual-autoform/mui/react-hook-form` or `@dual-autoform/mui/tanstack-form`. For shadcn, use the installed local adapter: `@/components/ui/autoform/react-hook-form` or `@/components/ui/autoform/tanstack-form`.
+> - Schema providers/helpers: import the matching provider and `fieldConfig` from the selected schema package, such as `ZodProvider` from `@dual-autoform/zod`, `YupProvider` from `@dual-autoform/yup`, or `JoiProvider` from `@dual-autoform/joi`.
+> - Shared component types: import `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@dual-autoform/react`.
+> - Custom field binding: use `useController` from `react-hook-form` for React Hook Form, or `useFieldContext` from `@dual-autoform/react/tanstack-form` for TanStack Form.
+> - Do not import `AutoForm` from `@dual-autoform/react`.
+
 ---
 
 ## Installation
@@ -225,7 +233,7 @@ import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 
 ## Common Patterns
 
-Read your adapter-specific examples file for the following patterns and use cases: `references/utils/examples-react-hook-form.md` or `references/utils/examples-tanstack-form.md`.
+Adapter-specific examples file for the following patterns and use cases in: `references/utils/examples-react-hook-form.md` or `references/utils/examples-tanstack-form.md`.
 
 - Real-time validation: disabled submit, can submit, live errors, valid form state, enable submit only when form state is valid
 - Dialog submit/reset: dialog buttons, external submit, external reset, submit outside form, submit/reset AutoForm from buttons outside or around the form

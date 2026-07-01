@@ -196,6 +196,28 @@ export default function MyForm() {
 }
 ```
 
+Common imports you may need:
+
+```tsx
+// similar for yup or joi
+import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+
+// Shared component types.
+import type {
+  AutoFormFieldProps,
+  FieldWrapperProps,
+  ObjectWrapperProps,
+  ArrayWrapperProps,
+  ArrayElementWrapperProps,
+} from "@dual-autoform/react";
+
+// For custom fields and form access.
+import {
+  useFieldContext,
+  useFormContext,
+} from "@dual-autoform/react/tanstack-form";
+```
+
 </div>
 
 ## Next.js and RSC
