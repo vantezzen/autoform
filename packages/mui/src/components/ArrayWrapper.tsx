@@ -1,7 +1,15 @@
 import React from "react";
-import AddIcon from "@mui/icons-material/Add";
 import { Button, Box, Typography, FormHelperText } from "@mui/material";
+import SvgIcon from "@mui/material/SvgIcon";
 import { ArrayWrapperProps } from "@dual-autoform/react";
+
+function AddIcon() {
+  return (
+    <SvgIcon data-testid="AddIcon">
+      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" />
+    </SvgIcon>
+  );
+}
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,

@@ -62,7 +62,10 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
       .should("be.visible")
       .contains("Hockey (Ice)")
       .click();
-    cy.get('input[name="birthdate"]').type("1990-01-01");
+    cy.get('input[name="birthdate"]')
+      .clear()
+      .type("1990-01-01")
+      .should("have.value", "1990-01-01");
     cy.get("button#isStudent").click();
 
     cy.get('button[type="submit"]').click();

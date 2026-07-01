@@ -31,7 +31,6 @@
     "@dual-autoform/typescript-config": "workspace:*",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
-    "@mui/icons-material": "^6.1.3",
     "@mui/material": "^6.4.12",
     "react": "^19.2.6"
   },
@@ -39,7 +38,6 @@
     "@dual-autoform/react": "workspace:^",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@mui/icons-material": "^6.0.0",
     "@mui/material": "^6.0.0",
     "react": "^17 || ^18 || ^19"
   },

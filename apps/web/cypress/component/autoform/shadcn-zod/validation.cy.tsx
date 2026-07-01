@@ -116,14 +116,8 @@ autoFormAdapters.forEach(({ name, AutoForm }) => {
     cy.contains("Color is required").should("be.visible");
     cy.get('[role="combobox"]').should("be.focused");
     cy.get('[role="combobox"]').should("exist").click();
-    cy.get('div[data-radix-collection-item][role="option"]')
+    cy.contains('div[data-radix-collection-item][role="option"]', "green")
       .should("be.visible")
-      .contains("green")
-      .click();
-
-    cy.get('div[data-radix-collection-item][role="option"]')
-      .should("be.visible")
-      .contains("green")
       .click();
 
     // sub-object focus
