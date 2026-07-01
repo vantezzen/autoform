@@ -1,6 +1,6 @@
 {
   "name": "@dual-autoform/core",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.mjs",
