@@ -21,13 +21,13 @@ export interface FieldConfig<
   inputProps?: Record<string, any>;
   /** Custom label content. Falls back to the schema field name when omitted. */
   label?: Renderable<AdditionalRenderable>;
-  /** Override for the inferred field renderer key. */
+  /** Override for the inferred field type. */
   fieldType?: FieldTypes;
   /** Sort order for generated fields. Lower values render first. */
   order?: number;
   /** Integration or app-specific metadata for custom components. */
   customData?: CustomData;
-  /** Wrapper component override for this field only. */
+  /** Field wrapper component override for this field only. */
   fieldWrapper?: FieldWrapper;
   /** Object wrapper component override for this field only. */
   objectWrapper?: ObjectWrapper;

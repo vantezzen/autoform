@@ -8,6 +8,7 @@ import {
   AutoFormPropsTable,
   AutoFormUIComponentsTable,
   AutoTypeTableWithGenerator,
+  FieldConfigPropsTable,
 } from "@/components/auto-type-tables";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -20,6 +21,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     AutoFormFieldPropsTable,
     AutoFormPropsTable,
     AutoFormUIComponentsTable,
+    FieldConfigPropsTable,
     ...components,
     ModeTab,
   };

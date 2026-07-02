@@ -73,13 +73,23 @@ When options depend on props or local values, memoize them with `useMemo` before
 `formComponents` maps AutoForm field types to React components. It is the right extension point for custom inputs.
 
 ```tsx
+import * as z from "zod";
+import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
+
+const schema = z.object({
+  bio: z.string().check(fieldConfig({ fieldType: "markdown" })),
+  favoriteColor: z.string().check(fieldConfig({ fieldType: "colorPicker" })),
+});
+
+const schemaProvider = new ZodProvider(schema);
+
 <AutoForm
   schema={schemaProvider}
   formComponents={{
     markdown: MarkdownEditor,
     colorPicker: ColorPickerInput,
   }}
-/>
+/>;
 ```
 
 ### `uiComponents`
@@ -97,6 +107,12 @@ When options depend on props or local values, memoize them with `useMemo` before
 ```
 
 `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` can also be overridden per schema field through `fieldConfig`. The field-level wrapper has higher priority than the wrapper passed through `uiComponents`.
+
+## fieldConfig
+
+`fieldConfig` is imported from your schema package and attached to individual schema fields.
+
+<FieldConfigPropsTable />
 
 ## Custom fields
 

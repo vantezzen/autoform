@@ -114,6 +114,15 @@ export async function AutoFormFieldPropsTable() {
   return <TypeTable id="type-table-auto-form-field-props" type={fieldProps} />;
 }
 
+export async function FieldConfigPropsTable() {
+  const fieldConfig = await createTypeTableData(
+    "../../packages/core/src/types.ts",
+    "FieldConfig",
+  );
+
+  return <TypeTable id="type-table-field-config-props" type={fieldConfig} />;
+}
+
 const MUI_BASE =
   "https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/mui/src/components";
 

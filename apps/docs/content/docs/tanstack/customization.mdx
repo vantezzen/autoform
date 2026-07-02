@@ -5,6 +5,23 @@ description: The customization of the components is done by providing a `fieldCo
 
 import { Accordion, Accordions } from "@/components/accordion";
 
+Use this diagram to choose the right customization layer
+
+<div className="my-6 rounded-lg overflow-hidden border border-border block dark:hidden">
+
+![How AutoForm works](/architecture-light.jpg)
+
+</div>
+<div className="my-6 rounded-lg overflow-hidden border border-border hidden dark:block">
+
+![AutoForm Architecture (Dark Mode)](/architecture-dark.jpg)
+
+</div>
+
+## Field config
+
+`fieldConfig` helps you customize individual form fields. Use it to set labels, descriptions, input props, field ordering, field-type overrides, and per-field wrappers. See the [`fieldConfig` API](/docs/tanstack/api#fieldconfig) for available props.
+
 Import `fieldConfig` from your schema package: [@dual-autoform/zod](/docs/schema-providers/zod#field-configuration), [@dual-autoform/yup](/docs/schema-providers/yup#field-configuration), or [@dual-autoform/joi](/docs/schema-providers/joi#field-configuration).
 
 In the examples below, we use Zod.
@@ -244,7 +261,7 @@ Pass props to the underlying form element with `formProps`.
   schema={schemaProvider}
   onSubmit={handleSubmit}
   formProps={{
-    className: "my-custom-form",
+    className: "my-custom-form space-y-4",
     "data-testid": "user-form",
     noValidate: true,
     onKeyDown: (e) => {
