@@ -18,12 +18,15 @@ interface InstallInstructionsProps {
   codeFiles: CodeFile[];
   /** Accessibility label for the Tabs component */
   label: string;
+  /** Adapter-specific getting started guide */
+  guideHref: string;
 }
 
 export function InstallInstructions({
   registryUrl,
   codeFiles,
   label,
+  guideHref,
 }: InstallInstructionsProps) {
   return (
     <Accordions type="single" className="my-6">
@@ -37,7 +40,7 @@ export function InstallInstructions({
               <h3>Install AutoForm</h3>
               <p>
                 Set up AutoForm in your project by following the{" "}
-                <a href="/docs/react/getting-started">Getting Started</a> guide.
+                <a href={guideHref}>Getting Started</a> guide.
               </p>
 
               <h3>Copy and paste the following code into your project</h3>
