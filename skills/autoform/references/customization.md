@@ -153,7 +153,7 @@ To pass props directly to the underlying `<form>` HTML element (like classes, id
 <AutoForm
   schema={schemaProvider}
   formProps={{
-    className: "my-custom-form-class",
+    className: "my-custom-form-class space-y-4",
     id: "user-settings-form",
     "data-testid": "autoform-test",
     noValidate: true, // Disable browser native HTML5 validation
