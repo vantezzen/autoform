@@ -120,8 +120,8 @@ Use this mental model when wiring custom components or wrappers.
      [Field]
         |
         +--> [input field]  -> default / custom "form component"
-        +--> [object field] -> [ObjectWrapper]
-        +--> [array field]  -> [ArrayWrapper] -> [ArrayElementWrapper]
+        +--> [object field] -> [ObjectWrapper] -> (AutoFormField)
+        +--> [array field]  -> [ArrayWrapper] -> [ArrayElementWrapper] -> (AutoFormField)
 ```
 
 following sections cover each of these layers.
