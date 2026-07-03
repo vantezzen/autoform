@@ -10,7 +10,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
   inputProps,
   parsedField,
 }) => {
-  const { ref, ...field } = useField({ name: id }).field;
+  const { ref, value, ...field } = useField({ name: id }).field;
 
   return (
     <FormControlLabel
@@ -25,7 +25,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         <Checkbox
           slotProps={{ input: { ref } }}
           {...field}
-          checked={field.value || false}
+          checked={!!value}
         />
       }
     />
