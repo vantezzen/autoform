@@ -1,5 +1,11 @@
 # @dual-autoform/mui
 
+## 2.0.2
+
+### Patch Changes
+
+- Fix MUI array action buttons so they do not submit parent forms and expose an accessible remove label.
+
 ## 2.0.1
 
 ### Patch Changes
