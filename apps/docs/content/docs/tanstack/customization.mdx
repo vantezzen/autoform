@@ -306,7 +306,7 @@ External submit button, using HTML `form` attribute
 
 **2. Submit and reset buttons outside AutoForm**
 
-For components outside AutoForm, create a TanStack form with `useAppForm`, pass it to `formControl`, and call methods on that form instance:
+For components outside AutoForm, create a TanStack form with `useAppForm`, pass it to `formControl`, and call methods on that form instance. Use it to access form data, state, and methods from outside AutoForm.
 
 ```tsx
 import * as React from "react";
@@ -315,6 +315,7 @@ import { useAppForm } from "@dual-autoform/react/tanstack-form";
 
 // Keep formOptions stable.
 // Memoize dynamic options or define static ones outside.
+// Avoid setting initial default values inside `formOptions`. Pass them to `AutoForm` using the `defaultValues` prop instead.
 // const options = formOptions();
 
 export default function MyForm() {

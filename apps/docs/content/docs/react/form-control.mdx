@@ -76,6 +76,8 @@ export default function MyForm() {
 
 You can use the [`createFormControl`](https://react-hook-form.com/docs/createFormControl) function from react-hook-form and pass the `formControl` prop. This lets you access and call form methods outside the form. It accepts all `useForm` props and returns `formControl`, `subscribe`, along with `useForm` methods like `reset`, `trigger` and more.
 
+Avoid setting initial default values inside `createFormControl`. Pass them to `AutoForm` using the `defaultValues` prop instead.
+
 <Callout>
   `createFormControl` requires react-hook-form version `7.55.0` or later.
 </Callout>
@@ -107,6 +109,7 @@ export default function MyForm() {
       <AutoForm
         formControl={formControl}
         schema={schemaProvider}
+        defaultValues={{ name: "", age: 0, birthday: new Date() }}
         onSubmit={(data) => console.log(data)}
         {/* onSubmit works when formControl is provided */}
       />

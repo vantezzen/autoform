@@ -80,6 +80,8 @@ Use `useStore` when the component itself should rerender from subscribed form st
 
 For parent-level control, create a TanStack form instance with AutoForm's exported `useAppForm` and pass it to `formControl`.
 
+Avoid setting initial default values inside `formOptions`. Pass them to `AutoForm` using the `defaultValues` prop instead.
+
 ```tsx
 "use client";
 

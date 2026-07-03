@@ -117,7 +117,7 @@ export default function MyForm() {
 
 ## External Submit Or Reset
 
-Use `createFormControl` when components live outside the AutoForm tree, for example in a dialog footer. Create the control once.
+Use `createFormControl` to access form data, state, and methods outside AutoForm. For example, a dialog footer. Create the control once.
 
 ```tsx
 import * as React from "react";
@@ -156,6 +156,7 @@ const { formControl, handleSubmit, reset } = React.useMemo(
 ## Defaults And Values
 
 - Put initial values on `<AutoForm defaultValues={...} />`.
+- Do not put initial default values inside `createFormControl`.
 - Use `<AutoForm values={...} />` only when the form should track external state.
 
 ## Common RHF Mistakes

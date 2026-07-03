@@ -136,6 +136,8 @@ see https://tanstack.com/form/latest/docs/framework/react/guides/reactivity for 
 
 Use `useAppForm()` when buttons live outside the AutoForm tree, for example in a dialog footer.
 
+Do not put initial default values inside `formOptions`; pass them to `AutoForm` via `defaultValues` prop.
+
 ```tsx
 import * as React from "react";
 import { formOptions } from "@tanstack/react-form";
