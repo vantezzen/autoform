@@ -17,9 +17,11 @@
   ],
   "dependencies": [
     "zod",
+    "@dual-autoform/zod",
     "@dual-autoform/react",
     "react-hook-form",
-    "@hookform/resolvers"
+    "@hookform/resolvers",
+    "lucide-react"
   ],
   "devDependencies": [],
   "tailwind": {

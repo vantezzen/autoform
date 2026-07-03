@@ -17,8 +17,10 @@
   ],
   "dependencies": [
     "zod",
+    "@dual-autoform/zod",
     "@dual-autoform/react",
-    "@tanstack/react-form"
+    "@tanstack/react-form",
+    "lucide-react"
   ],
   "devDependencies": [],
   "tailwind": {
