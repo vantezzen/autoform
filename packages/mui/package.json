@@ -5,14 +5,24 @@
   "type": "module",
   "exports": {
     "./react-hook-form": {
-      "dev-source": "./src/react-hook-form.tsx",
-      "types": "./dist/react-hook-form.d.mts",
-      "default": "./dist/react-hook-form.mjs"
+      "import": {
+        "types": "./dist/react-hook-form.d.mts",
+        "default": "./dist/react-hook-form.mjs"
+      },
+      "require": {
+        "types": "./dist/react-hook-form.d.cts",
+        "default": "./dist/react-hook-form.cjs"
+      }
     },
     "./tanstack-form": {
-      "dev-source": "./src/tanstack-form.tsx",
-      "types": "./dist/tanstack-form.d.mts",
-      "default": "./dist/tanstack-form.mjs"
+      "import": {
+        "types": "./dist/tanstack-form.d.mts",
+        "default": "./dist/tanstack-form.mjs"
+      },
+      "require": {
+        "types": "./dist/tanstack-form.d.cts",
+        "default": "./dist/tanstack-form.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -42,8 +52,7 @@
     "react": "^17 || ^18 || ^19"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "sideEffects": false,
   "engines": {

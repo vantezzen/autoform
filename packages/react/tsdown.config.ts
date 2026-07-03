@@ -1,13 +1,17 @@
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
-  dts: { build: true },
+  dts: { build: true, cjsReexport: true },
   entry: [
     "./src/index.tsx",
     "./src/react-hook-form/index.ts",
     "./src/tanstack-form/index.ts",
   ],
-  format: ["esm"],
+  format: ["esm", "cjs"],
+  outExtensions: ({ format }) =>
+    format === "cjs"
+      ? { js: ".cjs", dts: ".d.cts" }
+      : { js: ".mjs", dts: ".d.mts" },
   deps: {
     dts: {
       neverBundle: ["@dual-autoform/core"],
