@@ -1,5 +1,5 @@
 import React from "react";
-import { ObjectWrapperProps } from "@dual-autoform/react";
+import type { ObjectWrapperProps } from "@dual-autoform/react";
 import { FormHelperText, Box, Typography } from "@mui/material";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({

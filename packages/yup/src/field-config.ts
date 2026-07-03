@@ -1,5 +1,5 @@
-import { FieldConfig } from "@dual-autoform/core";
-import { YupField } from "./types";
+import type { FieldConfig } from "@dual-autoform/core";
+import type { YupField } from "./types";
 
 export const YUP_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
 

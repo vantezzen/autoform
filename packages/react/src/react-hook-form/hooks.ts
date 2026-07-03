@@ -6,7 +6,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 import { getPathInObject } from "./utils";
-import { UseFieldFn } from "../types";
+import type { UseFieldFn } from "../types";
 
 /**
  * This custom hook shares the same props and methods as register.

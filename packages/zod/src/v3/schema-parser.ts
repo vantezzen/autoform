@@ -2,8 +2,8 @@ import { z } from "zod/v3";
 import { inferFieldType } from "./field-type-inference";
 import { getDefaultValueInZodStack } from "./default-values";
 import { getFieldConfigInZodStack } from "./field-config";
-import { ParsedField, ParsedSchema } from "@dual-autoform/core";
-import { ZodObjectOrWrapped } from "./types";
+import type { ParsedField, ParsedSchema } from "@dual-autoform/core";
+import type { ZodObjectOrWrapped } from "./types";
 
 function parseField(key: string, schema: z.ZodTypeAny): ParsedField {
   const baseSchema = getBaseSchema(schema);

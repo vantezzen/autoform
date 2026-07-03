@@ -1,4 +1,5 @@
-import { isZodV4Schema, AnyZodObject } from "../utils";
+import { isZodV4Schema } from "../utils";
+import type { AnyZodObject } from "../utils";
 import { validateSchema as v3ValidateSchema } from "../v3/validator";
 import { validateSchema as v4ValidateSchema } from "../v4/validator";
 

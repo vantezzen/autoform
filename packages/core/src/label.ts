@@ -1,4 +1,4 @@
-import { ParsedField } from "./types";
+import type { ParsedField } from "./types";
 
 /**
  * Get the best label to use for a field.

@@ -1,4 +1,4 @@
-import { YupField, YupObjectOrWrapped } from "./types";
+import type { YupField, YupObjectOrWrapped } from "./types";
 
 export function getYupFieldDefaultValue(schema: YupField): any {
   return schema.spec.default;

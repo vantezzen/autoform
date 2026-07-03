@@ -1,12 +1,12 @@
 import { z } from "zod/v3";
-import {
+import type {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,
 } from "@dual-autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
-import { ZodObjectOrWrapped } from "./types";
+import type { ZodObjectOrWrapped } from "./types";
 
 export class ZodProvider<
   T extends ZodObjectOrWrapped,

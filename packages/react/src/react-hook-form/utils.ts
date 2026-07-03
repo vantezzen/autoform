@@ -1,5 +1,6 @@
-import { SchemaProvider, replaceEmptyValue } from "@dual-autoform/core";
-import {
+import { replaceEmptyValue } from "@dual-autoform/core";
+import type { SchemaProvider } from "@dual-autoform/core";
+import type {
   FieldValues,
   Resolver,
   ResolverOptions,

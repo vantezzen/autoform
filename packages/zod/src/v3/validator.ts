@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { ZodObjectOrWrapped } from "./types";
+import type { ZodObjectOrWrapped } from "./types";
 
 export function validateSchema(schema: ZodObjectOrWrapped, values: any) {
   try {

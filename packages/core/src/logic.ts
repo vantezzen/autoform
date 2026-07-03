@@ -1,5 +1,5 @@
-import { SchemaProvider } from "./schema-provider";
-import { ParsedField, ParsedSchema } from "./types";
+import type { SchemaProvider } from "./schema-provider";
+import type { ParsedField, ParsedSchema } from "./types";
 
 function assertSchemaProvider(
   schemaProvider: unknown,

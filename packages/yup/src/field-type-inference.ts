@@ -1,5 +1,5 @@
-import { FieldConfig } from "@dual-autoform/core";
-import { YupEnumSchema, YupField } from "./types";
+import type { FieldConfig } from "@dual-autoform/core";
+import type { YupEnumSchema, YupField } from "./types";
 
 export function inferFieldType(
   schema: YupField,

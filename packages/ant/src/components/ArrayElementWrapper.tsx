@@ -1,5 +1,5 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { ArrayElementWrapperProps } from "@dual-autoform/react";
+import type { ArrayElementWrapperProps } from "@dual-autoform/react";
 import { Button, Col } from "antd";
 import React from "react";
 

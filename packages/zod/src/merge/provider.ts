@@ -1,8 +1,9 @@
-import { ZodObjectOrWrapped } from "../v3";
-import { isZodV4Schema, AnyZodObject } from "../utils";
+import type { ZodObjectOrWrapped } from "../v3";
+import { isZodV4Schema } from "../utils";
+import type { AnyZodObject } from "../utils";
 import { ZodProvider as V3Provider } from "../v3/provider";
 import { ZodProvider as V4Provider } from "../v4/provider";
-import {
+import type {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,

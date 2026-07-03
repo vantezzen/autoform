@@ -1,4 +1,4 @@
-import { JoiField, JoiObjectOrWrapped, TObjectFields } from "./types";
+import type { JoiField, JoiObjectOrWrapped, TObjectFields } from "./types";
 
 export function getJoiDefaultValue(schema: JoiField): any {
   return schema._flags.default;

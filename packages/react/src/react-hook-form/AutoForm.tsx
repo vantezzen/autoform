@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import {
   useForm,
-  FieldValues,
   FormProvider,
+} from "react-hook-form";
+import type {
+  FieldValues,
   SubmitHandler,
   SubmitErrorHandler,
   DefaultValues,

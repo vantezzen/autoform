@@ -1,5 +1,5 @@
-import * as yup from "yup";
-import {
+import type * as yup from "yup";
+import type {
   ParsedSchema,
   SchemaProvider,
   SchemaValidation,

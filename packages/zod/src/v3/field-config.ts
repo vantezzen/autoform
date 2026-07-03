@@ -1,5 +1,6 @@
-import { RefinementEffect, z } from "zod/v3";
-import { FieldConfig } from "@dual-autoform/core";
+import { z } from "zod/v3";
+import type { RefinementEffect } from "zod/v3";
+import type { FieldConfig } from "@dual-autoform/core";
 import { ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
 export type SuperRefineFunction = () => unknown;
 

@@ -1,8 +1,8 @@
 import { inferFieldType } from "./field-type-inference";
 import { getJoiDefaultValue } from "./default-values";
 import { getJoiFieldConfig } from "./field-config";
-import { ParsedField, ParsedSchema } from "@dual-autoform/core";
-import {
+import type { ParsedField, ParsedSchema } from "@dual-autoform/core";
+import type {
   JoiEnumSchema,
   JoiField,
   JoiObjectOrWrapped,

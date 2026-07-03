@@ -1,4 +1,4 @@
-import { ArrayWrapperProps } from "@dual-autoform/react";
+import type { ArrayWrapperProps } from "@dual-autoform/react";
 import { Button, Typography } from "antd";
 import React from "react";
 import { PlusOutlined } from "@ant-design/icons";

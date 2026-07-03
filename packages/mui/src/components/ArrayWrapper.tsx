@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Box, Typography, FormHelperText } from "@mui/material";
 import SvgIcon from "@mui/material/SvgIcon";
-import { ArrayWrapperProps } from "@dual-autoform/react";
+import type { ArrayWrapperProps } from "@dual-autoform/react";
 
 function AddIcon() {
   return (

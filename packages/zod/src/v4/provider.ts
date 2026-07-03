@@ -1,7 +1,7 @@
 import * as z from "zod/v4/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
-import {
+import type {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,

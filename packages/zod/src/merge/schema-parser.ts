@@ -1,5 +1,6 @@
-import { ParsedSchema } from "@dual-autoform/core";
-import { isZodV4Schema, AnyZodObject } from "../utils";
+import type { ParsedSchema } from "@dual-autoform/core";
+import { isZodV4Schema } from "../utils";
+import type { AnyZodObject } from "../utils";
 import { parseSchema as v3ParseSchema } from "../v3/schema-parser";
 import { parseSchema as v4ParseSchema } from "../v4/schema-parser";
 
