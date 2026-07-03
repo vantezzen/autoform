@@ -4,6 +4,7 @@
 
 ### Patch Changes
 
+- Keep generated shadcn boolean and select fields controlled when form defaults are initially undefined.
 - Updated dependencies
   - @dual-autoform/react@2.0.1
 

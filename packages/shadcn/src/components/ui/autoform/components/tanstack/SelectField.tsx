@@ -21,7 +21,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   return (
     <Select
       onValueChange={(val) => field.handleChange(val)}
-      value={field.state.value}
+      value={field.state.value ?? ""}
       name={field.name}
       {...restInputProps}
     >

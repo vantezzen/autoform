@@ -53,6 +53,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
       {children}
       <Button
         {...props}
+        type="button"
         sx={{ my: 1 }}
         variant="outlined"
         onClick={(e) => {

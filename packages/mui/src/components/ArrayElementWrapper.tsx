@@ -30,6 +30,8 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
         onClick={onRemove}
         sx={{ position: "absolute", top: 8, right: 8 }}
         size="small"
+        type="button"
+        aria-label="remove item"
       >
         <DeleteIcon />
       </IconButton>

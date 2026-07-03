@@ -22,7 +22,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
   return (
     <Select
       onValueChange={onChange}
-      value={value}
+      value={value ?? ""}
       name={name}
       {...restInputProps}
     >

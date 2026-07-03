@@ -27,7 +27,7 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
         id={id}
         {...inputProps}
         {...field}
-        checked={field.value}
+        checked={!!field.value}
         onCheckedChange={field.onChange}
         onKeyDown={handleKeyDown}
       />
