@@ -34,6 +34,17 @@ import type {
 > AutoForm wraps the form with Tanstack Form's `form.AppForm` and every field with `<form.AppField name=".." ... />`. So you can use `useFieldContext`, `useFormContext` anywhere inside autoform.
 > see https://raw.githubusercontent.com/tanstack/form/main/docs/framework/react/guides/form-composition.md for more information
 
+## Which API To Use
+
+| Need                                    | Use                                                              |
+| --------------------------------------- | ---------------------------------------------------------------- |
+| validated submit data                   | `onSubmit={(data, form) => ...}`                                 |
+| custom input binding for one field      | `useFieldContext<T>()`                                           |
+| buttons or status UI inside AutoForm    | `useFormContext()` plus `form.Subscribe` or `useStore`           |
+| submit/reset/fill from outside AutoForm | `useAppForm(stableOptions)` and pass the result as `formControl` |
+
+Start simple: use `onSubmit` first. Add `useFieldContext` only for custom field components, and add `formControl` only when something outside AutoForm needs the form instance.
+
 ## Custom Fields
 
 TanStack custom fields use `useFieldContext` from `@dual-autoform/react/tanstack-form`. Understand `useFieldContext` properly.
@@ -116,6 +127,7 @@ export default function MyForm() {
 }
 ```
 
+For dependent fields, prefer reading sibling field values with `form.Subscribe` or `useStore` inside the custom field or wrapper.
 Use `form.Subscribe` to rerender only a small part of the UI.
 Use `useStore` from `@tanstack/react-form` when the whole component should rerender from subscribed form state.
 see https://tanstack.com/form/latest/docs/framework/react/guides/reactivity for more information
@@ -195,6 +207,7 @@ const form = useAppForm(options);
 ## Common TanStack Mistakes
 
 - Do not use `useController`; use `useFieldContext`.
+- Do not use `useFieldContext` to read sibling fields; use `useFormContext` with `form.Subscribe` or `useStore`.
 - Do not import `AutoForm` from the package root.
 - Do not pass raw schemas to `AutoForm`; wrap with `new ZodProvider(schema)`, `new YupProvider(schema)`, or `new JoiProvider(schema)`.
 - Keep `formOptions(...)` stable when using `useAppForm`.

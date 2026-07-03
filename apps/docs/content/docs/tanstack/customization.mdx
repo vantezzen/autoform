@@ -244,6 +244,8 @@ export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {
 }
 ```
 
+If the component needs another field's value, get the `form` with `useFormContext` and subscribe to the smallest value you need with `form.Subscribe`.
+
 For more examples on creating custom form components see [examples.](/docs/tanstack/faq-examples)
 
 For UI-library implementations, see the official field components:

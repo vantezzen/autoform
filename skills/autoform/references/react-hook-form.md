@@ -23,6 +23,27 @@ import type {
 
 > AutoForm wraps the form with React Hook Form's `FormProvider` so `no need` to pass the control object that various hooks need.
 
+## Which API To Use
+
+| Scenario                                       | Method(s)                                    | Where                  |
+| ---------------------------------------------- | -------------------------------------------- | ---------------------- |
+| Get validated data after the user submits      | `onSubmit`                                   | AutoForm prop          |
+| Access or subscribe to form data and states    | data/state read methods via `useFormContext` | Inside AutoForm        |
+| Control or read the form from outside AutoForm | `createFormControl`                          | Parent component       |
+| Connect a custom field input                   | `useController`                              | Inside field component |
+
+Use `useFormContext` for buttons or status UI rendered inside AutoForm, `createFormControl` when the control lives outside AutoForm, and `useController` only for custom field components.
+
+For data/state reads:
+
+| Method      | Use when                                                               |
+| ----------- | ---------------------------------------------------------------------- |
+| `useWatch`  | Subscribe to input changes with isolated component re-renders.         |
+| `watch`     | Subscribe to input value changes and rerender the calling component.   |
+| `formState` | Read real-time form state properties; rerenders the calling component. |
+| `subscribe` | Subscribe to form state changes outside the render cycle; no rerender. |
+| `getValues` | Read current form values without subscribing to rerenders.             |
+
 ## Custom Fields
 
 RHF custom fields use [`useController`](https://react-hook-form.com/docs/usecontroller) from `react-hook-form`.
@@ -93,13 +114,6 @@ export default function MyForm() {
   );
 }
 ```
-
-**Access or subscribe to form data and states**
-useWatch: Subscribe to input changes with isolated component re-renders.
-watch: Subscribe to input value changes and trigger re-render of the calling component
-formState: Access real-time form state properties, triggers re-render of the calling component
-subscribe: Subscribe to form state changes outside the render cycle. no re-render
-getValues: Read current form values without subscribing to re-renders.
 
 ## External Submit Or Reset
 

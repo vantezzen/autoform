@@ -146,6 +146,7 @@ Register the custom input in `formComponents`, read the current field with `useF
 ## How do I create fields with dependencies between them?
 
 Use schema validation for data rules, and TanStack Form subscriptions for UI behavior. Custom fields and wrappers can subscribe to related values with [`form.Subscribe` or `useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity).
+In most field components, prefer `form.Subscribe` because it keeps the reactive part local to the value it reads.
 
 | Pattern                    | Example in the demo below                                                    |
 | -------------------------- | ---------------------------------------------------------------------------- |

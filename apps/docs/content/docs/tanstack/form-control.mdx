@@ -7,12 +7,14 @@ The form data, states and methods are managed by TanStack Form. AutoForm's TanSt
 
 ## Quick Reference
 
-| Need                                                         | Recommended API                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Handle validated submit data                                 | `onSubmit={(data, form) => ...}`                                                                                                                                                                                                                                                                                                                                                      |
+| Need                                                         | Recommended API                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Handle validated submit data                                 | `onSubmit={(data, form) => ...}`                                                                                                                                                                                                                                                                                                                                                       |
 | Access form data, methods and state inside AutoForm children | [`useFormContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-form-components) from `@dual-autoform/react/tanstack-form` with [`form.Subscribe`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#formsubscribe) or [`useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#usestore) |
 | Connect a custom input field, access its methods and state   | [`useFieldContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-field-components) from `@dual-autoform/react/tanstack-form`                                                                                                                                                                                                                |
 | Control the form from a parent component                     | Create a form with [`useAppForm`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#custom-form-hooks) from `@dual-autoform/react/tanstack-form` and pass it to `formControl` prop                                                                                                                                                                         |
+
+Use `useFieldContext` only inside custom field components, use `useFormContext` for buttons or UI rendered inside AutoForm, and use `formControl` when the control lives outside the AutoForm tree.
 
 ## 1. onSubmit
 
@@ -72,6 +74,7 @@ export default function MyForm() {
 ```
 
 Use `form.Subscribe` when a component should rerender only for a selected piece of form state.
+Use `useStore` when the component itself should rerender from subscribed form state.
 
 ## 3. Using an external formControl
 
@@ -92,9 +95,10 @@ const mySchema = z.object({
 });
 
 const schemaProvider = new ZodProvider(mySchema);
+const externalOptions = formOptions({});
 
 export default function MyForm() {
-  const form = useAppForm();
+  const form = useAppForm(externalOptions);
 
   return (
     <div>
@@ -122,6 +126,8 @@ export default function MyForm() {
   );
 }
 ```
+
+Keep the value passed to `useAppForm` stable. Define static options outside the component, or use `useMemo` when the options depend on props.
 
 ## 4. Custom field components and reading field state
 
