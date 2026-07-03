@@ -1,4 +1,9 @@
-import { Tab, Tabs, TabsProps, TabsContent } from "fumadocs-ui/components/tabs";
+import {
+  Tab,
+  Tabs,
+  type TabsProps,
+  TabsContent,
+} from "fumadocs-ui/components/tabs";
 import { CodeBlock } from "./code-block";
 
 type content = {

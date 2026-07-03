@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { z } from "zod";
 import { ZodProvider } from "@dual-autoform/zod";
-import { SchemaProvider } from "@dual-autoform/core";
+import type { SchemaProvider } from "@dual-autoform/core";
 
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 

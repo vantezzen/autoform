@@ -5,8 +5,8 @@ import * as z from "zod";
 
 import {
   TanStackMultistepForm,
-  TanStackMultistepFormStep,
 } from "@/components/tanstack-multistep-form";
+import type { TanStackMultistepFormStep } from "@/components/tanstack-multistep-form";
 
 const STEPS: TanStackMultistepFormStep[] = [
   {

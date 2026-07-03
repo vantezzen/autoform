@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { FieldValues } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import * as z from "zod";
 
-import { MultistepForm, MultistepFormStep } from "@/components/multistep-form";
+import { MultistepForm } from "@/components/multistep-form";
+import type { MultistepFormStep } from "@/components/multistep-form";
 
 // ---------------------------------------------------------------------------
 // Step definitions

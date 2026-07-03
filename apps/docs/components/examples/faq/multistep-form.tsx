@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { FieldValues, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import { ZodProvider } from "@dual-autoform/zod";
 import * as z from "zod";
 
