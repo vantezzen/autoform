@@ -74,7 +74,7 @@ const formSchema = z.object({
       }),
     ),
 
-  // HTML inputs return strings, so use coercion for number fields.
+  // HTML inputs return strings, so use coercion for number and date fields.
   favouriteNumber: z.coerce
     .number({
       error: "Favourite number must be a number.",
@@ -117,8 +117,9 @@ const formSchema = z.object({
       }),
     ),
 
-  // For defaultValues, pass a Date object for date schemas.
-  birthday: z.date().optional(),
+  // HTML date inputs submit strings, so use coercion for browser date fields.
+  // For defaultValues, pass a Date object.
+  birthday: z.coerce.date().optional(),
 
   // Transform an enum label to a different submitted value.
   nameId: z

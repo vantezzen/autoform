@@ -50,7 +50,8 @@ const formSchema = z.object({
       }),
     ),
 
-  favouriteNumber: z.coerce // When using numbers, you must use coerce
+  // HTML inputs return strings, so use coercion for numbers and dates.
+  favouriteNumber: z.coerce
     .number({
       error: "Favourite number must be a number.",
     })
@@ -71,7 +72,8 @@ const formSchema = z.object({
     ),
 
   // Date will show a date picker
-  // For defaultValues, pass a Date object for date schemas.
+  // HTML date inputs submit strings, so use coercion for browser date fields.
+  // For defaultValues, pass a Date object.
   birthday: z.coerce.date().optional(),
 
   // Enum will show a select
@@ -121,6 +123,7 @@ When using numbers and dates, you should use coerce. This is because input eleme
 ```tsx
 const formSchema = z.object({
   favouriteNumber: z.coerce.number(),
+  birthday: z.coerce.date(),
 });
 ```
 

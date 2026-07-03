@@ -178,6 +178,7 @@ import { ZodProvider } from "@dual-autoform/zod";
 const mySchema = z.object({
   name: z.string(),
   age: z.coerce.number(),
+  birthday: z.coerce.date(),
 });
 
 const schemaProvider = new ZodProvider(mySchema);

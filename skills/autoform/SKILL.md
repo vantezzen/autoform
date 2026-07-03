@@ -79,8 +79,8 @@ import { AutoForm } from "@dual-autoform/mui/react-hook-form";
 
 const schema = z.object({
   name: z.string(),
-  age: z.coerce.number(), // use coerce for numbers
-  birthday: z.date(),
+  age: z.coerce.number(), // use coerce for browser number and date inputs
+  birthday: z.coerce.date(),
   email: z.string().email(),
 });
 const schemaProvider = new ZodProvider(schema);
@@ -142,7 +142,7 @@ Autoform renders default input components for common schema types see `reference
 ### Critical schema rules
 
 - **Numbers**: Always use `z.coerce.number()` (Zod), not `z.number()` — HTML inputs return strings.
-- **Dates**: Use `z.date()` for Zod date fields.
+- **Dates**: Use `z.coerce.date()` for browser date inputs — HTML inputs submit strings.
 - **Enums/Select**: Use `z.enum([...])` or `z.nativeEnum(...)` for Zod, `mixed().oneOf(...)` for Yup, `Joi.any().valid(...)` for Joi.
 - **Arrays**: Supported and valid as fields (array cannot be a root schema).
 - **Optional**: Use `.optional()` for Zod. Skip `.required()` for Yup/Joi.
