@@ -1,5 +1,12 @@
 # @dual-autoform/shadcn
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @dual-autoform/react@2.0.1
+
 ## 5.0.0
 
 ### Major Changes

@@ -1,5 +1,21 @@
 # web
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+  - @dual-autoform/ant@2.0.1
+  - @dual-autoform/chakra@2.0.1
+  - @dual-autoform/joi@2.0.1
+  - @dual-autoform/mantine@2.0.1
+  - @dual-autoform/mui@2.0.1
+  - @dual-autoform/react@2.0.1
+  - @dual-autoform/yup@2.0.1
+  - @dual-autoform/zod@2.0.1
+  - @dual-autoform/shadcn@1.0.1
+
 ## 3.0.0
 
 ### Major Changes

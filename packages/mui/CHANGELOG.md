@@ -1,5 +1,14 @@
 # @dual-autoform/mui
 
+## 2.0.1
+
+### Patch Changes
+
+- Publish compiled package entrypoints with explicit ESM and CommonJS exports, and keep runtime imports compatible with stricter TypeScript consumers.
+- Fix the MUI boolean field so checkbox state is controlled through `checked` without forwarding a conflicting `value` prop.
+- Updated dependencies
+  - @dual-autoform/react@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

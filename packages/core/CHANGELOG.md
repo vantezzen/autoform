@@ -1,5 +1,11 @@
 # @dual-autoform/core
 
+## 2.0.1
+
+### Patch Changes
+
+- Publish compiled package entrypoints with explicit ESM and CommonJS exports, and keep runtime imports compatible with stricter TypeScript consumers.
+
 ## 2.0.0
 
 ### Major Changes

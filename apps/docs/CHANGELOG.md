@@ -1,5 +1,17 @@
 # docs
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+  - @dual-autoform/core@2.0.1
+  - @dual-autoform/mui@2.0.1
+  - @dual-autoform/react@2.0.1
+  - @dual-autoform/zod@2.0.1
+  - @dual-autoform/shadcn@1.0.1
+
 ## Unreleased
 
 ### Major Changes
