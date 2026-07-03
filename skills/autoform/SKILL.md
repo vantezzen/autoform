@@ -41,28 +41,28 @@ Pick one option from each domain and read only the relevant lines given:
 
 ### Form library
 
-| Option          | More to know                             |
-| --------------- | ---------------------------------------- |
-| React Hook Form | `references/installation.md` lines 7-32  |
-| TanStack Form   | `references/installation.md` lines 34-59 |
+| Option          | More to know                                                               |
+| --------------- | -------------------------------------------------------------------------- |
+| React Hook Form | `references/installation.md` lines 7-32, section "React Hook Form adapter" |
+| TanStack Form   | `references/installation.md` lines 34-59, section "TanStack Form adapter"  |
 
 ### Schema library
 
-| Option | More to know                               |
-| ------ | ------------------------------------------ |
-| Zod    | `references/installation.md` lines 178-188 |
-| Yup    | `references/installation.md` lines 190-198 |
-| Joi    | `references/installation.md` lines 200-208 |
+| Option | More to know                                              |
+| ------ | --------------------------------------------------------- |
+| Zod    | `references/installation.md` lines 180-190, section "Zod" |
+| Yup    | `references/installation.md` lines 192-200, section "Yup" |
+| Joi    | `references/installation.md` lines 202-210, section "Joi" |
 
 ### UI library
 
-| Option            | More to know                               |
-| ----------------- | ------------------------------------------ |
-| shadcn/ui         | `references/installation.md` lines 63-84   |
-| Material UI (MUI) | `references/installation.md` lines 86-106  |
-| Mantine           | `references/installation.md` lines 108-128 |
-| Ant Design        | `references/installation.md` lines 130-150 |
-| Chakra UI         | `references/installation.md` lines 152-172 |
+| Option            | More to know                                                           |
+| ----------------- | ---------------------------------------------------------------------- |
+| shadcn/ui         | `references/installation.md` lines 63-86, section "shadcn/ui"          |
+| Material UI (MUI) | `references/installation.md` lines 88-108, section "Material UI (MUI)" |
+| Mantine           | `references/installation.md` lines 110-130, section "Mantine"          |
+| Ant Design        | `references/installation.md` lines 132-152, section "Ant Design"       |
+| Chakra UI         | `references/installation.md` lines 154-174, section "Chakra UI"        |
 
 ---
 

@@ -208,6 +208,13 @@ Run the `shadcn` init command to set up shadcn/ui in your project:
 npx shadcn@latest init
 ```
 
+If the CLI reports `Could not load the workspace config` in a nested project,
+run the command from the app root with `--no-monorepo`:
+
+```bash
+npx shadcn@latest init --no-monorepo
+```
+
 ### Step 7: Add Components
 
 You can now start adding components to your project.
