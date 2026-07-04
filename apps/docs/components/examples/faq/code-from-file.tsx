@@ -9,9 +9,9 @@ interface CodeFromFileProps {
 }
 
 export async function CodeFromFile({ file, lang }: CodeFromFileProps) {
-  const root = process.cwd();
+  const root = path.join(process.cwd(), "components", "examples", "faq");
   const rootWithSep = root.endsWith(path.sep) ? root : `${root}${path.sep}`;
-  const resolved = path.resolve(root, file);
+  const resolved = path.resolve(root, path.basename(file));
 
   if (!resolved.toLowerCase().startsWith(rootWithSep.toLowerCase())) {
     throw new Error(`Invalid code file path: ${file}`);
