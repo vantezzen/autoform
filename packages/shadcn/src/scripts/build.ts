@@ -8,10 +8,12 @@ console.log("Building registry...");
 
 async function getFiles(dir: string): Promise<string[]> {
   const dirents = await readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(dirents.map((dirent) => {
-    const res = join(dir, dirent.name);
-    return dirent.isDirectory() ? getFiles(res) : res;
-  }));
+  const files = await Promise.all(
+    dirents.map((dirent) => {
+      const res = join(dir, dirent.name);
+      return dirent.isDirectory() ? getFiles(res) : res;
+    }),
+  );
   return files.flat() as string[];
 }
 
@@ -22,8 +24,10 @@ const commonRegistryDeps = [
   "calendar",
   "card",
   "checkbox",
+  "input-group",
   "input",
   "label",
+  "popover",
   "select",
   "skeleton",
   "switch",
@@ -33,10 +37,14 @@ const commonRegistryDeps = [
 
 // Paths (forward-slashed) that belong exclusively to one adapter.
 function isRHFOnly(path: string) {
-  return path.includes("components/tanstack/") || path.includes("tanstack-form.tsx");
+  return (
+    path.includes("components/tanstack/") || path.includes("tanstack-form.tsx")
+  );
 }
 function isTanStackOnly(path: string) {
-  return path.includes("components/rhf/") || path.includes("react-hook-form.tsx");
+  return (
+    path.includes("components/rhf/") || path.includes("react-hook-form.tsx")
+  );
 }
 
 // Files that are removed in the split (bridging layer).
@@ -49,8 +57,7 @@ async function buildRegistryItem(
   dependencies: string[],
   excludeFn: (path: string) => boolean,
 ) {
-  const adapter =
-    name === "autoform-rhf" ? "react-hook-form" : "tanstack-form";
+  const adapter = name === "autoform-rhf" ? "react-hook-form" : "tanstack-form";
   const registry: z.infer<typeof registryEntrySchema> = {
     name,
     type: "registry:ui",
