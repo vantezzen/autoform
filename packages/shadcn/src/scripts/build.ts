@@ -24,7 +24,6 @@ const commonRegistryDeps = [
   "calendar",
   "card",
   "checkbox",
-  "input-group",
   "input",
   "label",
   "popover",
