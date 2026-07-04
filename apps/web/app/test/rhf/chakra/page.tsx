@@ -1,4 +1,4 @@
-import { ChakraRHF } from "../../../../components/Chakra";
+import { ChakraRHF } from "@web/components/Chakra";
 
 export default function Page() {
   return (

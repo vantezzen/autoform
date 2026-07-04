@@ -1,4 +1,4 @@
-import { BasicsTanstack } from "../../../../components/Basics";
+import { BasicsTanstack } from "@web/components/Basics";
 
 export default function Page() {
   return (

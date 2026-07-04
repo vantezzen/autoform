@@ -1,4 +1,4 @@
-import { MuiRHF } from "../../../../components/Mui";
+import { MuiRHF } from "@web/components/Mui";
 
 export default function Page() {
   return (

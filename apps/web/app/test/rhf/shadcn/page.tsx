@@ -1,4 +1,4 @@
-import { BasicsRHF } from "../../../../components/Basics";
+import { BasicsRHF } from "@web/components/Basics";
 
 export default function Page() {
   return (

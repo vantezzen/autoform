@@ -1,4 +1,4 @@
-import { MantineRHF } from "../../../../components/Mantine";
+import { MantineRHF } from "@web/components/Mantine";
 
 export default function Page() {
   return (

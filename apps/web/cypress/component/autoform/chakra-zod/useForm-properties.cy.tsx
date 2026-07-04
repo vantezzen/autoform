@@ -1,7 +1,7 @@
 import React from "react";
 import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
 import { AutoForm } from "@dual-autoform/chakra/react-hook-form";
-import HookTest from "components/Hook-test";
+import HookTest from "@web/components/Hook-test";
 import { z } from "zod/v3";
 
 describe("React-Hook-Form useForm properties Tests (CHAKRA-ZOD)", () => {

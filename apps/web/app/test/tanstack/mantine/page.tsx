@@ -1,4 +1,4 @@
-import { MantineTanstack } from "../../../../components/Mantine";
+import { MantineTanstack } from "@web/components/Mantine";
 
 export default function Page() {
   return (

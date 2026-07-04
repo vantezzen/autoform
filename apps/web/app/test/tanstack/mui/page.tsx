@@ -1,4 +1,4 @@
-import { MuiTanstack } from "../../../../components/Mui";
+import { MuiTanstack } from "@web/components/Mui";
 
 export default function Page() {
   return (

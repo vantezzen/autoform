@@ -1,4 +1,4 @@
-import { AntTanstack } from "../../../../components/Ant";
+import { AntTanstack } from "@web/components/Ant";
 
 export default function Page() {
   return (

@@ -1,4 +1,4 @@
-import { ChakraTanstack } from "../../../../components/Chakra";
+import { ChakraTanstack } from "@web/components/Chakra";
 
 export default function Page() {
   return (

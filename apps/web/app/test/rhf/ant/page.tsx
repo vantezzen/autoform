@@ -1,4 +1,4 @@
-import { AntRHF } from "../../../../components/Ant";
+import { AntRHF } from "@web/components/Ant";
 
 export default function Page() {
   return (

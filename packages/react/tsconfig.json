@@ -2,9 +2,7 @@
   "extends": "@dual-autoform/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0"
+    "rootDir": "./src"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
