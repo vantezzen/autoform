@@ -18,12 +18,7 @@ import type { AutoFormFieldProps } from "@dual-autoform/react";
 
 function formatDate(date: Date | undefined) {
   if (!date) return "";
-
-  return date.toLocaleDateString("en-US", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  return date.toLocaleDateString("en-CA");
 }
 
 function isValidDate(date: Date | undefined) {
@@ -37,13 +32,6 @@ function toDate(value: unknown) {
     return isValidDate(date) ? date : undefined;
   }
   return undefined;
-}
-
-function toFieldValue(date: Date | undefined, currentValue: unknown) {
-  if (!date) return "";
-  return typeof currentValue === "string"
-    ? date.toLocaleDateString("en-CA")
-    : date;
 }
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
@@ -70,9 +58,17 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
         {...inputProps}
         {...restField}
         ref={ref}
+        type="date"
+        className={`appearance-none [&::-webkit-calendar-picker-indicator]:pointer-events-none [&::-webkit-calendar-picker-indicator]:opacity-0 ${
+          inputProps?.className ?? ""
+        }`}
         aria-invalid={!!error || inputProps?.["aria-invalid"]}
         value={inputValue}
-        placeholder={inputProps?.placeholder ?? "June 01, 2025"}
+        placeholder={inputProps?.placeholder ?? "2025-06-01"}
+        onBlur={(e) => {
+          restField.onBlur();
+          inputProps?.onBlur?.(e);
+        }}
         onChange={(e) => {
           const nextValue = e.target.value;
           const nextDate = new Date(nextValue);
@@ -80,7 +76,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           setInputValue(nextValue);
 
           if (isValidDate(nextDate)) {
-            onChange(toFieldValue(nextDate, value));
+            onChange(formatDate(nextDate));
             setMonth(nextDate);
           } else if (!nextValue) {
             onChange("");
@@ -118,11 +114,12 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           >
             <Calendar
               mode="single"
+              captionLayout="dropdown"
               selected={selectedDate}
               month={month}
               onMonthChange={setMonth}
               onSelect={(date) => {
-                onChange(toFieldValue(date, value));
+                onChange(formatDate(date));
                 setInputValue(formatDate(date));
                 setMonth(date);
                 setOpen(false);

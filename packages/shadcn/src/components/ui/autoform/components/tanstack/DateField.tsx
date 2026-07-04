@@ -18,12 +18,7 @@ import { useFieldContext } from "@dual-autoform/react/tanstack-form";
 
 function formatDate(date: Date | undefined) {
   if (!date) return "";
-
-  return date.toLocaleDateString("en-US", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  return date.toLocaleDateString("en-CA");
 }
 
 function isValidDate(date: Date | undefined) {
@@ -37,13 +32,6 @@ function toDate(value: unknown) {
     return isValidDate(date) ? date : undefined;
   }
   return undefined;
-}
-
-function toFieldValue(date: Date | undefined, currentValue: unknown) {
-  if (!date) return "";
-  return typeof currentValue === "string"
-    ? date.toLocaleDateString("en-CA")
-    : date;
 }
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
@@ -68,10 +56,17 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
         id={id}
         name={field.name}
         {...inputProps}
+        type="date"
+        className={`appearance-none [&::-webkit-calendar-picker-indicator]:pointer-events-none [&::-webkit-calendar-picker-indicator]:opacity-0 ${
+          inputProps?.className ?? ""
+        }`}
         aria-invalid={!!error || inputProps?.["aria-invalid"]}
         value={inputValue}
-        placeholder={inputProps?.placeholder ?? "June 01, 2025"}
-        onBlur={field.handleBlur}
+        placeholder={inputProps?.placeholder ?? "2025-06-01"}
+        onBlur={(e) => {
+          field.handleBlur();
+          inputProps?.onBlur?.(e);
+        }}
         onChange={(e) => {
           const nextValue = e.target.value;
           const nextDate = new Date(nextValue);
@@ -79,7 +74,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           setInputValue(nextValue);
 
           if (isValidDate(nextDate)) {
-            field.handleChange(toFieldValue(nextDate, field.state.value));
+            field.handleChange(formatDate(nextDate));
             setMonth(nextDate);
           } else if (!nextValue) {
             field.handleChange("");
@@ -117,11 +112,12 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           >
             <Calendar
               mode="single"
+              captionLayout="dropdown"
               selected={selectedDate}
               month={month}
               onMonthChange={setMonth}
               onSelect={(date) => {
-                field.handleChange(toFieldValue(date, field.state.value));
+                field.handleChange(formatDate(date));
                 setInputValue(formatDate(date));
                 setMonth(date);
                 setOpen(false);
