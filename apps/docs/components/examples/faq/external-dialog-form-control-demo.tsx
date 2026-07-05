@@ -34,9 +34,7 @@ type DialogValues = z.infer<typeof dialogSchema>;
 const schemaProvider = new ZodProvider(dialogSchema);
 
 export function ExternalDialogFormControlDemo() {
-  const [submitted, setSubmitted] = React.useState<z.infer<
-    typeof dialogSchema
-  > | null>(null);
+  const [submitted, setSubmitted] = React.useState<DialogValues | null>(null);
 
   const { formControl, reset } = React.useMemo(
     () => createFormControl<DialogValues>(),

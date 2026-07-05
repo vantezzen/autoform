@@ -27,12 +27,9 @@ export function NumberStepperField({
 }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
   const value = typeof field.value === "number" ? field.value : 1;
-  const limits = field as { min?: number; max?: number } | undefined;
 
   const step = (delta: number) => {
-    const min = limits?.min ?? 1;
-    const max = limits?.max ?? 99;
-    field.onChange(Math.min(max, Math.max(min, value + delta)));
+    field.onChange(Math.min(99, Math.max(1, value + delta)));
   };
 
   return (
