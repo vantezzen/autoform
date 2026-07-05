@@ -122,7 +122,7 @@ export function RadioCardField({ id, error, parsedField }: AutoFormFieldProps) {
   );
 }
 
-export function DatePickerField({ id, error }: AutoFormFieldProps) {
+export function DatePickerField({ id, error, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();
   const [open, setOpen] = React.useState(false);
   const dateValue = field.state.value
@@ -142,6 +142,7 @@ export function DatePickerField({ id, error }: AutoFormFieldProps) {
             error && "border-destructive",
           )}
           onBlur={field.handleBlur}
+          {...inputProps}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {dateValue ? format(dateValue, "PPP") : "Pick a date"}

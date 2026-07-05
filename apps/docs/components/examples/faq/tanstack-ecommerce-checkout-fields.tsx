@@ -225,7 +225,7 @@ export function PaymentFieldWrapper({ children }: FieldWrapperProps) {
       {(isFree) =>
         isFree ? (
           <div className="rounded-lg border border-green-500/40 bg-green-500/10 p-4 text-sm text-green-700 dark:text-green-400">
-            100% discount applied, no payment required.
+            🎉 100% discount applied, no payment required!
           </div>
         ) : (
           <>{children}</>

@@ -148,12 +148,12 @@ Register the custom input in `formComponents`, read the current field with `useF
 Use schema validation for data rules, and TanStack Form subscriptions for UI behavior. Custom fields and wrappers can subscribe to related values with [`form.Subscribe` or `useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity).
 In most field components, prefer `form.Subscribe` because it keeps the reactive part local to the value it reads.
 
-| Pattern                    | Example in the demo below                                                    |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked        |
-| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
-| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
-| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
+| Pattern                    | Example in the demo below                                                       |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked           |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                     |
+| **Conditional validation** | Payment details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                   |
 
 <Tabs persist items={["preview", "code"]} label="TanStack ecommerce checkout">
   <Tab value="preview">

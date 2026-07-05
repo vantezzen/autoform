@@ -48,10 +48,10 @@ const schema = z
       .check(fieldConfig({ fieldType: "giftMessage" })),
     payment: z
       .object({
-        cardNumber: z
+        card: z
           .string()
           .optional()
-          .describe("Card number")
+          .describe("Card")
           .check(
             fieldConfig({ inputProps: { placeholder: "1234 5678 9012 3456" } }),
           ),
@@ -60,12 +60,10 @@ const schema = z
           .optional()
           .describe("Expiry (MM/YY)")
           .check(fieldConfig({ inputProps: { placeholder: "MM/YY" } })),
-        cvv: z
+        code: z
           .string()
-          .min(3)
-          .max(4)
           .optional()
-          .describe("CVV")
+          .describe("Code")
           .check(fieldConfig({ inputProps: { placeholder: "123" } })),
       })
       .check(fieldConfig({ fieldWrapper: PaymentFieldWrapper })),
@@ -83,11 +81,11 @@ const schema = z
       data.haveCoupon && data.couponCode?.toUpperCase() === "FREE100";
 
     if (!isFree) {
-      if (!data.payment?.cardNumber?.trim()) {
+      if (!data.payment?.card?.trim()) {
         ctx.addIssue({
           code: "custom",
-          message: "Card number is required",
-          path: ["payment", "cardNumber"],
+          message: "Payment card is required",
+          path: ["payment", "card"],
         });
       }
       if (!data.payment?.expiryDate?.trim()) {
@@ -97,11 +95,11 @@ const schema = z
           path: ["payment", "expiryDate"],
         });
       }
-      if (!data.payment?.cvv?.trim()) {
+      if (!data.payment?.code?.trim()) {
         ctx.addIssue({
           code: "custom",
-          message: "CVV is required",
-          path: ["payment", "cvv"],
+          message: "Code is required",
+          path: ["payment", "code"],
         });
       }
     }

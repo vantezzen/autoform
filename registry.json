@@ -76,10 +76,7 @@
       "type": "registry:lib",
       "title": "AutoForm React (TanStack Form)",
       "description": "Core AutoForm renderer wired to TanStack Form. Installs the full @dual-autoform/react source for the TanStack adapter so you can modify it freely.",
-      "dependencies": [
-        "@dual-autoform/core",
-        "@tanstack/react-form"
-      ],
+      "dependencies": ["@dual-autoform/core", "@tanstack/react-form"],
       "files": [
         {
           "path": "packages/react/src/types.ts",
@@ -178,7 +175,7 @@
       "name": "ecommerce-checkout-demo",
       "type": "registry:block",
       "title": "Ecommerce Checkout Demo",
-      "description": "Checkout form demonstrating field dependencies: cascading country/state selects, conditional coupon and payment fields, and cross-field superRefine validation.",
+      "description": "Checkout form demonstrating field dependencies: cascading country/state selects, conditional coupon and shipping fields, and cross-field superRefine validation.",
       "dependencies": [
         "zod",
         "@dual-autoform/zod",
@@ -432,7 +429,7 @@
       "name": "tanstack-ecommerce-checkout-demo",
       "type": "registry:block",
       "title": "TanStack Ecommerce Checkout Demo",
-      "description": "Checkout form demonstrating TanStack subscriptions for cascading selects, conditional coupon fields, gift messages, and payment fields.",
+      "description": "Checkout form demonstrating TanStack subscriptions for cascading selects, conditional coupon fields, gift messages, and shipping fields.",
       "dependencies": [
         "zod",
         "@dual-autoform/zod",

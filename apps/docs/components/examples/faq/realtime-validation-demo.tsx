@@ -40,7 +40,7 @@ export function RealtimeValidationDemo() {
   const [values, setValues] = React.useState<RealtimeValues | null>(null);
 
   return (
-    <div className="grid gap-4 rounded-lg border bg-background p-6 ">
+    <div className="rounded-lg border bg-background p-6">
       <AutoForm
         schema={schemaProvider}
         formControl={formControl}
@@ -48,13 +48,9 @@ export function RealtimeValidationDemo() {
       >
         <SubmitButton />
         {values && (
-          <div className="rounded-md border bg-muted p-4">
-            <pre className="text-sm">
-              <code className="bg-transparent border-none">
-                {JSON.stringify(values, null, 2)}
-              </code>
-            </pre>
-          </div>
+          <pre className="max-w-full overflow-x-auto rounded-md bg-secondary p-3 text-xs">
+            {JSON.stringify(values, null, 2)}
+          </pre>
         )}
       </AutoForm>
     </div>

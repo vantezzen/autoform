@@ -147,12 +147,12 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
 
 **2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext). AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree. You can use them inside custom field component or UI components like `fieldWrapper`, `objectWrapper`, `arrayWrapper`, `arrayElementWrapper`.
 
-| Pattern                    | Example in the demo below                                                    |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked        |
-| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                  |
-| **Conditional validation** | Card details — required by `superRefine` only when no 100% coupon is applied |
-| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                |
+| Pattern                    | Example in the demo below                                                       |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked           |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                     |
+| **Conditional validation** | Payment details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                   |
 
 <Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
   <Tab value="preview">

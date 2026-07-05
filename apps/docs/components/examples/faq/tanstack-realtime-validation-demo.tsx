@@ -35,20 +35,16 @@ export function TanStackRealtimeValidationDemo() {
   const [values, setValues] = React.useState<RealtimeValues | null>(null);
 
   return (
-    <div className="grid gap-4 rounded-lg border bg-background p-6">
+    <div className="gap-4 rounded-lg border bg-background p-6">
       <AutoForm
         schema={schemaProvider}
         onSubmit={(values) => setValues(values)}
       >
         <SubmitButton />
         {values && (
-          <div className="rounded-md border bg-muted p-4">
-            <pre className="text-sm">
-              <code className="border-none bg-transparent">
-                {JSON.stringify(values, null, 2)}
-              </code>
-            </pre>
-          </div>
+          <pre className="max-w-full overflow-x-auto rounded-md bg-secondary p-3 text-xs">
+            {JSON.stringify(values, null, 2)}
+          </pre>
         )}
       </AutoForm>
     </div>
