@@ -18,9 +18,9 @@
       "dependsOn": ["^build"],
       "cache": false
     },
-    "cypress:dev": {
-      "dependsOn": ["^dev"],
-      "cache": false
+    "cypress:open": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
