@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress run --component",
-    "cypress:open": "cypress open --component"
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@dual-autoform/ant": "workspace:*",
