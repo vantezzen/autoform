@@ -1,47 +1,4 @@
-# @dual-autoform/shadcn
-
-## 1.1.0
-
-### Minor Changes
-
-- Add calendar-backed date fields and update the shadcn registry output.
-
-## 1.0.1
-
-### Patch Changes
-
-- Keep generated shadcn boolean and select fields controlled when form defaults are initially undefined.
-- Updated dependencies
-  - @dual-autoform/react@2.0.1
-
-## 5.0.0
-
-### Major Changes
-
-- refactor(breaking): rename `field` prop to `parsedField` in all wrapper components (`AutoFormFieldProps`, `FieldWrapperProps`, etc.) to prevent variable shadowing with `react-hook-form` controllers.
-- Choose the generated `react-hook-form` or `tanstack-form` entry explicitly. Generated field components bind directly to the selected adapter (`useController` for React Hook Form, `useFieldContext` for TanStack Form).
-
-### Patch Changes
-
-- Updated dependencies
-  - @dual-autoform/react@5.0.0
-
-## 4.1.1
-
-### Patch Changes
-
-- refactor: bump UI packages following react package patch update
-
-## 4.1.0
-
-### Minor Changes
-
-- Apply recent updates and registry migrations since namespace transition.
-
-### Patch Changes
-
-- Updated dependencies
-  - @dual-autoform/react@4.1.0
+# @autoform/shadcn
 
 ## 4.0.0
 
@@ -52,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/react@4.0.0
+  - @autoform/react@4.0.0
 
 ## 3.1.0
 
@@ -63,9 +20,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/core@2.2.0
-  - @dual-autoform/react@3.1.0
-  - @dual-autoform/zod@2.2.0
+  - @autoform/core@2.2.0
+  - @autoform/react@3.1.0
+  - @autoform/zod@2.2.0
 
 ## 3.0.0
 
@@ -80,8 +37,8 @@
 ### Patch Changes
 
 - Updated dependencies [df38752]
-  - @dual-autoform/react@2.2.0
-  - @dual-autoform/zod@2.1.0
+  - @autoform/react@2.2.0
+  - @autoform/zod@2.1.0
 
 ## 2.1.0
 
@@ -92,7 +49,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/react@2.1.0
+  - @autoform/react@2.1.0
 
 ## 2.0.0
 
@@ -103,9 +60,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/core@2.0.0
-  - @dual-autoform/react@2.0.0
-  - @dual-autoform/zod@2.0.0
+  - @autoform/core@2.0.0
+  - @autoform/react@2.0.0
+  - @autoform/zod@2.0.0
 
 ## 1.1.0
 
@@ -116,9 +73,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/react@1.3.0
-  - @dual-autoform/core@1.2.0
-  - @dual-autoform/zod@1.2.0
+  - @autoform/react@1.3.0
+  - @autoform/core@1.2.0
+  - @autoform/zod@1.2.0
 
 ## 1.0.2
 
@@ -127,9 +84,9 @@
 - Clean build package
 - Updated dependencies [a93c30f]
 - Updated dependencies
-  - @dual-autoform/react@1.2.0
-  - @dual-autoform/core@1.1.2
-  - @dual-autoform/zod@1.1.2
+  - @autoform/react@1.2.0
+  - @autoform/core@1.1.2
+  - @autoform/zod@1.1.2
 
 ## 1.0.1
 
@@ -137,6 +94,6 @@
 
 - Fix build
 - Updated dependencies
-  - @dual-autoform/core@1.1.1
-  - @dual-autoform/react@1.1.1
-  - @dual-autoform/zod@1.1.1
+  - @autoform/core@1.1.1
+  - @autoform/react@1.1.1
+  - @autoform/zod@1.1.1

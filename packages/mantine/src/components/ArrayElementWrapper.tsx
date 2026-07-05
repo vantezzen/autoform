@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
-import type { ArrayElementWrapperProps } from "@dual-autoform/react";
+import type { ArrayElementWrapperProps } from "@autoform/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,

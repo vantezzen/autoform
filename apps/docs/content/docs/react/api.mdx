@@ -3,20 +3,20 @@ title: API
 description: API reference for the AutoForm component and customization contracts.
 ---
 
-For complete source definitions, see [`packages/react/src/types.ts`](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/react/src/types.ts).
+For complete source definitions, see [`packages/react/src/types.ts`](https://github.com/vantezzen/autoform/tree/main/packages/react/src/types.ts).
 
 ## AutoFormProps
 
 <AutoFormPropsTable />
 
-UI integrations such as `@dual-autoform/mui`, `@dual-autoform/ant`, etc. provide default uiComponents and formComponents, while still allowing you to override them. They provide AutoForm with `ExtendableAutoFormProps` type, which is the same as `AutoFormProps`, except uiComponents and formComponents props are optional.
+UI integrations such as `@autoform/mui`, `@autoform/ant`, etc. provide default uiComponents and formComponents, while still allowing you to override them. They provide AutoForm with `ExtendableAutoFormProps` type, which is the same as `AutoFormProps`, except uiComponents and formComponents props are optional.
 
 ### `schema`
 
 `schema` must be a schema provider instance from one of the schema packages.
 
 ```tsx
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 import * as z from "zod";
 
 const schema = z.object({
@@ -66,7 +66,7 @@ function MyForm() {
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
 
 const schema = z.object({
   bio: z.string().check(fieldConfig({ fieldType: "markdown" })),
@@ -112,7 +112,7 @@ Custom field components receive `AutoFormFieldProps` which contain useful data a
 
 ```tsx
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });

@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -21,20 +20,6 @@ export const HeroSection = () => {
     <section className="container w-full">
       <div className="grid w-full place-items-center gap-8 mx-auto py-20 ">
         <div className="w-full text-center space-y-6 sm:space-y-8">
-          <Badge variant="outline" className="max-w-full text-sm py-2 px-3">
-            <span>Fork of </span>
-            <span className="pl-1.5 text-primary">
-              {/* <Badge> */}
-              <a
-                className="underline underline-offset-2"
-                href="https://github.com/vantezzen/autoform"
-              >
-                AutoForm
-              </a>
-              {/* </Badge> */}
-            </span>
-          </Badge>
-
           <div className="max-w-screen-md mx-auto text-center text-3xl sm:text-4xl md:text-6xl font-bold">
             <h1>
               <span className="text-transparent px-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
@@ -63,7 +48,7 @@ export const HeroSection = () => {
               className="w-5/6 md:w-[15%] font-bold mt-4 md:mt-0"
             >
               <Link
-                href="https://github.com/adityacodepublic/autoform"
+                href="https://github.com/vantezzen/autoform"
                 target="_blank"
               >
                 Github

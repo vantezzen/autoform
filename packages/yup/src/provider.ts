@@ -3,7 +3,7 @@ import type {
   ParsedSchema,
   SchemaProvider,
   SchemaValidation,
-} from "@dual-autoform/core";
+} from "@autoform/core";
 import { parseSchema } from "./schema-parser";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";

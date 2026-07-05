@@ -11,7 +11,7 @@ export default defineConfig({
       : { js: ".mjs", dts: ".d.mts" },
   deps: {
     dts: {
-      neverBundle: ["@dual-autoform/react"],
+      neverBundle: ["@autoform/react"],
     },
   },
   treeshake: true,

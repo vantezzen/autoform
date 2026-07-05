@@ -124,7 +124,7 @@ export async function FieldConfigPropsTable() {
 }
 
 const MUI_BASE =
-  "https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/mui/src/components";
+  "https://github.com/vantezzen/autoform/tree/main/packages/mui/src/components";
 
 export async function AutoFormUIComponentsTable() {
   const [

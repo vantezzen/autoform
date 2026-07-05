@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { AutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
 import { createFormControl } from "react-hook-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
 

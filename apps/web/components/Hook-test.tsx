@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
+import { AutoFormFieldProps } from "@autoform/react/react-hook-form";
 
 // initialise test state
 const tests = {

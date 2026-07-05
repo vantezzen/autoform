@@ -1,11 +1,11 @@
 "use client";
 
-import { AutoForm as ReactHookFormAutoForm } from "@dual-autoform/react/react-hook-form";
+import { AutoForm as ReactHookFormAutoForm } from "@autoform/react/react-hook-form";
 import type {
   AutoFormUIComponents,
   AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
@@ -21,7 +21,7 @@ import { DateField } from "./components/rhf/DateField";
 import { SelectField } from "./components/rhf/SelectField";
 
 export type FieldTypes = "string" | "number" | "boolean" | "date" | "select";
-export type { ExtendableAutoFormProps as AutoFormProps } from "@dual-autoform/react";
+export type { ExtendableAutoFormProps as AutoFormProps } from "@autoform/react";
 
 const UIComponents: AutoFormUIComponents = {
   Form,

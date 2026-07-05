@@ -1,6 +1,6 @@
 {
-  "name": "@dual-autoform/ant",
-  "version": "2.0.1",
+  "name": "@autoform/ant",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -33,12 +33,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adityacodepublic/autoform.git"
+    "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
-    "@dual-autoform/core": "workspace:*",
-    "@dual-autoform/eslint-config": "workspace:*",
-    "@dual-autoform/typescript-config": "workspace:*",
+    "@autoform/core": "workspace:*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "antd": "^5.22.7",
     "react": "^19.2.6"
   },
@@ -48,7 +48,7 @@
     "dayjs": "^1.11.13"
   },
   "peerDependencies": {
-    "@dual-autoform/react": "workspace:^",
+    "@autoform/react": "workspace:^",
     "antd": "^5",
     "react": "^16.9.0 || ^17 || ^18 || ^19"
   },

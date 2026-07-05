@@ -1,4 +1,4 @@
-# @dual-autoform/typescript-config
+# @autoform/typescript-config
 
 ## 2.0.0
 

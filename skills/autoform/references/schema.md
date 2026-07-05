@@ -10,7 +10,7 @@
 
 ## Zod
 
-Package: `@dual-autoform/zod`; supports Zod v3, Zod v4, and Zod Mini.
+Package: `@autoform/zod`; supports Zod v3, Zod v4, and Zod Mini.
 
 Requires `zod ^3.25.0 || ^4`.
 
@@ -18,10 +18,10 @@ Attach `fieldConfig` with `.check(...)` in Zod v4 / Zod Mini, or `.superRefine(.
 
 ```tsx
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
+import type { FieldWrapperProps } from "@autoform/react";
 
 const nameId = {
   name1: "id1",
@@ -150,7 +150,7 @@ const formSchema = z.object({
 const schemaProvider = new ZodProvider(formSchema);
 ```
 
-For Zod Mini, import `z` from `zod/mini` and keep using `fieldConfig` from `@dual-autoform/zod`.
+For Zod Mini, import `z` from `zod/mini` and keep using `fieldConfig` from `@autoform/zod`.
 
 For more `fieldConfig` details, see `references/customization.md` lines 5-70.
 
@@ -158,15 +158,15 @@ For more `fieldConfig` details, see `references/customization.md` lines 5-70.
 
 ## Yup
 
-Package: `@dual-autoform/yup`
+Package: `@autoform/yup`
 
 Attach `fieldConfig` with `.transform(...)`.
 
 ```tsx
-import { YupProvider, fieldConfig } from "@dual-autoform/yup";
+import { YupProvider, fieldConfig } from "@autoform/yup";
 import { object, string, number, array, mixed } from "yup";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 
 const yupSchema = object({
   // `.label()` sets the field label. Yup fields are optional unless `.required()` is used.
@@ -199,15 +199,15 @@ For more `fieldConfig` details, see `references/customization.md` lines 5-70.
 
 ## Joi
 
-Package: `@dual-autoform/joi`
+Package: `@autoform/joi`
 
 Attach `fieldConfig` with `.meta(...)`.
 
 ```tsx
-import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
+import { JoiProvider, fieldConfig } from "@autoform/joi";
 import Joi from "joi";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 
 const joiSchema = Joi.object({
   // `.label()` sets the field label. Joi fields are optional unless `.required()` is used.

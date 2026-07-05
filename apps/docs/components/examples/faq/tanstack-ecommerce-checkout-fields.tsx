@@ -4,11 +4,11 @@ import * as React from "react";
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 import {
   useFieldContext,
   useFormContext,
-} from "@dual-autoform/react/tanstack-form";
+} from "@autoform/react/tanstack-form";
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";

@@ -1,9 +1,9 @@
 import React from "react";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
-import type { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
-import { useFieldRHF } from "@dual-autoform/react/react-hook-form";
-import { useFieldTanStack } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react/react-hook-form";
+import { useFieldRHF } from "@autoform/react/react-hook-form";
+import { useFieldTanStack } from "@autoform/react/tanstack-form";
 import { autoFormAdapters, TestWrapper } from "./utils";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {

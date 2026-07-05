@@ -3,7 +3,7 @@
 import {
   AutoForm as TanStackAutoForm,
   useFieldTanStack,
-} from "@dual-autoform/react/tanstack-form";
+} from "@autoform/react/tanstack-form";
 import { createAutoForm } from "./AutoForm";
 
 export const AutoForm = createAutoForm(TanStackAutoForm, useFieldTanStack);

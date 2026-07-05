@@ -1,12 +1,12 @@
-import { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 import Joi from "joi";
 import * as z from "zod/v3";
 import * as z4 from "zod/v4";
 import * as zm from "zod/mini";
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { object, string, number, date, array, mixed } from "yup";
-import { YupProvider, fieldConfig as yupFieldConfig } from "@dual-autoform/yup";
-import { JoiProvider, fieldConfig as joiFieldConfig } from "@dual-autoform/joi";
+import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
+import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
 
 enum Sports {
   f = "Football/Soccer",

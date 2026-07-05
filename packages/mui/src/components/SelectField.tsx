@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 import { useField } from "../field-context";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({

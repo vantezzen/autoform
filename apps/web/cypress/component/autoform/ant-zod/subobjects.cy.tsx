@@ -1,6 +1,6 @@
 import React from "react";
 import { autoFormAdapters } from "./utils";
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 
 autoFormAdapters.forEach(({ name, AutoForm }) => {

@@ -5,7 +5,7 @@ This package allows using your Joi schema with AutoForm.
 ## Installation
 
 ```bash
-npm install @dual-autoform/joi
+npm install @autoform/joi
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform-dual.vercel.app/docs/schema-providers/joi).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schema-providers/joi).

@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 import { useField } from "../field-context";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({

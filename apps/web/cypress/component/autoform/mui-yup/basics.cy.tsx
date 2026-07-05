@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import { YupProvider, fieldConfig } from "@dual-autoform/yup";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import { YupProvider, fieldConfig } from "@autoform/yup";
 import * as Yup from "yup";
 
 enum Sports {

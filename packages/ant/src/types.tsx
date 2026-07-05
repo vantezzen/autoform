@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps } from "@dual-autoform/react";
+import type { ExtendableAutoFormProps } from "@autoform/react";
 import type { FormProps, ConfigProviderProps } from "antd";
 
 export interface AutoFormProps<

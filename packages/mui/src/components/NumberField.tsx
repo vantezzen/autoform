@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "@mui/material/Input";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 import { useField } from "../field-context";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({

@@ -1,13 +1,13 @@
-# @dual-autoform AI Agent Skill
+# @autoform AI Agent Skill
 
-This directory contains the official skill for **AutoForm** (`@dual-autoform`).
+This directory contains the official skill for **AutoForm** (`@autoform`).
 
 ## Install
 
 Install this skill:
 
 ```bash
-npx skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/autoform
+npx skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform
 ```
 
 ## Directory Structure

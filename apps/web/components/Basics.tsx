@@ -1,9 +1,9 @@
 "use client";
-import { AutoForm as ShadcnRHFAutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
-import { AutoForm as ShadcnTanstackAutoForm } from "@dual-autoform/shadcn/components/ui/autoform/tanstack-form";
-import { AutoFormFieldProps } from "@dual-autoform/react/react-hook-form";
+import { AutoForm as ShadcnRHFAutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
+import { AutoForm as ShadcnTanstackAutoForm } from "@autoform/shadcn/components/ui/autoform/tanstack-form";
+import { AutoFormFieldProps } from "@autoform/react/react-hook-form";
 import { zodSchemaProvider } from "./utils";
-import "@dual-autoform/shadcn/globals.css";
+import "@autoform/shadcn/globals.css";
 
 function customComponent({ label, inputProps }: AutoFormFieldProps) {
   return (

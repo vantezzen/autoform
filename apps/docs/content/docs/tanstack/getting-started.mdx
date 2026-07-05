@@ -15,7 +15,7 @@ documentation, examples, and best practices.
 
 <ModeTab
   mode="cli"
-  command="skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/skills --skill autoform"
+  command="skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform"
 />
 
 ---
@@ -26,7 +26,7 @@ documentation, examples, and best practices.
 
 Install TanStack Form and the AutoForm React base package:
 
-<ModeTab command="@dual-autoform/react @tanstack/react-form" />
+<ModeTab command="@autoform/react @tanstack/react-form" />
 
 ---
 
@@ -38,7 +38,7 @@ AutoForm integrates directly into your UI library to render fields. Choose one o
 
 <ModeTab
   mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json"
+  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-tanstack.json"
 />
 
 Use the generated TanStack adapter export:
@@ -68,10 +68,10 @@ import { AutoForm } from "@/components/ui/autoform/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/mui" />
+<ModeTab command="@autoform/mui" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
 ```
 
 ---
@@ -92,10 +92,10 @@ import { AutoForm } from "@dual-autoform/mui/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/mantine" />
+<ModeTab command="@autoform/mantine" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mantine/tanstack-form";
+import { AutoForm } from "@autoform/mantine/tanstack-form";
 ```
 
 ---
@@ -112,10 +112,10 @@ import { AutoForm } from "@dual-autoform/mantine/tanstack-form";
   <ModeTab className=" border-0" command="antd@^5" />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/ant" />
+<ModeTab command="@autoform/ant" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/ant/tanstack-form";
+import { AutoForm } from "@autoform/ant/tanstack-form";
 ```
 
 ---
@@ -136,10 +136,10 @@ import { AutoForm } from "@dual-autoform/ant/tanstack-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/chakra" />
+<ModeTab command="@autoform/chakra" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/chakra/tanstack-form";
+import { AutoForm } from "@autoform/chakra/tanstack-form";
 ```
 
 If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/tanstack/custom-integration).
@@ -148,7 +148,7 @@ If you want to integrate into another UI library and create a custom package, ch
 
 #### Zod
 
-<ModeTab command="@dual-autoform/zod" />
+<ModeTab command="@autoform/zod" />
 
 <Callout>Requires zod version greater than 3.25.0 to be installed.</Callout>
 
@@ -156,13 +156,13 @@ If you want to integrate into another UI library and create a custom package, ch
 
 #### Yup
 
-<ModeTab command="@dual-autoform/yup" />
+<ModeTab command="@autoform/yup" />
 
 ---
 
 #### Joi
 
-<ModeTab command="@dual-autoform/joi" />
+<ModeTab command="@autoform/joi" />
 
 In the docs, we use Zod as the schema example. Replace the schema provider import with the one for your schema library.
 
@@ -172,8 +172,8 @@ In the docs, we use Zod as the schema example. Replace the schema provider impor
 "use client";
 
 import * as z from "zod";
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -201,7 +201,7 @@ Common imports you may need:
 
 ```tsx
 // similar for yup or joi
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 
 // Shared component types.
 import type {
@@ -210,13 +210,13 @@ import type {
   ObjectWrapperProps,
   ArrayWrapperProps,
   ArrayElementWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 // For custom fields and form access.
 import {
   useFieldContext,
   useFormContext,
-} from "@dual-autoform/react/tanstack-form";
+} from "@autoform/react/tanstack-form";
 ```
 
 </div>
@@ -253,7 +253,7 @@ See [form control](/docs/tanstack/form-control) for examples.
 
 ## Custom field components
 
-When creating custom field components for the TanStack adapter, use `useFieldContext` from `@dual-autoform/react/tanstack-form`. See [customization](/docs/tanstack/customization#connecting-custom-fields-to-tanstack-form).
+When creating custom field components for the TanStack adapter, use `useFieldContext` from `@autoform/react/tanstack-form`. See [customization](/docs/tanstack/customization#connecting-custom-fields-to-tanstack-form).
 
 ## Next Steps
 

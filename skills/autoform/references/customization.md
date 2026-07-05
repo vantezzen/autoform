@@ -4,11 +4,11 @@ AutoForm is highly customizable. You can override everything from the structural
 
 ## 1. Schema-Level Customization (`fieldConfig`)
 
-The primary way to customize individual fields is by attaching `fieldConfig` to your schema. Import `fieldConfig` from your schema package (e.g., `@dual-autoform/zod`).
+The primary way to customize individual fields is by attaching `fieldConfig` to your schema. Import `fieldConfig` from your schema package (e.g., `@autoform/zod`).
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/zod";
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form"; // Optional: import from your UI adapter for TS
+import { fieldConfig } from "@autoform/zod";
+import type { FieldTypes } from "@autoform/mui/react-hook-form"; // Optional: import from your UI adapter for TS
 
 const schema = z.object({
   password: z.string().check(
@@ -86,11 +86,11 @@ import type {
   ArrayWrapperProps,
   ArrayElementWrapperProps,
   AutoFormUIComponents,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 ```
 
 ```tsx
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 function CustomFieldWrapper({
   id,

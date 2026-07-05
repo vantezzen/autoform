@@ -11,12 +11,12 @@ Shows real-time validation with a disabled submit button until the form is valid
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-realtime-validation-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-realtime-validation-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-realtime-validation-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-realtime-validation-demo.tsx
 
 ### Dialog Submit Demo
 
@@ -27,13 +27,13 @@ Submits and resets AutoForm from buttons inside a Dialog. It shows both TanStack
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-dialog-submit-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-dialog-submit-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-dialog-submit-demo.tsx
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-dialog-form-control-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-dialog-submit-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-dialog-form-control-demo.tsx
 
 ### Custom Fields Demo
 
@@ -44,13 +44,13 @@ Adds custom inputs such as sliders, color pickers, radio cards, date pickers, st
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-custom-fields-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-custom-fields-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-custom-fields-demo.tsx
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-custom-field-components.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-custom-fields-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-custom-field-components.tsx
 
 ### Ecommerce Checkout Demo
 
@@ -61,13 +61,13 @@ Builds a checkout form with cascading country/state selects, conditional coupon 
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-ecommerce-checkout-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-ecommerce-checkout-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-ecommerce-checkout-demo.tsx
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-ecommerce-checkout-fields.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-ecommerce-checkout-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-ecommerce-checkout-fields.tsx
 
 ### Multi-step Form Demo
 
@@ -78,13 +78,13 @@ Implements a multi-step form with one schema per step, breadcrumb navigation, an
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-multistep-form-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-multistep-form-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-multistep-form.tsx
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-multistep-form-usage-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-multistep-form.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-multistep-form-usage-demo.tsx
 
 ### Nested AutoForm Demo
 
@@ -95,12 +95,12 @@ Shows a nested AutoForm inside a Dialog as a custom field component. The outer f
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-nested-autoform-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-nested-autoform-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-nested-autoform-demo.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-nested-autoform-demo.tsx
 
 ### Interactive Schema Demo
 
@@ -111,9 +111,9 @@ Creates a dynamic form builder with Monaco Editor and AutoForm. The demo parses 
 install command;
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/tanstack-interactive-schema-demo.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/tanstack-interactive-schema-demo.json
 ```
 
 Source files installed:
 
-- https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/apps/docs/components/examples/faq/tanstack-interactive-schema-demo-content.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/tanstack-interactive-schema-demo-content.tsx

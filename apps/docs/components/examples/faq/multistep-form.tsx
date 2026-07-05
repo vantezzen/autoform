@@ -4,7 +4,7 @@ import * as React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 import * as z from "zod";
 
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";

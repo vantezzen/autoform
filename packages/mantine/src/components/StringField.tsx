@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 import { useField } from "../field-context";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({

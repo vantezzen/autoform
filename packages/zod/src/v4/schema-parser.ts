@@ -2,7 +2,7 @@ import * as z from "zod/v4/core";
 import { inferFieldType } from "./field-type-inference";
 import { getDefaultValueInZodStack } from "./default-values";
 import { getFieldConfigInZodStack } from "./field-config";
-import type { ParsedField, ParsedSchema } from "@dual-autoform/core";
+import type { ParsedField, ParsedSchema } from "@autoform/core";
 
 function parseField(key: string, schema: z.$ZodType): ParsedField {
   const baseSchema = getBaseSchema(schema);

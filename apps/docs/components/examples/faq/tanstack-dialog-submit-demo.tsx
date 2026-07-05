@@ -3,8 +3,8 @@
 import * as React from "react";
 import { CheckCircle, Circle } from "lucide-react";
 import * as z from "zod";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
-import { useFormContext } from "@dual-autoform/react/tanstack-form";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
+import { useFormContext } from "@autoform/react/tanstack-form";
 
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 import { Button } from "@/components/ui/button";

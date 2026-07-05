@@ -35,7 +35,7 @@ The form data can be accessed with the `onSubmit` prop. This will be called when
 AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` as children can use [`useFormContext`](https://react-hook-form.com/docs/useformcontext) to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI are rendered as children inside `AutoForm`. See [`examples`](/docs/react/faq-examples) for more information.
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 import { useFormContext } from "react-hook-form";
 
 function QuickActions() {
@@ -85,9 +85,9 @@ Avoid setting initial default values inside `createFormControl`. Pass them to `A
 ```tsx
 import * as React from "react";
 import * as z from "zod";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 import { createFormControl } from "react-hook-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -124,7 +124,7 @@ export default function MyForm() {
 Custom field components can use `useController` from `react-hook-form` to access the field API (which exposes the field's value, bindings, and state such as `error` and `isDirty`):
 
 ```tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 import { useController } from "react-hook-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {

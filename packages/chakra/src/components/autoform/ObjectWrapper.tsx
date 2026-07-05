@@ -1,4 +1,4 @@
-import type { ObjectWrapperProps } from "@dual-autoform/react";
+import type { ObjectWrapperProps } from "@autoform/react";
 import { Box, FieldHelperText, Heading } from "@chakra-ui/react";
 import React from "react";
 

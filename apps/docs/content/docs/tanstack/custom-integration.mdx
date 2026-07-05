@@ -13,7 +13,7 @@ This guide shows how to create a UI integration that can render with the TanStac
 mkdir @autoform-custom-ui
 cd @autoform-custom-ui
 npm init -y
-npm install @dual-autoform/react @tanstack/react-form react
+npm install @autoform/react @tanstack/react-form react
 ```
 
 ## Define custom types
@@ -22,7 +22,7 @@ npm install @dual-autoform/react @tanstack/react-form react
 import {
   AutoFormUIComponents,
   AutoFormFieldComponents,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 export interface CustomAutoFormUIComponents extends AutoFormUIComponents {}
 
@@ -43,7 +43,7 @@ Implement the required UI components:
 
 ```tsx
 import React from "react";
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
@@ -63,12 +63,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
 
 ## Implement field components
 
-For TanStack field components, use `useFieldContext` from `@dual-autoform/react/tanstack-form`.
+For TanStack field components, use `useFieldContext` from `@autoform/react/tanstack-form`.
 
 ```tsx
 import React from "react";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -93,8 +93,8 @@ The same context gives access to TanStack-specific APIs:
 
 ```tsx
 import React from "react";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 export const BooleanField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -120,12 +120,12 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
 Bind your UI registry to the TanStack base adapter:
 
 ```tsx
-import { AutoForm as BaseAutoForm } from "@dual-autoform/react/tanstack-form";
+import { AutoForm as BaseAutoForm } from "@autoform/react/tanstack-form";
 import {
   AutoFormFieldComponents,
   AutoFormProps,
   AutoFormUIComponents,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 export const uiComponents: AutoFormUIComponents = {
   Form,
@@ -169,11 +169,11 @@ If your integration supports both React Hook Form and TanStack Form, keep shared
 
 ```tsx
 // tanstack-form.tsx
-import { AutoForm as TanStackAutoForm } from "@dual-autoform/react/tanstack-form";
+import { AutoForm as TanStackAutoForm } from "@autoform/react/tanstack-form";
 import type {
   AutoFormProps as BaseAutoFormProps,
   ExtendableAutoFormProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 import { uiComponents } from "./AutoForm";
 import { TanStackFieldComponents } from "./components/tanstack";
 
@@ -197,8 +197,8 @@ export function AutoForm<T extends Record<string, any> = Record<string, any>>({
 ## Using your custom UI integration
 
 ```tsx
-import { AutoForm } from "@dual-autoform/custom-ui/tanstack-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/custom-ui/tanstack-form";
+import { ZodProvider } from "@autoform/zod";
 
 function MyForm() {
   return <AutoForm schema={schemaProvider} onSubmit={console.log} withSubmit />;

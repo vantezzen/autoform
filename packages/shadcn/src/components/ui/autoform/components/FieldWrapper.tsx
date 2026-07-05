@@ -1,6 +1,6 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
 const DISABLE_HELPER_TEXT = ["object", "array"];

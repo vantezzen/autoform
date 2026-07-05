@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { z } from "zod";
-import { ZodProvider } from "@dual-autoform/zod";
-import type { SchemaProvider } from "@dual-autoform/core";
+import { ZodProvider } from "@autoform/zod";
+import type { SchemaProvider } from "@autoform/core";
 
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 

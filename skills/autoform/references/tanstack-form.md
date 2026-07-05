@@ -5,7 +5,7 @@
 For npm UI packages:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
 ```
 
 For shadcn/ui:
@@ -14,21 +14,21 @@ For shadcn/ui:
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 ```
 
-Use TanStack helpers from `@dual-autoform/react/tanstack-form`:
+Use TanStack helpers from `@autoform/react/tanstack-form`:
 
 ```tsx
 import {
   useAppForm,
   useFieldContext,
   useFormContext,
-} from "@dual-autoform/react/tanstack-form";
+} from "@autoform/react/tanstack-form";
 ```
 
 ```tsx
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 ```
 
 > AutoForm wraps the form with Tanstack Form's `form.AppForm` and every field with `<form.AppField name=".." ... />`. So you can use `useFieldContext`, `useFormContext` anywhere inside autoform.
@@ -47,11 +47,11 @@ Start simple: use `onSubmit` first. Add `useFieldContext` only for custom field 
 
 ## Custom Fields
 
-TanStack custom fields use `useFieldContext` from `@dual-autoform/react/tanstack-form`. Understand `useFieldContext` properly.
+TanStack custom fields use `useFieldContext` from `@autoform/react/tanstack-form`. Understand `useFieldContext` properly.
 
 ```tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 function SliderField({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<number>();
@@ -86,11 +86,11 @@ export const schemaProvider = new ZodProvider(schema);
 
 ## Inside AutoForm Children
 
-Components rendered inside `<AutoForm>...</AutoForm>` can use `useFormContext` from `@dual-autoform/react/tanstack-form`.
+Components rendered inside `<AutoForm>...</AutoForm>` can use `useFormContext` from `@autoform/react/tanstack-form`.
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
-import { useFormContext } from "@dual-autoform/react/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { useFormContext } from "@autoform/react/tanstack-form";
 import { useStore } from "@tanstack/react-form";
 
 function QuickActions() {
@@ -141,7 +141,7 @@ Do not put initial default values inside `formOptions`; pass them to `AutoForm` 
 ```tsx
 import * as React from "react";
 import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@dual-autoform/react/tanstack-form";
+import { useAppForm } from "@autoform/react/tanstack-form";
 
 const staticOptions = formOptions({}); // optional. Keep the result of `formOptions(...)` stable.
 

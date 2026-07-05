@@ -5,7 +5,7 @@ import type {
   Renderable,
   FieldConfig as BaseFieldConfig,
   SchemaProvider,
-} from "@dual-autoform/core";
+} from "@autoform/core";
 
 // Internal field binding contract used by UI packages to inject adapter hooks.
 
@@ -174,4 +174,4 @@ export type FieldConfig<
 
 // Re-exports
 
-export type { SchemaProvider, ParsedField, ParsedSchema } from "@dual-autoform/core";
+export type { SchemaProvider, ParsedField, ParsedSchema } from "@autoform/core";

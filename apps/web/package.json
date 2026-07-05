@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "3.0.2",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,15 +11,15 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
-    "@dual-autoform/ant": "workspace:*",
-    "@dual-autoform/chakra": "workspace:*",
-    "@dual-autoform/joi": "workspace:*",
-    "@dual-autoform/mantine": "workspace:*",
-    "@dual-autoform/mui": "workspace:*",
-    "@dual-autoform/react": "workspace:*",
-    "@dual-autoform/shadcn": "workspace:*",
-    "@dual-autoform/yup": "workspace:*",
-    "@dual-autoform/zod": "workspace:*",
+    "@autoform/ant": "workspace:*",
+    "@autoform/chakra": "workspace:*",
+    "@autoform/joi": "workspace:*",
+    "@autoform/mantine": "workspace:*",
+    "@autoform/mui": "workspace:*",
+    "@autoform/react": "workspace:*",
+    "@autoform/shadcn": "workspace:*",
+    "@autoform/yup": "workspace:*",
+    "@autoform/zod": "workspace:*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -38,8 +38,8 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
-    "@dual-autoform/eslint-config": "workspace:*",
-    "@dual-autoform/typescript-config": "workspace:*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.10",
     "autoprefixer": "^10",
     "cypress": "^15.16.0",

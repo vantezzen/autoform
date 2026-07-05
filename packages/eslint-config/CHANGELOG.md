@@ -1,4 +1,4 @@
-# @dual-autoform/eslint-config
+# @autoform/eslint-config
 
 ## 2.0.0
 

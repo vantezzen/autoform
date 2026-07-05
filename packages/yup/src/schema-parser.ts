@@ -2,7 +2,7 @@ import type * as yup from "yup";
 import { inferFieldType } from "./field-type-inference";
 import { getYupFieldDefaultValue } from "./default-values";
 import { getYupFieldConfig } from "./field-config";
-import type { ParsedField, ParsedSchema } from "@dual-autoform/core";
+import type { ParsedField, ParsedSchema } from "@autoform/core";
 import type { YupEnumSchema, YupField, YupObjectOrWrapped } from "./types";
 
 function parseField(key: string, schema: YupField): ParsedField {

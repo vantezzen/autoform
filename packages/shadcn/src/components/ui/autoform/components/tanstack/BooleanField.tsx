@@ -1,6 +1,6 @@
 import React from "react";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 

@@ -10,7 +10,7 @@ export default defineConfig({
       : { js: ".mjs", dts: ".d.mts" },
   deps: {
     dts: {
-      neverBundle: ["@dual-autoform/core"],
+      neverBundle: ["@autoform/core"],
     },
   },
   treeshake: true,

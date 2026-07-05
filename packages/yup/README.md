@@ -5,7 +5,7 @@ This package allows using your Yup schema with AutoForm.
 ## Installation
 
 ```bash
-npm install @dual-autoform/yup
+npm install @autoform/yup
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform-dual.vercel.app/docs/schema-providers/yup).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schema-providers/yup).

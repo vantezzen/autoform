@@ -9,7 +9,7 @@ import type {
   SubmitErrorHandler,
   DefaultValues,
 } from "react-hook-form";
-import { getDefaultValues, parseSchema } from "@dual-autoform/core";
+import { getDefaultValues, parseSchema } from "@autoform/core";
 import type { AutoFormProps } from "../types";
 import { AutoFormProvider } from "../context";
 import { AutoFormField } from "./AutoFormField";

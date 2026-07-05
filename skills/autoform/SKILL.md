@@ -1,9 +1,9 @@
 ---
 name: autoform
-description: How to use the @dual-autoform/* packages with React Hook Form or TanStack Form to automatically generate React forms from Zod, Yup, or Joi schemas with any UI library (shadcn/ui, MUI, Mantine, Ant Design, Chakra UI). Use this skill whenever the user wants to create a form from a schema, select a form adapter, build forms with custom field components, set up fieldConfig for label/description/inputProps/fieldType, create multi-step forms, nest AutoForm instances, customize AutoForm UI components, or customize field/object/array wrappers. Trigger this skill even when the user just mentions "autoform", "auto form", "auto-form", "dual-autoform", "schema-driven form", or "generate form from schema".
+description: How to use the @autoform/* packages with React Hook Form or TanStack Form to automatically generate React forms from Zod, Yup, or Joi schemas with any UI library (shadcn/ui, MUI, Mantine, Ant Design, Chakra UI). Use this skill whenever the user wants to create a form from a schema, select a form adapter, build forms with custom field components, set up fieldConfig for label/description/inputProps/fieldType, create multi-step forms, nest AutoForm instances, customize AutoForm UI components, or customize field/object/array wrappers. Trigger this skill even when the user just mentions "autoform", "auto form", "auto-form", "autoform", "schema-driven form", or "generate form from schema".
 ---
 
-# @dual-autoform — Schema-Driven Form Generation
+# @autoform — Schema-Driven Form Generation
 
 AutoForm automatically renders React forms from your existing Zod, Yup, or Joi schema. You pick the UI library, you pick the schema library, and AutoForm wires them together, no manual field binding.
 
@@ -12,26 +12,26 @@ AutoForm automatically renders React forms from your existing Zod, Yup, or Joi s
 AutoForm is a **four-layer** system. Understanding the layers prevents import errors:
 
 ```
-@dual-autoform/core          ← types & utilities (you rarely import from here)
+@autoform/core          ← types & utilities (you rarely import from here)
     ↓
-@dual-autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
+@autoform/zod|yup|joi   ← schema provider (parse + validate + fieldConfig)
     ↓
-@dual-autoform/react         ← shared React contracts + adapter implementations
+@autoform/react         ← shared React contracts + adapter implementations
     ├── /react-hook-form     ← React Hook Form implementation
     └── /tanstack-form       ← TanStack Form implementation
     ↓
-@dual-autoform/mui|mantine|ant|chakra  ← UI-library wrapper (pre-wired components)
+@autoform/mui|mantine|ant|chakra  ← UI-library wrapper (pre-wired components)
         OR
 shadcn registry (copy-paste components via CLI)
 ```
 
 > **Import rule**
 >
-> - `AutoForm`: import from the selected UI adapter path, such as `@dual-autoform/mui/react-hook-form` or `@dual-autoform/mui/tanstack-form`. For shadcn, use the installed local adapter: `@/components/ui/autoform/react-hook-form` or `@/components/ui/autoform/tanstack-form`.
-> - Schema providers/helpers: import the matching provider and `fieldConfig` from the selected schema package, such as `ZodProvider` from `@dual-autoform/zod`, `YupProvider` from `@dual-autoform/yup`, or `JoiProvider` from `@dual-autoform/joi`.
-> - Shared component types: import `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@dual-autoform/react`.
-> - Custom field binding: use `useController` from `react-hook-form` for React Hook Form, or `useFieldContext` from `@dual-autoform/react/tanstack-form` for TanStack Form.
-> - Do not import `AutoForm` from `@dual-autoform/react`.
+> - `AutoForm`: import from the selected UI adapter path, such as `@autoform/mui/react-hook-form` or `@autoform/mui/tanstack-form`. For shadcn, use the installed local adapter: `@/components/ui/autoform/react-hook-form` or `@/components/ui/autoform/tanstack-form`.
+> - Schema providers/helpers: import the matching provider and `fieldConfig` from the selected schema package, such as `ZodProvider` from `@autoform/zod`, `YupProvider` from `@autoform/yup`, or `JoiProvider` from `@autoform/joi`.
+> - Shared component types: import `AutoFormFieldProps`, `FieldWrapperProps`, `ObjectWrapperProps`, `ArrayWrapperProps`, and `ArrayElementWrapperProps` from `@autoform/react`.
+> - Custom field binding: use `useController` from `react-hook-form` for React Hook Form, or `useFieldContext` from `@autoform/react/tanstack-form` for TanStack Form.
+> - Do not import `AutoForm` from `@autoform/react`.
 
 ---
 
@@ -73,9 +73,9 @@ Create schema + render form
 ```tsx
 "use client"; // required in Next.js App Router
 import * as z from "zod";
-import { ZodProvider } from "@dual-autoform/zod";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-// TanStack: @dual-autoform/mui/tanstack-form
+import { ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+// TanStack: @autoform/mui/tanstack-form
 
 const schema = z.object({
   name: z.string(),
@@ -254,7 +254,7 @@ Adapter-specific examples file for the following patterns and use cases in: `ref
 5. **Using `.superRefine(fieldConfig(...))` with Zod v4** — use `.check(fieldConfig(...))` instead.
 6. **Arrays as root schema** — arrays must be fields inside an object schema.
 7. **Using wrappers to replace the value editor** — use `fieldType` + `formComponents` when the component must own the field value.
-8. **Forgetting Zod version ≥ 3.25.0** for `@dual-autoform/zod`.
+8. **Forgetting Zod version ≥ 3.25.0** for `@autoform/zod`.
 
 ---
 

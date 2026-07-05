@@ -24,15 +24,23 @@ function assertExportTarget(packageDir, packageName, target) {
 }
 
 function assertSimpleExport(packageDir, packageName, exportPath, exportTarget) {
-  assert.match(exportTarget["dev-source"], /^\.\/src\/.+\.(ts|tsx)$/);
-  assert.match(exportTarget.types, /\.d\.mts$/);
-  assert.match(exportTarget.default, /\.mjs$/);
+  const importTarget = exportTarget.import ?? exportTarget;
+  const requireTarget = exportTarget.require;
+
+  assert.match(importTarget.types, /\.d\.mts$/);
+  assert.match(importTarget.default, /\.mjs$/);
+
+  if (requireTarget) {
+    assert.match(requireTarget.types, /\.d\.cts$/);
+    assert.match(requireTarget.default, /\.cjs$/);
+  }
 
   for (const target of [
-    exportTarget["dev-source"],
-    exportTarget.types,
-    exportTarget.default,
-  ]) {
+    importTarget.types,
+    importTarget.default,
+    requireTarget?.types,
+    requireTarget?.default,
+  ].filter(Boolean)) {
     assertExportTarget(packageDir, `${packageName}${exportPath}`, target);
   }
 }
@@ -41,7 +49,7 @@ for (const packageName of rootPackages) {
   const { packageDir, packageJson } = readPackageJson(packageName);
 
   assert.equal(packageJson.type, "module", `${packageJson.name} is not ESM-first`);
-  assert.match(packageJson.main, /\.mjs$/);
+  assert.match(packageJson.main, /\.cjs$/);
   assert.match(packageJson.module, /\.mjs$/);
   assert.match(packageJson.types, /\.d\.mts$/);
   assertSimpleExport(packageDir, packageJson.name, "", packageJson.exports["."]);
@@ -71,13 +79,13 @@ for (const packageName of uiPackages) {
 }
 
 for (const specifier of [
-  "@dual-autoform/core",
-  "@dual-autoform/zod",
-  "@dual-autoform/yup",
-  "@dual-autoform/joi",
-  "@dual-autoform/react",
-  "@dual-autoform/react/react-hook-form",
-  "@dual-autoform/react/tanstack-form",
+  "@autoform/core",
+  "@autoform/zod",
+  "@autoform/yup",
+  "@autoform/joi",
+  "@autoform/react",
+  "@autoform/react/react-hook-form",
+  "@autoform/react/tanstack-form",
 ]) {
   const packageName = specifier.split("/")[1];
   const packageRequire = createRequire(
@@ -107,10 +115,10 @@ for (const packageName of uiPackages) {
   const rhfTypes = readFileSync(resolve(dist, "react-hook-form.d.mts"), "utf8");
   const tanstackTypes = readFileSync(resolve(dist, "tanstack-form.d.mts"), "utf8");
 
-  assert.match(rhfUiEntry, /@dual-autoform\/react\/react-hook-form/);
-  assert.doesNotMatch(rhfUiEntry, /@dual-autoform\/react\/tanstack-form/);
-  assert.match(tanstackUiEntry, /@dual-autoform\/react\/tanstack-form/);
-  assert.doesNotMatch(tanstackUiEntry, /@dual-autoform\/react\/react-hook-form/);
+  assert.match(rhfUiEntry, /@autoform\/react\/react-hook-form/);
+  assert.doesNotMatch(rhfUiEntry, /@autoform\/react\/tanstack-form/);
+  assert.match(tanstackUiEntry, /@autoform\/react\/tanstack-form/);
+  assert.doesNotMatch(tanstackUiEntry, /@autoform\/react\/react-hook-form/);
   assert.match(rhfTypes, /<T extends Record<string, any>/);
   assert.match(tanstackTypes, /<T extends Record<string, any>/);
 }

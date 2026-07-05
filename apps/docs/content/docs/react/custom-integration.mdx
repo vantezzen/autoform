@@ -1,17 +1,17 @@
 ---
 title: Custom Integration
-description: This guide will walk you through the process of creating a custom UI integration for @dual-autoform/react. By following these steps, you’ll be able to use AutoForm with your preferred UI library or custom components.
+description: This guide will walk you through the process of creating a custom UI integration for @autoform/react. By following these steps, you’ll be able to use AutoForm with your preferred UI library or custom components.
 ---
 
 import { Accordion, Accordions } from "@/components/accordion";
 
-This guide will walk you through the process of creating a custom UI integration for @dual-autoform/react. By following these steps, you'll be able to use AutoForm with your preferred UI library or custom components.
+This guide will walk you through the process of creating a custom UI integration for @autoform/react. By following these steps, you'll be able to use AutoForm with your preferred UI library or custom components.
 
 <div className='fd-steps [&_h2]:fd-step'>
 
 ## Set up the project
 
-You can create your integration as a custom npm package (e.g. "@dual-autoform/custom-ui") or as part of your existing project. For this guide, we'll create a new npm package.
+You can create your integration as a custom npm package (e.g. "@autoform/custom-ui") or as part of your existing project. For this guide, we'll create a new npm package.
 
 ```bash
 mkdir @autoform-custom-ui
@@ -22,7 +22,7 @@ npm init -y
 Install the necessary dependencies:
 
 ```bash
-npm install @dual-autoform/react react react-hook-form @hookform/resolvers
+npm install @autoform/react react react-hook-form @hookform/resolvers
 ```
 
 ## Create the main export file
@@ -44,7 +44,7 @@ Create a new file called `src/types.ts`:
 import {
   AutoFormUIComponents,
   AutoFormFieldComponents,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 export interface CustomAutoFormUIComponents extends AutoFormUIComponents {
   // Add any additional UI components specific to your integration
@@ -68,7 +68,7 @@ Create a new folder called `src/components` and implement the required UI compon
 6. ArrayWrapper
 7. ArrayElementWrapper
 
-You can take a look at existing implementations like "@dual-autoform/mui" for inspiration. Here's an example of how to implement these components with pure HTML:
+You can take a look at existing implementations like "@autoform/mui" for inspiration. Here's an example of how to implement these components with pure HTML:
 
 `FieldWrapper`, `ObjectWrapper`, `ArrayWrapper`, and `ArrayElementWrapper` can later be overridden per field with `fieldConfig({ fieldWrapper, objectWrapper, arrayWrapper, arrayElementWrapper })`, so keep their props compatible with the exported wrapper prop types.
 
@@ -87,7 +87,7 @@ export const Form: React.FC<{
 ```tsx
 // src/components/FieldWrapper.tsx
 import React from "react";
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   label,
@@ -127,7 +127,7 @@ export const SubmitButton: React.FC<{ children: React.ReactNode }> = ({
 ```tsx
 // src/components/ObjectWrapper.tsx
 import React from "react";
-import type { ObjectWrapperProps } from "@dual-autoform/react";
+import type { ObjectWrapperProps } from "@autoform/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
@@ -150,7 +150,7 @@ export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
 ```tsx
 // src/components/ArrayWrapper.tsx
 import React from "react";
-import type { ArrayWrapperProps } from "@dual-autoform/react";
+import type { ArrayWrapperProps } from "@autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
@@ -177,7 +177,7 @@ export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
 ```tsx
 // src/components/ArrayElementWrapper.tsx
 import React from "react";
-import type { ArrayElementWrapperProps } from "@dual-autoform/react";
+import type { ArrayElementWrapperProps } from "@autoform/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
@@ -204,7 +204,7 @@ Here's an example of how to implement these components:
 // src/components/StringField.tsx
 import React from "react";
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -229,7 +229,7 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
 // src/components/NumberField.tsx
 import React from "react";
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -245,7 +245,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
 // src/components/DateField.tsx
 import React from "react";
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({ inputProps, id }) => {
   const { field } = useController({ name: id });
@@ -268,12 +268,12 @@ Additionally, you can create custom field components for other types like checkb
 
 ## Create the AutoForm component
 
-Create a new file called `src/AutoForm.tsx`. This will wrap the base `AutoForm` component from `@dual-autoform/react` and provide your custom UI components:
+Create a new file called `src/AutoForm.tsx`. This will wrap the base `AutoForm` component from `@autoform/react` and provide your custom UI components:
 
 ```tsx
 // src/AutoForm.tsx
 // Use the `tanstack-form` subpath when building the TanStack variant.
-import { AutoForm as BaseAutoForm } from "@dual-autoform/react/react-hook-form";
+import { AutoForm as BaseAutoForm } from "@autoform/react/react-hook-form";
 import {
   CustomAutoFormUIComponents,
   CustomAutoFormFieldComponents,
@@ -330,7 +330,7 @@ If you want to add custom field types, you can create new components and add the
 // src/components/CustomField.tsx
 import React from "react";
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 export const CustomField: React.FC<AutoFormFieldProps> = ({
   error,
@@ -379,7 +379,7 @@ Update your `package.json` file with the appropriate information and scripts:
 
 ```json
 {
-  "name": "@dual-autoform/custom-ui",
+  "name": "@autoform/custom-ui",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -389,7 +389,7 @@ Update your `package.json` file with the appropriate information and scripts:
   },
   "peerDependencies": {
     "react": "^17 || ^18 || ^19",
-    "@dual-autoform/react": "^1.0.0"
+    "@autoform/react": "^1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.5.0"
@@ -413,17 +413,17 @@ npm publish
 
 ## Using your custom UI integration
 
-To use your custom UI integration in a project, install it alongside @dual-autoform/react or use the integration in your project directly
+To use your custom UI integration in a project, install it alongside @autoform/react or use the integration in your project directly
 
 ```bash
-npm install @dual-autoform/react @dual-autoform/custom-ui
+npm install @autoform/react @autoform/custom-ui
 ```
 
 Then, in your React component:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/custom-ui/react-hook-form";
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/custom-ui/react-hook-form";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 
 const mySchema = z.object({
   // ... your schema definition
@@ -443,4 +443,4 @@ function MyForm() {
 }
 ```
 
-By following these steps, you've created a custom UI integration for @dual-autoform/react that can be used with your preferred UI components or library. You can further customize the components and add more field types as needed for your specific use case.
+By following these steps, you've created a custom UI integration for @autoform/react that can be used with your preferred UI components or library. You can further customize the components and add more field types as needed for your specific use case.

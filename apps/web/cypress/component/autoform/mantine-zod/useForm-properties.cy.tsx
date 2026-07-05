@@ -1,6 +1,6 @@
 import React from "react";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
-import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
+import { AutoForm } from "@autoform/mantine/react-hook-form";
 import HookTest from "@web/components/Hook-test";
 import { TestWrapper } from "./utils";
 import { z } from "zod/v3";

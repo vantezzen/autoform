@@ -10,9 +10,9 @@ The form data, states and methods are managed by TanStack Form. AutoForm's TanSt
 | Need                                                         | Recommended API                                                                                                                                                                                                                                                                                                                                                                        |
 | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Handle validated submit data                                 | `onSubmit={(data, form) => ...}`                                                                                                                                                                                                                                                                                                                                                       |
-| Access form data, methods and state inside AutoForm children | [`useFormContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-form-components) from `@dual-autoform/react/tanstack-form` with [`form.Subscribe`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#formsubscribe) or [`useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#usestore) |
-| Connect a custom input field, access its methods and state   | [`useFieldContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-field-components) from `@dual-autoform/react/tanstack-form`                                                                                                                                                                                                                |
-| Control the form from a parent component                     | Create a form with [`useAppForm`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#custom-form-hooks) from `@dual-autoform/react/tanstack-form` and pass it to `formControl` prop                                                                                                                                                                         |
+| Access form data, methods and state inside AutoForm children | [`useFormContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-form-components) from `@autoform/react/tanstack-form` with [`form.Subscribe`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#formsubscribe) or [`useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#usestore) |
+| Connect a custom input field, access its methods and state   | [`useFieldContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-field-components) from `@autoform/react/tanstack-form`                                                                                                                                                                                                                |
+| Control the form from a parent component                     | Create a form with [`useAppForm`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#custom-form-hooks) from `@autoform/react/tanstack-form` and pass it to `formControl` prop                                                                                                                                                                         |
 
 Use `useFieldContext` only inside custom field components, use `useFormContext` for buttons or UI rendered inside AutoForm, and use `formControl` when the control lives outside the AutoForm tree.
 
@@ -35,8 +35,8 @@ The `onSubmit` prop is called after AutoForm validates the submitted values with
 AutoForm wraps the form with TanStack's `form.AppForm`. Components rendered inside AutoForm can call `useFormContext` to access the current form API.
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
-import { useFormContext } from "@dual-autoform/react/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { useFormContext } from "@autoform/react/tanstack-form";
 import { useStore } from "@tanstack/react-form";
 
 function QuickActions() {
@@ -87,9 +87,9 @@ Avoid setting initial default values inside `formOptions`. Pass them to `AutoFor
 
 import * as z from "zod";
 import { formOptions } from "@tanstack/react-form";
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
-import { useAppForm } from "@dual-autoform/react/tanstack-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { useAppForm } from "@autoform/react/tanstack-form";
+import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -136,8 +136,8 @@ Keep the value passed to `useAppForm` stable. Define static options outside the 
 Custom field components can use `useFieldContext` to access the TanStack field API (which exposes the field's value, name, bindings, and state such as `state.meta.errors`):
 
 ```tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();
   const hasError = field.state.meta.errors.length > 0;

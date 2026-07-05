@@ -22,14 +22,14 @@ Use this diagram to choose the right customization layer
 
 `fieldConfig` helps you customize individual form fields. Use it to set labels, descriptions, input props, field ordering, field-type overrides, and per-field wrappers. See the [`fieldConfig` API](/docs/tanstack/api#fieldconfig) for available props.
 
-Import `fieldConfig` from your schema package: [@dual-autoform/zod](/docs/schema-providers/zod#field-configuration), [@dual-autoform/yup](/docs/schema-providers/yup#field-configuration), or [@dual-autoform/joi](/docs/schema-providers/joi#field-configuration).
+Import `fieldConfig` from your schema package: [@autoform/zod](/docs/schema-providers/zod#field-configuration), [@autoform/yup](/docs/schema-providers/yup#field-configuration), or [@autoform/joi](/docs/schema-providers/joi#field-configuration).
 
 In the examples below, we use Zod.
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig } from "@dual-autoform/zod";
-import type { FieldTypes } from "@dual-autoform/mui/tanstack-form";
+import { fieldConfig } from "@autoform/zod";
+import type { FieldTypes } from "@autoform/mui/tanstack-form";
 
 const schema = z.object({
   username: z.string().check(
@@ -127,7 +127,7 @@ The `FieldWrapper` is responsible for rendering the field label and error, so wh
 
 ```tsx
 // CustomFieldWrapper.tsx
-import type { FieldWrapperProps } from "@dual-autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 export function CustomFieldWrapper({
   children,
@@ -173,12 +173,12 @@ You can also add your own custom field types. To do this, you need to extend the
 
 Keep form components focused on wiring the input. Most form components should not render the `label` or `error` directly because `FieldWrapper` already handles that. Still [`AutoFormFieldProps`](/docs/tanstack/api#custom-fields) includes them for advanced UI integrations.
 
-For binding field components, use `useFieldContext` from `@dual-autoform/react/tanstack-form`.
+For binding field components, use `useFieldContext` from `@autoform/react/tanstack-form`.
 
 ```tsx
 // CustomInput.tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 export function CustomInput({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();
@@ -219,8 +219,8 @@ const schema = z.object({
 You can also access field-specfic states etc.
 
 ```tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 export function CustomCheckbox({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<boolean>();
@@ -249,10 +249,10 @@ If the component needs another field's value, get the `form` with `useFormContex
 For more examples on creating custom form components see [examples.](/docs/tanstack/faq-examples)
 
 For UI-library implementations, see the official field components:
-[Shadcn fields](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/shadcn/src/components/ui/autoform/components),
-[MUI fields](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/mui/src/components),
-[Mantine fields](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/mantine/src/components) and
-[Ant fields](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/ant/src/components).
+[Shadcn fields](https://github.com/vantezzen/autoform/tree/main/packages/shadcn/src/components/ui/autoform/components),
+[MUI fields](https://github.com/vantezzen/autoform/tree/main/packages/mui/src/components),
+[Mantine fields](https://github.com/vantezzen/autoform/tree/main/packages/mantine/src/components) and
+[Ant fields](https://github.com/vantezzen/autoform/tree/main/packages/ant/src/components).
 
 ## Form element customization
 
@@ -311,7 +311,7 @@ For components outside AutoForm, create a TanStack form with `useAppForm`, pass 
 ```tsx
 import * as React from "react";
 import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@dual-autoform/react/tanstack-form";
+import { useAppForm } from "@autoform/react/tanstack-form";
 
 // Keep formOptions stable.
 // Memoize dynamic options or define static ones outside.
@@ -395,14 +395,14 @@ Set `removeEmptyValue` to `false` inside `formProps` to disable this cleanup beh
   </Accordion>
 </Accordions>
 
-**Custom Validator**: To replace AutoForm's default validator, create an external form with `useAppForm` from "@dual-autoform/react/tanstack-form". Add your own validator and pass it to `formControl`:
+**Custom Validator**: To replace AutoForm's default validator, create an external form with `useAppForm` from "@autoform/react/tanstack-form". Add your own validator and pass it to `formControl`:
 
 ```tsx
 // The custom validator receives the original form values.
 // It replaces AutoForm's default validator.
 
 import { formOptions, revalidateLogic } from "@tanstack/react-form";
-import { AutoForm, useAppForm } from "@dual-autoform/react/tanstack-form";
+import { AutoForm, useAppForm } from "@autoform/react/tanstack-form";
 import { customValidator, schemaProvider } from "@/lib/schema";
 import * as React from "react";
 
@@ -435,7 +435,7 @@ In some cases, you may need customization that isn't supported by the package AP
 
 <ModeTab
   mode="cli"
-  command="npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-source-tanstack.json"
+  command="npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-react-source-tanstack.json"
 />
 
 The adapter files will be added to `lib/autoform/react/`. You can change them as needed.

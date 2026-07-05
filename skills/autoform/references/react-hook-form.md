@@ -5,7 +5,7 @@
 For npm UI packages:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 ```
 
 For shadcn/ui:
@@ -18,7 +18,7 @@ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 ```
 
 > AutoForm wraps the form with React Hook Form's `FormProvider` so `no need` to pass the control object that various hooks need.
@@ -50,7 +50,7 @@ RHF custom fields use [`useController`](https://react-hook-form.com/docs/usecont
 
 ```tsx
 import { useController } from "react-hook-form";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 function SliderField({ id, inputProps }: AutoFormFieldProps) {
   const { field } = useController({ name: id });
@@ -78,7 +78,7 @@ export const schemaProvider = new ZodProvider(schema);
 Components rendered inside `<AutoForm>...</AutoForm>` can use `useFormContext` from `react-hook-form`.
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 import { useFormContext } from "react-hook-form";
 
 function QuickActions() {

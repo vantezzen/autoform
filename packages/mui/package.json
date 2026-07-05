@@ -1,6 +1,6 @@
 {
-  "name": "@dual-autoform/mui",
-  "version": "2.0.2",
+  "name": "@autoform/mui",
+  "version": "3.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -33,19 +33,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adityacodepublic/autoform.git"
+    "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
-    "@dual-autoform/core": "workspace:*",
-    "@dual-autoform/eslint-config": "workspace:*",
-    "@dual-autoform/typescript-config": "workspace:*",
+    "@autoform/core": "workspace:*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@mui/material": "^6.4.12",
     "react": "^19.2.6"
   },
   "peerDependencies": {
-    "@dual-autoform/react": "workspace:^",
+    "@autoform/react": "workspace:^",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^6.0.0",

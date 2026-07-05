@@ -5,7 +5,7 @@ import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { CalendarIcon, CircleIcon, Minus, Plus } from "lucide-react";
 import { format } from "date-fns";
-import type { AutoFormFieldProps } from "@dual-autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -207,7 +207,7 @@ export function ColorPickerField({ id, inputProps }: AutoFormFieldProps) {
   return (
     <div className="flex items-center gap-3">
       <img
-        src="https://autoform-dual.vercel.app/banana.png"
+        src="https://autoform.vantezzen.io/banana.png"
         alt="Banana"
         className="h-24 w-24 rounded-md border border-input object-cover"
       />

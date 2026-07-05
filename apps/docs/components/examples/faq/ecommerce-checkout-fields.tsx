@@ -6,7 +6,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {

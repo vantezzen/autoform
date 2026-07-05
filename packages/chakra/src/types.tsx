@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps } from "@dual-autoform/react";
+import type { ExtendableAutoFormProps } from "@autoform/react";
 import type { ColorModeProviderProps } from "./components/ui/color-mode";
 
 export interface AutoFormProps<

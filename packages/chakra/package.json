@@ -1,6 +1,6 @@
 {
-  "name": "@dual-autoform/chakra",
-  "version": "2.0.1",
+  "name": "@autoform/chakra",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -33,12 +33,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adityacodepublic/autoform.git"
+    "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
-    "@dual-autoform/core": "workspace:*",
-    "@dual-autoform/eslint-config": "workspace:*",
-    "@dual-autoform/typescript-config": "workspace:*",
+    "@autoform/core": "workspace:*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "@chakra-ui/react": "^3.8.1",
     "@emotion/react": "^11.14.0",
     "react": "^19.2.6"
@@ -48,7 +48,7 @@
     "react-icons": "^5.4.0"
   },
   "peerDependencies": {
-    "@dual-autoform/react": "workspace:^",
+    "@autoform/react": "workspace:^",
     "@chakra-ui/react": "^3.8",
     "@emotion/react": "^11.14",
     "react": "^18 || ^19"

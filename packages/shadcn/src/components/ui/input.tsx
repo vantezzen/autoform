@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "@dual-autoform/shadcn/lib/utils";
+import { cn } from "@autoform/shadcn/lib/utils";
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {

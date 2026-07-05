@@ -5,13 +5,13 @@ Use this only when the public package APIs are not enough. You can copy the Reac
 ## React Hook Form Adapter
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-source-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-react-source-rhf.json
 ```
 
 ## TanStack Form Adapter
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-react-source-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-react-source-tanstack.json
 ```
 
 The adapter files are added to `lib/autoform/react/`. Change them as needed.

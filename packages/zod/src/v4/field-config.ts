@@ -1,5 +1,5 @@
 import * as z from "zod/v4/core";
-import type { FieldConfig } from "@dual-autoform/core";
+import type { FieldConfig } from "@autoform/core";
 import { ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
 
 export function fieldConfig<

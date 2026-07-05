@@ -1,7 +1,7 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import { getLabel } from "@dual-autoform/core";
-import type { ParsedField } from "@dual-autoform/core";
+import { getLabel } from "@autoform/core";
+import type { ParsedField } from "@autoform/core";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "../context";
 import { useRegister } from "./hooks";

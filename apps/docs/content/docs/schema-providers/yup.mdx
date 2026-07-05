@@ -6,10 +6,10 @@ Basic usage:
 
 ```tsx
 "use client";
-import { YupProvider, fieldConfig } from "@dual-autoform/yup";
+import { YupProvider, fieldConfig } from "@autoform/yup";
 import { object, string, number, date, InferType, array, mixed } from "yup";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form"; // use any UI library
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 
 // Define your form schema using yup
 const yupFormSchema = object({
@@ -66,7 +66,7 @@ function App() {
 }
 ```
 
-`YupProvider` exposes the original schema and schema type to `@dual-autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Yup resolver manually when using the official provider.
+`YupProvider` exposes the original schema and schema type to `@autoform/react`, so AutoForm can create a React Hook Form resolver automatically. You do not need to configure a Yup resolver manually when using the official provider.
 
 ### Yup configuration
 
@@ -205,12 +205,12 @@ const formSchema = object({
 
 #### Field configuration
 
-Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@dual-autoform/yup`.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/yup`.
 
 With Yup, attach it to a field using `.transform(fieldConfig(...))`:
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/yup";
+import { fieldConfig } from "@autoform/yup";
 import { object, string } from "yup";
 
 const formSchema = object({
@@ -248,7 +248,7 @@ const formSchema = object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 
 string().transform(
   fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({

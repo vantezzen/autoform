@@ -1,6 +1,6 @@
 {
-  "name": "@dual-autoform/react",
-  "version": "2.0.1",
+  "name": "@autoform/react",
+  "version": "4.0.0",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -46,18 +46,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adityacodepublic/autoform.git"
+    "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
-    "@dual-autoform/eslint-config": "workspace:*",
-    "@dual-autoform/typescript-config": "workspace:*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "@hookform/resolvers": "^5.1.1",
     "@tanstack/react-form": "^1",
     "react": "^19.2.6",
     "react-hook-form": "^7"
   },
   "dependencies": {
-    "@dual-autoform/core": "workspace:^"
+    "@autoform/core": "workspace:^"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^3.9.0 || ^4 || ^5",

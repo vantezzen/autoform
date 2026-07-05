@@ -1,4 +1,4 @@
-import type { ParsedField } from "@dual-autoform/core";
+import type { ParsedField } from "@autoform/core";
 import type { FormEvent } from "react";
 
 export function focusFirstInvalidInput(): void {

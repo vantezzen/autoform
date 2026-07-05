@@ -74,7 +74,7 @@ export const Navbar = () => {
         >
           <Link
             aria-label="View on GitHub"
-            href="https://github.com/adityacodepublic/autoform.git"
+            href="https://github.com/vantezzen/autoform.git"
             target="_blank"
           >
             <GithubIcon className="size-5" />
@@ -102,7 +102,7 @@ export const Navbar = () => {
             onClick={() => setIsOpen(false)}
           >
             <Link
-              href="https://github.com/adityacodepublic/autoform.git"
+              href="https://github.com/vantezzen/autoform.git"
               target="_blank"
             >
               GitHub

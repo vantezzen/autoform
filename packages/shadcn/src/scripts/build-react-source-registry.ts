@@ -56,10 +56,10 @@ for (const item of reactSourceItems) {
       ) {
         content = content
           .replace(
-            'export * from "@dual-autoform/react";',
+            'export * from "@autoform/react";',
             'export * from "../types";\nexport * from "../context";',
           )
-          .replaceAll('from "@dual-autoform/react"', 'from "../context"');
+          .replaceAll('from "@autoform/react"', 'from "../context"');
       }
 
       return {

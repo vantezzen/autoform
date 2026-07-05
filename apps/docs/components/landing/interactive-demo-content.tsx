@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-// import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+// import { AutoForm } from "@autoform/mui/react-hook-form";
 import { z } from "zod";
-import type { SchemaProvider } from "@dual-autoform/core";
-import { ZodProvider } from "@dual-autoform/zod";
+import type { SchemaProvider } from "@autoform/core";
+import { ZodProvider } from "@autoform/zod";
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 
 const defaultCode = `z.object({

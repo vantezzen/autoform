@@ -5,7 +5,7 @@ This package allows using your Zod schema with AutoForm.
 ## Installation
 
 ```bash
-npm install @dual-autoform/zod
+npm install @autoform/zod
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform-dual.vercel.app/docs/schema-providers/zod).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/schema-providers/zod).

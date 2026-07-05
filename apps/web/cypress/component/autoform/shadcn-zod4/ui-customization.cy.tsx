@@ -1,10 +1,10 @@
 import React from "react";
-import { AutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TextField } from "@mui/material";
 import { TestWrapper } from "./utils";
-import { FieldWrapperProps } from "@dual-autoform/react/react-hook-form";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 
 describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
   const customSchema = z.object({

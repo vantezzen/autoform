@@ -2,16 +2,16 @@
 title: Zod
 ---
 
-`@dual-autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
+`@autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
 
 Basic usage:
 
 ```tsx
 "use client";
 import * as z from "zod";
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form"; // use any UI library
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm } from "@autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -260,7 +260,7 @@ const formSchema = z.object({
 
 ### Field configuration
 
-Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@dual-autoform/zod`.
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/zod`.
 
 Depending on the Zod version:
 
@@ -270,7 +270,7 @@ Depending on the Zod version:
 **Zod v4**
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/zod";
+import { fieldConfig } from "@autoform/zod";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -293,7 +293,7 @@ const formSchema = z.object({
 **Zod Mini**
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/zod";
+import { fieldConfig } from "@autoform/zod";
 import { z } from "zod/mini";
 
 const formSchema = z.object({
@@ -318,7 +318,7 @@ const formSchema = z.object({
 **Zod v3**
 
 ```tsx
-import { fieldConfig } from "@dual-autoform/zod";
+import { fieldConfig } from "@autoform/zod";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -339,8 +339,8 @@ const formSchema = z.object({
 Provide external types for full TypeScript support.
 
 ```tsx
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
-import { fieldConfig } from "@dual-autoform/zod";
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
+import { fieldConfig } from "@autoform/zod";
 
 z.string().check(
   fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({

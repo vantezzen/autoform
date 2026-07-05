@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoForm as BaseAutoForm } from "@dual-autoform/shadcn/components/ui/autoform/react-hook-form";
-import type { ExtendableAutoFormProps } from "@dual-autoform/react";
+import { AutoForm as BaseAutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
+import type { ExtendableAutoFormProps } from "@autoform/react";
 
 export function AutoForm<T extends Record<string, any>>(props: ExtendableAutoFormProps<T>) {
   return (

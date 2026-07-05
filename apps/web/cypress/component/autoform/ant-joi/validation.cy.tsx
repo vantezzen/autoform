@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi";
-import { AutoForm } from "@dual-autoform/ant/react-hook-form";
-import { JoiProvider } from "@dual-autoform/joi";
+import { AutoForm } from "@autoform/ant/react-hook-form";
+import { JoiProvider } from "@autoform/joi";
 
 describe("AutoForm Validation Tests (ANT-JOI)", () => {
   const validationSchema = Joi.object({

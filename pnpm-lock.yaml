@@ -45,19 +45,19 @@ importers:
 
   apps/docs:
     dependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@dual-autoform/mui':
+      '@autoform/mui':
         specifier: workspace:*
         version: link:../../packages/mui
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:^
         version: link:../../packages/react
-      '@dual-autoform/shadcn':
+      '@autoform/shadcn':
         specifier: workspace:^
         version: link:../../packages/shadcn
-      '@dual-autoform/zod':
+      '@autoform/zod':
         specifier: workspace:*
         version: link:../../packages/zod
       '@emotion/react':
@@ -175,36 +175,36 @@ importers:
 
   apps/web:
     dependencies:
+      '@autoform/ant':
+        specifier: workspace:*
+        version: link:../../packages/ant
+      '@autoform/chakra':
+        specifier: workspace:*
+        version: link:../../packages/chakra
+      '@autoform/joi':
+        specifier: workspace:*
+        version: link:../../packages/joi
+      '@autoform/mantine':
+        specifier: workspace:*
+        version: link:../../packages/mantine
+      '@autoform/mui':
+        specifier: workspace:*
+        version: link:../../packages/mui
+      '@autoform/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@autoform/shadcn':
+        specifier: workspace:*
+        version: link:../../packages/shadcn
+      '@autoform/yup':
+        specifier: workspace:*
+        version: link:../../packages/yup
+      '@autoform/zod':
+        specifier: workspace:*
+        version: link:../../packages/zod
       '@chakra-ui/react':
         specifier: ^3.8.1
         version: 3.36.0(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@dual-autoform/ant':
-        specifier: workspace:*
-        version: link:../../packages/ant
-      '@dual-autoform/chakra':
-        specifier: workspace:*
-        version: link:../../packages/chakra
-      '@dual-autoform/joi':
-        specifier: workspace:*
-        version: link:../../packages/joi
-      '@dual-autoform/mantine':
-        specifier: workspace:*
-        version: link:../../packages/mantine
-      '@dual-autoform/mui':
-        specifier: workspace:*
-        version: link:../../packages/mui
-      '@dual-autoform/react':
-        specifier: workspace:*
-        version: link:../../packages/react
-      '@dual-autoform/shadcn':
-        specifier: workspace:*
-        version: link:../../packages/shadcn
-      '@dual-autoform/yup':
-        specifier: workspace:*
-        version: link:../../packages/yup
-      '@dual-autoform/zod':
-        specifier: workspace:*
-        version: link:../../packages/zod
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.17)(react@19.2.7)
@@ -251,10 +251,10 @@ importers:
         specifier: ^4.0.10
         version: 4.4.3
     devDependencies:
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
@@ -290,20 +290,20 @@ importers:
       '@ant-design/v5-patch-for-react-19':
         specifier: ^1.0.3
         version: 1.0.3(antd@5.29.3(date-fns@4.4.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:^
         version: link:../react
       dayjs:
         specifier: ^1.11.13
         version: 1.11.21
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       antd:
@@ -315,7 +315,7 @@ importers:
 
   packages/chakra:
     dependencies:
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:^
         version: link:../react
       next-themes:
@@ -325,18 +325,18 @@ importers:
         specifier: ^5.4.0
         version: 5.7.0(react@19.2.7)
     devDependencies:
+      '@autoform/core':
+        specifier: workspace:*
+        version: link:../core
+      '@autoform/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@autoform/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@chakra-ui/react':
         specifier: ^3.8.1
         version: 3.36.0(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@dual-autoform/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dual-autoform/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@dual-autoform/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.17)(react@19.2.7)
@@ -346,10 +346,10 @@ importers:
 
   packages/core:
     devDependencies:
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
 
@@ -379,13 +379,13 @@ importers:
 
   packages/joi:
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@turbo/gen':
@@ -397,20 +397,20 @@ importers:
 
   packages/mantine:
     dependencies:
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:^
         version: link:../react
       '@tabler/icons-react':
         specifier: ^3.0.0
         version: 3.44.0(react@19.2.7)
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@mantine/core':
@@ -425,17 +425,17 @@ importers:
 
   packages/mui:
     dependencies:
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:^
         version: link:../react
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@emotion/react':
@@ -453,14 +453,14 @@ importers:
 
   packages/react:
     dependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:^
         version: link:../core
     devDependencies:
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@hookform/resolvers':
@@ -478,7 +478,7 @@ importers:
 
   packages/shadcn:
     dependencies:
-      '@dual-autoform/react':
+      '@autoform/react':
         specifier: workspace:*
         version: link:../react
       '@radix-ui/react-checkbox':
@@ -518,10 +518,10 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(@types/react@19.2.17)(react@19.2.7)
     devDependencies:
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@tailwindcss/postcss':
@@ -565,13 +565,13 @@ importers:
 
   packages/yup:
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       yup:
@@ -580,13 +580,13 @@ importers:
 
   packages/zod:
     devDependencies:
-      '@dual-autoform/core':
+      '@autoform/core':
         specifier: workspace:*
         version: link:../core
-      '@dual-autoform/eslint-config':
+      '@autoform/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@dual-autoform/typescript-config':
+      '@autoform/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       zod:

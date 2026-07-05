@@ -1,4 +1,4 @@
-import type { FieldConfig } from "@dual-autoform/core";
+import type { FieldConfig } from "@autoform/core";
 import type { JoiField } from "./types";
 
 export const JOI_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");

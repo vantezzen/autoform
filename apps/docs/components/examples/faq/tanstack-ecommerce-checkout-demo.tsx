@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as z from "zod";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
 
 import { AutoForm } from "@/components/ui/autoform/tanstack-form";
 import {

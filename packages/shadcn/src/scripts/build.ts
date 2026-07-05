@@ -99,8 +99,8 @@ await buildRegistryItem(
   "autoform-rhf",
   [
     "zod",
-    "@dual-autoform/zod",
-    "@dual-autoform/react",
+    "@autoform/zod",
+    "@autoform/react",
     "react-hook-form",
     "@hookform/resolvers",
     "lucide-react",
@@ -113,8 +113,8 @@ await buildRegistryItem(
   "autoform-tanstack",
   [
     "zod",
-    "@dual-autoform/zod",
-    "@dual-autoform/react",
+    "@autoform/zod",
+    "@autoform/react",
     "@tanstack/react-form",
     "lucide-react",
   ],

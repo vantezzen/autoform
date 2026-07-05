@@ -3,7 +3,7 @@
 import {
   AutoForm as ReactHookFormAutoForm,
   useFieldRHF,
-} from "@dual-autoform/react/react-hook-form";
+} from "@autoform/react/react-hook-form";
 import { createAutoForm } from "./AutoForm";
 
 export const AutoForm = createAutoForm(ReactHookFormAutoForm, useFieldRHF);

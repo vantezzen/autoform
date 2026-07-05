@@ -13,7 +13,7 @@ documentation, examples, and best practices.
 
 <ModeTab
   mode="cli"
-  command="skills add https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/skills --skill autoform"
+  command="skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform"
 />
 
 ---
@@ -26,7 +26,7 @@ AutoForm integrates directly into your UI library to render forms. You can choos
 
 Before installing an AutoForm UI package, install the React base package and React Hook Form dependencies directly in your app:
 
-<ModeTab command="@dual-autoform/react react-hook-form @hookform/resolvers" />
+<ModeTab command="@autoform/react react-hook-form @hookform/resolvers" />
 
 ---
 
@@ -34,7 +34,7 @@ Before installing an AutoForm UI package, install the React base package and Rea
 
 <ModeTab
   mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json"
+  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json"
 />
 
 ```tsx
@@ -64,10 +64,10 @@ By default, the registry will use the zod integration. If you want to use anothe
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/mui" />
+<ModeTab command="@autoform/mui" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 ```
 
 ---
@@ -88,10 +88,10 @@ import { AutoForm } from "@dual-autoform/mui/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/mantine" />
+<ModeTab command="@autoform/mantine" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
+import { AutoForm } from "@autoform/mantine/react-hook-form";
 ```
 
 ---
@@ -111,10 +111,10 @@ import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/ant" />
+<ModeTab command="@autoform/ant" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/ant/react-hook-form";
+import { AutoForm } from "@autoform/ant/react-hook-form";
 ```
 
 ---
@@ -135,10 +135,10 @@ import { AutoForm } from "@dual-autoform/ant/react-hook-form";
   />
 </Tab>
 </Tabs>
-<ModeTab command="@dual-autoform/chakra" />
+<ModeTab command="@autoform/chakra" />
 
 ```tsx
-import { AutoForm } from "@dual-autoform/chakra/react-hook-form";
+import { AutoForm } from "@autoform/chakra/react-hook-form";
 ```
 
 If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/react/custom-integration).
@@ -149,7 +149,7 @@ In the docs, we will use mui as an example but simply replace the imports with t
 
 #### Zod
 
-<ModeTab command="@dual-autoform/zod" />
+<ModeTab command="@autoform/zod" />
 
 <Callout> requires zod version greater than 3.25.0 to be installed</Callout>
 
@@ -157,13 +157,13 @@ In the docs, we will use mui as an example but simply replace the imports with t
 
 #### Yup
 
-<ModeTab command="@dual-autoform/yup" />
+<ModeTab command="@autoform/yup" />
 
 ---
 
 #### Joi
 
-<ModeTab command="@dual-autoform/joi" />
+<ModeTab command="@autoform/joi" />
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
@@ -171,8 +171,8 @@ In the docs, we will use Zod as an example but simply replace the imports with t
 
 ```tsx
 import * as z from "zod";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-import { ZodProvider } from "@dual-autoform/zod";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
   name: z.string(),
@@ -200,7 +200,7 @@ Common imports you may need:
 
 ```tsx
 // similar for yup or joi
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 
 // Shared component types.
 import type {
@@ -209,7 +209,7 @@ import type {
   ObjectWrapperProps,
   ArrayWrapperProps,
   ArrayElementWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 
 // For custom fields.
 import { useController } from "react-hook-form";
@@ -233,7 +233,7 @@ export default function MyPage() {
 
 // MyForm.tsx
 "use client";
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 export default function MyForm() {
   return <AutoForm ... />;
 }

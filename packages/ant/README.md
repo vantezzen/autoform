@@ -5,14 +5,14 @@ This package provides an Ant Design integration for AutoForm.
 ## Installation
 
 ```bash
-npm install @dual-autoform/ant
+npm install @autoform/ant
 ```
 
 Choose the form engine explicitly:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/ant/react-hook-form";
-// or: @dual-autoform/ant/tanstack-form
+import { AutoForm } from "@autoform/ant/react-hook-form";
+// or: @autoform/ant/tanstack-form
 ```
 
-For more information on how to use this package, see the [AutoForm documentation](https://autoform-dual.vercel.app/docs/react/getting-started).
+For more information on how to use this package, see the [AutoForm documentation](https://autoform.vantezzen.io/docs/react/getting-started).

@@ -5,13 +5,13 @@ export function GET() {
     $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     skills: [
       {
-        name: "dual-autoform",
+        name: "autoform",
         type: "skill-md",
         description:
-          "Install, use, and test Dual AutoForm with React Hook Form, TanStack Form, schema providers, shadcn/ui, and UI packages.",
-        url: "https://raw.githubusercontent.com/adityacodepublic/autoform/tanstack-form-integration/skills/autoform/SKILL.md",
+          "Install, use, and test AutoForm with React Hook Form, TanStack Form, schema providers, shadcn/ui, and UI packages.",
+        url: "https://raw.githubusercontent.com/vantezzen/autoform/main/skills/autoform/SKILL.md",
         digest:
-          "sha256:c7b42a91c395cdb3cb9e509fbd41e2387043cf55a733c48aeb5f5cbae38f0ffa",
+          "sha256:6628d713c187f5c6db666bb5763b9be3bcd05d44d1a4fcd17979006245540cf5",
       },
     ],
   });

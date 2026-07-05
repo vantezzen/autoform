@@ -7,13 +7,13 @@ Choose one form adapter.
 ### React Hook Form adapter
 
 ```bash
-npm install @dual-autoform/react react-hook-form @hookform/resolvers
+npm install @autoform/react react-hook-form @hookform/resolvers
 ```
 
 Import `AutoForm` from the React Hook Form subpath of your UI package:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 ```
 
 For shadcn/ui, import from the copied React Hook Form component path:
@@ -28,19 +28,19 @@ Import shared AutoForm renderer types from the React root.
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 ```
 
 ### TanStack Form adapter
 
 ```bash
-npm install @dual-autoform/react @tanstack/react-form
+npm install @autoform/react @tanstack/react-form
 ```
 
 Import `AutoForm` from the TanStack Form subpath of your UI package:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
 ```
 
 For shadcn/ui, import from the copied TanStack Form component path:
@@ -55,22 +55,22 @@ Import shared AutoForm renderer types from the React root.
 import type {
   AutoFormFieldProps,
   FieldWrapperProps,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 ```
 
 ## UI Library Installation
 
 ### shadcn/ui (registry — no npm package)
 
-shadcn/ui uses the shadcn CLI to copy AutoForm components directly into your project. No `@dual-autoform/shadcn` npm package is installed.
+shadcn/ui uses the shadcn CLI to copy AutoForm components directly into your project. No `@autoform/shadcn` npm package is installed.
 Make sure you have shadcn and tailwind initialised in your project, see `references/utils/shadcn-tailwind-installation.md` for shadcn installation.
 
 ```bash
 # React Hook Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-rhf.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json
 
 # TanStack Form
-npx shadcn@latest add https://raw.githubusercontent.com/adityacodepublic/autoform/refs/heads/tanstack-form-integration/packages/shadcn/registry/autoform-tanstack.json
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-tanstack.json
 ```
 
 This installs the AutoForm component into `components/ui/autoform/`.
@@ -95,15 +95,15 @@ npm install @mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/
 AutoForm package:
 
 ```bash
-npm install @dual-autoform/mui
+npm install @autoform/mui
 ```
 
 Import:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/react-hook-form";
-// Or: @dual-autoform/mui/tanstack-form
-import type { FieldTypes } from "@dual-autoform/mui/react-hook-form";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+// Or: @autoform/mui/tanstack-form
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
 ```
 
 ### Mantine
@@ -117,15 +117,15 @@ npm install @mantine/core@^7 @mantine/dates@^7
 AutoForm package:
 
 ```bash
-npm install @dual-autoform/mantine
+npm install @autoform/mantine
 ```
 
 Import:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mantine/react-hook-form";
-// Or: @dual-autoform/mantine/tanstack-form
-import type { FieldTypes } from "@dual-autoform/mantine/react-hook-form";
+import { AutoForm } from "@autoform/mantine/react-hook-form";
+// Or: @autoform/mantine/tanstack-form
+import type { FieldTypes } from "@autoform/mantine/react-hook-form";
 ```
 
 ### Ant Design
@@ -139,15 +139,15 @@ npm install antd@^5
 AutoForm package:
 
 ```bash
-npm install @dual-autoform/ant
+npm install @autoform/ant
 ```
 
 Import:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/ant/react-hook-form";
-// Or: @dual-autoform/ant/tanstack-form
-import type { FieldTypes } from "@dual-autoform/ant/react-hook-form";
+import { AutoForm } from "@autoform/ant/react-hook-form";
+// Or: @autoform/ant/tanstack-form
+import type { FieldTypes } from "@autoform/ant/react-hook-form";
 ```
 
 ### Chakra UI
@@ -161,15 +161,15 @@ npm install @chakra-ui/react@^3.8 @emotion/react@^11.14
 AutoForm package:
 
 ```bash
-npm install @dual-autoform/chakra
+npm install @autoform/chakra
 ```
 
 Import:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/chakra/react-hook-form";
-// Or: @dual-autoform/chakra/tanstack-form
-import type { FieldTypes } from "@dual-autoform/chakra/react-hook-form";
+import { AutoForm } from "@autoform/chakra/react-hook-form";
+// Or: @autoform/chakra/tanstack-form
+import type { FieldTypes } from "@autoform/chakra/react-hook-form";
 ```
 
 ---
@@ -179,31 +179,31 @@ import type { FieldTypes } from "@dual-autoform/chakra/react-hook-form";
 ### Zod
 
 ```bash
-npm install @dual-autoform/zod zod
+npm install @autoform/zod zod
 ```
 
 Requires zod ≥ 3.25.0. Supports Zod v3, Zod v4, and Zod Mini from the same import path
 
 ```tsx
-import { ZodProvider, fieldConfig } from "@dual-autoform/zod";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
 ```
 
 ### Yup
 
 ```bash
-npm install @dual-autoform/yup yup
+npm install @autoform/yup yup
 ```
 
 ```tsx
-import { YupProvider, fieldConfig } from "@dual-autoform/yup";
+import { YupProvider, fieldConfig } from "@autoform/yup";
 ```
 
 ### Joi
 
 ```bash
-npm install @dual-autoform/joi joi
+npm install @autoform/joi joi
 ```
 
 ```tsx
-import { JoiProvider, fieldConfig } from "@dual-autoform/joi";
+import { JoiProvider, fieldConfig } from "@autoform/joi";
 ```

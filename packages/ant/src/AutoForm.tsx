@@ -5,7 +5,7 @@ import {
   AutoFormComponent,
   AutoFormProps as BaseAutoFormProps,
   UseFieldFn,
-} from "@dual-autoform/react";
+} from "@autoform/react";
 import { ConfigProvider } from "antd";
 import type { AutoFormProps as AntAutoFormProps } from "./types";
 import { FieldHookProvider } from "./field-context";

@@ -3,20 +3,20 @@ title: API
 description: API reference notes for the TanStack Form AutoForm adapter.
 ---
 
-For shared source definitions, see [`packages/react/src/types.ts`](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/react/src/types.ts). For the TanStack adapter, see [`packages/react/src/tanstack-form`](https://github.com/adityacodepublic/autoform/tree/tanstack-form-integration/packages/react/src/tanstack-form).
+For shared source definitions, see [`packages/react/src/types.ts`](https://github.com/vantezzen/autoform/tree/main/packages/react/src/types.ts). For the TanStack adapter, see [`packages/react/src/tanstack-form`](https://github.com/vantezzen/autoform/tree/main/packages/react/src/tanstack-form).
 
 ## AutoFormProps
 
 <AutoFormPropsTable />
 
-UI integrations such as `@dual-autoform/mui`, `@dual-autoform/ant`, etc. provide default `uiComponents` and `formComponents`, while still allowing you to override them.
+UI integrations such as `@autoform/mui`, `@autoform/ant`, etc. provide default `uiComponents` and `formComponents`, while still allowing you to override them.
 
 ### `schema`
 
 `schema` must be a schema provider instance from one of the schema packages.
 
 ```tsx
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 import * as z from "zod";
 
 const schema = z.object({
@@ -44,11 +44,11 @@ For TanStack Form, `values` is synchronized into the current form with `setField
 
 ### `formControl`
 
-Use `formControl` when a parent component needs direct access to TanStack Form methods and state. Create it with `useAppForm` from `@dual-autoform/react/tanstack-form`.
+Use `formControl` when a parent component needs direct access to TanStack Form methods and state. Create it with `useAppForm` from `@autoform/react/tanstack-form`.
 
 ```tsx
 import { formOptions } from "@tanstack/react-form";
-import { useAppForm } from "@dual-autoform/react/tanstack-form";
+import { useAppForm } from "@autoform/react/tanstack-form";
 
 const options = formOptions();
 
@@ -74,7 +74,7 @@ When options depend on props or local values, memoize them with `useMemo` before
 
 ```tsx
 import * as z from "zod";
-import { fieldConfig, ZodProvider } from "@dual-autoform/zod";
+import { fieldConfig, ZodProvider } from "@autoform/zod";
 
 const schema = z.object({
   bio: z.string().check(fieldConfig({ fieldType: "markdown" })),
@@ -116,11 +116,11 @@ const schemaProvider = new ZodProvider(schema);
 
 ## Custom fields
 
-Custom field components receive `AutoFormFieldProps`. Use `useFieldContext` from `@dual-autoform/react/tanstack-form` to connect custom inputs to the TanStack field API.
+Custom field components receive `AutoFormFieldProps`. Use `useFieldContext` from `@autoform/react/tanstack-form` to connect custom inputs to the TanStack field API.
 
 ```tsx
-import type { AutoFormFieldProps } from "@dual-autoform/react";
-import { useFieldContext } from "@dual-autoform/react/tanstack-form";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
 
 export function StringField({ id, inputProps }: AutoFormFieldProps) {
   const field = useFieldContext<string>();
@@ -148,13 +148,13 @@ import {
   useAppForm,
   useFormContext,
   useFieldContext,
-} from "@dual-autoform/react/tanstack-form";
+} from "@autoform/react/tanstack-form";
 ```
 
 Use UI package subpaths for rendered forms:
 
 ```tsx
-import { AutoForm } from "@dual-autoform/mui/tanstack-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
 ```
 
 ## UI components

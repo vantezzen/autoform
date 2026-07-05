@@ -2,7 +2,7 @@ import type {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,
-} from "@dual-autoform/core";
+} from "@autoform/core";
 import { validateSchema } from "./validator";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";

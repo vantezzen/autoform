@@ -1,31 +1,5 @@
 # docs
 
-## 3.0.1
-
-### Patch Changes
-
-- Updated dependencies
-- Updated dependencies
-  - @dual-autoform/core@2.0.1
-  - @dual-autoform/mui@2.0.1
-  - @dual-autoform/react@2.0.1
-  - @dual-autoform/zod@2.0.1
-  - @dual-autoform/shadcn@1.0.1
-
-## Unreleased
-
-### Major Changes
-
-- Document resolver-backed validation through `@hookform/resolvers`.
-- Document the new `formControl` prop for external react-hook-form controls.
-- Remove the legacy `onFormInit` prop from AutoForm.
-- Update custom field documentation to use `useField()`.
-
-### Patch Changes
-
-- Document `@hookform/resolvers` as a peer dependency of `@dual-autoform/react`.
-- Document `schemaType` and `getSchema()` requirements for custom schema providers used with resolver validation.
-
 ## 3.0.0
 
 ### Major Changes
@@ -35,9 +9,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/core@3.0.0
-  - @dual-autoform/mui@3.0.0
-  - @dual-autoform/zod@4.0.0
+  - @autoform/core@3.0.0
+  - @autoform/mui@3.0.0
+  - @autoform/zod@4.0.0
 
 ## 2.2.0
 
@@ -54,9 +28,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/core@2.2.0
-  - @dual-autoform/mui@2.3.0
-  - @dual-autoform/react@3.1.0
+  - @autoform/core@2.2.0
+  - @autoform/mui@2.3.0
+  - @autoform/react@3.1.0
 
 ## 2.0.0
 
@@ -67,7 +41,7 @@
 ### Patch Changes
 
 - Updated dependencies [b10ea83]
-  - @dual-autoform/react@3.0.0
+  - @autoform/react@3.0.0
 
 ## 1.1.0
 
@@ -78,8 +52,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/react@2.1.0
-  - @dual-autoform/mui@2.1.0
+  - @autoform/react@2.1.0
+  - @autoform/mui@2.1.0
 
 ## 1.0.0
 
@@ -90,9 +64,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/core@2.0.0
-  - @dual-autoform/mui@2.0.0
-  - @dual-autoform/react@2.0.0
+  - @autoform/core@2.0.0
+  - @autoform/mui@2.0.0
+  - @autoform/react@2.0.0
 
 ## 0.1.0
 
@@ -103,6 +77,6 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @dual-autoform/react@1.3.0
-  - @dual-autoform/core@1.2.0
-  - @dual-autoform/mui@1.2.0
+  - @autoform/react@1.3.0
+  - @autoform/core@1.2.0
+  - @autoform/mui@1.2.0

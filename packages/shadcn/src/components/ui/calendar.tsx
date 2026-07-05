@@ -8,11 +8,11 @@ import {
 } from "lucide-react";
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
 
-import { cn } from "@dual-autoform/shadcn/lib/utils";
+import { cn } from "@autoform/shadcn/lib/utils";
 import {
   Button,
   buttonVariants,
-} from "@dual-autoform/shadcn/components/ui/button";
+} from "@autoform/shadcn/components/ui/button";
 
 function Calendar({
   className,

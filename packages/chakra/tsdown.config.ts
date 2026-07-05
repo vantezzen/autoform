@@ -11,7 +11,7 @@ export default defineConfig({
   deps: {
     neverBundle: ["react-icons"],
     dts: {
-      neverBundle: ["@dual-autoform/react"],
+      neverBundle: ["@autoform/react"],
     },
   },
   treeshake: true,

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { createFormControl, useFormContext } from "react-hook-form";
 import * as z from "zod";
-import { ZodProvider } from "@dual-autoform/zod";
+import { ZodProvider } from "@autoform/zod";
 
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 import { Button } from "@/components/ui/button";

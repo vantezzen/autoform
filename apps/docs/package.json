@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "3.0.1",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,15 +12,15 @@
   "author": "vantezzen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adityacodepublic/autoform/issues"
+    "url": "https://github.com/vantezzen/autoform/issues"
   },
-  "homepage": "https://github.com/adityacodepublic/autoform#readme",
+  "homepage": "https://github.com/vantezzen/autoform#readme",
   "dependencies": {
-    "@dual-autoform/core": "workspace:*",
-    "@dual-autoform/mui": "workspace:*",
-    "@dual-autoform/react": "workspace:^",
-    "@dual-autoform/shadcn": "workspace:^",
-    "@dual-autoform/zod": "workspace:*",
+    "@autoform/core": "workspace:*",
+    "@autoform/mui": "workspace:*",
+    "@autoform/react": "workspace:^",
+    "@autoform/shadcn": "workspace:^",
+    "@autoform/zod": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@monaco-editor/react": "^4.7.0",
