@@ -65,13 +65,19 @@ export const Navbar = () => {
       </NavigationMenu>
 
       <div className="hidden lg:flex">
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
+        <Button
+          asChild
+          size="sm"
+          variant="ghost"
+          aria-label="View on GitHub"
+          className="[&_svg]:!size-5"
+        >
           <Link
             aria-label="View on GitHub"
             href="https://github.com/adityacodepublic/autoform.git"
             target="_blank"
           >
-            <GithubIcon className="size-6" />
+            <GithubIcon className="size-5" />
           </Link>
         </Button>
       </div>

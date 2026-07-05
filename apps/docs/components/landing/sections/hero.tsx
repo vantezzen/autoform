@@ -19,7 +19,7 @@ export const HeroSection = () => {
 
   return (
     <section className="container w-full">
-      <div className="grid w-full place-items-center gap-8 mx-auto md:py-16 py-20 ">
+      <div className="grid w-full place-items-center gap-8 mx-auto py-20 ">
         <div className="w-full text-center space-y-6 sm:space-y-8">
           <Badge variant="outline" className="max-w-full text-sm py-2 px-3">
             <span>Fork of </span>
