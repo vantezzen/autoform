@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress run --component",
+    "cypress": "cypress run --component --browser chrome",
     "cypress:open": "cypress open"
   },
   "dependencies": {
