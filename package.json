@@ -9,7 +9,7 @@
     "check:packages": "node scripts/check-package-boundaries.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cypress": "turbo run cypress --filter=web",
-    "cypress:dev": "turbo run cypress --filter=web --parallel"
+    "cypress:open": "turbo run cypress:open --filter=web"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.5",
