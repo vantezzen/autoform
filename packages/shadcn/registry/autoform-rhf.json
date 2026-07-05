@@ -5,16 +5,11 @@
     "alert",
     "button",
     "calendar",
-    "card",
     "checkbox",
     "input",
     "label",
     "popover",
-    "select",
-    "skeleton",
-    "switch",
-    "textarea",
-    "toggle"
+    "select"
   ],
   "dependencies": [
     "zod",

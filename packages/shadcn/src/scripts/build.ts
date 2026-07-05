@@ -22,16 +22,11 @@ const commonRegistryDeps = [
   "alert",
   "button",
   "calendar",
-  "card",
   "checkbox",
   "input",
   "label",
   "popover",
   "select",
-  "skeleton",
-  "switch",
-  "textarea",
-  "toggle",
 ];
 
 // Paths (forward-slashed) that belong exclusively to one adapter.
