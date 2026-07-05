@@ -12,6 +12,38 @@ import {
 } from "@/components/ui/popover";
 import type { AutoFormFieldProps } from "@dual-autoform/react";
 
+const nativeDateInputStyles = `
+  /* Removes native date input indicators rendered by the platform. */
+  input[data-autoform-date] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: none;
+  }
+
+  /* Hides WebKit-specific native date controls. */
+  input[data-autoform-date]::-webkit-calendar-picker-indicator,
+  input[data-autoform-date]::-webkit-inner-spin-button,
+  input[data-autoform-date]::-webkit-clear-button {
+    display: none !important;
+    -webkit-appearance: none !important;
+    width: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Hides the custom picker on touch-primary devices. */
+  @media (pointer: coarse) and (hover: none) {
+    input[data-autoform-date] {
+      padding-right: 0.75rem;
+    }
+
+    button[data-autoform-date-picker] {
+      display: none;
+    }
+  }
+`;
+
 function formatDate(date: Date | undefined) {
   if (!date) return "";
   return date.toLocaleDateString("en-CA");
@@ -29,19 +61,6 @@ function toDate(value: unknown) {
   }
   return undefined;
 }
-
-const nativeDateInputStyles = `
-  input[data-autoform-date]::-webkit-calendar-picker-indicator,
-  input[data-autoform-date]::-webkit-inner-spin-button,
-  input[data-autoform-date]::-webkit-clear-button {
-    display: none !important;
-    -webkit-appearance: none !important;
-    width: 0 !important;
-    margin: 0 !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-`;
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -71,11 +90,11 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           ref={ref}
           type="date"
           data-autoform-date
-          className={`${error ? "border-destructive " : ""}pr-10 appearance-none ${
+          className={`${error ? "border-destructive " : ""} pr-10 appearance-none ${
             inputProps?.className ?? ""
           }`}
           value={inputValue}
-          placeholder={inputProps?.placeholder ?? "2025-06-01"}
+          placeholder={inputProps?.placeholder ?? "Select date"}
           onBlur={(e) => {
             restField.onBlur();
             inputProps?.onBlur?.(e);
@@ -108,6 +127,7 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
           <PopoverTrigger asChild>
             <Button
               id={`${id}-date-picker`}
+              data-autoform-date-picker
               type="button"
               variant="ghost"
               size="icon"
