@@ -63,13 +63,15 @@ AutoForm itself is agnostic to the schema, rendering, and UI library you use. It
 
 AutoForm is mostly meant as a drop-in form builder for your internal tools and simple forms with existing schemas. For example, if you already have schemas for your API and want to create a simple admin panel to edit user profiles, simply pass the schema to AutoForm and you're done.
 
-AutoForm does not change how you write custom input components or use your form library. You still access data, state, and methods as you usually would, including hooks like `useController`.
-
-Rather than manually wiring up fields and writing binding boilerplate, AutoForm maps each schema field to the appropriate component automatically.
+AutoForm doesn't change how you write custom inputs or access data, state, and methods. You still use your form library the way you usually would.Rather than manually wiring up fields and writing binding boilerplate, AutoForm maps schema fields to the right input components, connects them to the form library, and sets up validation.
 
 As forms almost always grow more complex, AutoForm gives you options to customize how forms are rendered (e.g. using the [`fieldConfig`](https://autoform-dual.vercel.app/docs/react/customization) option) and escape hatches to customize the form even further.
 
 However, AutoForm does not aim to be a full-featured form builder or support every edge case in your schema. If you need more customization, feel free to customize AutoForm's [renderer](https://autoform-dual.vercel.app/docs/react/customization#customizing-the-react-package) in your project. For an example of how AutoForm can be extended for more powerful, YAML-based, multi-page forms, see [AutoForm YAML](https://github.com/roeyazroel/auto-form).
+
+## shadcn/ui component
+
+AutoForm evolved from a [shadcn/ui component](https://github.com/vantezzen/auto-form) into a standalone library with broader UI and schema support.
 
 ## Pick your form library
 
