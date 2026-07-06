@@ -1,5 +1,11 @@
 # @dual-autoform/shadcn
 
+## 1.1.0
+
+### Minor Changes
+
+- Add calendar-backed date fields and update the shadcn registry output.
+
 ## 1.0.1
 
 ### Patch Changes
