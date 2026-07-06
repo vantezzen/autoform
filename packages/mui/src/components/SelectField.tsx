@@ -1,18 +1,33 @@
 import React from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
-  field,
+  id,
+  label,
   inputProps,
-  error,
-}) => (
-  <Select error={!!error} fullWidth {...inputProps}>
-    {(field.options || []).map(([key, label]) => (
-      <MenuItem key={key} value={label}>
-        {label}
-      </MenuItem>
-    ))}
-  </Select>
-);
+  parsedField,
+}) => {
+  const { field } = useField({ name: id });
+  const { ref, ...restInputProps } = inputProps as any;
+  return (
+    <Select
+      key={id}
+      fullWidth
+      {...restInputProps}
+      {...field}
+      value={field.value ?? ""}
+      inputRef={ref}
+      labelId={id}
+      label={label}
+    >
+      {(parsedField.options || []).map(([_key, optionLabel], index) => (
+        <MenuItem key={`${id}-${index}`} value={optionLabel}>
+          {optionLabel}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+};

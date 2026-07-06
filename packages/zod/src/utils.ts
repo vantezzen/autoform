@@ -1,6 +1,6 @@
 import * as zod4 from "zod/v4/core";
 import type { ZodTypeAny } from "zod/v3";
-import { ZodObjectOrWrapped } from "./v3";
+import type { ZodObjectOrWrapped } from "./v3";
 
 // Same symbol used everywhere
 export const ZOD_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");

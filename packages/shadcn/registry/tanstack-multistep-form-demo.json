@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tanstack-multistep-form-demo",
+  "title": "TanStack Multistep Form Demo",
+  "description": "A TanStack multi-step form with per-step schemas, breadcrumb navigation, and collected submission.",
+  "dependencies": [
+    "zod",
+    "@autoform/zod",
+    "@autoform/react",
+    "@tanstack/react-form",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-tanstack.json"
+  ],
+  "files": [
+    {
+      "path": "apps/docs/components/examples/faq/tanstack-multistep-form.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { ArrowLeft, ArrowRight } from \"lucide-react\";\nimport { ZodProvider } from \"@autoform/zod\";\nimport * as z from \"zod\";\n\nimport { AutoForm } from \"@/components/ui/autoform/tanstack-form\";\nimport { Button } from \"@/components/ui/button\";\n\nexport interface TanStackMultistepFormStep {\n  label: string;\n  schema: z.ZodObject<any>;\n  defaults: Record<string, unknown>;\n}\n\nexport interface TanStackMultistepFormProps {\n  steps: TanStackMultistepFormStep[];\n  onSubmit: (values: Record<number, Record<string, unknown>>) => void;\n}\n\nexport function TanStackMultistepForm({\n  steps,\n  onSubmit,\n}: TanStackMultistepFormProps) {\n  const [step, setStep] = React.useState(0);\n  const [values, setValues] = React.useState<\n    Record<number, Record<string, unknown>>\n  >(() => Object.fromEntries(steps.map((s, i) => [i, { ...s.defaults }])));\n\n  const providers = React.useMemo(\n    () => steps.map((s) => new ZodProvider(s.schema)),\n    [steps],\n  );\n\n  const isLastStep = step === steps.length - 1;\n  const currentStep = steps[step];\n\n  const saveAndAdvance = (\n    stepIndex: number,\n    stepValues: Record<string, unknown>,\n  ) => {\n    const next = { ...values, [stepIndex]: stepValues };\n    setValues(next);\n\n    if (isLastStep) {\n      onSubmit(next);\n    } else {\n      setStep(stepIndex + 1);\n    }\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"flex flex-wrap items-center gap-2 text-sm text-muted-foreground\">\n        {steps.map((s, i) => (\n          <React.Fragment key={s.label}>\n            <span className={step === i ? \"font-medium text-foreground\" : \"\"}>\n              {s.label}\n            </span>\n            {i < steps.length - 1 && <ArrowRight className=\"h-4 w-4\" />}\n          </React.Fragment>\n        ))}\n      </div>\n\n      {currentStep && (\n        <AutoForm\n          key={currentStep.label}\n          schema={providers[step]}\n          defaultValues={values[step]}\n          onSubmit={(data) => saveAndAdvance(step, data)}\n        >\n          <div className=\"flex gap-2\">\n            {step > 0 && (\n              <Button\n                type=\"button\"\n                variant=\"outline\"\n                className=\"gap-2\"\n                onClick={() => setStep(step - 1)}\n              >\n                <ArrowLeft className=\"h-4 w-4\" />\n                Back\n              </Button>\n            )}\n            <Button type=\"submit\" className=\"gap-2\">\n              {isLastStep ? \"Submit\" : \"Next\"}\n              {!isLastStep && <ArrowRight className=\"h-4 w-4\" />}\n            </Button>\n          </div>\n        </AutoForm>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/tanstack-multistep-form.tsx"
+    },
+    {
+      "path": "apps/docs/components/examples/faq/tanstack-multistep-form-usage-demo.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as z from \"zod\";\n\nimport {\n  TanStackMultistepForm,\n} from \"@/components/tanstack-multistep-form\";\nimport type { TanStackMultistepFormStep } from \"@/components/tanstack-multistep-form\";\n\nconst STEPS: TanStackMultistepFormStep[] = [\n  {\n    label: \"Contact\",\n    schema: z.object({\n      fullName: z.string().min(2, \"Enter your name\"),\n      email: z.email(\"Enter a valid email\"),\n    }),\n    defaults: { fullName: \"\", email: \"\" },\n  },\n  {\n    label: \"Account\",\n    schema: z.object({\n      username: z.string().min(3, \"Use at least 3 characters\"),\n      password: z.string().min(8, \"Use at least 8 characters\"),\n    }),\n    defaults: { username: \"\", password: \"\" },\n  },\n  {\n    label: \"Address\",\n    schema: z.object({\n      street: z.string().min(3, \"Enter your street address\"),\n      city: z.string().min(2, \"Enter your city\"),\n    }),\n    defaults: { street: \"\", city: \"\" },\n  },\n  {\n    label: \"Preferences\",\n    schema: z.object({\n      newsletter: z.boolean().default(false),\n      notes: z.string().min(5, \"Add a short note\"),\n    }),\n    defaults: { newsletter: false, notes: \"\" },\n  },\n];\n\nexport default function TanStackMultistepFormDemo() {\n  const [submitted, setSubmitted] = React.useState<Record<\n    number,\n    Record<string, unknown>\n  > | null>(null);\n\n  return (\n    <div className=\"grid gap-4 rounded-lg border bg-background p-6 md:grid-cols-[1fr_220px]\">\n      <TanStackMultistepForm steps={STEPS} onSubmit={setSubmitted} />\n\n      <div className=\"rounded-md border bg-secondary/50 p-4 text-sm\">\n        <div className=\"font-medium\">Submitted value</div>\n        <pre className=\"mt-3 overflow-auto text-xs\">\n          {JSON.stringify(submitted, null, 2)}\n        </pre>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/tanstack-multistep-form-usage.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

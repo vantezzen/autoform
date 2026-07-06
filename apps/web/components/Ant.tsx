@@ -1,28 +1,42 @@
 "use client";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm as AntRHFAutoForm } from "@autoform/ant/react-hook-form";
+import { AutoForm as AntTanstackAutoForm } from "@autoform/ant/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 
-const Ant = () => {
+export function AntRHF() {
   return (
-    <AutoForm
+    <AntRHFAutoForm
       schema={zodSchemaProvider}
       onSubmit={(data) => {
         console.log(JSON.stringify(data, null, 2));
       }}
-      // Ant Design Form Props
       antFormProps={{
         layout: "horizontal",
         className: "no-margin-form",
-        onValuesChange: (e) => {
+        onValuesChange: (e: any) => {
           console.log("inputChange", e);
         },
-        // onFinish: (e) => {
-        //   console.log("onFinish", e);
-        // },
       }}
       withSubmit
     />
   );
-};
+}
 
-export default Ant;
+export function AntTanstack() {
+  return (
+    <AntTanstackAutoForm
+      schema={zodSchemaProvider}
+      onSubmit={(data) => {
+        console.log(JSON.stringify(data, null, 2));
+      }}
+      antFormProps={{
+        layout: "horizontal",
+        className: "no-margin-form",
+        onValuesChange: (e: any) => {
+          console.log("inputChange", e);
+        },
+      }}
+      withSubmit
+    />
+  );
+}

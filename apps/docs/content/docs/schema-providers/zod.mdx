@@ -1,0 +1,357 @@
+---
+title: Zod
+---
+
+`@autoform/zod` supports Zod v3, Zod v4, and Zod Mini. The examples on this page use Zod v4.
+
+Basic usage:
+
+```tsx
+"use client";
+import * as z from "zod";
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+import { AutoForm } from "@autoform/mui/react-hook-form"; // use any UI library
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
+
+// Define your form schema using zod
+const formSchema = z.object({
+  username: z
+    .string({
+      error: "Username is required.",
+    })
+    // You can use zod's built-in validation as normal
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    }),
+
+  password: z
+    .string({
+      error: "Password is required.",
+    })
+    // Use the "describe" method to set the label
+    // If no label is set, the field name will be used
+    // and un-camel-cased
+    .describe("Your secure password")
+    .min(8, {
+      message: "Password must be at least 8 characters.",
+    })
+    // You can add additional config for how to render this field
+    // using fieldConfig
+    .check(
+      fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
+        description: "We recommend to use a strong password.",
+        inputProps: {
+          type: "password",
+        },
+        customData: {
+          // You can add custom data here
+          isImportant: true,
+        },
+      }),
+    ),
+
+  // HTML inputs return strings, so use coercion for numbers and dates.
+  favouriteNumber: z.coerce
+    .number({
+      error: "Favourite number must be a number.",
+    })
+    .min(1, {
+      message: "Favourite number must be at least 1.",
+    })
+    .max(10, {
+      message: "Favourite number must be at most 10.",
+    })
+    .default(5) // You can set a default value
+    .optional(),
+
+  acceptTerms: z
+    .boolean()
+    .describe("Accept terms and conditions.")
+    .check(
+      z.refine((value) => value, "You must accept the terms and conditions."),
+    ),
+
+  // Date will show a date picker
+  // HTML date inputs submit strings, so use coercion for browser date fields.
+  // For defaultValues, pass a Date object.
+  birthday: z.coerce.date().optional(),
+
+  // Enum will show a select
+  color: z.enum(["red", "green", "blue"]),
+
+  // You can use sub-objects that will be rendered with their own title
+  guestDetails: z.object({
+    name: z.string(),
+    age: z.coerce.number(),
+  }),
+});
+
+const schemaProvider = new ZodProvider(formSchema);
+
+function App() {
+  return (
+    <AutoForm
+      schema={schemaProvider}
+      onSubmit={(data) => {
+        console.log(data);
+      }}
+      withSubmit
+    />
+  );
+}
+```
+
+## Zod configuration
+
+### Labels
+
+You can use the `describe` method to set a label for each field. If no label is set, the field name will be used and un-camel-cased.
+
+```tsx
+const formSchema = z.object({
+  username: z.string().describe("Your username"),
+  someValue: z.string(), // Will be "Some Value"
+});
+```
+
+To add a description below the field see [`fieldConfig`](/docs/react/customization#description).
+
+### Coercion
+
+When using numbers and dates, you should use coerce. This is because input elements may return a string that should automatically be converted.
+
+```tsx
+const formSchema = z.object({
+  favouriteNumber: z.coerce.number(),
+  birthday: z.coerce.date(),
+});
+```
+
+### Optional fields
+
+By default, all fields are required. You can make a field optional by using the `optional` method.
+
+```tsx
+const formSchema = z.object({
+  username: z.string().optional(),
+});
+```
+
+### Default values
+
+You can set a default value for a field using the `default` method.
+
+```tsx
+const formSchema = z.object({
+  favouriteNumber: z.number().default(5),
+});
+```
+
+<Callout>
+  `.default()` acts as a fallback during validation: If a user clears the field,
+  the default value comes back in the output. If you want pre-filled initial
+  values that the user can freely clear, then use the
+  [`defaultValues`](/docs/react/api#defaultvalues-vs-values) prop instead. See
+  [`Zod .default()`](https://zod.dev/api?id=prefaults#prefaults).
+</Callout>
+
+If you want to set the default value of a date, convert it to a `Date` first using `new Date(val)`.
+
+### Select/Enums
+
+AutoForm supports `enum` and `nativeEnum` to create select fields.
+
+```tsx
+const formSchema = z.object({
+  color: z.enum(["red", "green", "blue"]),
+});
+
+enum BreadTypes {
+  // For TypeScript enums, the enum values (e.g. "White bread")
+  // are displayed, validated and returned in output.
+  White = "White bread",
+  Brown = "Brown bread",
+  Wholegrain = "Wholegrain bread",
+}
+
+const formSchema = z.object({
+  bread: z.nativeEnum(BreadTypes),
+});
+```
+
+If you want a select label to submit a different value, map the labels to values in a transform.
+
+```tsx
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
+
+const formSchema = z.object({
+  nameId: z
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId]),
+});
+```
+
+### Arrays
+
+AutoForm supports arrays:
+
+```tsx
+const formSchema = z.object({
+  invitedGuests: z
+    .array(
+      // Define the fields for each item
+      z.object({
+        name: z.string(),
+        age: z.coerce.number(),
+      }),
+    )
+    // Optionally set a custom label - otherwise this will be inferred from the field name
+    .describe("Guests invited to the party"),
+  hobbies: z.array(z.string()),
+});
+```
+
+Arrays are not supported as the root element of the form schema.
+
+You also can set default value of an array using .default(), but please make sure the array element has same structure with the schema.
+
+```tsx
+const formSchema = z.object({
+  guestListName: z.string(),
+  invitedGuests: z
+    .array(
+      // Define the fields for each item
+      z.object({
+        name: z.string(),
+        age: z.coerce.number(),
+      }),
+    )
+    .describe("Guests invited to the party")
+    .default([
+      {
+        name: "John",
+        age: 24,
+      },
+      {
+        name: "Jane",
+        age: 20,
+      },
+    ]),
+});
+```
+
+### Sub-objects
+
+You may use sub-objects to group fields together. These will be rendered with their own title.
+
+```tsx
+const formSchema = z.object({
+  guestDetails: z.object({
+    name: z.string(),
+    age: z.coerce.number(),
+  }),
+});
+```
+
+### Field configuration
+
+Use the [`fieldConfig`](/docs/react/customization) function to customize how a field is rendered. Import it from `@autoform/zod`.
+
+Depending on the Zod version:
+
+- Use `.check(fieldConfig(...))` for **Zod v4 and Zod Mini**
+- Use `.superRefine(fieldConfig(...))` for **Zod v3**
+
+**Zod v4**
+
+```tsx
+import { fieldConfig } from "@autoform/zod";
+import * as z from "zod";
+
+const formSchema = z.object({
+  username: z
+    .string({
+      error: "Username is required.",
+    })
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .default("Default username")
+    .check(
+      fieldConfig({
+        description: "You cannot change this later.",
+      }),
+    ),
+});
+```
+
+**Zod Mini**
+
+```tsx
+import { fieldConfig } from "@autoform/zod";
+import { z } from "zod/mini";
+
+const formSchema = z.object({
+  username: z._default(
+    z
+      .string({
+        error: "Username is required.",
+      })
+      .check(
+        z.minLength(2, {
+          message: "Username must be at least 2 characters.",
+        }),
+        fieldConfig({
+          description: "You cannot change this later.",
+        }),
+      ),
+    "Default username",
+  ),
+});
+```
+
+**Zod v3**
+
+```tsx
+import { fieldConfig } from "@autoform/zod";
+import * as z from "zod";
+
+const formSchema = z.object({
+  username: z.string().superRefine(
+    fieldConfig({
+      label: "Username",
+      description: "Choose a unique username.",
+      inputProps: {
+        placeholder: "Enter your username",
+      },
+    }),
+  ),
+});
+```
+
+**TypeScript Support**
+
+Provide external types for full TypeScript support.
+
+```tsx
+import type { FieldTypes } from "@autoform/mui/react-hook-form";
+import { fieldConfig } from "@autoform/zod";
+
+z.string().check(
+  fieldConfig<React.ReactNode, FieldTypes, { isImportant?: boolean }>({
+    inputProps: {
+      type: "password",
+    },
+    customData: {
+      isImportant: true,
+    },
+  }),
+);
+```
+
+See the [Customization](/docs/react/customization) page for all available `fieldConfig` options.

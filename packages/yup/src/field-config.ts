@@ -1,20 +1,26 @@
-import { FieldConfig } from "@autoform/core";
-import { YupField } from "./types";
+import type { FieldConfig } from "@autoform/core";
+import type { YupField } from "./types";
 
 export const YUP_FIELD_CONFIG_SYMBOL = Symbol("GetFieldConfig");
 
 export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 >(
   config: FieldConfig<
     AdditionalRenderable,
     FieldTypes,
+    CustomData,
     FieldWrapper,
-    CustomData
-  >
+    ObjectWrapper,
+    ArrayWrapper,
+    ArrayElementWrapper
+  >,
 ) {
   const transformFunction = function (value: any) {
     return value; // Always pass, we're just using this for metadata
@@ -26,7 +32,7 @@ export function fieldConfig<
 
 export function getYupFieldConfig(schema: YupField): FieldConfig | undefined {
   for (const transform of schema.transforms) {
-    if (YUP_FIELD_CONFIG_SYMBOL in transform) {
+    if (transform && YUP_FIELD_CONFIG_SYMBOL in transform) {
       return (transform as any)[YUP_FIELD_CONFIG_SYMBOL];
     }
   }

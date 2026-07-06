@@ -1,9 +1,10 @@
 import React from "react";
-import { AutoForm } from "@autoform/chakra";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Sub-objects Tests (CHAKRA-ZOD), ${name}`, () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),
@@ -22,7 +23,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').should("exist");
@@ -36,7 +37,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -78,7 +79,7 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
         schema={subSubSchemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -102,4 +103,5 @@ describe("AutoForm Sub-objects Tests (CHAKRA-ZOD)", () => {
       },
     });
   });
+});
 });

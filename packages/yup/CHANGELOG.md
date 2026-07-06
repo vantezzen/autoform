@@ -1,4 +1,4 @@
-# @autoform/zod
+# @autoform/yup
 
 ## 3.0.0
 

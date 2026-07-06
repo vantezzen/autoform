@@ -1,19 +1,54 @@
 import React from "react";
-import { Box, Title, Button } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
-import { ArrayWrapperProps } from "@autoform/react";
+import { Box, Text, Button } from "@mantine/core";
+import type { ArrayWrapperProps } from "@autoform/react";
 
 export const ArrayWrapper: React.FC<ArrayWrapperProps> = ({
   label,
+  error,
   children,
   onAddItem,
+  inputProps,
+  parsedField,
 }) => {
+  const { key, ref, "aria-invalid": ariaInvalid, ...props } = inputProps;
   return (
     <Box mt="md">
-      <Title order={4}>{label}</Title>
+      <Text
+        fw={500}
+        size="md"
+        ref={ref}
+        tabIndex={-1}
+        role="heading"
+        aria-invalid={ariaInvalid}
+        aria-describedby={`${key}-error ${key}-description`}
+      >
+        {label}
+        {parsedField.required && (
+          <span style={{ color: "red", opacity: 0.8 }}> * </span>
+        )}
+      </Text>
+      {parsedField.fieldConfig?.description && (
+        <Text size="xs" c="dimmed" id={key + "-description"}>
+          {parsedField.fieldConfig?.description}
+        </Text>
+      )}
+      {error && (
+        <Text size="xs" c="red.6" id={key + "-error"}>
+          {error}
+        </Text>
+      )}
       {children}
-      <Button onClick={onAddItem} mt="sm" data-testid="add-item-button">
-        <IconPlus size={14} />
+      <Button
+        {...props}
+        mt="5px"
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onAddItem();
+        }}
+        aria-label={`add ${label}`}
+      >
+        <IconPlus size={19} />
       </Button>
     </Box>
   );

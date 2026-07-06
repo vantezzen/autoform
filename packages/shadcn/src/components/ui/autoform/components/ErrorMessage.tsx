@@ -5,7 +5,7 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 
 export const ErrorMessage: React.FC<{ error: string }> = ({ error }) => (
   <Alert variant="destructive">
-    <AlertCircle className="h-4 w-4" />
-    <AlertTitle>{error}</AlertTitle>
+    <AlertCircle className="h-5 w-5 mt-2" />
+    <AlertTitle className="text-sm/5">{error}</AlertTitle>
   </Alert>
 );

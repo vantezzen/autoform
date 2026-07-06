@@ -1,23 +1,22 @@
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 import { InputNumber } from "antd";
-import { useController } from "react-hook-form";
 import React from "react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,
   inputProps,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
-  const { field: formField } = useController({ name: id });
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <InputNumber
+      ref={ref}
       id={id}
-      key={key}
-      {...props}
-      {...formField}
+      key={id}
+      {...inputProps}
+      {...field}
       style={{ width: "100%" }}
-      onChange={formField.onChange}
     />
   );
 };

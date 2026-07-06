@@ -1,6 +1,6 @@
 import React from "react";
-import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../../field-context";
 import { createListCollection } from "@chakra-ui/react";
 import {
   SelectContent,
@@ -12,15 +12,15 @@ import {
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
-  field,
   inputProps,
+  parsedField,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
-  const { field: formField } = useController({ name: id });
+  const { field } = useField({ name: id });
+  const { ref, "aria-invalid": ariaInvalid, ...restInputProps } = inputProps as any;
 
   const options = createListCollection({
     items:
-      field.options?.map((option) => ({
+      parsedField.options?.map((option) => ({
         label: option[1],
         value: option[1],
       })) || [],
@@ -28,18 +28,18 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
 
   return (
     <SelectRoot
-      key={key}
-      {...props}
-      name={formField.name}
-      value={[formField.value]}
-      onValueChange={({ value }) => formField.onChange(value[0])}
-      onInteractOutside={() => formField.onBlur()}
-      onBlur={formField.onBlur}
+      key={id}
+      {...restInputProps}
+      name={field.name}
+      value={[field.value]}
+      onValueChange={({ value }) => field.onChange(value[0])}
+      onInteractOutside={() => field.onBlur()}
+      onBlur={field.onBlur}
       collection={options}
     >
-      <SelectTrigger>
+      <SelectTrigger ref={ref} aria-invalid={ariaInvalid}>
         <SelectValueText
-          placeholder={props.placeholder ?? "Select an option"}
+          placeholder={inputProps?.placeholder ?? "Select an option"}
         />
       </SelectTrigger>
       <SelectContent>

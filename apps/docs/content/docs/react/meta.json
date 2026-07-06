@@ -1,11 +1,13 @@
 {
-  "title": "React",
-  "icon": "Atom",
+  "title": "React Hook Form",
+  "icon": "ClipboardList",
   "pages": [
     "---Guide---",
     "getting-started",
+    "form-control",
     "customization",
     "api",
+    "faq-examples",
     "---Migration---",
     "migration",
     "---Custom---",

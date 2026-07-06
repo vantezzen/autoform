@@ -1,11 +1,12 @@
 import React from "react";
-import { AutoForm } from "@autoform/chakra";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
-import { FieldWrapperProps } from "@autoform/react";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 
-describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm UI Customization Tests (CHAKRA-ZOD), ${name}`, () => {
   const customSchema = z.object({
     name: z.string().superRefine(
       fieldConfig({
@@ -15,7 +16,7 @@ describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
             {children}
           </div>
         ),
-      })
+      }),
     ),
     email: z.string().email(),
   });
@@ -28,7 +29,7 @@ describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -49,7 +50,7 @@ describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
             </div>
           ),
         }}
-      />
+      />,
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -63,7 +64,7 @@ describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
         formComponents={{
-          string: ({ field, inputProps }) => (
+          string: ({ inputProps }) => (
             <TextField
               {...inputProps}
               variant="outlined"
@@ -71,9 +72,10 @@ describe("AutoForm UI Customization Tests (CHAKRA-ZOD)", () => {
             />
           ),
         }}
-      />
+      />,
     );
 
     cy.get(".custom-text-field").should("exist");
   });
+});
 });

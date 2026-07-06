@@ -1,9 +1,9 @@
-import { FieldConfig } from "@autoform/core";
+import type { FieldConfig } from "@autoform/core";
 import * as z from "zod/v4/core";
 
 export function inferFieldType(
   schema: z.$ZodType,
-  fieldConfig?: FieldConfig
+  fieldConfig?: FieldConfig,
 ): string {
   if (fieldConfig?.fieldType) {
     return fieldConfig.fieldType;

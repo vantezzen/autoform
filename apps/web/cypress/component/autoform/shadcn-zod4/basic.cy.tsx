@@ -1,8 +1,16 @@
 import React from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
+
+enum Sports {
+  Football = "Football/Soccer",
+  Basketball = "Basketballs",
+  Baseball = "Baseballs",
+  Hockey = "Hockey (Ice)",
+  None = "I don't like sports",
+}
 
 describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
   const basicSchema = z.object({
@@ -10,6 +18,7 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
     email: z.string().email("Invalid email address"),
     website: z.string().url("Invalid URL").optional(),
+    sports: z.enum(Sports),
     birthdate: z.coerce.date(),
     isStudent: z.boolean(),
   });
@@ -24,13 +33,14 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').should("exist");
     cy.get('input[name="age"]').should("have.attr", "type", "number");
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
+    cy.get('[role="combobox"]').should("exist");
     cy.get('input[name="birthdate"]').should("exist");
     cy.get("button#isStudent").should("exist");
   });
@@ -40,14 +50,22 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
     cy.mount(
       <TestWrapper>
         <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').type("John Doe");
     cy.get('input[name="age"]').type("25");
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
-    cy.get('input[name="birthdate"]').type("1990-01-01");
+    cy.get('[role="combobox"]').should("exist").click();
+    cy.get('div[data-radix-collection-item][role="option"]')
+      .should("be.visible")
+      .contains("Hockey (Ice)")
+      .click();
+    cy.get('input[name="birthdate"]')
+      .clear()
+      .type("1990-01-01")
+      .should("have.value", "1990-01-01");
     cy.get("button#isStudent").click();
 
     cy.get('button[type="submit"]').click();
@@ -58,6 +76,7 @@ describe("AutoForm Basic Tests (SHADCN-ZOD-V4)", () => {
       age: 25,
       email: "john@example.com",
       website: "https://example.com",
+      sports: "Hockey (Ice)",
       birthdate: new Date("1990-01-01"),
       isStudent: true,
     });

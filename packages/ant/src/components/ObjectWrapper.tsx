@@ -1,20 +1,34 @@
-import { ObjectWrapperProps } from "@autoform/react";
-import { Form, Typography } from "antd";
+import type { ObjectWrapperProps } from "@autoform/react";
+import { Typography } from "antd";
 import React from "react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,
   children,
+  parsedField,
 }) => {
   return (
-    <Form.Item
-      label={<Typography.Title level={4}>{label}</Typography.Title>}
-      labelCol={{
-        span: 24,
-        style: { fontWeight: "600" },
-      }}
-    >
+    <div>
+      <div style={{ marginBottom: "15px" }}>
+        <Typography.Title
+          level={5}
+          style={{ marginTop: "40px", marginBottom: "0px" }}
+        >
+          {label}
+        </Typography.Title>
+        {parsedField.fieldConfig?.description && (
+          <Typography.Text
+            type="secondary"
+            style={{
+              fontWeight: "normal",
+              marginTop: "-10px",
+            }}
+          >
+            {parsedField.fieldConfig?.description}
+          </Typography.Text>
+        )}
+      </div>
       {children}
-    </Form.Item>
+    </div>
   );
 };

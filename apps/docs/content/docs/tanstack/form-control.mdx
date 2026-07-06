@@ -1,0 +1,157 @@
+---
+title: Form Control
+description: Accessing TanStack Form data, states and methods.
+---
+
+The form data, states and methods are managed by TanStack Form. AutoForm's TanStack adapter follows TanStack's [composition guide](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition).
+
+## Quick Reference
+
+| Need                                                         | Recommended API                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Handle validated submit data                                 | `onSubmit={(data, form) => ...}`                                                                                                                                                                                                                                                                                                                                                       |
+| Access form data, methods and state inside AutoForm children | [`useFormContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-form-components) from `@autoform/react/tanstack-form` with [`form.Subscribe`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#formsubscribe) or [`useStore`](https://tanstack.com/form/latest/docs/framework/react/guides/reactivity#usestore) |
+| Connect a custom input field, access its methods and state   | [`useFieldContext`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#pre-bound-field-components) from `@autoform/react/tanstack-form`                                                                                                                                                                                                                |
+| Control the form from a parent component                     | Create a form with [`useAppForm`](https://tanstack.com/form/latest/docs/framework/react/guides/form-composition#custom-form-hooks) from `@autoform/react/tanstack-form` and pass it to `formControl` prop                                                                                                                                                                         |
+
+Use `useFieldContext` only inside custom field components, use `useFormContext` for buttons or UI rendered inside AutoForm, and use `formControl` when the control lives outside the AutoForm tree.
+
+## 1. onSubmit
+
+The `onSubmit` prop is called after AutoForm validates the submitted values with the schema provider. The second argument is the TanStack form API.
+
+```tsx
+<AutoForm
+  schema={schemaProvider}
+  onSubmit={(data, form) => {
+    console.log(data); // Cleaned schema-parsed values
+    console.log(form.state.values); // Original raw TanStack values
+  }}
+/>
+```
+
+## 2. Using useFormContext inside AutoForm
+
+AutoForm wraps the form with TanStack's `form.AppForm`. Components rendered inside AutoForm can call `useFormContext` to access the current form API.
+
+```tsx
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { useFormContext } from "@autoform/react/tanstack-form";
+import { useStore } from "@tanstack/react-form";
+
+function QuickActions() {
+  const form = useFormContext();
+  const canSubmit = useStore(form.store, (state) => state.canSubmit);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => form.setFieldValue("email", "dev@acme.com")}
+      >
+        Use sample email
+      </button>
+      <button type="button" onClick={() => form.reset()}>
+        Reset
+      </button>
+      <form.Subscribe selector={(state) => state.values.email}>
+        {(email) => <span>Current email: {email ?? "-"}</span>}
+      </form.Subscribe>
+      <button type="submit" disabled={!canSubmit}>
+        Submit
+      </button>
+    </div>
+  );
+}
+
+export default function MyForm() {
+  return (
+    <AutoForm schema={schemaProvider}>
+      <QuickActions />
+    </AutoForm>
+  );
+}
+```
+
+Use `form.Subscribe` when a component should rerender only for a selected piece of form state.
+Use `useStore` when the component itself should rerender from subscribed form state.
+
+## 3. Using an external formControl
+
+For parent-level control, create a TanStack form instance with AutoForm's exported `useAppForm` and pass it to `formControl`.
+
+Avoid setting initial default values inside `formOptions`. Pass them to `AutoForm` using the `defaultValues` prop instead.
+
+```tsx
+"use client";
+
+import * as z from "zod";
+import { formOptions } from "@tanstack/react-form";
+import { AutoForm } from "@autoform/mui/tanstack-form";
+import { useAppForm } from "@autoform/react/tanstack-form";
+import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+const schemaProvider = new ZodProvider(mySchema);
+const externalOptions = formOptions({});
+
+export default function MyForm() {
+  const form = useAppForm(externalOptions);
+
+  return (
+    <div>
+      <AutoForm
+        formControl={form}
+        schema={schemaProvider}
+        onSubmit={(data) => console.log(data)}
+      />
+
+      <button type="button" onClick={() => form.reset()}>
+        Reset
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          form.setFieldValue("email", "dev@acme.com");
+        }}
+      >
+        Fill email
+      </button>
+      <button type="button" onClick={() => form.handleSubmit()}>
+        Submit externally
+      </button>
+    </div>
+  );
+}
+```
+
+Keep the value passed to `useAppForm` stable. Define static options outside the component, or use `useMemo` when the options depend on props.
+
+## 4. Custom field components and reading field state
+
+Custom field components can use `useFieldContext` to access the TanStack field API (which exposes the field's value, name, bindings, and state such as `state.meta.errors`):
+
+```tsx
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
+export function StringField({ id, inputProps }: AutoFormFieldProps) {
+  const field = useFieldContext<string>();
+  const hasError = field.state.meta.errors.length > 0;
+
+  return (
+    <input
+      id={id}
+      name={field.name}
+      value={field.state.value ?? ""}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.value)}
+      className={hasError ? "border-red-500 animate-bounce" : ""}
+      {...inputProps}
+    />
+  );
+}
+```

@@ -2,7 +2,7 @@ import * as z from "zod/v4/core";
 import { inferFieldType } from "./field-type-inference";
 import { getDefaultValueInZodStack } from "./default-values";
 import { getFieldConfigInZodStack } from "./field-config";
-import { ParsedField, ParsedSchema } from "@autoform/core";
+import type { ParsedField, ParsedSchema } from "@autoform/core";
 
 function parseField(key: string, schema: z.$ZodType): ParsedField {
   const baseSchema = getBaseSchema(schema);
@@ -25,7 +25,7 @@ function parseField(key: string, schema: z.$ZodType): ParsedField {
   let subSchema: ParsedField[] = [];
   if (baseSchema instanceof z.$ZodObject) {
     subSchema = Object.entries(baseSchema._zod.def.shape).map(([key, field]) =>
-      parseField(key, field as z.$ZodType)
+      parseField(key, field as z.$ZodType),
     );
   }
   if (baseSchema instanceof z.$ZodArray) {
@@ -48,14 +48,14 @@ export function parseSchema(schema: z.$ZodObject): ParsedSchema {
   const shape = schema._zod.def.shape;
 
   const fields: ParsedField[] = Object.entries(shape).map(([key, field]) =>
-    parseField(key, field as z.$ZodType)
+    parseField(key, field as z.$ZodType),
   );
 
   return { fields };
 }
 
 function getBaseSchema<SchemaType extends z.$ZodType>(
-  schema: SchemaType | z.$ZodDefault<SchemaType>
+  schema: SchemaType | z.$ZodDefault<SchemaType>,
 ): SchemaType {
   if ("innerType" in schema._zod.def) {
     return getBaseSchema(schema._zod.def.innerType as SchemaType);
@@ -65,7 +65,7 @@ function getBaseSchema<SchemaType extends z.$ZodType>(
 }
 
 function isOptional<SchemaType extends z.$ZodType>(
-  schema: SchemaType
+  schema: SchemaType,
 ): boolean {
   if (schema._zod.def.type === "optional") {
     return true;
@@ -79,7 +79,7 @@ function isOptional<SchemaType extends z.$ZodType>(
 }
 
 function getDescription<SchemaType extends z.$ZodType>(
-  schema: SchemaType
+  schema: SchemaType,
 ): string | undefined {
   const description = z.globalRegistry.get(schema)?.description;
   if (description) {

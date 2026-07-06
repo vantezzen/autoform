@@ -14,7 +14,7 @@ import { HeroSection } from "@/components/landing/sections/hero";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background p-6 flex flex-col items-center">
+    <div className="min-h-screen w-full overflow-x-hidden bg-background px-3 py-6 sm:px-6 flex flex-col items-center">
       <title>AutoForm - Instant forms for your schemas</title>
 
       <Navbar />

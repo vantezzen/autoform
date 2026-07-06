@@ -1,10 +1,10 @@
 import React from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TextField } from "@mui/material";
 import { TestWrapper } from "./utils";
-import { FieldWrapperProps } from "@autoform/react";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 
 describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
   const customSchema = z.object({
@@ -16,7 +16,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             {children}
           </div>
         ),
-      })
+      }),
     ),
     email: z.string().email(),
   });
@@ -31,7 +31,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -54,7 +54,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -69,7 +69,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
           formComponents={{
-            string: ({ field, inputProps }) => (
+            string: ({ inputProps }) => (
               <TextField
                 {...inputProps}
                 variant="outlined"
@@ -78,7 +78,7 @@ describe("AutoForm UI Customization Tests (SHADCN-ZOD-V4)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-text-field").should("exist");

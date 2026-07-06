@@ -1,10 +1,10 @@
 import React from "react";
-import { AutoForm } from "@autoform/mantine";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Form Props Tests (MANTINE-ZOD), ${name}`, () => {
   const schema = z.object({
     name: z.string(),
   });
@@ -24,7 +24,7 @@ describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
             onKeyDown: cy.stub().as("onKeyDown"),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get("form")
@@ -48,10 +48,11 @@ describe("AutoForm Form Props Tests (MANTINE-ZOD)", () => {
             },
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="name"]').type("John Doe{enter}");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

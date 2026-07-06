@@ -1,21 +1,35 @@
+import { autoFormAdapters } from "./utils";
 import React from "react";
-import { AutoForm } from "@autoform/chakra";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react/react-hook-form";
+import { useFieldRHF } from "@autoform/react/react-hook-form";
+import { useFieldTanStack } from "@autoform/react/tanstack-form";
 
-describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Custom Fields Tests (CHAKRA-ZOD), ${name}`, () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
-    field,
     inputProps,
     error,
     id,
-  }) => (
-    <div>
-      <input id={id} type="text" className="custom-input" {...inputProps} />
-      {error && <span className="error">{error}</span>}
-    </div>
-  );
+  }) => {
+    const { field } =
+      name === "react-hook-form"
+        ? useFieldRHF({ name: id })
+        : useFieldTanStack({ name: id });
+    return (
+      <div>
+        <input
+          id={id}
+          type="text"
+          className="custom-input"
+          {...inputProps}
+          {...field}
+        />
+        {error && <span className="error">{error}</span>}
+      </div>
+    );
+  };
 
   const customSchema = z.object({
     customField: z
@@ -24,7 +38,7 @@ describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
 
@@ -39,7 +53,7 @@ describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
         formComponents={{
           custom: CustomField,
         }}
-      />
+      />,
     );
 
     cy.get(".custom-input").should("exist");
@@ -63,7 +77,7 @@ describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
         formComponents={{
           custom: CustomField,
         }}
-      />
+      />,
     );
 
     cy.get(".custom-input").type("Hi");
@@ -72,4 +86,5 @@ describe("AutoForm Custom Fields Tests (CHAKRA-ZOD)", () => {
     cy.get(".error").should("contain", "Must be at least 5 characters");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

@@ -1,0 +1,149 @@
+---
+title: Form control
+description: Accessing form data, states and methods.
+---
+
+import { FormControlReferenceTable } from "@/components/form-control-reference-table";
+
+The form data, states and methods are managed by react-hook-form. There are a few ways to access them:
+
+## Quick Reference
+
+<FormControlReferenceTable />
+
+If you need form states and methods **inside** `<AutoForm>`, use `useFormContext`. If **outside**, use `createFormControl`. For custom field components, use `useController` from react-hook-form.
+
+---
+
+## 1. onSubmit
+
+The form data can be accessed with the `onSubmit` prop. This will be called when the form is submitted and the data is valid.
+
+```tsx
+<AutoForm
+  onSubmit={(data, form, event) => {
+    // Do something with the data
+    // Data is validated and coerced automatically
+    // You can use the "form" argument to access the underlying react-hook-form instance
+    // for further information and control over the form
+  }}
+/>
+```
+
+## 2. Using useFormContext inside AutoForm
+
+AutoForm wraps your form with React Hook Form's `FormProvider`, so any component rendered _inside_ `AutoForm` as children can use [`useFormContext`](https://react-hook-form.com/docs/useformcontext) to access the form instance, read values, check validity, or trigger submit/reset. This is the easiest option when your buttons or UI are rendered as children inside `AutoForm`. See [`examples`](/docs/react/faq-examples) for more information.
+
+```tsx
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import { useFormContext } from "react-hook-form";
+
+function QuickActions() {
+  const {
+    watch,
+    setValue,
+    reset,
+    formState: { isValid },
+  } = useFormContext();
+  const email = watch("email");
+
+  return (
+    <div>
+      <button type="button" onClick={() => setValue("email", "dev@acme.com")}>
+        Use sample email
+      </button>
+      <button type="button" onClick={() => reset()}>
+        Reset
+      </button>
+      <span>Current email: {email ?? "-"}</span>
+      <button type="submit" disabled={!isValid}>
+        Submit
+      </button>
+    </div>
+  );
+}
+
+export default function MyForm() {
+  return (
+    <AutoForm schema={schemaProvider}>
+      <QuickActions />
+    </AutoForm>
+  );
+}
+```
+
+## 3. Using an external form control
+
+You can use the [`createFormControl`](https://react-hook-form.com/docs/createFormControl) function from react-hook-form and pass the `formControl` prop. This lets you access and call form methods outside the form. It accepts all `useForm` props and returns `formControl`, `subscribe`, along with `useForm` methods like `reset`, `trigger` and more.
+
+Avoid setting initial default values inside `createFormControl`. Pass them to `AutoForm` using the `defaultValues` prop instead.
+
+<Callout>
+  `createFormControl` requires react-hook-form version `7.55.0` or later.
+</Callout>
+
+```tsx
+import * as React from "react";
+import * as z from "zod";
+import { AutoForm } from "@autoform/mui/react-hook-form";
+import { createFormControl } from "react-hook-form";
+import { ZodProvider } from "@autoform/zod";
+
+const mySchema = z.object({
+  name: z.string(),
+  age: z.coerce.number(),
+  birthday: z.coerce.date(),
+});
+type FormValues = z.infer<typeof mySchema>;
+
+export default function MyForm() {
+  const schemaProvider = new ZodProvider(mySchema);
+
+  const { formControl, reset } = React.useMemo(
+    () => createFormControl<FormValues>(),
+    [],
+  );
+
+  return (
+    <div>
+      <AutoForm
+        formControl={formControl}
+        schema={schemaProvider}
+        defaultValues={{ name: "", age: 0, birthday: new Date() }}
+        onSubmit={(data) => console.log(data)}
+        {/* onSubmit works when formControl is provided */}
+      />
+      <button onClick={() => reset()}>Reset</button>
+    </div>
+  );
+}
+```
+
+## 4. Custom field components and reading field state
+
+Custom field components can use `useController` from `react-hook-form` to access the field API (which exposes the field's value, bindings, and state such as `error` and `isDirty`):
+
+```tsx
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useController } from "react-hook-form";
+
+export function StringField({ id, inputProps }: AutoFormFieldProps) {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name: id });
+  const hasError = !!error;
+
+  return (
+    <input
+      id={id}
+      name={field.name}
+      value={field.value ?? ""}
+      onBlur={field.onBlur}
+      onChange={(event) => field.onChange(event.target.value)}
+      className={hasError ? "border-red-500 animate-bounce" : ""}
+      {...inputProps}
+    />
+  );
+}
+```

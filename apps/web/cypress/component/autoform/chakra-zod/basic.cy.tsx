@@ -1,14 +1,24 @@
 import React from "react";
-import { AutoForm } from "@autoform/chakra";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
+enum Sports {
+  Football = "Football/Soccer",
+  Basketball = "Basketballs",
+  Baseball = "Baseballs",
+  Hockey = "Hockey (Ice)",
+  None = "I don't like sports",
+}
+
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Basic Tests (CHAKRA-ZOD), ${name}`, () => {
   const basicSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     age: z.coerce.number().min(18, "Must be at least 18 years old"),
     email: z.string().email("Invalid email address"),
     website: z.string().url("Invalid URL").optional(),
+    sports: z.nativeEnum(Sports),
     birthdate: z.coerce.date(),
     isStudent: z.boolean(),
   });
@@ -21,17 +31,18 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="name"]').should("exist");
     cy.get('input[name="age"]').should(
       "have.attr",
       "data-scope",
-      "number-input"
+      "number-input",
     );
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="website"]').should("exist");
+    cy.get('select[name="sports"]').should("exist");
     cy.get('input[name="birthdate"]');
     cy.get('input[name="isStudent"]').should("have.attr", "type", "checkbox");
   });
@@ -39,13 +50,19 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
   it("submits form with correct data types", () => {
     const onSubmit = cy.stub().as("onSubmit");
     cy.mount(
-      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />
+      <AutoForm schema={schemaProvider} onSubmit={onSubmit} withSubmit />,
     );
 
     cy.get('input[name="name"]').type("John Doe");
     cy.get('input[name="age"]').type("25");
     cy.get('input[name="email"]').type("john@example.com");
     cy.get('input[name="website"]').type("https://example.com");
+    cy.get(".chakra-select__root")
+      .within(() => {
+        cy.get('select[name="sports"]').should("exist");
+      })
+      .click();
+    cy.get('.chakra-select__item[data-value="Hockey (Ice)"]').click();
     cy.get('input[name="birthdate"]').clear().type("1990-01-01");
     cy.get('input[name="isStudent"]')
       .parent()
@@ -60,8 +77,10 @@ describe("AutoForm Basic Tests (CHAKRA-ZOD)", () => {
       age: 25,
       email: "john@example.com",
       website: "https://example.com",
+      sports: "Hockey (Ice)",
       birthdate: new Date("1990-01-01"),
       isStudent: true,
     });
   });
+});
 });

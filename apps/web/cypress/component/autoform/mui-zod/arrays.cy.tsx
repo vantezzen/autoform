@@ -1,16 +1,17 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Arrays Tests (MUI-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Arrays Tests (MUI-ZOD), ${name}`, () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -22,7 +23,7 @@ describe("AutoForm Arrays Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get("[data-testid='AddIcon']").should("exist");
@@ -35,7 +36,7 @@ describe("AutoForm Arrays Tests (MUI-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     // Add tags
@@ -64,4 +65,5 @@ describe("AutoForm Arrays Tests (MUI-ZOD)", () => {
       friends: [{ name: "Bob", age: 30 }],
     });
   });
+});
 });

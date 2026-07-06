@@ -2,13 +2,14 @@
   "name": "@autoform/shadcn",
   "version": "4.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "npx tsx src/scripts/build.ts"
+    "build": "tsx src/scripts/build.ts && cd ../.. && npx --yes shadcn@latest build registry.json --output packages/shadcn/registry && cd packages/shadcn && tsx src/scripts/build-react-source-registry.ts"
   },
   "repository": {
     "type": "git",
@@ -23,31 +24,25 @@
     "./components/*": "./src/components/*.tsx"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@autoform/eslint-config": "workspace:*",
+    "@autoform/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.10",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10",
-    "eslint": "^8.57.0",
     "glob": "^11.0.3",
     "postcss": "^8",
     "postcss-load-config": "^6",
-    "react": "^19.1.0",
-    "react-hook-form": "^7.53.0",
-    "tailwind-merge": "^2.3.0",
+    "react": "^19.2.6",
+    "react-hook-form": "^7",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "*",
     "tailwindcss-animate": "^1.0.7",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3",
+    "tsx": "^4.22.4",
     "zod": "^4.0.10"
   },
   "dependencies": {
-    "@autoform/react": "*",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.17",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-switch": "^1.1.1",
@@ -55,12 +50,12 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
-    "lucide-react": "*"
+    "lucide-react": "*",
+    "react-day-picker": "^10.0.1"
   },
   "peerDependencies": {
+    "@autoform/react": "workspace:*",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
-    "react-hook-form": "^7",
     "zod": "^3"
   }
 }

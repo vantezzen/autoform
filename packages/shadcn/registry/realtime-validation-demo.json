@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "realtime-validation-demo",
+  "title": "Realtime Validation Demo",
+  "description": "Shows real-time form validation with a disabled submit button until all fields are valid.",
+  "dependencies": [
+    "zod",
+    "@autoform/zod",
+    "react-hook-form",
+    "@hookform/resolvers"
+  ],
+  "registryDependencies": [
+    "button",
+    "https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json"
+  ],
+  "files": [
+    {
+      "path": "apps/docs/components/examples/faq/realtime-validation-demo.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { createFormControl, useFormContext } from \"react-hook-form\";\nimport * as z from \"zod\";\nimport { ZodProvider } from \"@autoform/zod\";\n\nimport { AutoForm } from \"@/components/ui/autoform/react-hook-form\";\nimport { Button } from \"@/components/ui/button\";\n\nconst realtimeSchema = z.object({\n  email: z.email(\"Enter a valid email\"),\n  password: z.string().min(8, \"Use at least 8 characters\"),\n});\n\ntype RealtimeValues = z.infer<typeof realtimeSchema>;\n\nconst schemaProvider = new ZodProvider(realtimeSchema);\n\nconst SubmitButton = () => {\n  const {\n    formState: { isValid },\n  } = useFormContext();\n\n  return (\n    <Button type=\"submit\" className=\"mt-4\" disabled={!isValid}>\n      Create Account\n    </Button>\n  );\n};\n\nexport function RealtimeValidationDemo() {\n  const { formControl } = React.useMemo(\n    () =>\n      createFormControl<RealtimeValues>({\n        mode: \"all\",\n      }),\n    [],\n  );\n  const [values, setValues] = React.useState<RealtimeValues | null>(null);\n\n  return (\n    <div className=\"rounded-lg border bg-background p-6\">\n      <AutoForm\n        schema={schemaProvider}\n        formControl={formControl}\n        onSubmit={(values) => setValues(values)}\n      >\n        <SubmitButton />\n        {values && (\n          <pre className=\"max-w-full overflow-x-auto rounded-md bg-secondary p-3 text-xs\">\n            {JSON.stringify(values, null, 2)}\n          </pre>\n        )}\n      </AutoForm>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/realtime-validation-demo.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

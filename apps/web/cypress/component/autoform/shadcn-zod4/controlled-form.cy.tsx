@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
+import React, { useEffect, useMemo, useState } from "react";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
+import { createFormControl } from "react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
@@ -16,6 +17,21 @@ const ControlledForm = () => {
   });
 
   const schemaProvider = new ZodProvider(schema);
+  const { formControl, subscribe } = useMemo(
+    () => createFormControl<typeof formValues>(),
+    [],
+  );
+
+  useEffect(() => {
+    const unsubscribe = subscribe({
+      formState: { values: true },
+      callback: ({ values }) => {
+        setFormValues(values as typeof formValues);
+      },
+    });
+
+    return unsubscribe;
+  }, [subscribe]);
 
   return (
     <TestWrapper>
@@ -24,11 +40,7 @@ const ControlledForm = () => {
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
         values={formValues}
-        onFormInit={(form) => {
-          form.watch((data) => {
-            setFormValues(data as typeof formValues);
-          });
-        }}
+        formControl={formControl}
       />
     </TestWrapper>
   );

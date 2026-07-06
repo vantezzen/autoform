@@ -1,11 +1,21 @@
 import React from "react";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../../field-context";
 import { Input } from "@chakra-ui/react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
+  id,
   inputProps,
 }) => {
-  const { key, ...props } = inputProps;
+  const { field } = useField({ name: id });
 
-  return <Input key={key} {...props} />;
+  return (
+    <Input
+      key={id}
+      id={id}
+      {...inputProps}
+      {...field}
+      value={field.value ?? ""}
+    />
+  );
 };

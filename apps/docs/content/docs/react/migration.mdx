@@ -3,10 +3,12 @@ title: Migration from V1
 description: This guide will help you migrate from the old, pure shadcn/ui component to the new AutoForm library.
 ---
 
-Please note that the new library does not have full feature-partity with the old one - specifically, it does not support the following features (yet):
+V1 refers to the original `shadcn/ui` auto-form component. V2 is the current `@autoform/*` package ecosystem.
+
+Please note that the new library does not have full feature partity with the old one - specifically, it does not support the following features (yet):
 
 - Dependencies between fields
-- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component.
+- Declaring custom field components inline. This should instead be done using the `formComponents` prop of the `AutoForm` component and using it with `fieldConfig` in schema.
 
 But the new AutoForm library has a lot of new features, such as:
 
@@ -27,8 +29,8 @@ First, remove the `components/ui/auto-form` folder from your project.
 To install AutoForm, run the following command:
 
 ```bash
-npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json
-npm install @autoform/zod
+npx shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json
+npm install @autoform/zod react-hook-form @hookform/resolvers
 ```
 
 ## Update form components
@@ -39,7 +41,7 @@ You also need to wrap your schema in a `ZodProvider` and pass it to the `AutoFor
 
 ```diff
 - import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
-+ import { AutoForm } from "@/components/ui/autoform";
++ import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 + import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
@@ -71,10 +73,8 @@ Instead of passing the `fieldConfig` prop to the `AutoForm` component, you can n
 
 ```diff
 import * as z from "zod";
-+ import { buildZodFieldConfig } from "@autoform/react";
-+ import { FieldTypes } from "@/components/ui/autoform";
-
-+ const fieldConfig = buildZodFieldConfig();
++ import { fieldConfig } from "@autoform/zod";
++ import { FieldTypes } from "@/components/ui/autoform/react-hook-form";
 
 const formSchema = z.object({
   password: z
@@ -82,7 +82,7 @@ const formSchema = z.object({
     .min(8, {
       message: "Please use a secure password.",
     })
-+   .superRefine(
++   .check(
 +     fieldConfig<React.ReactNode, FieldTypes>({
 +       description: "We recommend to use a strong password.",
 +       inputProps: {
@@ -95,33 +95,33 @@ const formSchema = z.object({
 
 ## Update callbacks
 
-If you are only using `onSubmit`, your code should be able to work without any changes. If you are using controlled input instead, you need to update your code to use the new `onFormInit` prop to get manual access to the form instance.
+If you are only using `onSubmit`, existing two-argument handlers still work. `onSubmit` can now also receive the submit event as a third argument: `(data, form, event)`.
+
+If you need to access form methods outside `onSubmit`, prefer creating an external form control with `createFormControl` and passing it to `formControl`.
 
 ```tsx
-const [values, setValues] = useState({});
+import * as React from "react";
+import { createFormControl } from "react-hook-form";
 
-<AutoForm
-  onFormInit={(form) => {
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
-    // https://www.react-hook-form.com/api/useform/
-    form.watch((data) => {
-      setValues(data);
-    });
+function MyForm() {
+  const { formControl, reset } = React.useMemo(() => createFormControl(), []);
 
-    // You can freely save the form instance to a state or context and use it later to access the form state
-    form.formState.isDirty; // => true
-  }}
-  values={values}
-/>;
+  return (
+    <>
+      <AutoForm formControl={formControl} schema={schemaProvider} />
+      <button onClick={() => reset()}>Reset</button>
+    </>
+  );
+}
 ```
 
 ## Update custom components
 
-If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config.
+If you are using custom parent components or custom field components, you need to update your code to use the new `formComponents` and `uiComponents` props and the `fieldWrapper` field config. Object, array, and array element wrappers can also be customized per field with `objectWrapper`, `arrayWrapper`, and `arrayElementWrapper`.
 
 ```tsx
 const schema = z.object({
-  username: z.string().superRefine(
+  username: z.string().check(
     fieldConfig({
       fieldWrapper: (props) => (
         <div>
@@ -129,26 +129,44 @@ const schema = z.object({
           {props.children}
         </div>
       ),
-    })
+    }),
   ),
 });
+const schemaProvider = new ZodProvider(schema);
 
 <AutoForm
-  schema={schema}
+  schema={schemaProvider}
   formComponents={{
-    custom: ({ field, label, inputProps }) => {
+    custom: ({ id, inputProps }) => {
+      const { field } = useController({ name: id });
+
       return (
         <div>
           <input
+            id={id}
             type="text"
             className="bg-red-400 rounded-lg p-4"
             {...inputProps}
+            {...field}
+            value={field.value ?? ""}
           />
         </div>
       );
     },
   }}
 />;
+```
+
+Custom field components no longer receive `value` or `onChange` directly. Use `useController` from `react-hook-form` to get the field bindings, and treat `inputProps` as the props configured with `fieldConfig.inputProps`.
+
+```tsx
+const { field, fieldState } = useController({ name: id });
+```
+
+If you previously imported `buildZodFieldConfig`, `buildYupFieldConfig`, or `buildJoiFieldConfig` from `@autoform/react`, replace those helpers with `fieldConfig` from the matching schema package:
+
+```tsx
+import { fieldConfig } from "@autoform/zod";
 ```
 
 </div>

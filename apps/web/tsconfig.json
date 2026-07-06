@@ -6,9 +6,9 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["../../packages/shadcn/src/*"]
+      "@/*": ["../../packages/shadcn/src/*"],
+      "@web/*": ["./*"]
     }
   },
   "include": [

@@ -1,0 +1,206 @@
+---
+title: Custom Integration
+description: Build a custom UI integration for the TanStack Form AutoForm adapter. By following these steps, you’ll be able to use AutoForm with your preferred UI library or custom components.
+---
+
+This guide shows how to create a UI integration that can render with the TanStack Form adapter. The UI component registry is the same shape as the React Hook Form route; the adapter changes when you choose the base `AutoForm` import.
+
+<div className='fd-steps [&_h2]:fd-step'>
+
+## Set up the project
+
+```bash
+mkdir @autoform-custom-ui
+cd @autoform-custom-ui
+npm init -y
+npm install @autoform/react @tanstack/react-form react
+```
+
+## Define custom types
+
+```tsx
+import {
+  AutoFormUIComponents,
+  AutoFormFieldComponents,
+} from "@autoform/react";
+
+export interface CustomAutoFormUIComponents extends AutoFormUIComponents {}
+
+export interface CustomAutoFormFieldComponents extends AutoFormFieldComponents {}
+```
+
+## Implement UI components
+
+Implement the required UI components:
+
+1. Form
+2. FieldWrapper
+3. ErrorMessage
+4. SubmitButton
+5. ObjectWrapper
+6. ArrayWrapper
+7. ArrayElementWrapper
+
+```tsx
+import React from "react";
+import type { FieldWrapperProps } from "@autoform/react";
+
+export const FieldWrapper: React.FC<FieldWrapperProps> = ({
+  label,
+  error,
+  children,
+  id,
+}) => {
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      {children}
+      {error && <span>{error}</span>}
+    </div>
+  );
+};
+```
+
+## Implement field components
+
+For TanStack field components, use `useFieldContext` from `@autoform/react/tanstack-form`.
+
+```tsx
+import React from "react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
+
+export const StringField: React.FC<AutoFormFieldProps> = ({
+  inputProps,
+  id,
+}) => {
+  const field = useFieldContext<string>();
+
+  return (
+    <input
+      id={id}
+      name={field.name}
+      value={field.state.value ?? ""}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.value)}
+      {...inputProps}
+    />
+  );
+};
+```
+
+The same context gives access to TanStack-specific APIs:
+
+```tsx
+import React from "react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useFieldContext } from "@autoform/react/tanstack-form";
+
+export const BooleanField: React.FC<AutoFormFieldProps> = ({
+  inputProps,
+  id,
+}) => {
+  const field = useFieldContext<boolean>();
+
+  return (
+    <input
+      id={id}
+      type="checkbox"
+      checked={!!field.state.value}
+      onBlur={field.handleBlur}
+      onChange={(event) => field.handleChange(event.target.checked)}
+      {...inputProps}
+    />
+  );
+};
+```
+
+## Create the AutoForm component
+
+Bind your UI registry to the TanStack base adapter:
+
+```tsx
+import { AutoForm as BaseAutoForm } from "@autoform/react/tanstack-form";
+import {
+  AutoFormFieldComponents,
+  AutoFormProps,
+  AutoFormUIComponents,
+} from "@autoform/react";
+
+export const uiComponents: AutoFormUIComponents = {
+  Form,
+  FieldWrapper,
+  ErrorMessage,
+  SubmitButton,
+  ObjectWrapper,
+  ArrayWrapper,
+  ArrayElementWrapper,
+};
+
+const formComponents: AutoFormFieldComponents = {
+  string: StringField,
+  number: NumberField,
+  boolean: BooleanField,
+};
+
+export function AutoForm<T extends Record<string, any>>(
+  props: Omit<AutoFormProps<T>, "uiComponents" | "formComponents">,
+) {
+  return (
+    <BaseAutoForm
+      {...props}
+      uiComponents={uiComponents}
+      formComponents={formComponents}
+    />
+  );
+}
+```
+
+## Export adapter entries
+
+For a TanStack-only integration, export the TanStack entry directly:
+
+```tsx
+// tanstack-form.tsx
+export { AutoForm } from "./AutoForm";
+```
+
+If your integration supports both React Hook Form and TanStack Form, keep shared wrapper UI components common, but provide adapter-specific field components in each entry. TanStack field components use `useFieldContext`; React Hook Form field components should use `useController`.
+
+```tsx
+// tanstack-form.tsx
+import { AutoForm as TanStackAutoForm } from "@autoform/react/tanstack-form";
+import type {
+  AutoFormProps as BaseAutoFormProps,
+  ExtendableAutoFormProps,
+} from "@autoform/react";
+import { uiComponents } from "./AutoForm";
+import { TanStackFieldComponents } from "./components/tanstack";
+
+export function AutoForm<T extends Record<string, any> = Record<string, any>>({
+  uiComponents: uiOverrides,
+  formComponents,
+  ...props
+}: ExtendableAutoFormProps<T>) {
+  return (
+    <TanStackAutoForm
+      {...(props as BaseAutoFormProps<T>)}
+      uiComponents={{ ...uiComponents, ...uiOverrides }}
+      formComponents={{ ...TanStackFieldComponents, ...formComponents }}
+    />
+  );
+}
+```
+
+</div>
+
+## Using your custom UI integration
+
+```tsx
+import { AutoForm } from "@autoform/custom-ui/tanstack-form";
+import { ZodProvider } from "@autoform/zod";
+
+function MyForm() {
+  return <AutoForm schema={schemaProvider} onSubmit={console.log} withSubmit />;
+}
+```

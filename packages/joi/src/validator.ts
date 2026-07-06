@@ -1,4 +1,4 @@
-import { JoiObjectOrWrapped } from "./types";
+import type { JoiObjectOrWrapped } from "./types";
 
 export function validateSchema(schema: JoiObjectOrWrapped, values: any) {
   const { error, value } = schema.validate(values, { abortEarly: false });

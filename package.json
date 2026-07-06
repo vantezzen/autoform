@@ -1,27 +1,42 @@
 {
   "name": "autoform",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --concurrency 20",
     "lint": "turbo lint",
+    "check:packages": "node scripts/check-package-boundaries.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "cypress": "turbo run cypress --filter=web",
-    "cypress:dev": "turbo run cypress --filter=web --parallel"
+    "cypress:open": "turbo run cypress:open --filter=web"
   },
   "devDependencies": {
+    "@types/eslint": "^8.56.5",
+    "@types/node": "^20.11.24",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^8.57.0",
     "prettier": "^3.2.5",
+    "tsdown": "^0.22.3",
     "turbo": "^2.1.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.8.3",
+    "unrun": "^0.3.1"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "npm@10.2.4",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
   ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@11.9.0",
   "dependencies": {
     "@changesets/cli": "^2.27.9"
   }

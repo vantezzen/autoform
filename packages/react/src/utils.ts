@@ -1,78 +1,47 @@
-import { FieldConfig } from "@autoform/core";
-import { fieldConfig as zodBaseFieldConfig } from "@autoform/zod";
-import { fieldConfig as yupBaseFieldConfig } from "@autoform/yup";
-import { fieldConfig as joiBaseFieldConfig } from "@autoform/joi";
-import React, { ReactNode } from "react";
-import { FieldWrapperProps } from "./types";
+import type { ParsedField } from "@autoform/core";
+import type { FormEvent } from "react";
 
-export function buildZodFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-) => ReturnType<typeof zodBaseFieldConfig> {
-  return (config) =>
-    zodBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
+export function focusFirstInvalidInput(): void {
+  setTimeout(
+    () =>
+      document
+        .querySelector<HTMLElement>(
+          '[aria-invalid="true"]:is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled),[aria-invalid="true"] :is(input:not([type="hidden"]),select,textarea,button,[tabindex]):not(:disabled)',
+        )
+        ?.focus(),
+    50,
+  );
 }
 
-export function buildYupFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-) => ReturnType<typeof yupBaseFieldConfig> {
-  return (config) =>
-    yupBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
+export const preventPropagation =
+  (callback: (event: FormEvent<HTMLFormElement>) => void | Promise<void>) =>
+  (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    return callback(event);
+  };
+
+export function getArrayItemDefaultValue(parsedField: ParsedField): any {
+  const itemField = parsedField.schema?.[0];
+  if (!itemField) return null;
+  if (itemField.default !== undefined) return itemField.default;
+  if (itemField.type === "object") return getObjectDefaultValue(itemField);
+  if (itemField.type === "array") return [];
+  return null;
 }
 
-export function buildJoiFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-) => ReturnType<typeof joiBaseFieldConfig> {
-  return (config) =>
-    joiBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
-}
+function getObjectDefaultValue(parsedField: ParsedField): Record<string, any> {
+  const value: Record<string, any> = {};
 
-export function getPathInObject(obj: any, path: string[]): any {
-  let current = obj;
-  for (const key of path) {
-    current = current[key];
-
-    if (current === undefined) {
-      return undefined;
+  for (const child of parsedField.schema ?? []) {
+    if (child.default !== undefined) {
+      value[child.key] = child.default;
+    } else if (child.required && child.type === "object") {
+      value[child.key] = getObjectDefaultValue(child);
+    } else if (child.required && child.type === "array") {
+      value[child.key] = [];
     }
   }
-  return current;
+
+  return value;
 }

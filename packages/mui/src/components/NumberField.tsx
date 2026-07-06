@@ -1,8 +1,22 @@
 import React from "react";
 import Input from "@mui/material/Input";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
-  error,
+  id,
   inputProps,
-}) => <Input type="number" error={!!error} fullWidth {...inputProps} />;
+}) => {
+  const { ref, ...formFieldProps } = useField({ name: id }).field;
+  return (
+    <Input
+      id={id}
+      key={id}
+      fullWidth
+      type="number"
+      {...inputProps}
+      {...formFieldProps}
+      inputRef={ref}
+    />
+  );
+};

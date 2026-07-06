@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
-import { ArrayElementWrapperProps } from "@autoform/react";
+import type { ArrayElementWrapperProps } from "@autoform/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,
@@ -22,8 +22,10 @@ export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
         color="red"
         variant="subtle"
         data-testid="remove-item-button"
+        size={30}
+        mb={5}
       >
-        <IconTrash size={16} />
+        <IconTrash size={19} />
       </ActionIcon>
       {children}
     </Box>

@@ -1,19 +1,25 @@
 import * as z from "zod/v4/core";
-import { FieldConfig } from "@autoform/core";
+import type { FieldConfig } from "@autoform/core";
 import { ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
 
 export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 >(
   config: FieldConfig<
     AdditionalRenderable,
     FieldTypes,
+    CustomData,
     FieldWrapper,
-    CustomData
-  >
+    ObjectWrapper,
+    ArrayWrapper,
+    ArrayElementWrapper
+  >,
 ): z.CheckFn<any> {
   const refinementFunction = () => {};
 
@@ -23,13 +29,13 @@ export function fieldConfig<
 }
 
 export function getFieldConfigInZodStack(
-  schema: z.$ZodType
+  schema: z.$ZodType,
 ): FieldConfig | undefined {
   const checks = schema._zod.def.checks;
   if (checks) {
     for (const check of checks) {
       const checkFn = check._zod.check;
-      if (ZOD_FIELD_CONFIG_SYMBOL in checkFn) {
+      if (checkFn && ZOD_FIELD_CONFIG_SYMBOL in checkFn) {
         return checkFn[ZOD_FIELD_CONFIG_SYMBOL] as FieldConfig;
       }
     }

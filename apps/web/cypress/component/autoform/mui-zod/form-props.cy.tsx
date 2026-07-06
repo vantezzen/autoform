@@ -1,9 +1,10 @@
 import React from "react";
-import { AutoForm } from "@autoform/mui";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Form Props Tests (MUI-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Form Props Tests (MUI-ZOD), ${name}`, () => {
   const schema = z.object({
     name: z.string(),
   });
@@ -21,7 +22,7 @@ describe("AutoForm Form Props Tests (MUI-ZOD)", () => {
           "data-testid": "custom-form",
           onKeyDown: cy.stub().as("onKeyDown"),
         }}
-      />
+      />,
     );
 
     cy.get("form")
@@ -43,10 +44,11 @@ describe("AutoForm Form Props Tests (MUI-ZOD)", () => {
             if (e.key === "Enter") e.preventDefault();
           },
         }}
-      />
+      />,
     );
 
     cy.get('input[name="name"]').type("John Doe{enter}");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });

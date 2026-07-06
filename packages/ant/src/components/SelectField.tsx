@@ -1,29 +1,29 @@
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 import { Select } from "antd";
 import React from "react";
-import { useController } from "react-hook-form";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
   id,
-  field,
   inputProps,
+  parsedField,
 }) => {
-  const { key, onChange, onBlur, ref, ...props } = inputProps;
-  const { field: formField } = useController({ name: id });
+  const { field } = useField({ name: id });
+  const { ref, ...restInputProps } = inputProps as any;
 
   const options =
-    field.options?.map((option) => ({
+    parsedField.options?.map((option) => ({
       label: option[1],
       value: option[1],
     })) || [];
   return (
     <Select
+      ref={ref}
       id={id}
-      key={key}
-      {...props}
-      {...formField}
+      key={id}
+      {...restInputProps}
+      {...field}
       options={options}
-      onChange={formField.onChange}
       style={{ width: "100%" }}
     />
   );

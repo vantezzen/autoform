@@ -1,4 +1,5 @@
-import { isZodV4Schema, AnyZodSchema, AnyZodObject } from "../utils";
+import { isZodV4Schema } from "../utils";
+import type { AnyZodSchema, AnyZodObject } from "../utils";
 import {
   getDefaultValueInZodStack as v3GetDefault,
   getDefaultValues as v3GetDefaults,
