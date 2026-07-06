@@ -93,8 +93,23 @@ For releases, AutoForm uses changesets. To create a new release, run:
 
 ```bash
 pnpm build
-pnpm cypress # Run the component tests
-pnpm dlx changeset
+pnpm check:packages
+pnpm cypress
+```
+
+Use `pnpm cypress:open` to run the component tests in the Cypress UI.
+
+To document a change, add a changeset:
+
+```bash
+pnpm changeset
+```
+
+To publish a release, run:
+
+```bash
+pnpm changeset version
+pnpm changeset publish
 ```
 
 ## License
