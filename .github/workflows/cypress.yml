@@ -25,4 +25,4 @@ jobs:
         run: pnpm build
 
       - name: Cypress run
-        run: pnpm cypress
+        run: pnpm --filter web exec cypress run --component --browser chrome
