@@ -25,9 +25,4 @@ jobs:
         run: pnpm build
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          install: false
-          project: apps/web
-          browser: chrome
-          component: true
+        run: pnpm cypress
