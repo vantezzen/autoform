@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
@@ -23,7 +23,7 @@ describe("AutoForm Enums Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Check if select trigger exists
@@ -53,7 +53,7 @@ describe("AutoForm Enums Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Verify default value is selected

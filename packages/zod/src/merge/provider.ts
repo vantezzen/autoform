@@ -1,12 +1,18 @@
-import { ZodObjectOrWrapped } from "../v3";
-import { isZodV4Schema, AnyZodObject } from "../utils";
+import type { ZodObjectOrWrapped } from "../v3";
+import { isZodV4Schema } from "../utils";
+import type { AnyZodObject } from "../utils";
 import { ZodProvider as V3Provider } from "../v3/provider";
 import { ZodProvider as V4Provider } from "../v4/provider";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
+import type {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@autoform/core";
 
-export class ZodProvider<T extends AnyZodObject>
-  implements SchemaProvider<any>
-{
+export class ZodProvider<
+  T extends AnyZodObject,
+> implements SchemaProvider<any> {
+  schemaType = "zod" as const;
   private Provider: SchemaProvider;
 
   /**
@@ -14,7 +20,7 @@ export class ZodProvider<T extends AnyZodObject>
    *
    * @param schema - Zod schema to use for validation
    */
-  constructor(schema: T) {
+  constructor(private schema: T) {
     if (!schema) {
       throw new Error("ZodProvider: schema is required");
     }
@@ -36,5 +42,9 @@ export class ZodProvider<T extends AnyZodObject>
 
   getDefaultValues(): Record<string, any> {
     return this.Provider.getDefaultValues();
+  }
+
+  getSchema(): T {
+    return this.schema;
   }
 }

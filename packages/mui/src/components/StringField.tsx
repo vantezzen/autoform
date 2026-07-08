@@ -1,9 +1,22 @@
 import React from "react";
 import Input from "@mui/material/Input";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
-  error,
   id,
   inputProps,
-}) => <Input id={id} error={!!error} fullWidth {...inputProps} />;
+}) => {
+  const { ref, ...field } = useField({ name: id }).field;
+  return (
+    <Input
+      id={id}
+      key={id}
+      fullWidth
+      inputRef={ref}
+      {...inputProps}
+      {...field}
+      value={field.value ?? ""}
+    />
+  );
+};

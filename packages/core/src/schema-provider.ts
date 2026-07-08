@@ -1,4 +1,4 @@
-import { ParsedSchema, SchemaValidation } from "./types";
+import type { ParsedSchema, SchemaType, SchemaValidation } from "./types";
 
 /**
  * Schema provider interface
@@ -28,4 +28,14 @@ export interface SchemaProvider<T = any> {
    * @returns Default values for the form
    */
   getDefaultValues(): Record<string, any>;
+
+  /**
+   * Schema library used by consumers that need library-specific integrations.
+   */
+  schemaType?: SchemaType;
+
+  /**
+   * Get the original schema instance.
+   */
+  getSchema?(): unknown;
 }

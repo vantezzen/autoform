@@ -1,0 +1,14 @@
+{
+  "title": "TanStack Form",
+  "icon": "TanStackLogo",
+  "pages": [
+    "---Guide---",
+    "getting-started",
+    "form-control",
+    "customization",
+    "api",
+    "faq-examples",
+    "---Custom---",
+    "custom-integration"
+  ]
+}

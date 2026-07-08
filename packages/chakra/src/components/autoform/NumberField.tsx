@@ -1,27 +1,27 @@
 import React from "react";
-import { useController } from "react-hook-form";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../../field-context";
 import {
   NumberInputField,
   NumberInputRoot,
-} from "@/components/ui/number-input";
+} from "../ui/number-input";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
   id,
   inputProps,
 }) => {
-  const { key, onChange, ...props } = inputProps;
-  const { field } = useController({ name: id });
+  const { ref, ...field } = useField({ name: id }).field;
 
   return (
     <NumberInputRoot
-      key={key}
+      key={id}
       onValueChange={({ value }) => {
         field.onChange(value);
       }}
+      value={field.value ?? ""}
       w={"full"}
     >
-      <NumberInputField {...props} />
+      <NumberInputField id={id} {...inputProps} {...field} ref={ref} />
     </NumberInputRoot>
   );
 };

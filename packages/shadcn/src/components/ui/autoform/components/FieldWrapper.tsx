@@ -1,33 +1,37 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
-import { FieldWrapperProps } from "@autoform/react";
+import type { FieldWrapperProps } from "@autoform/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];
+const DISABLE_HELPER_TEXT = ["object", "array"];
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
-  label,
-  children,
   id,
-  field,
+  label,
   error,
+  children,
+  parsedField,
 }) => {
-  const isDisabled = DISABLED_LABELS.includes(field.type);
+  const isDisabled = DISABLED_LABELS.includes(parsedField.type);
+  const hideHelperText = DISABLE_HELPER_TEXT.includes(parsedField.type);
 
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-2">
       {!isDisabled && (
         <Label htmlFor={id}>
           {label}
-          {field.required && <span className="text-destructive"> *</span>}
+          {parsedField.required && <span className="text-destructive"> *</span>}
         </Label>
       )}
       {children}
-      {field.fieldConfig?.description && (
-        <p className="text-sm text-muted-foreground">
-          {field.fieldConfig.description}
-        </p>
+      {!hideHelperText && parsedField.fieldConfig?.description && (
+        <div className="text-sm text-muted-foreground">
+          {parsedField.fieldConfig.description}
+        </div>
       )}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {!hideHelperText && error && (
+        <div className="text-sm text-destructive">{error}</div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,22 @@
 ---
 title: Getting Started
+description: Render AutoForm with the React Hook Form adapter.
 ---
 
 > New to AutoForm? Check out the [introduction](/docs) first.
 
-> Migrating from the old shadcn/ui component? Check out the [migration guide](/docs/react/migration).
+## Install the AutoForm Agent Skill (optional)
+
+If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot),
+you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific
+documentation, examples, and best practices.
+
+<ModeTab
+  mode="cli"
+  command="skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform"
+/>
+
+---
 
 <div className='fd-steps [&_h2]:fd-step'>
 
@@ -12,10 +24,24 @@ title: Getting Started
 
 AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
 
-Before installing an @autoform UI package
+Before installing an AutoForm UI package, install the React base package and React Hook Form dependencies directly in your app:
 
-    - Install `react-hook-form@^7`
-    - Install required peer dependencies.
+<ModeTab command="@autoform/react react-hook-form @hookform/resolvers" />
+
+---
+
+#### Shadcn/ui
+
+<ModeTab
+  mode="cli"
+  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json"
+/>
+
+```tsx
+import { AutoForm } from "@/components/ui/autoform/react-hook-form";
+```
+
+By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
 
 ---
 
@@ -25,18 +51,24 @@ Before installing an @autoform UI package
 ```json tab="manual"
 {
   "@mui/material": "^6",
+  "@mui/icons-material": "^6",
   "@emotion/react": "^11",
   "@emotion/styled": "^11"
 }
 ```
+
 <Tab value="cli" className="p-0">
   <ModeTab
     className=" border-0"
-    command="@mui/material@^6 @emotion/react@^11 @emotion/styled@^11"
+    command="@mui/material@^6 @mui/icons-material@^6 @emotion/react@^11 @emotion/styled@^11"
   />
 </Tab>
 </Tabs>
 <ModeTab command="@autoform/mui" />
+
+```tsx
+import { AutoForm } from "@autoform/mui/react-hook-form";
+```
 
 ---
 
@@ -58,6 +90,10 @@ Before installing an @autoform UI package
 </Tabs>
 <ModeTab command="@autoform/mantine" />
 
+```tsx
+import { AutoForm } from "@autoform/mantine/react-hook-form";
+```
+
 ---
 
 #### Ant Design
@@ -76,6 +112,10 @@ Before installing an @autoform UI package
 </Tab>
 </Tabs>
 <ModeTab command="@autoform/ant" />
+
+```tsx
+import { AutoForm } from "@autoform/ant/react-hook-form";
+```
 
 ---
 
@@ -97,22 +137,13 @@ Before installing an @autoform UI package
 </Tabs>
 <ModeTab command="@autoform/chakra" />
 
----
+```tsx
+import { AutoForm } from "@autoform/chakra/react-hook-form";
+```
 
-#### Shadcn/ui
+If you want to integrate into another UI library and create a custom package, check out the [custom integration guide](/docs/react/custom-integration).
 
-<ModeTab
-  mode="cli"
-  command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform.json"
-/>
-
-Use `import { AutoForm } from "@/components/ui/autoform"` to import the component. By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
-
-- more to come...
-
-If you want to integrate into your own UI components or another UI library, check out the [custom integration guide](/docs/react/custom-integration).
-
-In the docs, we will use Material UI as an example but simply replace the imports with the ones from your UI library.
+In the docs, we will use mui as an example but simply replace the imports with the ones from your UI library.
 
 ## Install AutoForm's integration to your schema library
 
@@ -120,29 +151,33 @@ In the docs, we will use Material UI as an example but simply replace the import
 
 <ModeTab command="@autoform/zod" />
 
-> If you are using Zod < 3.25.0 (i.e. the one before the split into `/v3` and `/v4`), please install `@autoform/zod@^4.0.0` instead:
->
-> <ModeTab command="@autoform/zod@^4.0.0" />
+<Callout> requires zod version greater than 3.25.0 to be installed</Callout>
+
+---
 
 #### Yup
 
 <ModeTab command="@autoform/yup" />
 
+---
+
 #### Joi
 
 <ModeTab command="@autoform/joi" />
-more to come...
 
 In the docs, we will use Zod as an example but simply replace the imports with the ones from your schema library.
 
 ## Create a form
 
 ```tsx
-import { AutoForm } from "@autoform/mui";
+import * as z from "zod";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 
 const mySchema = z.object({
-  // ...
+  name: z.string(),
+  age: z.coerce.number(),
+  birthday: z.coerce.date(),
 });
 const schemaProvider = new ZodProvider(mySchema);
 
@@ -157,13 +192,34 @@ function MyForm() {
     />
   );
 }
+
+export default MyForm;
+```
+
+Common imports you may need:
+
+```tsx
+// similar for yup or joi
+import { ZodProvider, fieldConfig } from "@autoform/zod";
+
+// Shared component types.
+import type {
+  AutoFormFieldProps,
+  FieldWrapperProps,
+  ObjectWrapperProps,
+  ArrayWrapperProps,
+  ArrayElementWrapperProps,
+} from "@autoform/react";
+
+// For custom fields.
+import { useController } from "react-hook-form";
 ```
 
 </div>
 
 ## Next.js and RSC
 
-AutoForm can only be used inside a client-side React component due to serialization of the schema and values to your event listeners. If you want to use it in a Next.js app, simply mark your component with "use client":
+AutoForm can only be used inside a `client-side` React component due to serialization of the schema. If you want to use it in a Next.js app, mark your component with "use client".
 
 ```tsx
 // MyPage.tsx
@@ -177,73 +233,11 @@ export default function MyPage() {
 
 // MyForm.tsx
 "use client";
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 export default function MyForm() {
   return <AutoForm ... />;
 }
 ```
-
-## Accessing the form data
-
-The form data is managed by react-hook-form. There are two ways to access the form data:
-
-### onSubmit
-
-The preferred way is to use the `onSubmit` prop. This will be called when the form is submitted and the data is valid.
-
-```tsx
-<AutoForm
-  onSubmit={(data, form) => {
-    // Do something with the data
-    // Data is validated and coerced with zod automatically
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
-    // for further information and control over the form
-  }}
-/>
-```
-
-### Using onFormInit and `values`
-
-If you need more control over the form, you can use the `onFormInit` and `values` props to get access to the react-hook-form instance and control data directly:
-
-```tsx
-const [values, setValues] = useState({});
-
-<AutoForm
-  onFormInit={(form) => {
-    // You can use the "form" prop to access the underlying "react-hook-form" instance
-    // https://www.react-hook-form.com/api/useform/
-    form.watch((data) => {
-      setValues(data);
-    });
-
-    // You can freely save the form instance to a state or context and use it later to access the form state
-    form.formState.isDirty; // => true
-  }}
-  values={values}
-/>;
-```
-
-This allows you to access form methods and state from the parent component. You can use the `onFormInit` prop independent of controlled forms to access the form instance.
-
-## Passing props to the form element
-
-You can pass additional props to the underlying form element using the `formProps` prop:
-
-```tsx
-<AutoForm
-  schema={schemaProvider}
-  onSubmit={handleSubmit}
-  formProps={{
-    className: "my-custom-form-class",
-    onKeyDown: (e) => {
-      if (e.key === "Enter") e.preventDefault();
-    },
-  }}
-/>
-```
-
-This allows you to customize the form element's attributes and behavior as needed.
 
 ## Submitting the form
 
@@ -272,10 +266,19 @@ All children passed to the `AutoForm` component will be rendered below the form.
 </AutoForm>
 ```
 
+## Accessing the form data and methods
+
+AutoForm gives you several ways to access the form state and methods — via `onSubmit`, `useFormContext`, or an external `formControl`. See [more](/docs/react/form-control).
+
+## Custom field components
+
+When creating custom field components, you can use `useController()` from react-hook-form to register the field and access the field's methods and state. To learn more about creating custom fields, see [customization](/docs/react/customization#custom-fields).
+
 ## Next Steps
 
 - [How to define your zod schema](/docs/schema-providers/zod)
 - [How to define your yup schema](/docs/schema-providers/yup)
 - [How to define your joi schema](/docs/schema-providers/joi)
+- [Accessing form data & methods](/docs/react/form-control)
 - [How to customize your form](/docs/react/customization)
-- [How to use AutoForm with other UI libraries](/docs/react/custom-integration)
+- [API Reference](/docs/react/api)

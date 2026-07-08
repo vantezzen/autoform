@@ -1,9 +1,0 @@
-import "./basic.cy";
-import "./arrays.cy";
-import "./subobjects.cy";
-import "./form-props.cy";
-import "./validation.cy";
-import "./custom-fields.cy";
-import "./controlled-form.cy";
-import "./ui-customization.cy";
-import "./advanced-features.cy";

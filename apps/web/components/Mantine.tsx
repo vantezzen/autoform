@@ -1,13 +1,15 @@
+"use client";
 import { createTheme, MantineProvider } from "@mantine/core";
-import { AutoForm } from "@autoform/mantine";
+import { AutoForm as MantineRHFAutoForm } from "@autoform/mantine/react-hook-form";
+import { AutoForm as MantineTanstackAutoForm } from "@autoform/mantine/tanstack-form";
 import { zodSchemaProvider } from "./utils";
 import "@mantine/core/styles.css";
 
-function Mantine() {
+export function MantineRHF() {
   const theme = createTheme({});
   return (
     <MantineProvider theme={theme}>
-      <AutoForm
+      <MantineRHFAutoForm
         schema={zodSchemaProvider}
         onSubmit={(data) => {
           console.log(JSON.stringify(data, null, 2));
@@ -18,4 +20,17 @@ function Mantine() {
   );
 }
 
-export default Mantine;
+export function MantineTanstack() {
+  const theme = createTheme({});
+  return (
+    <MantineProvider theme={theme}>
+      <MantineTanstackAutoForm
+        schema={zodSchemaProvider}
+        onSubmit={(data) => {
+          console.log(JSON.stringify(data, null, 2));
+        }}
+        withSubmit
+      />
+    </MantineProvider>
+  );
+}

@@ -66,3 +66,8 @@
 .MuiFormControlLabel-label {
   color: rgba(0, 0, 0, 0.7);
 }
+
+.autoform-preview-container p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

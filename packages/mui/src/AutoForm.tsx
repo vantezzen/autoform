@@ -1,10 +1,14 @@
-import React from "react";
+"use client";
+
 import {
-  AutoForm as BaseAutoForm,
   AutoFormUIComponents,
+  AutoFormComponent,
+  AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@autoform/react";
 import { ThemeProvider } from "@mui/material/styles";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as MuiAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -37,25 +41,32 @@ export const MuiAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof MuiAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  theme,
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  const ThemedForm = () => (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...MuiUIComponents, ...uiComponents }}
-      formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
-    />
-  );
-
-  return theme ? (
-    <ThemeProvider theme={theme}>
-      <ThemedForm />
-    </ThemeProvider>
-  ) : (
-    <ThemedForm />
-  );
+/**
+ * Factory that binds the MUI component registry to a specific form adapter.
+ */
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
+  return function MuiAutoForm<
+    T extends Record<string, any> = Record<string, any>,
+  >({
+    theme,
+    uiComponents,
+    formComponents,
+    ...props
+  }: MuiAutoFormProps<T>) {
+    const form = (
+      <FieldHookProvider value={useField}>
+        <BaseAutoForm
+          {...(props as BaseAutoFormProps<T>)}
+          uiComponents={{ ...MuiUIComponents, ...uiComponents }}
+          formComponents={{ ...MuiAutoFormFieldComponents, ...formComponents }}
+        />
+      </FieldHookProvider>
+    );
+    return theme ? <ThemeProvider theme={theme}>{form}</ThemeProvider> : form;
+  };
 }
+
+export { MuiUIComponents };

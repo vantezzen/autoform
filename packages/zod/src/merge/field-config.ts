@@ -1,20 +1,27 @@
-import { FieldConfig } from "@autoform/core";
+import type { FieldConfig } from "@autoform/core";
 import { getFieldConfigInZodStack as v3GetFieldConfig } from "../v3/field-config";
 import { getFieldConfigInZodStack as v4GetFieldConfig } from "../v4/field-config";
-import { isZodV4Schema, AnyZodSchema, ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
+import { isZodV4Schema, ZOD_FIELD_CONFIG_SYMBOL } from "../utils";
+import type { AnyZodSchema } from "../utils";
 
 export function fieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
   CustomData = Record<string, any>,
+  FieldWrapper = any,
+  ObjectWrapper = any,
+  ArrayWrapper = any,
+  ArrayElementWrapper = any,
 >(
   config: FieldConfig<
     AdditionalRenderable,
     FieldTypes,
+    CustomData,
     FieldWrapper,
-    CustomData
-  >
+    ObjectWrapper,
+    ArrayWrapper,
+    ArrayElementWrapper
+  >,
 ) {
   const refinementFunction = () => {};
 
@@ -24,7 +31,7 @@ export function fieldConfig<
 }
 
 export function getFieldConfigInZodStack(
-  schema: AnyZodSchema
+  schema: AnyZodSchema,
 ): FieldConfig | undefined {
   if (isZodV4Schema(schema)) {
     return v4GetFieldConfig(schema);

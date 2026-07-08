@@ -11,13 +11,18 @@ export const Form = React.forwardRef<
   React.useImperativeHandle(
     ref,
     // The ref of the form that exposes antd-design's form instance
-    () => refForm.current?.nativeElement as HTMLFormElement
+    () => refForm.current?.nativeElement as HTMLFormElement,
   );
   return (
     <AntForm
       ref={refForm}
-      onFinish={(e) => {
-        props.onSubmit?.(e[0]);
+      onFinish={async () => {
+        // Create a synthetic event for preventPropagation wrapper
+        const syntheticEvent = {
+          stopPropagation: () => {},
+          preventDefault: () => {},
+        } as any;
+        await props.onSubmit?.(syntheticEvent);
       }}
       {...props}
     >

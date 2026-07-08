@@ -1,9 +1,9 @@
-import { FieldConfig } from "@autoform/core";
-import { YupEnumSchema, YupField } from "./types";
+import type { FieldConfig } from "@autoform/core";
+import type { YupEnumSchema, YupField } from "./types";
 
 export function inferFieldType(
   schema: YupField,
-  fieldConfig?: FieldConfig
+  fieldConfig?: FieldConfig,
 ): string {
   if (fieldConfig?.fieldType) {
     return fieldConfig.fieldType;
@@ -17,7 +17,7 @@ export function inferFieldType(
 
   if (
     ["string", "number", "boolean", "date", "array", "object"].includes(
-      schema.type
+      schema.type,
     )
   ) {
     return schema.type;

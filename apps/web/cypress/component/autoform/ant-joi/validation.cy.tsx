@@ -1,6 +1,6 @@
 import React from "react";
 import Joi from "joi";
-import { AutoForm } from "@autoform/ant";
+import { AutoForm } from "@autoform/ant/react-hook-form";
 import { JoiProvider } from "@autoform/joi";
 
 describe("AutoForm Validation Tests (ANT-JOI)", () => {
@@ -27,7 +27,7 @@ describe("AutoForm Validation Tests (ANT-JOI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("ab");
@@ -49,7 +49,7 @@ describe("AutoForm Validation Tests (ANT-JOI)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get('input[name="username"]').type("johndoe");

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,10 +12,28 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "paths": {
       "@/.source": ["./.source/index.ts"],
+      "@/components/custom-field-components": [
+        "./components/examples/faq/custom-field-components.tsx"
+      ],
+      "@/components/ecommerce-checkout-fields": [
+        "./components/examples/faq/ecommerce-checkout-fields.tsx"
+      ],
+      "@/components/multistep-form": [
+        "./components/examples/faq/multistep-form.tsx"
+      ],
+      "@/components/tanstack-custom-field-components": [
+        "./components/examples/faq/tanstack-custom-field-components.tsx"
+      ],
+      "@/components/tanstack-ecommerce-checkout-fields": [
+        "./components/examples/faq/tanstack-ecommerce-checkout-fields.tsx"
+      ],
+      "@/components/tanstack-multistep-form": [
+        "./components/examples/faq/tanstack-multistep-form.tsx"
+      ],
       "@/*": ["./*"]
     },
     "plugins": [
@@ -25,6 +42,12 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

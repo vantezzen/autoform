@@ -1,12 +1,18 @@
 import { z } from "zod/v3";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
+import type {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@autoform/core";
 import { getDefaultValues } from "./default-values";
 import { parseSchema } from "./schema-parser";
-import { ZodObjectOrWrapped } from "./types";
+import type { ZodObjectOrWrapped } from "./types";
 
-export class ZodProvider<T extends ZodObjectOrWrapped>
-  implements SchemaProvider<z.infer<T>>
-{
+export class ZodProvider<
+  T extends ZodObjectOrWrapped,
+> implements SchemaProvider<z.infer<T>> {
+  schemaType = "zod" as const;
+
   /**
    * Provider to use Zod schemas for AutoForm
    *
@@ -42,5 +48,9 @@ export class ZodProvider<T extends ZodObjectOrWrapped>
 
   getDefaultValues(): Record<string, any> {
     return getDefaultValues(this.schema);
+  }
+
+  getSchema(): T {
+    return this.schema;
   }
 }

@@ -1,10 +1,14 @@
-import React from "react";
+"use client";
+
 import {
-  AutoForm as BaseAutoForm,
   AutoFormUIComponents,
+  AutoFormComponent,
+  AutoFormProps as BaseAutoFormProps,
+  UseFieldFn,
 } from "@autoform/react";
 import { MantineProvider } from "@mantine/core";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps as MantineAutoFormProps } from "./types";
+import { FieldHookProvider } from "./field-context";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -37,25 +41,32 @@ export const MantineAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof MantineAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
-  theme,
-  uiComponents,
-  formComponents,
-  ...props
-}: AutoFormProps<T>) {
-  const ThemedForm = () => (
-    <BaseAutoForm
-      {...props}
-      uiComponents={{ ...MantineUIComponents, ...uiComponents }}
-      formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
-    />
-  );
-
-  return theme ? (
-    <MantineProvider theme={theme}>
-      <ThemedForm />
-    </MantineProvider>
-  ) : (
-    <ThemedForm />
-  );
+/**
+ * Factory that binds the Mantine component registry to a specific form adapter.
+ */
+export function createAutoForm(
+  BaseAutoForm: AutoFormComponent,
+  useField: UseFieldFn,
+) {
+  return function MantineAutoForm<
+    T extends Record<string, any> = Record<string, any>,
+  >({
+    theme,
+    uiComponents,
+    formComponents,
+    ...props
+  }: MantineAutoFormProps<T>) {
+    const form = (
+      <FieldHookProvider value={useField}>
+        <BaseAutoForm
+          {...(props as BaseAutoFormProps<T>)}
+          uiComponents={{ ...MantineUIComponents, ...uiComponents }}
+          formComponents={{ ...MantineAutoFormFieldComponents, ...formComponents }}
+        />
+      </FieldHookProvider>
+    );
+    return theme ? <MantineProvider theme={theme}>{form}</MantineProvider> : form;
+  };
 }
+
+export { MantineUIComponents };

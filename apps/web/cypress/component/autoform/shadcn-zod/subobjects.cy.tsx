@@ -1,10 +1,10 @@
 import React from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
-import { TestWrapper } from "./utils";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Sub-objects Tests (SHADCN-ZOD, ${name})`, () => {
   const subObjectSchema = z.object({
     user: z.object({
       name: z.string(),
@@ -25,7 +25,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').should("exist");
@@ -41,7 +41,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -85,7 +85,7 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get('input[name="user.name"]').type("John Doe");
@@ -109,4 +109,5 @@ describe("AutoForm Sub-objects Tests (SHADCN-ZOD)", () => {
       },
     });
   });
+});
 });

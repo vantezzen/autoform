@@ -1,7 +1,8 @@
-import { AutoForm } from "@autoform/mui";
+import { AutoForm } from "@autoform/mui/react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 import { useState } from "react";
 import * as z from "zod";
+import { zodSchemaProvider } from "./utils";
 
 const formSchema = z.object({
   guest: z.string(),
@@ -15,7 +16,7 @@ function Array() {
 
   return (
     <AutoForm
-      schema={schemaProvider}
+      schema={zodSchemaProvider}
       // values={values}
       // setValues={setValues}
       withSubmit

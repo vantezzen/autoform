@@ -1,11 +1,11 @@
-import { JoiField, JoiObjectOrWrapped, TObjectFields } from "./types";
+import type { JoiField, JoiObjectOrWrapped, TObjectFields } from "./types";
 
 export function getJoiDefaultValue(schema: JoiField): any {
   return schema._flags.default;
 }
 
 export function getDefaultValues(
-  schema: JoiObjectOrWrapped
+  schema: JoiObjectOrWrapped,
 ): Record<string, any> {
   const fields = schema.$_terms.keys as TObjectFields;
 

@@ -1,4 +1,4 @@
-import { FieldWrapperProps, buildZodFieldConfig } from "@autoform/react";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 import Joi from "joi";
 import * as z from "zod/v3";
 import * as z4 from "zod/v4";
@@ -8,20 +8,18 @@ import { object, string, number, date, array, mixed } from "yup";
 import { YupProvider, fieldConfig as yupFieldConfig } from "@autoform/yup";
 import { JoiProvider, fieldConfig as joiFieldConfig } from "@autoform/joi";
 
-const customFieldConfig = buildZodFieldConfig<
-  string,
-  {
-    isImportant?: boolean;
-  }
->();
-
 enum Sports {
-  Football = "Football/Soccer",
-  Basketball = "Basketball",
-  Baseball = "Baseball",
-  Hockey = "Hockey (Ice)",
-  None = "I don't like sports",
+  f = "Football/Soccer",
+  b = "Basketball",
+  ba = "Baseball",
+  h = "Hockey (Ice)",
+  n = "I don't like sports",
 }
+
+const nameId = {
+  name1: "id1",
+  name2: "id2",
+} as const;
 
 const zodFormSchema = z.object({
   // hobbies: z
@@ -29,7 +27,7 @@ const zodFormSchema = z.object({
   //   .optional()
   //   .superRefine(
   //     customFieldConfig({
-  //       description: "This uses a custom field component",
+  //       description: "This uses a custom config component",
   //       order: 1,
   //       fieldType: "custom",
   //       customData: {
@@ -38,6 +36,7 @@ const zodFormSchema = z.object({
   //       },
   //     })
   //   ),
+
   username: z
     .string({
       required_error: "Username is required.",
@@ -48,7 +47,7 @@ const zodFormSchema = z.object({
     .superRefine(
       fieldConfig({
         description: "You cannot change this later.",
-      })
+      }),
     ),
   password: z
     .string({
@@ -68,8 +67,9 @@ const zodFormSchema = z.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
+  optionalField: z.string().min(2).optional(),
   favouriteNumber: z.coerce
     .number({
       invalid_type_error: "Favourite number must be a number.",
@@ -80,14 +80,13 @@ const zodFormSchema = z.object({
     .max(10, {
       message: "Favourite number must be at most 10.",
     })
-    .default(1)
-    .optional(),
+    .optional()
+    .default(10),
   acceptTerms: z
     .boolean()
     .describe("Accept terms and conditions.")
     .refine((value) => value, {
       message: "You must accept the terms and conditions.",
-      path: ["acceptTerms"],
     }),
   sendMeMails: z
     .boolean()
@@ -104,9 +103,15 @@ const zodFormSchema = z.object({
             </>
           );
         },
-      })
+      }),
     ),
   birthday: z.coerce.date({ message: "aaa" }).optional(),
+  nameId: z
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId])
+    .optional(),
   color: z.enum(["red", "green", "blue"]).optional(),
   // Another enum example
   marshmallows: z
@@ -114,16 +119,14 @@ const zodFormSchema = z.object({
     .describe("How many marshmallows fit in your mouth?"),
   // Native enum example
   sports: z.nativeEnum(Sports).describe("What is your favourite sport?"),
-  guests: z.array(
-    z.object({
-      name: z.string(),
-      age: z.coerce.number().optional(),
-      location: z.object({
-        city: z.string(),
-        country: z.string().optional(),
-        test: z.object({
-          name: z.string(),
-          age: z.coerce.number(),
+  guests: z
+    .array(
+      z.object({
+        name: z.string(),
+        age: z.coerce.number().optional(),
+        location: z.object({
+          city: z.string(),
+          country: z.string().optional(),
           test: z.object({
             name: z.string(),
             age: z.coerce.number(),
@@ -133,13 +136,17 @@ const zodFormSchema = z.object({
               test: z.object({
                 name: z.string(),
                 age: z.coerce.number(),
+                test: z.object({
+                  name: z.string(),
+                  age: z.coerce.number(),
+                }),
               }),
             }),
           }),
         }),
       }),
-    })
-  ),
+    )
+    .min(1, "minimum one guest is required"),
   // location: z.object({
   //   city: z.string(),
   //   country: z.string().optional(),
@@ -175,7 +182,7 @@ const zodFormSchema4 = z4.object({
     .check(
       fieldConfig({
         description: "You cannot change this later.",
-      })
+      }),
     ),
   password: z4
     .string({
@@ -196,7 +203,7 @@ const zodFormSchema4 = z4.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
   favouriteNumber: z4.coerce
     .number({
@@ -233,9 +240,15 @@ const zodFormSchema4 = z4.object({
             </>
           );
         },
-      })
+      }),
     ),
   birthday: z4.coerce.date({ message: "aaa" }).optional(),
+  nameId: z4
+    .enum(Object.keys(nameId) as [string, ...string[]], {
+      message: "Invalid name",
+    })
+    .transform((name) => nameId[name as keyof typeof nameId])
+    .optional(),
   color: z4.enum(["red", "green", "blue"]).default("red").optional(),
   // Another enum example
   marshmallows: z4
@@ -267,7 +280,7 @@ const zodFormSchema4 = z4.object({
           }),
         }),
       }),
-    })
+    }),
   ),
 });
 
@@ -281,15 +294,15 @@ const zodFormSchema4mini = zm.object({
       .check(
         zm.minLength(2, {
           message: "Username must be at least 2 characters.",
-        })
+        }),
       )
       .check(
         fieldConfig({
           // Changed from superRefine to register
           description: "You cannot change this later.",
-        })
+        }),
       ),
-    "Default username !"
+    "Default username !",
   ),
 
   password: zm
@@ -299,7 +312,7 @@ const zodFormSchema4mini = zm.object({
     .check(
       zm.minLength(8, {
         message: "Password must be at least 8 characters.",
-      })
+      }),
     )
     .check(
       fieldConfig({
@@ -308,7 +321,7 @@ const zodFormSchema4mini = zm.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
 
   sendMeMails: zm.optional(zm.boolean()).check(
@@ -322,20 +335,27 @@ const zodFormSchema4mini = zm.object({
           </p>
         </>
       ),
-    })
+    }),
   ),
 
   favouriteNumber: zm.optional(zm._default(zm.number(), 4)).check(
     fieldConfig({
       description: "Enter your favourite number",
       label: "Favourite Number !!!",
-    })
+    }),
   ),
 
   favouriteSport: zm.enum(["red", "green", "blue"]).check(
     fieldConfig({
       description: "Your favourite sport",
-    })
+    }),
+  ),
+
+  nameId: zm.optional(
+    zm.pipe(
+      zm.enum(Object.keys(nameId) as [string, ...string[]]),
+      zm.transform((name: keyof typeof nameId) => nameId[name]),
+    ),
   ),
 
   Birthdate: zm.optional(zm.date()),
@@ -344,7 +364,7 @@ const zodFormSchema4mini = zm.object({
       mini: zm.string(),
       age: zm.number(),
       isStudent: zm._default(zm.boolean(), true),
-    })
+    }),
   ),
   object: zm.object({
     mini: zm.optional(zm.string()),
@@ -366,20 +386,25 @@ const yupFormSchema = object({
       inputProps: {
         type: "password",
       },
-    })
+    }),
   ),
   email: string()
     .email()
     .transform((val) => val),
   website: string().url().nullable(),
   // createdOn: date().default(() => new Date()),
-  guests: array().of(
-    object({
-      name: string().required(),
-    })
-  ),
+  guests: array()
+    .of(
+      object({
+        name: string().required(),
+      }),
+    )
+    .min(1, "At least one guest is required"),
   abc: date().optional(),
   sport: mixed().oneOf(Object.values(Sports)),
+  nameId: mixed()
+    .oneOf(Object.keys(nameId))
+    .transform((value) => nameId[value as keyof typeof nameId]),
   hobbies: array().of(string()),
 });
 
@@ -399,7 +424,7 @@ const joiFormSchema = Joi.object({
         inputProps: {
           placeholder: "Enter your username",
         },
-      })
+      }),
     ),
 
   password: Joi.string()
@@ -419,7 +444,7 @@ const joiFormSchema = Joi.object({
         inputProps: {
           type: "password",
         },
-      })
+      }),
     ),
 
   favouriteNumber: Joi.number().min(1).max(10).default(1).messages({
@@ -450,7 +475,7 @@ const joiFormSchema = Joi.object({
             </>
           );
         },
-      })
+      }),
     ),
 
   birthday: Joi.date().optional().messages({
@@ -468,6 +493,10 @@ const joiFormSchema = Joi.object({
     .valid(...Object.values(Sports))
     .required()
     .label("What is your favourite sport?"),
+
+  nameId: Joi.any()
+    .valid(...Object.keys(nameId))
+    .custom((value) => nameId[value as keyof typeof nameId]),
 
   guests: Joi.array().items(
     Joi.object({
@@ -493,7 +522,7 @@ const joiFormSchema = Joi.object({
           }),
         }),
       }),
-    })
+    }),
   ),
 });
 

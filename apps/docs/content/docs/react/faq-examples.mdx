@@ -1,0 +1,309 @@
+---
+title: FAQ & Examples
+description: Common questions and examples.
+---
+
+import ExternalDialogSubmitDemo from "@/components/examples/faq/external-dialog-submit-demo";
+import { CodeFromFile } from "@/components/examples/faq/code-from-file";
+import { InstallInstructions } from "@/components/examples/faq/install-instructions";
+import { InteractiveSchemaDemo } from "@/components/examples/faq/interactive-schema-demo";
+import { MethodTab, MethodTabs } from "@/components/examples/faq/method-tabs";
+import MultistepFormDemo from "@/components/examples/faq/multistep-form-usage-demo";
+import NestedAutoFormDemo from "@/components/examples/faq/nested-autoform-demo";
+import { RealtimeValidationDemo } from "@/components/examples/faq/realtime-validation-demo";
+import { CustomFieldsDemo } from "@/components/examples/faq/custom-fields-demo";
+import { EcommerceCheckoutDemo } from "@/components/examples/faq/ecommerce-checkout-demo";
+
+## How do I show validation errors in real time and disable submit until valid?
+
+Create a formControl with `createFormControl` and set the validation mode to `all`. Access the `isValid` formState via `useFormContext` to track validation status and disable the submit button accordingly.
+
+<Tabs persist items={["preview", "code"]} label="Real-time validation">
+  <Tab value="preview">
+    <RealtimeValidationDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/realtime-validation-demo.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/realtime-validation-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/realtime-validation-demo.tsx",
+      label: "realtime-validation-demo.tsx",
+    },
+  ]}
+  label="Real-time validation install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I submit, reset AutoForm from buttons in a Dialog?
+
+Use either approach:
+
+1.  Autoform wraps the form with [`FormProvider`](https://react-hook-form.com/docs/formprovider/). Render the dialog components as `AutoForm` children and use the [`useFormContext`](https://react-hook-form.com/docs/useformcontext/) hook to access form methods and states.
+
+2.  Access form methods and states externally with [`createFormControl`](https://react-hook-form.com/docs/createFormControl) and trigger actions like submission, reset etc.
+
+<Tabs persist items={["preview", "code"]} label="Dialog submit">
+  <Tab value="preview">
+    <ExternalDialogSubmitDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="use-form-context"
+      items={[
+        { value: "use-form-context", label: "useFormContext" },
+        { value: "create-form-control", label: "createFormControl" },
+      ]}
+    >
+      <MethodTab value="use-form-context">
+        <CodeFromFile
+          file="components/examples/faq/external-dialog-submit-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="create-form-control">
+        <CodeFromFile
+          file="components/examples/faq/external-dialog-form-control-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/dialog-submit-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/external-dialog-submit-demo.tsx",
+      label: "dialog-submit-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/external-dialog-form-control-demo.tsx",
+      label: "dialog-form-control-demo.tsx",
+    },
+  ]}
+  label="External Dialog install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I add a slider, color picker, and many different custom components to a form?
+
+Register the custom input using [`useController`](https://react-hook-form.com/docs/usecontroller), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field.
+
+<Tabs persist items={["preview", "code"]} label="Custom fields form">
+  <Tab value="preview">
+    <CustomFieldsDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "custom-fields-demo.tsx" },
+        { value: "fields", label: "custom-field-components.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/custom-fields-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/custom-fields-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/custom-fields-demo.tsx",
+      label: "custom-fields-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/custom-field-components.tsx",
+      label: "custom-field-components.tsx",
+    },
+  ]}
+  label="Custom fields install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I create fields with dependencies between them?
+
+**1. Validation** — use Zod's [refinement functions](https://zod.dev/api#refinements) (`superRefine`, `refine`, or `check`) to express cross-field rules. These run on submission and integrate with AutoForm's resolver, so error messages are placed in the correct fields.
+
+**2. UI behaviour** — Control rendering and interactivity by using React Hook Form's [`useWatch`](https://react-hook-form.com/docs/usewatch) and [`useFormContext`](https://react-hook-form.com/docs/useformcontext). AutoForm wraps every form in a `FormProvider`, making these hooks work anywhere inside the tree. You can use them inside custom field component or UI components like `fieldWrapper`, `objectWrapper`, `arrayWrapper`, `arrayElementWrapper`.
+
+| Pattern                    | Example in the demo below                                                       |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| **Disable** a field        | Gift message — visible but disabled until _This is a gift_ is checked           |
+| **Hide** a field           | Coupon code — invisible until _"Have a coupon?"_ is checked                     |
+| **Conditional validation** | Payment details — required by `superRefine` only when no 100% coupon is applied |
+| **Dynamic options**        | State dropdown — list rebuilds every time the country changes                   |
+
+<Tabs persist items={["preview", "code"]} label="Ecommerce checkout">
+  <Tab value="preview">
+    <EcommerceCheckoutDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="demo"
+      items={[
+        { value: "demo", label: "ecommerce-checkout-demo.tsx" },
+        { value: "fields", label: "ecommerce-checkout-fields.tsx" },
+      ]}
+    >
+      <MethodTab value="demo">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="fields">
+        <CodeFromFile
+          file="components/examples/faq/ecommerce-checkout-fields.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/ecommerce-checkout-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/ecommerce-checkout-demo.tsx",
+      label: "ecommerce-checkout-demo.tsx",
+    },
+    {
+      path: "components/examples/faq/ecommerce-checkout-fields.tsx",
+      label: "ecommerce-checkout-fields.tsx",
+    },
+  ]}
+  label="Ecommerce checkout install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I create a simple multistep form?
+
+Use a separate schema for each step. Render the current step, call `trigger()` to validate
+it, then use `getValues()` to read and save its values in state before moving forward.
+
+<Tabs persist items={["preview", "code"]} label="Multistep form">
+  <Tab value="preview">
+    <MultistepFormDemo />
+  </Tab>
+  <Tab value="code">
+    <MethodTabs
+      defaultValue="usage"
+      items={[
+        { value: "usage", label: "Usage" },
+        { value: "multistep-form", label: "MultistepForm" },
+      ]}
+    >
+      <MethodTab value="usage">
+        <CodeFromFile
+          file="components/examples/faq/multistep-form-usage-demo.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="multistep-form">
+        <CodeFromFile
+          file="components/examples/faq/multistep-form.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+    </MethodTabs>
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/multistep-form-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/multistep-form-usage-demo.tsx",
+      label: "multistep-form-usage.tsx",
+    },
+    {
+      path: "components/examples/faq/multistep-form.tsx",
+      label: "multistep-form.tsx",
+    },
+  ]}
+  label="Multistep form install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I use another AutoForm inside an AutoForm field?
+
+Define a custom field component, register it in `formComponents`, then mark the schema field with `fieldConfig({ fieldType: "..." })`. When the nested AutoForm submits, pass its value back to the parent via `onChange`.
+
+<Tabs persist items={["preview", "code"]} label="Nested AutoForm">
+  <Tab value="preview">
+    <NestedAutoFormDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/nested-autoform-demo.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/nested-autoform-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/nested-autoform-demo.tsx",
+      label: "nested-autoform-demo.tsx",
+    },
+  ]}
+  label="Nested AutoForm install"
+  guideHref="/docs/react/getting-started"
+/>
+
+## How do I create a interactive, dynamic form builder?
+
+Combine a Monaco editor with AutoForm for interactive forms: evaluate the Zod schema string on every editor change and pass the resulting `ZodProvider` to `AutoForm`.
+
+<Tabs persist items={["preview", "code"]} label="Interactive form builder">
+  <Tab value="preview">
+    <InteractiveSchemaDemo />
+  </Tab>
+  <Tab value="code">
+    <CodeFromFile
+      file="components/examples/faq/interactive-schema-demo-content.tsx"
+      lang="tsx"
+    />
+  </Tab>
+</Tabs>
+
+<Callout title="Caution" type="warn">
+  This demo uses `eval()` to parse the editor input. Avoid using `eval()` with
+  untrusted input or in production server-side code.
+</Callout>
+
+<InstallInstructions
+  registryUrl="https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/interactive-schema-demo.json"
+  codeFiles={[
+    {
+      path: "components/examples/faq/interactive-schema-demo-content.tsx",
+      label: "interactive-schema-demo.tsx",
+    },
+  ]}
+  label="Interactive schema install"
+  guideHref="/docs/react/getting-started"
+/>

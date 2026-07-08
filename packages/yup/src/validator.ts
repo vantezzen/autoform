@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { YupObjectOrWrapped } from "./types";
+import type { YupObjectOrWrapped } from "./types";
 
 export function validateSchema(schema: YupObjectOrWrapped, values: any) {
   try {

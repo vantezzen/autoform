@@ -1,21 +1,28 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({
-  field,
-  inputProps,
+  id,
   label,
+  error,
+  inputProps,
+  parsedField,
 }) => {
-  const { key, ...props } = inputProps;
+  const { field } = useField({ name: id });
 
   return (
     <TextInput
-      key={key}
+      key={id}
       type="number"
       label={label}
-      description={field.fieldConfig?.description}
-      {...props}
+      error={error}
+      {...field}
+      {...inputProps}
+      value={field.value ?? ""}
+      withAsterisk={parsedField.required}
+      description={parsedField.fieldConfig?.description}
     />
   );
 };

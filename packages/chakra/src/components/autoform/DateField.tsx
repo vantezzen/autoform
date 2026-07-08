@@ -1,9 +1,25 @@
 import React from "react";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../../field-context";
 import { Input } from "@chakra-ui/react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({ id, inputProps }) => {
-  const { key, ...props } = inputProps;
+  const { field } = useField({ name: id });
+  const { value, ...restField } = field;
 
-  return <Input id={id} type="date" {...props} />;
+  const formattedValue = value instanceof Date
+    ? value.toISOString().split("T")[0]
+    : typeof value === "string" && !isNaN(Date.parse(value))
+      ? new Date(value).toISOString().split("T")[0]
+      : value ?? "";
+
+  return (
+    <Input
+      id={id}
+      type="date"
+      {...inputProps}
+      {...restField}
+      value={formattedValue}
+    />
+  );
 };

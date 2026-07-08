@@ -1,11 +1,11 @@
-import { YupField, YupObjectOrWrapped } from "./types";
+import type { YupField, YupObjectOrWrapped } from "./types";
 
 export function getYupFieldDefaultValue(schema: YupField): any {
   return schema.spec.default;
 }
 
 export function getDefaultValues(
-  schema: YupObjectOrWrapped
+  schema: YupObjectOrWrapped,
 ): Record<string, any> {
   const defaultValues: Record<string, any> = {};
 

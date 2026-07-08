@@ -9,6 +9,7 @@ export interface CodeBlockProps {
 
 export async function CodeBlock({ code, lang, wrapper }: CodeBlockProps) {
   const rendered = await highlight(code, {
+    defaultColor: false,
     lang,
     themes: {
       light: "github-light",

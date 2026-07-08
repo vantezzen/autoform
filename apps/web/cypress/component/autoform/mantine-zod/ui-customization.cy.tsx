@@ -1,12 +1,12 @@
 import React from "react";
-import { AutoForm } from "@autoform/mantine";
 import { ZodProvider, fieldConfig } from "@autoform/zod";
 import { z } from "zod/v3";
 import { TextField } from "@mui/material";
-import { TestWrapper } from "./utils";
-import { FieldWrapperProps } from "@autoform/react";
+import { autoFormAdapters, TestWrapper } from "./utils";
+import { FieldWrapperProps } from "@autoform/react/react-hook-form";
 
-describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm UI Customization Tests (MANTINE-ZOD), ${name}`, () => {
   const customSchema = z.object({
     name: z.string().superRefine(
       fieldConfig({
@@ -16,7 +16,7 @@ describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
             {children}
           </div>
         ),
-      })
+      }),
     ),
     email: z.string().email(),
   });
@@ -31,7 +31,7 @@ describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-wrapper").should("exist");
@@ -54,7 +54,7 @@ describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".override-wrapper").should("exist");
@@ -69,7 +69,7 @@ describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
           formComponents={{
-            string: ({ field, inputProps }) => (
+            string: ({ inputProps }) => (
               <TextField
                 {...inputProps}
                 variant="outlined"
@@ -78,9 +78,10 @@ describe("AutoForm UI Customization Tests (MANTINE-ZOD)", () => {
             ),
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-text-field").should("exist");
   });
+});
 });

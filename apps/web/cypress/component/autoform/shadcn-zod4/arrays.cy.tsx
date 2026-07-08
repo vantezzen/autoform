@@ -1,5 +1,5 @@
 import React from "react";
-import { AutoForm } from "@autoform/shadcn/components/ui/autoform/AutoForm";
+import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
@@ -11,7 +11,7 @@ describe("AutoForm Arrays Tests (SHADCN-ZOD-V4)", () => {
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -25,7 +25,7 @@ describe("AutoForm Arrays Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".lucide-plus").should("exist");
@@ -40,7 +40,7 @@ describe("AutoForm Arrays Tests (SHADCN-ZOD-V4)", () => {
           onSubmit={cy.stub().as("onSubmit")}
           withSubmit
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     // Add tags

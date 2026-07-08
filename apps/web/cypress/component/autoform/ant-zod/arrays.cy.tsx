@@ -1,16 +1,17 @@
 import React from "react";
-import { AutoForm } from "@autoform/ant";
+import { autoFormAdapters } from "./utils";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
 
-describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Arrays Tests (ANT-ZOD), ${name}`, () => {
   const arraySchema = z.object({
     tags: z.array(z.string()),
     friends: z.array(
       z.object({
         name: z.string(),
         age: z.coerce.number(),
-      })
+      }),
     ),
   });
 
@@ -22,7 +23,7 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     cy.get(".ant-btn")
@@ -39,7 +40,7 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
         schema={schemaProvider}
         onSubmit={cy.stub().as("onSubmit")}
         withSubmit
-      />
+      />,
     );
 
     // Add tags
@@ -68,4 +69,5 @@ describe("AutoForm Arrays Tests (ANT-ZOD)", () => {
       friends: [{ name: "Bob", age: 30 }],
     });
   });
+});
 });

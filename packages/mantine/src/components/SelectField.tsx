@@ -1,36 +1,28 @@
 import React from "react";
 import { Select } from "@mantine/core";
-import { AutoFormFieldProps } from "@autoform/react";
+import type { AutoFormFieldProps } from "@autoform/react";
+import { useField } from "../field-context";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({
-  field,
+  id,
+  label,
   error,
   inputProps,
-  label,
-  id,
-  value,
+  parsedField,
 }) => {
-  const { key, ...props } = inputProps;
+  const { field } = useField({ name: id });
 
   return (
     <Select
-      key={key}
-      {...props}
+      key={id}
+      {...inputProps}
+      {...field}
       label={label}
       error={error}
-      onChange={(value) => {
-        const event = {
-          target: {
-            name: field.key,
-            value: value,
-          },
-        };
-        props.onChange(event);
-      }}
-      defaultValue={value}
-      description={field.fieldConfig?.description}
-      data={(field.options || []).map(([key, label]) => ({
-        value: key,
+      withAsterisk={parsedField.required}
+      description={parsedField.fieldConfig?.description}
+      data={(parsedField.options || []).map(([_key, label]) => ({
+        value: label,
         label,
       }))}
     />

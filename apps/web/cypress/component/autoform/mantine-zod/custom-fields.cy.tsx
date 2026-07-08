@@ -1,22 +1,35 @@
 import React from "react";
-import { AutoForm } from "@autoform/mantine";
 import { fieldConfig, ZodProvider } from "@autoform/zod";
 import { z } from "zod/v3";
-import { AutoFormFieldProps } from "@autoform/react";
-import { TestWrapper } from "./utils";
+import type { AutoFormFieldProps } from "@autoform/react/react-hook-form";
+import { useFieldRHF } from "@autoform/react/react-hook-form";
+import { useFieldTanStack } from "@autoform/react/tanstack-form";
+import { autoFormAdapters, TestWrapper } from "./utils";
 
-describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
+autoFormAdapters.forEach(({ name, AutoForm }) => {
+  describe(`AutoForm Custom Fields Tests (MANTINE-ZOD), ${name}`, () => {
   const CustomField: React.FC<AutoFormFieldProps> = ({
-    field,
     inputProps,
     error,
     id,
-  }) => (
-    <div>
-      <input id={id} type="text" className="custom-input" {...inputProps} />
-      {error && <span className="error">{error}</span>}
-    </div>
-  );
+  }) => {
+    const { field } =
+      name === "react-hook-form"
+        ? useFieldRHF({ name: id })
+        : useFieldTanStack({ name: id });
+    return (
+      <div>
+        <input
+          id={id}
+          type="text"
+          className="custom-input"
+          {...field}
+          {...inputProps}
+        />
+        {error && <span className="error">{error}</span>}
+      </div>
+    );
+  };
 
   const customSchema = z.object({
     customField: z
@@ -25,7 +38,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
       .superRefine(
         fieldConfig({
           fieldType: "custom",
-        })
+        }),
       ),
   });
 
@@ -42,7 +55,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").should("exist");
@@ -68,7 +81,7 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
             custom: CustomField,
           }}
         />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     cy.get(".custom-input").type("Hi");
@@ -77,4 +90,5 @@ describe("AutoForm Custom Fields Tests (MANTINE-ZOD)", () => {
     cy.get(".error").should("contain", "Must be at least 5 characters");
     cy.get("@onSubmit").should("not.have.been.called");
   });
+});
 });
