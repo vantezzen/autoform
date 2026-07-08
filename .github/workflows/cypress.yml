@@ -29,8 +29,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Lint
+        run: pnpm lint
+
       - name: Build packages
         run: pnpm build
+
+      - name: Check package boundaries
+        run: pnpm check:packages
 
       - name: Cypress run
         run: pnpm --filter web exec cypress run --component --browser chrome
