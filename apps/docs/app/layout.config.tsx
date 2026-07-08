@@ -1,5 +1,8 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { ChevronsDown } from "lucide-react";
+import Image from "next/image";
+import icon from "@/app/icon.png";
+
 /**
  * Shared layout configurations
  *
@@ -11,7 +14,7 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <div className="flex items-center gap-2">
-        <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
+        <Image src={icon} alt="AutoForm" width={24} height={24} />
         AutoForm
       </div>
     ),

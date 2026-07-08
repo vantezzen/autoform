@@ -1,109 +1,207 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Editor from "@monaco-editor/react";
-// import { AutoForm } from "@autoform/mui/react-hook-form";
-import { z } from "zod";
+
+import * as React from "react";
+import Editor, {
+  type BeforeMount,
+  type EditorProps,
+  type OnMount,
+} from "@monaco-editor/react";
 import type { SchemaProvider } from "@autoform/core";
-import { ZodProvider } from "@autoform/zod";
+import { ZodProvider, type AnyZodObject } from "@autoform/zod";
+import { z } from "zod";
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
+import { Button } from "@/components/ui/button";
 
-const defaultCode = `z.object({
-  name: z.string(),
-  age: z.coerce.number(),
-  isHuman: z.boolean(),
-})`;
-const globalZod = z;
+const defaultCode = `const schema = z.object({
+  name: z.string()
+    .min(2, "Enter at least 2 characters")
+    .describe("Name"),
+  email: z.string()
+    .email("Use a valid email")
+    .describe("Email"),
+  role: z.enum(["admin", "editor", "viewer"])
+    .default("editor")
+    .describe("Role"),
+  seats: z.coerce.number()
+    .int()
+    .min(1)
+    .default(5)
+    .describe("Seats"),
+  active: z.boolean()
+    .default(true)
+    .describe("Active user"),
+});
 
-const editorOptions = {
+schema`;
+
+const defaultSchema = z.object({
+  name: z.string().min(2, "Enter at least 2 characters").describe("Name"),
+  email: z.string().email("Use a valid email").describe("Email"),
+  role: z
+    .enum(["admin", "editor", "viewer"])
+    .default("editor")
+    .describe("Role"),
+  seats: z.coerce.number().int().min(1).default(5).describe("Seats"),
+  active: z.boolean().default(true).describe("Active user"),
+});
+
+const editorOptions: EditorProps["options"] = {
+  automaticLayout: true,
   minimap: { enabled: false },
+  fontSize: 14,
+  lineNumbersMinChars: 3,
+  renderLineHighlight: "none",
   scrollBeyondLastLine: false,
-  lineNumbersMinChars: 2,
-  glyphMargin: false,
+  padding: { top: 16, bottom: 16 },
   folding: false,
+  glyphMargin: false,
   scrollbar: {
     useShadows: false,
-    verticalScrollbarSize: 10,
-    horizontalScrollbarSize: 10,
+    verticalScrollbarSize: 8,
+    horizontalScrollbarSize: 8,
     alwaysConsumeMouseWheel: false,
   },
 };
 
-const getEditorTheme = () =>
-  document.documentElement.classList.contains("dark") ? "vs-dark" : "light";
+const configureMonaco: BeforeMount = (monaco) => {
+  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    noSemanticValidation: true,
+    noSyntaxValidation: false,
+  });
 
-function useEditorTheme() {
-  const [theme, setTheme] = useState(getEditorTheme);
-  useEffect(() => {
-    const observer = new MutationObserver(() => setTheme(getEditorTheme()));
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
-  return theme;
+  monaco.editor.defineTheme("autoformLight", {
+    base: "vs",
+    inherit: true,
+    rules: [
+      { token: "keyword", foreground: "7c3aed", fontStyle: "bold" },
+      { token: "identifier", foreground: "111827" },
+      { token: "string", foreground: "047857" },
+      { token: "number", foreground: "b45309" },
+      { token: "delimiter", foreground: "52525b" },
+      { token: "operator", foreground: "52525b" },
+      { token: "type.identifier", foreground: "0369a1" },
+    ],
+    colors: {
+      "editor.background": "#fafafa",
+      "editor.foreground": "#18181b",
+      "editorLineNumber.foreground": "#a1a1aa",
+      "editorCursor.foreground": "#18181b",
+      "editor.selectionBackground": "#d4d4d8",
+      "editor.inactiveSelectionBackground": "#e4e4e7",
+    },
+  });
+};
+
+const setEditorLanguage: OnMount = (editor, monaco) => {
+  const model = editor.getModel();
+  if (model) {
+    monaco.editor.setModelLanguage(model, "typescript");
+  }
+};
+
+function parseSchema(code: string): SchemaProvider {
+  let schema: unknown;
+
+  try {
+    schema = new Function("z", `"use strict"; return (${code});`)(z);
+  } catch {
+    schema = new Function("z", `"use strict"; ${code}; return schema;`)(z);
+  }
+
+  if (!schema || typeof schema !== "object") {
+    throw new Error("Return a Zod object from the editor.");
+  }
+
+  const provider = new ZodProvider(schema as AnyZodObject);
+  provider.parseSchema();
+  return provider;
 }
 
-function InteractiveDemoContent() {
-  const [code, setCode] = React.useState(defaultCode);
-  const [schema, setSchema] = React.useState<z.ZodObject<any, any>>(
-    z.object({
-      name: z.string(),
-      age: z.coerce.number(),
-      isHuman: z.boolean(),
-    }),
-  );
+export default function InteractiveDemoContent() {
   const [schemaProvider, setSchemaProvider] = React.useState<SchemaProvider>(
-    () => new ZodProvider(schema),
+    () => new ZodProvider(defaultSchema),
   );
   const [formKey, setFormKey] = React.useState(0);
-  const [data, setData] = useState("");
-  const editorTheme = useEditorTheme();
+  const [error, setError] = React.useState<string | null>(null);
+  const [submitted, setSubmitted] = React.useState<string | null>(null);
 
-  useEffect(() => {
+  const updateSchema = React.useCallback((value?: string) => {
     try {
-      const z = globalZod;
-      void z;
-      const parsedSchema = eval(code);
-      const provider = new ZodProvider(parsedSchema);
-      provider.parseSchema();
-      setSchema(parsedSchema);
-      setSchemaProvider(provider);
-      setFormKey((k) => k + 1);
-    } catch (error) {
-      console.error(error);
+      setSchemaProvider(parseSchema(value || ""));
+      setFormKey((key) => key + 1);
+      setSubmitted(null);
+      setError(null);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Invalid schema");
     }
-  }, [code]);
+  }, []);
 
   return (
-    <div className="grid md:grid-cols-2 gap-1 w-full rounded-lg border bg-background overflow-hidden">
-      <div className="bg-muted/40 p-1 md:py-6 md:px-1 border-b md:border-b-0 md:border-r">
-        <Editor
-          className="md:h-[500px] md:border-0 h-[310px] border"
-          options={editorOptions}
-          defaultLanguage="javascript"
-          defaultValue={defaultCode}
-          theme={editorTheme}
-          onChange={(value) => setCode(value || "")}
-        />
+    <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
+      <div className="flex flex-col gap-2 border-b border-zinc-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-sm font-semibold text-zinc-950">Live demo</h2>
+          <p className="mt-1 text-sm text-zinc-600">
+            Edit the Zod schema. The generated form updates when the schema is
+            valid.
+          </p>
+        </div>
+        {error ? (
+          <span className="rounded-md bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700">
+            {error}
+          </span>
+        ) : (
+          <span className="rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600">
+            React Hook Form
+          </span>
+        )}
       </div>
 
-      <div className="p-4 pb-20 sm:p-6 md:pb-24">
-        <AutoForm
-          key={formKey}
-          schema={schemaProvider}
-          onSubmit={(data) => setData(JSON.stringify(data, null, 2))}
-          withSubmit
-        />
+      <div className="grid lg:grid-cols-2">
+        <div className="border-b border-zinc-200 bg-zinc-50 lg:border-b-0 lg:border-r">
+          <div className="border-b border-zinc-200 px-4 py-2 font-mono text-xs text-zinc-500">
+            schema.ts
+          </div>
+          <Editor
+            className="h-[420px]"
+            beforeMount={configureMonaco}
+            defaultValue={defaultCode}
+            language="typescript"
+            onMount={setEditorLanguage}
+            options={editorOptions}
+            path="file:///schema.ts"
+            theme="autoformLight"
+            onChange={updateSchema}
+          />
+        </div>
 
-        {data && (
-          <pre className="bg-muted rounded-md p-4 text-sm mt-4 overflow-auto">
-            {data}
-          </pre>
-        )}
+        <div className="p-5 sm:p-6">
+          <AutoForm
+            key={formKey}
+            schema={schemaProvider}
+            formProps={{ className: "flex flex-col gap-4" }}
+            onSubmit={(data) => setSubmitted(JSON.stringify(data, null, 2))}
+          >
+            <Button
+              type="submit"
+              className="mt-1 w-full bg-zinc-950 text-white hover:bg-zinc-800 sm:w-auto"
+            >
+              Submit demo
+            </Button>
+          </AutoForm>
+
+          {submitted && (
+            <div className="mt-5 rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+              <div className="mb-2 text-xs font-medium uppercase text-zinc-500">
+                Submitted value
+              </div>
+              <pre className="overflow-auto font-mono text-xs leading-5 text-zinc-700">
+                {submitted}
+              </pre>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
-
-export default InteractiveDemoContent;
