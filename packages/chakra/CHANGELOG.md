@@ -1,5 +1,16 @@
 # @autoform/chakra
 
+## 3.0.0
+
+### Major Changes
+
+- d2b496c: Add TanStack Form adapter support alongside React Hook Form. AutoForm entry points are now explicit adapter-specific subpaths, and generated shadcn registry entries are split for React Hook Form and TanStack Form.
+
+### Patch Changes
+
+- Updated dependencies [d2b496c]
+  - @autoform/react@5.0.0
+
 ## 2.0.0
 
 ### Major Changes

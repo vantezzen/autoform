@@ -62,6 +62,12 @@
       "type": "registry:ui"
     },
     {
+      "path": "autoform/components/SubmitButton.tsx",
+      "target": "components/ui/autoform/components/SubmitButton.tsx",
+      "content": "import React from \"react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const SubmitButton: React.FC<{ children: React.ReactNode }> = ({\n  children,\n}) => <Button type=\"submit\">{children}</Button>;\n",
+      "type": "registry:ui"
+    },
+    {
       "path": "autoform/components/rhf/BooleanField.tsx",
       "target": "components/ui/autoform/components/rhf/BooleanField.tsx",
       "content": "import React from \"react\";\nimport type { AutoFormFieldProps } from \"@autoform/react\";\nimport { useController } from \"react-hook-form\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const BooleanField: React.FC<AutoFormFieldProps> = ({\n  id,\n  label,\n  inputProps,\n  parsedField,\n}) => {\n  const { field } = useController({ name: id });\n\n  const handleKeyDown = (e: React.KeyboardEvent) => {\n    if (e.key === \"Enter\") {\n      e.preventDefault();\n      (\n        document.querySelector('button[type=\"submit\"]') as HTMLButtonElement\n      )?.click();\n    }\n  };\n\n  return (\n    <div className=\"flex items-center gap-2\">\n      <Checkbox\n        id={id}\n        {...inputProps}\n        {...field}\n        checked={!!field.value}\n        onCheckedChange={field.onChange}\n        onKeyDown={handleKeyDown}\n      />\n      <Label htmlFor={id}>\n        {label}\n        {parsedField.required && <span className=\"text-destructive\"> *</span>}\n      </Label>\n    </div>\n  );\n};\n",
@@ -89,12 +95,6 @@
       "path": "autoform/components/rhf/StringField.tsx",
       "target": "components/ui/autoform/components/rhf/StringField.tsx",
       "content": "import { Input } from \"@/components/ui/input\";\nimport type { AutoFormFieldProps } from \"@autoform/react\";\nimport { useController } from \"react-hook-form\";\nimport React from \"react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { field } = useController({ name: id });\n  const { value, ...rest } = field;\n\n  return (\n    <Input\n      id={id}\n      className={error ? \"border-destructive\" : \"\"}\n      value={value ?? \"\"}\n      {...inputProps}\n      {...rest}\n    />\n  );\n};\n",
-      "type": "registry:ui"
-    },
-    {
-      "path": "autoform/components/SubmitButton.tsx",
-      "target": "components/ui/autoform/components/SubmitButton.tsx",
-      "content": "import React from \"react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const SubmitButton: React.FC<{ children: React.ReactNode }> = ({\n  children,\n}) => <Button type=\"submit\">{children}</Button>;\n",
       "type": "registry:ui"
     },
     {

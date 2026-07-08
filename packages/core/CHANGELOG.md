@@ -1,5 +1,11 @@
 # @autoform/core
 
+## 4.0.0
+
+### Major Changes
+
+- d2b496c: Add TanStack Form adapter support alongside React Hook Form. AutoForm entry points are now explicit adapter-specific subpaths, and generated shadcn registry entries are split for React Hook Form and TanStack Form.
+
 ## 3.0.0
 
 ### Major Changes
