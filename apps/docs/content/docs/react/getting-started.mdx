@@ -8,8 +8,7 @@ description: Render AutoForm with the React Hook Form adapter.
 ## Install the AutoForm Agent Skill (optional)
 
 If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot),
-you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific
-documentation, examples, and best practices.
+you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific documentation, examples, and best practices.
 
 <ModeTab
   mode="cli"
@@ -20,15 +19,17 @@ documentation, examples, and best practices.
 
 <div className='fd-steps [&_h2]:fd-step'>
 
-## Install AutoForm's integration to your UI library
+## Install AutoForm's form engine
 
-AutoForm integrates directly into your UI library to render forms. You can choose from the following official integrations:
-
-Before installing an AutoForm UI package, install the React base package and React Hook Form dependencies directly in your app:
+Install React Hook Form, the resolver package, and the AutoForm React base package:
 
 <ModeTab command="@autoform/react react-hook-form @hookform/resolvers" />
 
 ---
+
+## Install AutoForm's integration to your UI library
+
+AutoForm integrates directly into your UI library to render fields. Choose one official integration:
 
 #### Shadcn/ui
 
@@ -37,11 +38,11 @@ Before installing an AutoForm UI package, install the React base package and Rea
   command="shadcn@latest add https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/packages/shadcn/registry/autoform-rhf.json"
 />
 
+Use the generated React Hook Form adapter export:
+
 ```tsx
 import { AutoForm } from "@/components/ui/autoform/react-hook-form";
 ```
-
-By default, the registry will use the zod integration. If you want to use another schema library, simply update the `/components/ui/autoform/utils.ts` file.
 
 ---
 
