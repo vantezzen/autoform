@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AutoForm } from "@autoform/shadcn/components/ui/autoform/react-hook-form";
-import { createFormControl, type Resolver } from "react-hook-form";
+import { createFormControl, type ResolverResult } from "react-hook-form";
 import { ZodProvider } from "@autoform/zod";
 import { z } from "zod/v4";
 import { TestWrapper } from "./utils";
@@ -46,21 +46,20 @@ const ControlledForm = () => {
   );
 };
 
-const minLengthResolver: Resolver<{ name: string }> = async (values) =>
-  values.name?.length >= 5
-    ? { values, errors: {} }
-    : {
-        values: {},
-        errors: {
-          name: { type: "minLength", message: "Custom resolver: min 5" },
-        },
-      };
+const minLengthResolver = async (values: {
+  name: string;
+}): Promise<ResolverResult<{ name: string }>> => {
+  if (values.name?.length >= 5) return { values, errors: {} };
+  return {
+    values: {},
+    errors: { name: { type: "minLength", message: "Custom resolver: min 5" } },
+  };
+};
 
 const CustomResolverForm = () => {
   const schemaProvider = new ZodProvider(z.object({ name: z.string() }));
   const { formControl } = useMemo(
-    () =>
-      createFormControl({ mode: "onChange", resolver: minLengthResolver }),
+    () => createFormControl({ mode: "onChange", resolver: minLengthResolver }),
     [],
   );
 
