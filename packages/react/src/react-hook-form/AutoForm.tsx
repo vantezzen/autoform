@@ -28,9 +28,8 @@ export function AutoForm<T extends FieldValues = FieldValues>({
   withSubmit = false,
   formProps = {},
 }: AutoFormProps<T>) {
-  const shouldFocusError = useRef(
-    formControl?.control?._options?.shouldFocusError !== false,
-  ).current;
+  const controlOptions = useRef(formControl?.control?._options).current;
+  const shouldFocusError = controlOptions?.shouldFocusError !== false;
   const { ref: _ref, ...restFormProps } = formProps;
   const parsedSchema = parseSchema(schema);
   const resolver = createSchemaResolver(schema);
@@ -42,6 +41,7 @@ export function AutoForm<T extends FieldValues = FieldValues>({
       ...defaultValues,
     } as DefaultValues<T>,
     values: values as T,
+    ...controlOptions,
     formControl,
     shouldFocusError: false,
   });
