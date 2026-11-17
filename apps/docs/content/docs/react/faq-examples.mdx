@@ -95,7 +95,7 @@ Use either approach:
 
 ## How do I add a slider, color picker, and many different custom components to a form?
 
-Register the custom input using [`useController`](https://react-hook-form.com/docs/usecontroller), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field.
+Register the custom input using [`useController`](https://react-hook-form.com/docs/usecontroller), pass it to the `formComponents` prop of Autoform, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. AutoForm routes each component to the right field. The Services table is a custom array wrapper, set with `fieldConfig({ arrayWrapper: ArrayTableWrapper })`.
 
 <Tabs persist items={["preview", "code"]} label="Custom fields form">
   <Tab value="preview">
@@ -107,6 +107,7 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
       items={[
         { value: "demo", label: "custom-fields-demo.tsx" },
         { value: "fields", label: "custom-field-components.tsx" },
+        { value: "table", label: "array-table-wrapper.tsx" },
       ]}
     >
       <MethodTab value="demo">
@@ -118,6 +119,12 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
       <MethodTab value="fields">
         <CodeFromFile
           file="components/examples/faq/custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="table">
+        <CodeFromFile
+          file="components/examples/faq/array-table-wrapper.tsx"
           lang="tsx"
         />
       </MethodTab>
@@ -135,6 +142,10 @@ Register the custom input using [`useController`](https://react-hook-form.com/do
     {
       path: "components/examples/faq/custom-field-components.tsx",
       label: "custom-field-components.tsx",
+    },
+    {
+      path: "components/examples/faq/array-table-wrapper.tsx",
+      label: "array-table-wrapper.tsx",
     },
   ]}
   label="Custom fields install"

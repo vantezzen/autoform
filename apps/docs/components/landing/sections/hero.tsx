@@ -30,7 +30,7 @@ const { formControl } = createFormControl({
     eyebrow: "Customization",
     title: "Swap in richer fields when defaults are not enough",
     description:
-      "Map schema fields to custom inputs such as steppers, date pickers, sliders, color pickers, and richer selection controls.",
+      "Map schema fields to custom inputs such as steppers, date pickers, sliders, color pickers, array tables and richer selection controls, then reuse them across every form.",
     href: "/docs/react/faq-examples#custom-field-components",
     code: `const schema = z.object({
   quantity: z.number()
@@ -47,6 +47,13 @@ const { formControl } = createFormControl({
   plan: z.enum(["starter", "pro", "enterprise"])
     .default("starter")
     .check(fieldConfig({ fieldType: "radioCard" })),
+
+  services: z.array(z.object({
+    service: z.string().min(1),
+    tier: z.enum(["Hobby", "Pro", "Enterprise"]),
+    created: z.iso.date().check(fieldConfig({ fieldType: "date" })),
+    live: z.boolean().default(false),
+  })).check(fieldConfig({ arrayWrapper: ArrayTableWrapper })),
 });
 
 <AutoForm
