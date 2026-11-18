@@ -13,6 +13,7 @@ import {
   RadioCardField,
   SliderField,
 } from "@/components/custom-field-components";
+import { ArrayTableWrapper } from "@/components/array-table-wrapper";
 
 const schema = z.object({
   quantity: z
@@ -65,6 +66,39 @@ const schema = z.object({
         },
       }),
     ),
+
+  services: z
+    .array(
+      z.object({
+        service: z
+          .string({ error: "Name the service" })
+          .min(1, "Name the service")
+          .describe("Service"),
+        tier: z
+          .enum(["Hobby", "Pro", "Enterprise"])
+          .default("Hobby")
+          .describe("Tier"),
+        created: z.iso
+          .date({ error: "Pick a date" })
+          .describe("Created")
+          .check(fieldConfig({ fieldType: "date" })),
+        live: z.boolean().default(false).describe("Live"),
+      }),
+    )
+    .min(1, "Add at least one service")
+    .default([
+      { service: "GitHub", tier: "Pro", created: "2026-11-02", live: true },
+      {
+        service: "Database",
+        tier: "Enterprise",
+        created: "2026-11-05",
+        live: true,
+      },
+      { service: "VPS", tier: "Hobby", created: "2026-11-09", live: false },
+      { service: "Sandbox", tier: "Hobby", created: "2026-11-12", live: true },
+    ])
+    .describe("Services")
+    .check(fieldConfig({ arrayWrapper: ArrayTableWrapper })),
 });
 
 const schemaProvider = new ZodProvider(schema);
@@ -103,6 +137,7 @@ export function CustomFieldsDemo() {
                   volume: result.volume,
                   themeColor: result.themeColor,
                   avatar: result.avatar?.name ?? null,
+                  services: result.services,
                 },
                 null,
                 2,

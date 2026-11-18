@@ -139,7 +139,7 @@
       "name": "custom-fields-demo",
       "type": "registry:block",
       "title": "Custom Fields Demo",
-      "description": "Uses custom field components for sliders, color pickers, radios, dates, and file uploads.",
+      "description": "Uses custom field components for sliders, color pickers, radios, dates, file uploads, and an array table wrapper.",
       "dependencies": [
         "zod",
         "@autoform/zod",
@@ -167,6 +167,11 @@
         {
           "path": "apps/docs/components/examples/faq/custom-field-components.tsx",
           "target": "components/custom-field-components.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/array-table-wrapper.tsx",
+          "target": "components/array-table-wrapper.tsx",
           "type": "registry:component"
         }
       ]
@@ -394,7 +399,7 @@
       "name": "tanstack-custom-fields-demo",
       "type": "registry:block",
       "title": "TanStack Custom Fields Demo",
-      "description": "Uses TanStack custom field components for steppers, radio cards, dates, sliders, color pickers, and file uploads.",
+      "description": "Uses TanStack custom field components for steppers, radio cards, dates, sliders, color pickers, file uploads, and an array table wrapper.",
       "dependencies": [
         "zod",
         "@autoform/zod",
@@ -421,6 +426,11 @@
         {
           "path": "apps/docs/components/examples/faq/tanstack-custom-field-components.tsx",
           "target": "components/tanstack-custom-field-components.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/components/examples/faq/tanstack-array-table-wrapper.tsx",
+          "target": "components/tanstack-array-table-wrapper.tsx",
           "type": "registry:component"
         }
       ]

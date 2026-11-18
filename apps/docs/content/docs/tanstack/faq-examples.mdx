@@ -97,7 +97,7 @@ Use one of these approaches:
 
 ## How do I add custom fields?
 
-Register the custom input in `formComponents`, read the current field with `useFieldContext`, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`.
+Register the custom input in `formComponents`, read the current field with `useFieldContext`, and mark the matching schema field with `fieldConfig({ fieldType: "..." })`. The Services table is a custom array wrapper, set with `fieldConfig({ arrayWrapper: ArrayTableWrapper })`.
 
 <Tabs persist items={["preview", "code"]} label="TanStack custom fields form">
   <Tab value="preview">
@@ -109,6 +109,7 @@ Register the custom input in `formComponents`, read the current field with `useF
       items={[
         { value: "demo", label: "tanstack-custom-fields-demo.tsx" },
         { value: "fields", label: "tanstack-custom-field-components.tsx" },
+        { value: "table", label: "tanstack-array-table-wrapper.tsx" },
       ]}
     >
       <MethodTab value="demo">
@@ -120,6 +121,12 @@ Register the custom input in `formComponents`, read the current field with `useF
       <MethodTab value="fields">
         <CodeFromFile
           file="components/examples/faq/tanstack-custom-field-components.tsx"
+          lang="tsx"
+        />
+      </MethodTab>
+      <MethodTab value="table">
+        <CodeFromFile
+          file="components/examples/faq/tanstack-array-table-wrapper.tsx"
           lang="tsx"
         />
       </MethodTab>
@@ -137,6 +144,10 @@ Register the custom input in `formComponents`, read the current field with `useF
     {
       path: "components/examples/faq/tanstack-custom-field-components.tsx",
       label: "tanstack-custom-field-components.tsx",
+    },
+    {
+      path: "components/examples/faq/tanstack-array-table-wrapper.tsx",
+      label: "tanstack-array-table-wrapper.tsx",
     },
   ]}
   label="TanStack custom fields install"

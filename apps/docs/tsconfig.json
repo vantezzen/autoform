@@ -16,6 +16,9 @@
     "incremental": true,
     "paths": {
       "@/.source": ["./.source/index.ts"],
+      "@/components/array-table-wrapper": [
+        "./components/examples/faq/array-table-wrapper.tsx"
+      ],
       "@/components/custom-field-components": [
         "./components/examples/faq/custom-field-components.tsx"
       ],
@@ -24,6 +27,9 @@
       ],
       "@/components/multistep-form": [
         "./components/examples/faq/multistep-form.tsx"
+      ],
+      "@/components/tanstack-array-table-wrapper": [
+        "./components/examples/faq/tanstack-array-table-wrapper.tsx"
       ],
       "@/components/tanstack-custom-field-components": [
         "./components/examples/faq/tanstack-custom-field-components.tsx"
