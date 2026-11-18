@@ -227,8 +227,9 @@ function useGridKeyboard(rowCount: number, columnCount: number) {
  * Limitations: columns should be scalar fields (text, number, date, select,
  * boolean). Because the generated row field is not rendered, errors on the row
  * object itself (e.g. a `.refine()` on the item schema) and per-field wrapper
- * overrides of the columns are not shown. Cell controls stay `inert` until a
- * cell is edited, so the form cannot move focus to an invalid cell on submit.
+ * overrides of the columns are not shown. Invalid cells are outlined in red with
+ * their message shown inline, and AutoForm's focus-on-submit lands on the first
+ * invalid cell (cell controls stay `inert` until a cell is edited).
  */
 export function ArrayTableWrapper({
   label,
@@ -301,6 +302,7 @@ export function ArrayTableWrapper({
         className={cn(
           "overflow-x-auto rounded-lg border",
           error && "border-destructive",
+          "has-[td[aria-invalid=true]]:border-destructive",
         )}
       >
         <table
@@ -437,8 +439,9 @@ function ArrayTableCell({
       aria-describedby={error ? errorId : undefined}
       className={cn(
         "border-b border-r p-0 align-middle outline-none",
-        error && "ring-1 ring-inset ring-destructive",
-        active && "ring-2 ring-inset ring-ring",
+        error
+          ? "bg-destructive/10 ring-2 ring-inset ring-destructive"
+          : active && "ring-2 ring-inset ring-ring",
       )}
       onFocus={() => {
         if (!editing) grid.setActive(cell);
@@ -478,9 +481,9 @@ function ArrayTableCell({
         )}
       </div>
       {error && (
-        <span id={errorId} className="sr-only">
+        <p id={errorId} className="px-2.5 pb-1.5 text-xs text-destructive">
           {error}
-        </span>
+        </p>
       )}
     </td>
   );
