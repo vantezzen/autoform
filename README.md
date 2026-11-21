@@ -14,12 +14,12 @@ If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHu
 npx skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform
 ```
 
-Prefer not to install a skill? Paste this into your `AGENTS.md` (or `CLAUDE.md`, `.cursorrules`, etc.). `@autoform/react` ships the same guide, so it always matches your installed version:
+Or paste this into your `AGENTS.md`.
 
 ```md
 ## AutoForm
 
-This project uses AutoForm (@autoform/react, @autoform/zod) to generate forms from schemas.
+This project uses AutoForm to generate forms from schemas.
 Before working with AutoForm, read the relevant parts of the docs: `node_modules/@autoform/react/dist/skills/autoform/SKILL.md` (or https://autoform.vantezzen.io/docs).
 ```
 
