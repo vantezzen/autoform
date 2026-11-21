@@ -173,24 +173,30 @@ Autoform renders default input components for common schema types see `reference
 There are four ways to customize AutoForm:
 
 1. Use `fieldConfig` on schema fields
-   - To set labels, descriptions, field order, customData, field types and pass inputProps to the input component like placeholder etc.
-   - To customize field level UI wrappers
+   - Set labels, descriptions, field order, customData, fieldType (custom field components), inputProps such as placeholder, disabled
+   - override UI wrappers (ie. the shell) around that field only: (eg: `fieldWrapper`, `objectWrapper`, `arrayWrapper`, `arrayElementWrapper`.)
+   - Customizable per field.
    - See `references/schema.md` and `references/customization.md` (lines 5-70) to understand fieldConfig in detail.
 
 2. Override UI wrappers:
    - Use `uiComponents` on `<AutoForm />` to override UI components globally.
-     Use case: replace global structure such as `Form`, `FieldWrapper`, `ErrorMessage`, `SubmitButton`, `ObjectWrapper`, `ArrayWrapper`, or `ArrayElementWrapper`.
+     Use case: replace default global structure such as `Form`, `FieldWrapper`, `ErrorMessage`, `SubmitButton`, `ObjectWrapper`, `ArrayWrapper`, or `ArrayElementWrapper` for all fields.
    - Use `fieldConfig` on a schema field to override UI wrappers for that field only.
      Use case: change one field shell, object group, array list, or array item without changing the whole form.
 
 3. Use `formComponents` on `<AutoForm />` and select them with `fieldConfig({ fieldType: "..." })` to add custom inputs.
-   Use case: replace the value editor with a slider, color picker, rich text editor, modal selector, async search picker, upload field, multi-card selector, anything you need.
+   Use case: replace the value editor with a slider, color picker, rich text editor, modal selector, async search picker, upload field, multi-card selector, or a fully custom editor.
 
 4. Use `formProps` to pass extra props to `<AutoForm />` to customize the `<form>` element.
-   Use case: add classes, ids, data attributes, className,styles or native form event handlers.
+   Use case: add classes, ids, data attributes, className, styles, or native form event handlers.
+
+Wrappers and input components can be overridden globally with `uiComponents` and `formComponents`, or per field with `fieldConfig`. Per-field wrapper overrides take precedence over `uiComponents` passed to AutoForm. Wrappers keep AutoForm's control over the inner fields.
+Use `fieldType` (in `fieldConfig`) and custom components only when the component must own the field value.
 
 Read `references/customization.md` for a complete guide to all the above options.
 Read the selected adapter reference for writing custom field binding code: React Hook Form custom fields use `useController`; TanStack custom fields use `useFieldContext`.
+
+For exact AutoForm props and wrapper contracts, read the installed React package source: `node_modules/@autoform/react` (in this repository, `packages/react/src`). Start with `types.ts` then read `react-hook-form/AutoForm.tsx` or `tanstack-form/AutoForm.tsx` for the component implementation.
 
 ---
 
@@ -238,7 +244,7 @@ Adapter-specific examples file for the following patterns and use cases in: `ref
 - Real-time validation: disabled submit, can submit, live errors, valid form state, enable submit only when form state is valid
 - Dialog submit/reset: dialog buttons, external submit, external reset, submit outside form, submit/reset AutoForm from buttons outside or around the form
 - Custom fields: custom field, slider, color picker, date picker, file upload, radio cards, value editor, replace the field value editor with `fieldConfig({ fieldType })` + `formComponents`
-- Dependent/conditional fields: cascading select, coupon, payment section, gift message, watch other fields, show/disable/reset/replace UI based on form values
+- Dependent/conditional/hidden fields: watch other fields, show, hide, disable, reset, replace fields, UI based on other field's value
 - Multi-step form: wizard, multiple schemas, step validation, collect step data, split a flow into multiple schemas/forms and advance after valid step submission
 - Nested AutoForm: subform in dialog, object editor, array/object custom value, render a second AutoForm inside a custom field and write its submitted value to the outer field
 - Dynamic schema playground: schema text, generated form, Monaco, interactive schema, parse a schema string and render AutoForm dynamically
@@ -254,7 +260,8 @@ Adapter-specific examples file for the following patterns and use cases in: `ref
 5. **Using `.superRefine(fieldConfig(...))` with Zod v4** — use `.check(fieldConfig(...))` instead.
 6. **Arrays as root schema** — arrays must be fields inside an object schema.
 7. **Using wrappers to replace the value editor** — use `fieldType` + `formComponents` when the component must own the field value.
-8. **Forgetting Zod version ≥ 3.25.0** for `@autoform/zod`.
+8. **Building a custom form component only to restyle an array, object, or field** — use `fieldConfig -> arrayWrapper, arrayElementWrapper, objectWrapper or fieldWrapper` when AutoForm should handle the inner fields, and you only want to change the shell around them.
+9. **Forgetting Zod version ≥ 3.25.0** for `@autoform/zod`.
 
 ---
 
