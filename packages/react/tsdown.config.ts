@@ -20,4 +20,10 @@ export default defineConfig({
   treeshake: true,
   clean: true,
   unbundle: true,
+  copy: [
+    {
+      from: "../../skills/autoform",
+      to: "dist/skills",
+    },
+  ],
 });
