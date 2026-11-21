@@ -6,9 +6,18 @@ Check out the [AutoForm documentation](https://autoform.vantezzen.io) for more i
 
 ---
 
-## AutoForm Skill (optional)
+## AI agents
 
-If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot), you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific documentation, examples, and best practices.
+Give your coding agent AutoForm's docs. Add this to your `AGENTS.md`:
+
+```md
+## AutoForm
+
+This project uses AutoForm to generate forms from schemas.
+Before working with AutoForm, read the relevant parts of the docs: `node_modules/@autoform/react/dist/skills/autoform/SKILL.md` (or https://autoform.vantezzen.io/docs).
+```
+
+Or install the AutoForm skill:
 
 ```bash
 npx skills add https://github.com/vantezzen/autoform/tree/main/skills --skill autoform

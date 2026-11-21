@@ -5,10 +5,18 @@ description: Render AutoForm with the React Hook Form adapter.
 
 > New to AutoForm? Check out the [introduction](/docs) first.
 
-## Install the AutoForm Agent Skill (optional)
+## AI agents
 
-If you use AI coding assistants (such as Cursor, Claude Code, OpenCode, or GitHub Copilot),
-you can install the AutoForm skill. It gives your coding agent access to AutoForm-specific documentation, examples, and best practices.
+Give your coding agent AutoForm's docs. Add this to your `AGENTS.md`:
+
+```md
+## AutoForm
+
+This project uses AutoForm to generate forms from schemas.
+Before working with AutoForm, read the relevant parts of the docs: `node_modules/@autoform/react/dist/skills/autoform/SKILL.md` (or https://autoform.vantezzen.io/docs).
+```
+
+Or install the AutoForm skill:
 
 <ModeTab
   mode="cli"
