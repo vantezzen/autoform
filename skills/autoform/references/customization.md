@@ -28,7 +28,7 @@ const schema = z.object({
 
 Autoform renders default input components for common schema types see `references/schema.md` lines `11-155 for Zod`, `158-196 for Yup`, `199-235 for Joi` to learn more.
 
-### fieldConfig Properties
+### fieldConfig Properties (can be changed per field)
 
 | Option                | Type        | Purpose                                        |
 | --------------------- | ----------- | ---------------------------------------------- |
@@ -47,14 +47,14 @@ Autoform renders default input components for common schema types see `reference
 
 - `inputProps`: same input, different props such as placeholder, disabled, rows, min/max, className, or aria props.
 - `fieldType` + `formComponents`: replace the actual value editor for any field type, including object and array fields. Use this for picker modals, search selectors, uploads, rich editors, map pickers, or multi-card selectors.
-- `fieldWrapper`: keep the field component, change the shell around one field, such as label/error layout, conditional visibility, badges, help text, or spacing.
-- `objectWrapper`: keep generated child fields, change the shell around an object group, such as fieldset, card, accordion, section heading, or grouped layout.
-- `arrayWrapper`: keep generated array item fields, change the shell around the whole array, such as add button, empty state, toolbar, array-level label/error, or list layout.
-- `arrayElementWrapper`: keep generated item fields, change the shell around each array item, such as remove button, item card, numbering, accordion item, or item actions.
+- `fieldWrapper`: keep the field component, change the shell around one field. useful for changing label, error layout, conditional visibility of fields, badges, help text, or spacing.
+- `objectWrapper`: keep generated child fields, change the shell around an object group.
+- `arrayWrapper`: keep generated array item fields, change the shell around the whole array. useful for changing buttons, layout, array-level label/error, etc.
+- `arrayElementWrapper`: keep generated item fields, change the shell around each array item, like remove button, item card, numbering or item actions.
 - `uiComponents`: apply structural UI overrides globally.
 - `fieldConfig`: apply wrapper, input, field type, or metadata overrides to one schema field. Field config overrides win over `uiComponents` passed to AutoForm.
 
-Rule of thumb: use `fieldType` and custom components via `formComponents` when you want to replace how a value is edited; use wrappers when AutoForm should keep editing the value but you want to change the surrounding UI.
+Rule of thumb: use `fieldType` and custom components via `formComponents` when you want to replace how a value is edited; use wrappers when AutoForm should keep same inner field components but you want to change the surrounding UI.
 
 ## 2. Component-Level Customization
 
