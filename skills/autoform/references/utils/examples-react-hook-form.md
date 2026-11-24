@@ -37,9 +37,9 @@ Source files installed:
 
 ### Custom Fields Demo
 
-Pattern: custom field components and custom value editors.
+Pattern: custom field components, custom value editors, and custom array wrappers (editable array table).
 
-Adds custom inputs such as sliders, color pickers, radio cards, date pickers, steppers, and file uploads. Each custom field calls `useController({ name: id })`, reads `field.value`, and writes with `field.onChange`; schema fields route to those components with `fieldConfig({ fieldType: "..." })` and `formComponents`.
+Adds custom inputs such as sliders, color pickers, radio cards, date pickers, steppers, file uploads and an editable table layout for an array of objects. Each custom field calls `useController({ name: id })`, reads `field.value`, and writes with `field.onChange`; schema fields route to those components with `fieldConfig({ fieldType: "..." })` and `formComponents`. The `services` array uses `fieldConfig({ arrayWrapper: ArrayTableWrapper })` to render rows in a keyboard-navigable editable grid with inline cell errors while AutoForm still owns the child fields and their validation.
 
 install command:
 
@@ -51,6 +51,7 @@ Source files installed:
 
 - https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/custom-fields-demo.tsx
 - https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/custom-field-components.tsx
+- https://raw.githubusercontent.com/vantezzen/autoform/refs/heads/main/apps/docs/components/examples/faq/array-table-wrapper.tsx
 
 ### Ecommerce Checkout Demo
 
