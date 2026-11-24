@@ -243,7 +243,7 @@ Adapter-specific examples file for the following patterns and use cases in: `ref
 
 - Real-time validation: disabled submit, can submit, live errors, valid form state, enable submit only when form state is valid
 - Dialog submit/reset: dialog buttons, external submit, external reset, submit outside form, submit/reset AutoForm from buttons outside or around the form
-- Custom fields: custom field, slider, color picker, date picker, file upload, radio cards, value editor, replace the field value editor with `fieldConfig({ fieldType })` + `formComponents`
+- Custom fields: custom field, slider, color picker, date picker, file upload, radio cards, value editor, editable array table, data grid, replace the field value editor with `fieldConfig({ fieldType })` + `formComponents`, or render an array field as a keyboard-navigable editable table with `fieldConfig({ arrayWrapper })`
 - Dependent/conditional/hidden fields: watch other fields, show, hide, disable, reset, replace fields, UI based on other field's value
 - Multi-step form: wizard, multiple schemas, step validation, collect step data, split a flow into multiple schemas/forms and advance after valid step submission
 - Nested AutoForm: subform in dialog, object editor, array/object custom value, render a second AutoForm inside a custom field and write its submitted value to the outer field
